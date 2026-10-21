@@ -28,6 +28,8 @@ function fmt(value,maximumFractionDigits=2) {
   return numberFormatters.get(key).format(value);
 }
 const cardText = card => getTranslation('cards.'+card.card_key);
+const cardNumber = card => Number(card.card_key.split('_')[1]);
+const cardReference = card => `S${card.season} #${String(cardNumber(card)).padStart(3,'0')}`;
 const imagePath = card => `card_images/${card.card_key}.webp`;
 const effectLabel = key => t('effects.'+key);
 function translateStatic(root=document) {
@@ -59,7 +61,7 @@ function normalizeText(text) {
 function buildTermPatterns() {
   const patterns=Object.entries(TRANSLATIONS[language].terms);
   termPatterns=patterns.map(([key,pattern]) => [key,new RegExp(`^(?:${pattern})$`,'iu')]);
-  termRegex=new RegExp(`\\b(?:${patterns.map(([,pattern]) => pattern).join('|')})\\b(?:\\s*[([][+−-]?\\d+(?:[.,]\\d+)?s?[)\\]])?`,'giu');
+  termRegex=new RegExp(`(?<![\\p{L}\\p{N}_])(?:${patterns.map(([,pattern]) => pattern).join('|')})(?![\\p{L}\\p{N}_])(?:\\s*[([][+−-]?\\d+(?:[.,]\\d+)?s?[)\\]])?`,'giu');
 }
 function effectHTML(text,key) {
   return `<span class="effect effect-${key}">${esc(normalizeText(text).replace(/^\p{L}/u,char => char.toLocaleUpperCase(TRANSLATIONS[language].locale)))}</span>`;
@@ -186,7 +188,7 @@ function syncScenario() {
 function cardHTML(c) {
   const level=levelOf(c),build=mode==='builder',result=build?computed(c,level):null,selected=build&&current.cards.includes(c.index),text=cardText(c);
   return `<article class="game-card${selected?' selected':''}" data-index="${c.index}">
-    <button class="card-main" data-open="${c.index}" aria-label="${esc(t('ui.openCard',{name:text.name,index:c.index}))}">
+    <button class="card-main" data-open="${c.index}" title="${cardReference(c)}" aria-label="${esc(t('ui.openCard',{name:text.name,reference:cardReference(c)}))}">
       <img src="${imagePath(c)}" alt="${esc(text.name)}" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}">
       <span class="orb cost" title="${t('ui.energyCost')}" aria-label="${t('ui.costValue',{value:c.energy_cost})}">${c.energy_cost}</span>
       <span class="orb chakra" title="${t('ui.baseChakra')}" aria-label="${t('ui.chakraValue',{value:c.chakra})}">${c.chakra}</span>
@@ -199,7 +201,7 @@ function cardHTML(c) {
 const filterIds = ['f-level','f-text','f-estimate'];
 function filteredCards() {
   const query = F('f-text').value.trim().toLowerCase();
-  const words = query.split(/\s+/).filter(Boolean);
+  const words = query.replace(/\bs(\d+)\s*(?:[#_-]\s*|\s+)(\d+)\b/g,'s$1#$2').split(/\s+/).filter(Boolean);
   const rarity = selectedFilterValues('f-rarity'), season = selectedFilterValues('f-season'), skill = selectedFilterValues('f-skill');
   const cost = selectedFilterValues('f-cost'), chakra = selectedFilterValues('f-chakra');
   const indexQuery = /^#?\d+$/.test(query) ? Number(query.replace('#','')) : null;
@@ -212,10 +214,16 @@ function filteredCards() {
       if (F('f-estimate').value !== '' && e.value < Number(F('f-estimate').value)) return false;
     }
     if (query) {
-      if (indexQuery !== null) { if (c.index !== indexQuery) return false; }
+      if (indexQuery !== null) { if (cardNumber(c) !== indexQuery) return false; }
       else {
-        const text = `${cardText(c).name} ${c.card_key} ${cardText(c).ability} ${description(c,levelOf(c))}`.toLowerCase();
-        if (!words.every(w => /^#\d+$/.test(w) ? c.index === Number(w.slice(1)) : text.includes(w))) return false;
+        const text = `${cardText(c).name} ${cardReference(c)} ${cardText(c).ability} ${description(c,levelOf(c))}`.toLowerCase();
+        if (!words.every(word => {
+          const reference = /^s(\d+)#(\d+)$/.exec(word);
+          if (reference) return c.season === Number(reference[1]) && cardNumber(c) === Number(reference[2]);
+          if (/^#\d+$/.test(word)) return cardNumber(c) === Number(word.slice(1));
+          if (/^s\d+$/.test(word)) return c.season === Number(word.slice(1));
+          return text.includes(word);
+        })) return false;
       }
     }
     return true;
@@ -242,7 +250,7 @@ function deckSlotsHTML(cards,showLevel=false) {
     const card=cards[slot];
     if (!card) return `<li class="deck-slot empty" aria-label="${t('ui.emptySlot',{slot:slot+1})}">${slot+1}</li>`;
     const name=cardText(card).name,level=deckLevel(card);
-    return `<li class="deck-slot"><button class="deck-open" data-deck-open="${card.index}" title="${esc(t('ui.cardLevelTitle',{name,level}))}"><img src="${imagePath(card)}" alt="${esc(name)}"></button>${showLevel?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`:''}<button class="remove" data-remove="${card.index}" aria-label="${esc(t('ui.removeNamedCard',{name}))}">×</button></li>`;
+    return `<li class="deck-slot"><button class="deck-open" data-deck-open="${card.index}" title="${esc(t('ui.cardLevelTitle',{name,level,reference:cardReference(card)}))}"><img src="${imagePath(card)}" alt="${esc(name)}"></button>${showLevel?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`:''}<button class="remove" data-remove="${card.index}" aria-label="${esc(t('ui.removeNamedCard',{name}))}">×</button></li>`;
   }).join('');
 }
 function renderDeck() {
@@ -318,7 +326,7 @@ function renderDialog() {
   const c = dialogCard, level = dialogLevel, build = mode === 'builder';
   const scenario = build ? scenarioFor(c) : null, keys = build ? relevantSettings(c,level) : [];
   const text=cardText(c);
-  $('dialog-title').innerHTML=`<span class="dialog-index">#${String(c.index).padStart(3,'0')}</span> ${esc(text.name)}`;
+  $('dialog-title').innerHTML=`<span class="dialog-index">${cardReference(c)}</span> ${esc(text.name)}`;
   $('card-dialog').classList.toggle('compact',keys.length===0);
   const result=build?computed(c,level):null,selected=current.cards.includes(c.index);
   $('dialog-body').innerHTML=`<div class="dialog-layout"><div class="dialog-art-column"><div class="dialog-visual"><img class="dialog-art" src="${imagePath(c)}" alt="${esc(text.name)}"><span class="orb cost" title="${t('ui.cost')}">${c.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${c.chakra}</span></div></div>

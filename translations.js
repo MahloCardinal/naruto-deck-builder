@@ -91,10 +91,10 @@ const TRANSLATIONS = {
       "removeFromDeck": "Remove from deck",
       "addCard": "Add {name} to deck",
       "removeCard": "Remove {name} from deck",
-      "openCard": "Open {name} #{index}",
+      "openCard": "Open {name} · {reference}",
       "removeNamedCard": "Remove {name}",
       "emptySlot": "Slot {slot} empty",
-      "cardLevelTitle": "{name} · level {level}",
+      "cardLevelTitle": "{name} · {reference} · level {level}",
       "levelShort": "Lv.{level}",
       "changeLevel": "Change level",
       "changeLevelTitle": "Click to switch to level {level}",
@@ -203,8 +203,8 @@ const TRANSLATIONS = {
         "name": "SAKURA HARUNO",
         "ability": "Kunai Throw",
         "descriptions": [
-          "On deploy, Weaken(2) a random rival in Long Range.",
-          "On deploy, Weaken(3) a random rival in Long Range."
+          "On deploy, Weaken(2) a random lane rival in Long Range.",
+          "On deploy, Weaken(3) a random lane rival in Long Range."
         ]
       },
       "S1_007": {
@@ -235,7 +235,7 @@ const TRANSLATIONS = {
         "name": "KAKASHI HATAKE",
         "ability": "Team Leader",
         "descriptions": [
-          "On encounter, Chakra(+2) to an ally in Short Range.",
+          "On encounter, Chakra(+2) to a lane ally in Short Range.",
           "On encounter, Chakra(+3) to a lane ally in Short Range."
         ]
       },
@@ -251,8 +251,8 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Menacing Entry",
         "descriptions": [
-          "Deploy to Mid Range, Slow(4s) and lane Switch rival with the highest Chakra.",
-          "Deploy to Mid Range, Slow(6s) and Switch lane rival with the highest Chakra."
+          "Deploy to Mid Range, Slow(4s) and Switch the rival with the highest Chakra on this card's lane.",
+          "Deploy to Mid Range, Slow(6s) and Switch the rival with the highest Chakra on this card's lane."
         ]
       },
       "S1_013": {
@@ -275,24 +275,24 @@ const TRANSLATIONS = {
         "name": "KONOHAMARU SARUTOBI",
         "ability": "Shuriken Throw",
         "descriptions": [
-          "On deploy, Weaken(1) a random rival in Short Range.",
-          "On deploy, Weaken(2) a random rival in Short Range."
+          "On deploy, Weaken(1) a random lane rival in Short Range.",
+          "On deploy, Weaken(2) a random lane rival in Short Range."
         ]
       },
       "S1_016": {
         "name": "EBISU",
         "ability": "Quick Lesson",
         "descriptions": [
-          "On deploy, Chakra(+2) to closest ally.",
-          "On deploy, Chakra(+3) to closest ally."
+          "On deploy, Chakra(+2) to closest lane ally.",
+          "On deploy, Chakra(+3) to closest lane ally."
         ]
       },
       "S1_017": {
         "name": "TAZUNA",
         "ability": "Bridge Builder",
         "descriptions": [
-          "On deploy, pull 2 allies in Mid Range back to this card.",
-          "On deploy, pull 3 allies in Mid Range back to this card."
+          "On deploy, pull 2 lane lane allies in Mid Range back to this card.",
+          "On deploy, pull 3 lane lane allies in Mid Range back to this card."
         ]
       },
       "S1_018": {
@@ -307,7 +307,7 @@ const TRANSLATIONS = {
         "name": "KAIZA",
         "ability": "Martyr",
         "descriptions": [
-          "Chakra(+1) to all allies when withdrawing.",
+          "Chakra(+1) to lane allies when withdrawing.",
           "Chakra(+2) to lane allies when withdrawing."
         ]
       },
@@ -379,8 +379,8 @@ const TRANSLATIONS = {
         "name": "SHIKAMARU NARA",
         "ability": "Shadow Paralysis Jutsu",
         "descriptions": [
-          "On deploy, Pin(10s) self and closest rival card.",
-          "On deploy, Pin(12s) self and closest rival card."
+          "On deploy, Pin(10s) self and closest lane rival card.",
+          "On deploy, Pin(12s) self and closest lane rival card."
         ]
       },
       "S1_029": {
@@ -403,16 +403,16 @@ const TRANSLATIONS = {
         "name": "HINATA HYUGA",
         "ability": "Shy",
         "descriptions": [
-          "On deploy, Push(2) closest rival card in Short Range.",
-          "On deploy, Push(3) closest rival card in Short Range."
+          "On deploy, Push(2) closest lane rival card in Short Range.",
+          "On deploy, Push(3) closest lane rival card in Short Range."
         ]
       },
       "S1_032": {
         "name": "HINATA HYUGA",
         "ability": "Gentle Fist",
         "descriptions": [
-          "On encounter, Push(1) rival cards with 3 or less Chakra.",
-          "On encounter, Push(2) rival cards with 3 or less Chakra."
+          "On the first encounter, Push(1) only the encountered rival, if it has 3 or less Chakra.",
+          "On the first encounter, Push(2) only the encountered rival, if it has 3 or less Chakra."
         ]
       },
       "S1_033": {
@@ -452,7 +452,7 @@ const TRANSLATIONS = {
         "ability": "Sharp Nose",
         "descriptions": [
           "Ignore all rival skills and encounters until reaching Mid Range. Allies gain Rush(+2s) when deployed on this lane while this card is active.",
-          "Ignore all rival skills and encounters until reaching Mid Range. Allies gain Rush(3s) when deployed on this lane while this card is active."
+          "Ignore all rival skills and encounters until reaching Mid Range. Allies gain Rush(+3s) when deployed on this lane while this card is active."
         ]
       },
       "S1_038": {
@@ -507,7 +507,7 @@ const TRANSLATIONS = {
         "name": "NARUTO UZUMAKI",
         "ability": "Sexy Jutsu",
         "descriptions": [
-          "On deploy, Pin(4s) one rival card in Mid Range.",
+          "On deploy, Pin(4s) one lane rival card in Mid Range.",
           "On deploy, Pin(5s) one lane rival in Mid Range."
         ]
       },
@@ -571,16 +571,16 @@ const TRANSLATIONS = {
         "name": "IRUKA UMINO",
         "ability": "Sacrifice",
         "descriptions": [
-          "Deploy to Mid Range and Chakra(+1) to closest ally.",
-          "Deploy to Mid Range and Chakra(+2) to the closest ally."
+          "Deploy to Mid Range and Chakra(+1) to closest lane ally.",
+          "Deploy to Mid Range and Chakra(+2) to the closest lane ally."
         ]
       },
       "S1_053": {
         "name": "ZABUZA MOMOCHI",
         "ability": "Hidden in the Mist",
         "descriptions": [
-          "On deploy, Pin(6s) and Weaken(1) all rivals in Short Range.",
-          "On deploy, Pin(6s) and Weaken(2) all rivals in Short Range."
+          "On deploy, Pin(6s) and Weaken(1) all rivals on this card's lane in Short Range.",
+          "On deploy, Pin(6s) and Weaken(2) all rivals on this card's lane in Short Range."
         ]
       },
       "S1_054": {
@@ -595,7 +595,7 @@ const TRANSLATIONS = {
         "name": "KONOHAMARU SARUTOBI",
         "ability": "Imperfect Sexy Jutsu",
         "descriptions": [
-          "On deploy, 50% chance to Pin(6s) one rival card in Mid Range.",
+          "On deploy, 50% chance to Pin(6s) one lane rival card in Mid Range.",
           "On deploy, 50% chance to Pin(8s) one lane rival in Mid Range."
         ]
       },
@@ -611,7 +611,7 @@ const TRANSLATIONS = {
         "name": "KONOHAMARU SARUTOBI",
         "ability": "Sexy Jutsu",
         "descriptions": [
-          "On deploy, Pin(4s) one rival card in Mid Range.",
+          "On deploy, Pin(4s) one lane rival card in Mid Range.",
           "On deploy, Pin(5s) one lane rival in Mid Range."
         ]
       },
@@ -627,7 +627,7 @@ const TRANSLATIONS = {
         "name": "INARI",
         "ability": "Take Action",
         "descriptions": [
-          "On deploy, Weaken(1) and Slow(6s) the closest rival card in Long Range.",
+          "On deploy, Weaken(1) and Slow(6s) the closest lane rival card in Long Range.",
           "On deploy, Weaken(1) and Slow(8s) the closest lane rival in Long Range."
         ]
       },
@@ -779,8 +779,8 @@ const TRANSLATIONS = {
         "name": "NARUTO UZUMAKI",
         "ability": "Kyubi Rage",
         "descriptions": [
-          "Whenever allies withdraw, Chakra(+1) and Rush(+1s).",
-          "Whenever allies withdraw, Chakra(+2) and Rush(+1s)."
+          "Whenever allies withdraw, Chakra(+1) and Rush(1s).",
+          "Whenever allies withdraw, Chakra(+2) and Rush(1s)."
         ]
       },
       "S1_079": {
@@ -1011,8 +1011,8 @@ const TRANSLATIONS = {
         "name": "Hiashi Hyuga",
         "ability": "Hyuga Leader",
         "descriptions": [
-          "While this card is active, allied Hyuga cards gain Chakra(+2) and Push(+1).",
-          "While this card is active, allied Hyuga cards gain Chakra(+3) and Push(+1)."
+          "While this card is active, allied Hyuga cards gain Chakra(+2) and Push(1).",
+          "While this card is active, allied Hyuga cards gain Chakra(+3) and Push(1)."
         ]
       },
       "S2_023": {
@@ -1243,8 +1243,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Breaker of Destiny",
         "descriptions": [
-          "Guard(2). When Guard activates, Rush(+2s). When Rush ends, lane Switch.",
-          "Guard(3). When Guard activates, Rush(2s). When Rush ends, lane Switch."
+          "Guard(2). When Guard activates, restart Rush(2s). When Rush ends, lane Switch.",
+          "Guard(3). When Guard activates, restart Rush(2s). When Rush ends, lane Switch."
         ]
       },
       "S2_052": {
@@ -2688,10 +2688,10 @@ const TRANSLATIONS = {
       "removeFromDeck": "Rimuovi dal mazzo",
       "addCard": "Aggiungi {name} al mazzo",
       "removeCard": "Rimuovi {name} dal mazzo",
-      "openCard": "Apri {name} #{index}",
+      "openCard": "Apri {name} · {reference}",
       "removeNamedCard": "Rimuovi {name}",
       "emptySlot": "Posto {slot} vuoto",
-      "cardLevelTitle": "{name} · livello {level}",
+      "cardLevelTitle": "{name} · {reference} · livello {level}",
       "levelShort": "Lv.{level}",
       "changeLevel": "Cambia livello",
       "changeLevelTitle": "Clicca per passare al livello {level}",
@@ -2848,8 +2848,8 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Ingresso Minaccioso",
         "descriptions": [
-          "Viene schierata nel medio raggio, Rallenta(4s) e Cambia corsia all'avversario con più Chakra.",
-          "Viene schierata nel medio raggio, Rallenta(6s) e Cambia corsia all'avversario con più Chakra."
+          "Viene schierata nel medio raggio, Rallenta(4s) e Cambia corsia all'avversario con più Chakra della propria corsia.",
+          "Viene schierata nel medio raggio, Rallenta(6s) e Cambia corsia all'avversario con più Chakra della propria corsia."
         ]
       },
       "S1_013": {
@@ -3008,8 +3008,8 @@ const TRANSLATIONS = {
         "name": "HINATA HYUGA",
         "ability": "Pugno Gentile",
         "descriptions": [
-          "In caso di scontro, Respinge(1) la carta avversaria con un Chakra inferiore o uguale a 3.",
-          "In caso di scontro, Respinge(2) la carta avversaria con un Chakra inferiore o uguale a 3."
+          "Al primo scontro, Respinge(1) solo l'avversario incontrato, se ha Chakra inferiore o uguale a 3.",
+          "Al primo scontro, Respinge(2) solo l'avversario incontrato, se ha Chakra inferiore o uguale a 3."
         ]
       },
       "S1_033": {
@@ -3048,8 +3048,8 @@ const TRANSLATIONS = {
         "name": "PAKKUN",
         "ability": "Fiuto Acuto",
         "descriptions": [
-          "Ignora tutte le abilità e gli scontri avversari fino a raggiungere il medio raggio. Gli alleati ottengono Scatta(2s) quando vengono schierati su questa corsia mentre questa carta è attiva.",
-          "Ignora tutte le abilità e gli scontri avversari fino a raggiungere il medio raggio. Gli alleati ottengono Scatta(3s) quando vengono schierati su questa corsia mentre questa carta è attiva."
+          "Ignora tutte le abilità e gli scontri avversari fino a raggiungere il medio raggio. Gli alleati ottengono Scatta(+2s) quando vengono schierati su questa corsia mentre questa carta è attiva.",
+          "Ignora tutte le abilità e gli scontri avversari fino a raggiungere il medio raggio. Gli alleati ottengono Scatta(+3s) quando vengono schierati su questa corsia mentre questa carta è attiva."
         ]
       },
       "S1_038": {
@@ -3176,8 +3176,8 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Velo di Nebbia",
         "descriptions": [
-          "Quando viene giocata, Blocca(6s) e Indebolisce(1) tutti gli avversari nel corto raggio.",
-          "Quando viene giocata, Blocca(6s) e Indebolisce(2) tutti gli avversari nel corto raggio."
+          "Quando viene giocata, Blocca(6s) e Indebolisce(1) tutti gli avversari della propria corsia nel corto raggio.",
+          "Quando viene giocata, Blocca(6s) e Indebolisce(2) tutti gli avversari della propria corsia nel corto raggio."
         ]
       },
       "S1_054": {
@@ -3336,7 +3336,7 @@ const TRANSLATIONS = {
         "name": "HIRUZEN SARUTOBI",
         "ability": "Volontà del Fuoco",
         "descriptions": [
-          "Dopo 1 secondi, fornisce Chakra(+10) a tutti gli alleati.",
+          "Dopo 10 secondi, fornisce Chakra(+1) a tutti gli alleati.",
           "Dopo 10 secondi, fornisce Chakra(+2) a tutti gli alleati."
         ]
       },
@@ -3352,8 +3352,8 @@ const TRANSLATIONS = {
         "name": "HAKU",
         "ability": "Specchi di Ghiaccio",
         "descriptions": [
-          "In caso di scontro, Blocca(2s) e Indebolisce(1) gli avversari vicini, poi Cambia corsia. Questa abilità si riattiva ogni volta che viene ottenuto del Chakra.",
-          "In caso di scontro, Blocca(4s) e Indebolisce(1) gli avversari vicini, poi Cambia corsia. Questa abilità si riattiva ogni volta che viene ottenuto del Chakra."
+          "In caso di scontro, Blocca(2s) e Indebolisce(1) gli avversari vicini della propria corsia, poi Cambia corsia. Questa abilità si riattiva ogni volta che viene ottenuto del Chakra.",
+          "In caso di scontro, Blocca(4s) e Indebolisce(1) gli avversari vicini della propria corsia, poi Cambia corsia. Questa abilità si riattiva ogni volta che viene ottenuto del Chakra."
         ]
       },
       "S1_076": {
@@ -3840,8 +3840,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Distruttore del destino",
         "descriptions": [
-          "Difesa(2). Quando \"Difesa\" si attiva, Scatta(2s). Quando lo Scatto termina, Cambia corsia.",
-          "Difesa(3). Quando \"Difesa\" si attiva, Scatta(2s). Quando lo Scatto termina, Cambia corsia."
+          "Difesa(2). Quando Difesa si attiva, riavvia Scatto(2s). Quando lo Scatto termina, Cambia corsia.",
+          "Difesa(3). Quando Difesa si attiva, riavvia Scatto(2s). Quando lo Scatto termina, Cambia corsia."
         ]
       },
       "S2_052": {
@@ -5212,5 +5212,7796 @@ const TRANSLATIONS = {
         "cure"
       ]
     ]
+  },
+  "fr": {
+    "name": "Français",
+    "locale": "fr-FR",
+    "ui": {
+      "pageTitle": "Naruto · Cartes et decks",
+      "brand": "Naruto · Créateur de decks",
+      "heading": "Cartes et decks",
+      "catalogDescription": "3 séries · effets des cartes · images locales",
+      "database": "Base de cartes",
+      "builder": "Créer un deck",
+      "sections": "Sections",
+      "language": "Langue",
+      "filters": "Filtrer les cartes",
+      "searchFilters": "Recherche et filtres",
+      "textOrIndex": "Texte ou numéro",
+      "searchPlaceholder": "Rechercher",
+      "rarity": "Rareté",
+      "season": "Série",
+      "skillType": "Type de compétence",
+      "cost": "Coût",
+      "chakra": "Chakra",
+      "minPower": "Puissance min.",
+      "minimum": "min",
+      "cardLevel": "Niveau de carte",
+      "sort": "Trier",
+      "sortCards": "Trier les cartes",
+      "index": "Numéro",
+      "alphabetical": "Nom",
+      "quality": "Qualité",
+      "power": "Puissance",
+      "resetFilters": "Effacer les filtres",
+      "allFeminine": "Toutes",
+      "all": "Tous",
+      "none": "Sans type",
+      "common": "Commune",
+      "rare": "Rare",
+      "epic": "Épique",
+      "legendary": "Légendaire",
+      "first": "Première",
+      "second": "Deuxième",
+      "third": "Troisième",
+      "ascending": "Croissant",
+      "descending": "Décroissant",
+      "ascendingAction": "Ordre croissant. Passer à décroissant",
+      "descendingAction": "Ordre décroissant. Passer à croissant",
+      "selectedCount": "{count} sélectionnés",
+      "cardCount": "{count} cartes",
+      "noResults": "Aucune carte ne correspond aux filtres.",
+      "assumptions": "Hypothèses de calcul",
+      "enemyChakra": "Chakra adverse",
+      "enemies": "Cibles adverses",
+      "allyChakra": "Chakra allié",
+      "allies": "Cibles alliées",
+      "activations": "Activations de la carte",
+      "applyStandard": "Appliquer les valeurs",
+      "calculationInfo": "Infos de calcul",
+      "standardApplied": "Valeurs appliquées à toutes les cartes de cette session.",
+      "standardPending": "Modifications en attente : les cartes utilisent encore les valeurs précédentes.",
+      "deck": "Deck actuel",
+      "defaultDeckName": "Deck 1",
+      "deckNameLabel": "Nom du deck :",
+      "deckNamePlaceholder": "Nom du deck",
+      "deckSlots": "Les dix emplacements du deck",
+      "deckCardsLevels": "Cartes et niveaux du deck",
+      "averageCost": "Coût moyen",
+      "averagePower": "Puissance moyenne",
+      "averageQuality": "Qualité moyenne",
+      "viewDeck": "Voir les détails du deck",
+      "import": "Importer",
+      "export": "Exporter",
+      "clearDeck": "Vider",
+      "closeDeck": "Fermer le deck",
+      "closeCard": "Fermer les détails de la carte",
+      "closeInfo": "Fermer les informations de calcul",
+      "distribution": "Répartition des coûts",
+      "curveCaption": "Nombre de cartes pour chaque coût.",
+      "databaseEffects": "Base des effets des cartes",
+      "builderCards": "Cartes pour le deck",
+      "confirm": "Confirmer",
+      "cancel": "Annuler",
+      "replaceDeck": "Remplacer le deck actuel par le deck importé ?",
+      "confirmClear": "Retirer toutes les cartes du deck ?",
+      "deckImported": "Deck importé.",
+      "sessionUnavailable": "La sauvegarde automatique de session est indisponible. Exportez votre deck pour le conserver.",
+      "sessionInvalid": "La session enregistrée n'a pas pu être restaurée. Vous pouvez importer un deck exporté.",
+      "addToDeck": "Ajouter au deck",
+      "removeFromDeck": "Retirer du deck",
+      "addCard": "Ajouter {name} au deck",
+      "removeCard": "Retirer {name} du deck",
+      "openCard": "Ouvrir {name} · {reference}",
+      "removeNamedCard": "Retirer {name}",
+      "emptySlot": "Emplacement {slot} vide",
+      "cardLevelTitle": "{name} · {reference} · niveau {level}",
+      "levelShort": "Niv.{level}",
+      "changeLevel": "Changer de niveau",
+      "changeLevelTitle": "Cliquer pour passer au niveau {level}",
+      "changeLevelAction": "Niveau {level}. Passer au niveau {next}",
+      "powerQuality": "Puissance et qualité",
+      "localAssumptions": "Hypothèses pour cette carte",
+      "useStandard": "Valeurs par défaut",
+      "localChanges": "Modifications immédiates, uniquement pour cette carte.",
+      "powerComposition": "Détail de la puissance",
+      "contributions": "Contributions au calcul",
+      "noContributions": "Aucune contribution numérique supplémentaire.",
+      "baseChakra": "Chakra de base",
+      "summonedChakra": "Chakra invoqué",
+      "chakraBoosts": "Bonus de Chakra",
+      "friendlyDamage": "Dégâts à soi-même / aux alliés",
+      "enemyDamage": "Dégâts aux adversaires",
+      "burn": "Brûlure",
+      "heal": "Soin",
+      "curveBar": "Coût {cost} : {count} cartes",
+      "energyCost": "Coût en énergie",
+      "costValue": "Coût {value}",
+      "chakraValue": "Chakra de base {value}",
+      "info1": "Puissance = Chakra de base + Invocations + bonus − dégâts à soi-même et aux alliés + dégâts aux adversaires + Brûlure + Soins.",
+      "info2": "Qualité = Puissance / coût de la carte.",
+      "info3": "Brûlure = cibles adverses × durée en secondes (ou Chakra adverse s'il est inférieur à la durée).",
+      "info4": "Les effets sont comptés selon le nombre d'activations indiqué sur la carte ou dans les hypothèses de calcul.",
+      "info5": "Le déplacement, la Parade et les autres modificateurs ne sont pas inclus dans la Puissance.",
+      "info6": "Le sélecteur de niveau des filtres modifie toute la liste, sauf les cartes déjà dans le deck. Les exports incluent les niveaux individuels et les hypothèses de calcul."
+    },
+    "effects": {
+      "Cost": "Coût",
+      "Chakra": "Chakra",
+      "Weaken": "Affaiblissement",
+      "Push": "Repousse",
+      "Pin": "Immobilisation",
+      "Rush": "Accélération",
+      "Slow": "Ralentissement",
+      "Guard": "Parade",
+      "Seal": "Scellement",
+      "Switch": "Transfert",
+      "Summon": "Invocation",
+      "Teleport": "Téléportation",
+      "Burn": "Brûlure",
+      "Focus": "Concentration",
+      "Heal": "Soin"
+    },
+    "terms": {
+      "Cost": "coûts?",
+      "Chakra": "chakra",
+      "Weaken": "affaibli[\\p{L}]*",
+      "Push": "repouss[\\p{L}]*",
+      "Pin": "immobilis[\\p{L}]*",
+      "Rush": "acc[eéè]l[eéè]r[\\p{L}]*",
+      "Slow": "ralenti[\\p{L}]*",
+      "Guard": "parad[\\p{L}]*|pare",
+      "Seal": "scell[\\p{L}]*",
+      "Switch": "transf[èé]r[\\p{L}]*|change[\\p{L}]*",
+      "Summon": "invo[qc][\\p{L}]*",
+      "Teleport": "téléport[\\p{L}]*",
+      "Burn": "brûl[\\p{L}]*",
+      "Focus": "concentr[\\p{L}]*",
+      "Heal": "soin[\\p{L}]*|soign[\\p{L}]*"
+    },
+    "cards": {
+      "S1_001": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Potentiel",
+        "descriptions": [
+          "La première fois que cette carte gagne du chakra, gagne Chakra(+1) supplémentaire.",
+          "La première fois que cette carte gagne du chakra, gagne Chakra(+2) supplémentaire."
+        ]
+      },
+      "S1_002": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Apprentissage",
+        "descriptions": [
+          "Chakra(+2) après 6 secondes.",
+          "Chakra(+3) après 6 secondes."
+        ]
+      },
+      "S1_003": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Multiclonage",
+        "descriptions": [
+          "Crée 1 clone sur une autre voie avec Chakra(1).",
+          "Invoque 1 clone sur une autre voie avec Chakra(2)."
+        ]
+      },
+      "S1_004": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Serment",
+        "descriptions": [
+          "Chakra(+1) après une confrontation réussie.",
+          "Chakra(+2) après une confrontation réussie."
+        ]
+      },
+      "S1_005": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Maîtrise des kunais",
+        "descriptions": [
+          "À la confrontation, Affaiblit(2) la carte rivale.",
+          "À la confrontation, Affaiblit(3) la carte rivale."
+        ]
+      },
+      "S1_006": {
+        "name": "SAKURA HARUNO",
+        "ability": "Lancer de kunai",
+        "descriptions": [
+          "Au déploiement, Affaiblit(2) un rival aléatoire à Longue Distance. Les cibles appartiennent à cette voie.",
+          "Au déploiement, Affaiblit(3) un rival aléatoire à Longue Distance. Les cibles appartiennent à cette voie."
+        ]
+      },
+      "S1_007": {
+        "name": "SAKURA HARUNO",
+        "ability": "Équilibre du Chakra",
+        "descriptions": [
+          "Quand les alliés de sa voie réussissent une confrontation, Chakra(+1) pour eux et Immobilisation(3s) pour cette carte.",
+          "Quand les alliés de sa voie réussissent une confrontation, Chakra(+1) pour eux et Immobilisation(5s) pour cette carte."
+        ]
+      },
+      "S1_008": {
+        "name": "SAKURA HARUNO",
+        "ability": "Coup de pied retourné",
+        "descriptions": [
+          "À la confrontation, Repousse(1) et Affaiblit(1) la carte rivale.",
+          "À la confrontation, Repousse(2) et Affaiblit(1) la carte rivale."
+        ]
+      },
+      "S1_009": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(5s)",
+          "Accélère(6s)"
+        ]
+      },
+      "S1_010": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Chef d'Équipe",
+        "descriptions": [
+          "À la confrontation, Chakra(+2) à un allié à Courte Distance. Les cibles appartiennent à cette voie.",
+          "À la confrontation, Chakra(+3) à un allié de sa voieà Courte Distance."
+        ]
+      },
+      "S1_011": {
+        "name": "IRUKA UMINO",
+        "ability": "Maître",
+        "descriptions": [
+          "Chakra(+2) au prochain allié déployé.",
+          "Chakra(+3) au prochain allié déployé."
+        ]
+      },
+      "S1_012": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Entrée Menaçante",
+        "descriptions": [
+          "Se déploie à Mi-distance, Ralentit(4s) et Transfère l'adversaire de sa voie ayant le plus de Chakra.",
+          "Se déploie à Mi-distance, Ralentit(6s) et Transfère l'adversaire de sa voie ayant le plus de Chakra."
+        ]
+      },
+      "S1_013": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Agression",
+        "descriptions": [
+          "Au déploiement, Affaiblit(3) le rival le plus proche sur sa voie.",
+          "Au déploiement, Affaiblit(4) le rival le plus proche sur sa voie."
+        ]
+      },
+      "S1_014": {
+        "name": "HAKU",
+        "ability": "Aiguilles",
+        "descriptions": [
+          "Au déploiement, Immobilise(6s) le rival le plus proche sur sa voie.",
+          "Au déploiement, Immobilise(7s) le rival le plus proche sur sa voie."
+        ]
+      },
+      "S1_015": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Lancer de Shuriken",
+        "descriptions": [
+          "Au déploiement, Affaiblit(1) un rival aléatoire à courte distance. Les cibles appartiennent à cette voie.",
+          "Au déploiement, Affaiblit(2) un rival aléatoire à courte distance. Les cibles appartiennent à cette voie."
+        ]
+      },
+      "S1_016": {
+        "name": "EBISU",
+        "ability": "Leçon Rapide",
+        "descriptions": [
+          "Au déploiement, Chakra(+2) à l'allié le plus proche. Les cibles appartiennent à cette voie.",
+          "Au déploiement, Chakra(+3) à l'allié le plus proche. Les cibles appartiennent à cette voie."
+        ]
+      },
+      "S1_017": {
+        "name": "TAZUNA",
+        "ability": "Constructeur de ponts",
+        "descriptions": [
+          "Au déploiement, ramène 2 alliés à mi-distance sur cette carte. Les cibles appartiennent à cette voie.",
+          "Au déploiement, ramène 3 alliés à mi-distance sur cette carte. Les cibles appartiennent à cette voie."
+        ]
+      },
+      "S1_018": {
+        "name": "INARI",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(2s)",
+          "Accélère(3s)"
+        ]
+      },
+      "S1_019": {
+        "name": "KAIZA",
+        "ability": "Martyr",
+        "descriptions": [
+          "Au retrait, donne Chakra(+1) aux alliés de sa voie uniquement.",
+          "Au retrait, donne Chakra(+2) aux alliés de sa voie uniquement."
+        ]
+      },
+      "S1_020": {
+        "name": "MIZUKI TOJI",
+        "ability": "Intention Cachée",
+        "descriptions": [
+          "Au déploiement, Affaiblit(2) un allié aléatoire de sa voie et Chakra(+3) à cette carte.",
+          "Au déploiement, Affaiblit(2) un allié aléatoire de sa voie et Chakra(+4) à cette carte."
+        ]
+      },
+      "S1_021": {
+        "name": "MIZUKI TOJI",
+        "ability": "Proie Facile",
+        "descriptions": [
+          "Quand elle se retire, Chakra(+1) pour 3 alliés aléatoires.",
+          "Quand elle se retire, Chakra(+2) pour 3 alliés aléatoires."
+        ]
+      },
+      "S1_022": {
+        "name": "MADAME SHIJIMI",
+        "ability": "Sauvetage de Chat",
+        "descriptions": [
+          "Au déploiement, Chakra(+1) et Ralentit(3s) trois alliés de sa voie à courte distance.",
+          "Au déploiement, Chakra(+2) et Ralentit(3s) trois alliés de sa voie à courte distance."
+        ]
+      },
+      "S1_023": {
+        "name": "GOZU",
+        "ability": "Embuscade",
+        "descriptions": [
+          "À la confrontation, Affaiblit(1) la carte rivale et se Téléporte derrière elle.",
+          "À la confrontation, Affaiblit(2) la carte rivale et se Téléporte derrière elle."
+        ]
+      },
+      "S1_024": {
+        "name": "TSUNAMI",
+        "ability": "Hospitalité",
+        "descriptions": [
+          "Au déploiement, Chakra(+1) pour 2 alliés de sa voie.",
+          "Au déploiement, Chakra(+1) pour 3 alliés de sa voie."
+        ]
+      },
+      "S1_025": {
+        "name": "WARAJI",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(3s)",
+          "Accélère(4s)"
+        ]
+      },
+      "S1_026": {
+        "name": "ZORI",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(3s)",
+          "Accélère(4s)"
+        ]
+      },
+      "S1_027": {
+        "name": "INO YAMANAKA",
+        "ability": "Charme",
+        "descriptions": [
+          "Au déploiement, Chakra(+1) à l'allié le plus proche à Courte Distance et le pousse à Moyenne Distance.",
+          "Au déploiement, Chakra(+2) à l'allié le plus proche à Courte Distance et le Repousse à Mi-distance."
+        ]
+      },
+      "S1_028": {
+        "name": "SHIKAMARU NARA",
+        "ability": "La Prise des Ombres",
+        "descriptions": [
+          "Au déploiement, Immobilise(10s) cette carte et la carte rivale la plus proche. Les cibles appartiennent à cette voie.",
+          "Au déploiement, Immobilise(12s) cette carte et la carte rivale la plus proche. Les cibles appartiennent à cette voie."
+        ]
+      },
+      "S1_029": {
+        "name": "CHOJI AKIMICHI",
+        "ability": "Force",
+        "descriptions": [
+          "À la confrontation, Repousse(1) la carte rivale.",
+          "À la confrontation, Repousse(2) la carte rivale."
+        ]
+      },
+      "S1_030": {
+        "name": "ASUMA SARUTOBI",
+        "ability": "Combat Rapproché",
+        "descriptions": [
+          "À la confrontation, Chakra(+3) si la carte rivale a un Chakra plus élevé.",
+          "À la confrontation, Chakra(+4) si la carte rivale a un Chakra plus élevé."
+        ]
+      },
+      "S1_031": {
+        "name": "HINATA HYUGA",
+        "ability": "Timide",
+        "descriptions": [
+          "Au déploiement, Repousse(2) la carte rivale la plus proche à Courte Distance. Les cibles appartiennent à cette voie.",
+          "Au déploiement, Repousse(3) la carte rivale la plus proche à Courte Distance. Les cibles appartiennent à cette voie."
+        ]
+      },
+      "S1_032": {
+        "name": "HINATA HYUGA",
+        "ability": "Poing Souple",
+        "descriptions": [
+          "Lors de la première confrontation, Repousse(1) uniquement l'adversaire rencontré s'il a 3 Chakra ou moins.",
+          "Lors de la première confrontation, Repousse(2) uniquement l'adversaire rencontré s'il a 3 Chakra ou moins."
+        ]
+      },
+      "S1_033": {
+        "name": "KIBA INUZUKA",
+        "ability": "Meilleur Ami",
+        "descriptions": [
+          "Invoque un Akamaru aléatoire de ton deck et lui donne Chakra(+1). S'il n'y a pas d'Akamaru, cette carte gagne Chakra(+1) à la place.",
+          "Invoque un Akamaru aléatoire de ton deck et lui donne Chakra(+2). S'il n'y a pas d'Akamaru, cette carte gagne Chakra(+2) à la place."
+        ]
+      },
+      "S1_034": {
+        "name": "AKAMARU",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(6s)",
+          "Accélère(7s)"
+        ]
+      },
+      "S1_035": {
+        "name": "SHINO ABURAME",
+        "ability": "Insectes de Chakra",
+        "descriptions": [
+          "À la confrontation, Chakra(+2) à cette carte et Affaiblit(1) la carte rivale.",
+          "À la confrontation, Chakra(+2) à cette carte et Affaiblit(2) la carte rivale."
+        ]
+      },
+      "S1_036": {
+        "name": "KURENAI YUHI",
+        "ability": "Feinte",
+        "descriptions": [
+          "À la confrontation, Repousse(2) et Immobilise(2s) la carte rivale.",
+          "À la confrontation, Repousse(2) et Immobilise(4s) la carte rivale."
+        ]
+      },
+      "S1_037": {
+        "name": "PAKKUN",
+        "ability": "Nez Fin",
+        "descriptions": [
+          "Ignore toutes les compétences et confrontations rivales jusqu'à atteindre la Moyenne Distance. Les alliés gagnent Accélère(+2s) en étant déployés sur cette voie tant que cette carte est active.",
+          "Ignore toutes les compétences et confrontations rivales jusqu'à atteindre la Mi-distance. Les alliés gagnent Accélère(+3s) lorsqu'ils sont déployés sur cette voie tant que cette carte est active."
+        ]
+      },
+      "S1_038": {
+        "name": "AYAME",
+        "ability": "Repas Copieux",
+        "descriptions": [
+          "Au déploiement, Chakra(+2) à 2 alliés de sa voie à Mi-distance.",
+          "Au déploiement, Chakra(+2) à 3 alliés de sa voie à Mi-distance."
+        ]
+      },
+      "S1_039": {
+        "name": "MOEGI KAZAMATSURI",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(2s)",
+          "Accélère(3s)"
+        ]
+      },
+      "S1_040": {
+        "name": "UDON ISE",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(2s)",
+          "Accélère(3s)"
+        ]
+      },
+      "S1_041": {
+        "name": "NINJA TROOPS",
+        "ability": "Avant-garde",
+        "descriptions": [
+          "Accélère(2s). Lorsqu'elle se retire, Chakra(+3) à l'allié déployé le plus récemment.",
+          "Accélère(3s). Lorsqu'elle se retire, Chakra(+3) à l'allié déployé le plus récemment."
+        ]
+      },
+      "S1_042": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Inoffensif",
+        "descriptions": [
+          "Lorsqu'elle se retire, Affaiblit(3) la carte rivale.",
+          "Lorsqu'elle se retire, Affaiblit(4) la carte rivale."
+        ]
+      },
+      "S1_043": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Farceur",
+        "descriptions": [
+          "Au déploiement, Ralentit(10s) toutes les cartes sur la voie.",
+          "Au déploiement, Ralentit(12s) toutes les cartes sur la voie."
+        ]
+      },
+      "S1_044": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Sexy Méta",
+        "descriptions": [
+          "Au déploiement, Immobilise(4s) une carte rivale à Mi-distance. Les cibles appartiennent à cette voie.",
+          "Au déploiement, Immobilise(5s) une carte rivale de la voie à Mi-distance."
+        ]
+      },
+      "S1_045": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Solitude",
+        "descriptions": [
+          "Au déploiement, Chakra(+3) et Ralentit(6s) s'il n'y a aucun allié sur sa voie.",
+          "Au déploiement, Chakra(+4) et Ralentit(6s) s'il n'y a aucun allié sur sa voie."
+        ]
+      },
+      "S1_046": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Diplomation",
+        "descriptions": [
+          "Gagne Chakra(+1) par allié de sa voie à Courte Distance.",
+          "Gagne Chakra(+2) par allié de sa voie à Courte Distance."
+        ]
+      },
+      "S1_047": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Métamorphose",
+        "descriptions": [
+          "Au déploiement, se déguise en une autre carte de votre deck qui coûte jusqu'à 3 Énergies. Revient à l'original lors d'une confrontation ou d'un affaiblissement.",
+          "Au déploiement, se déguise en une autre carte de votre deck qui coûte jusqu'à 4 Énergies. Revient à l'original lors d'une confrontation ou d'un affaiblissement."
+        ]
+      },
+      "S1_048": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Rusé",
+        "descriptions": [
+          "À la confrontation, Immobilise(4s) la carte rivale et se Téléporte derrière elle.",
+          "À la confrontation, Immobilise(6s) la carte rivale et se Téléporte derrière elle."
+        ]
+      },
+      "S1_049": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Projection",
+        "descriptions": [
+          "Le prochain allié se déploie à Mi-distance. Immobilise(4s) et Transfère un adversaire aléatoire de sa voie à Mi-distance.",
+          "Le prochain allié se déploie à Mi-distance. Immobilise(8s) et Transfère un adversaire aléatoire de sa voie à Mi-distance."
+        ]
+      },
+      "S1_050": {
+        "name": "HIRUZEN SARUTOBI",
+        "ability": "Technique du Télescope",
+        "descriptions": [
+          "Quand des alliés Accélèrent, ils gagnent Chakra(+1) et Accélère(+1s).",
+          "Quand des alliés Accélèrent, ils gagnent Chakra(+1) et Accélère(+2s)."
+        ]
+      },
+      "S1_051": {
+        "name": "IRUKA UMINO",
+        "ability": "Ahuri",
+        "descriptions": [
+          "Transfert de voie aléatoire toutes les 8 secondes.",
+          "Transfert de voie aléatoire toutes les 6 secondes."
+        ]
+      },
+      "S1_052": {
+        "name": "IRUKA UMINO",
+        "ability": "Sacrifice",
+        "descriptions": [
+          "Déploiement à mi-distance et Chakra(+1) à l'allié le plus proche. Les cibles appartiennent à cette voie.",
+          "Déploiement à mi-distance et Chakra(+2) à l'allié le plus proche. Les cibles appartiennent à cette voie."
+        ]
+      },
+      "S1_053": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Caché dans la Brume",
+        "descriptions": [
+          "Au déploiement, Immobilise(6s) et Affaiblit(1) tous les adversaires de sa voie à Courte Distance.",
+          "Au déploiement, Immobilise(6s) et Affaiblit(2) tous les adversaires de sa voie à Courte Distance."
+        ]
+      },
+      "S1_054": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Brisé",
+        "descriptions": [
+          "Gagne Chakra(+3) la première fois qu'un allié de sa voie se retire.",
+          "Gagne Chakra(+4) la première fois qu'un allié de sa voie se retire."
+        ]
+      },
+      "S1_055": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Sexy Méta raté",
+        "descriptions": [
+          "Au déploiement, 50 % de chance d'Immobiliser(6s) une carte rivale à mi-distance. Les cibles appartiennent à cette voie.",
+          "Au déploiement, 50 % de chance d'Immobiliser(8s) une carte rivale de la voie à mi-distance."
+        ]
+      },
+      "S1_056": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Héritage",
+        "descriptions": [
+          "Au déploiement, 50 % de chances d'invoquer un Hiruzen aléatoire de ton deck, sinon Chakra(+2).",
+          "Au déploiement, 50 % de chances d'invoquer un Hiruzen aléatoire de ton deck, sinon Chakra(+3)."
+        ]
+      },
+      "S1_057": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Sexy Méta",
+        "descriptions": [
+          "Au déploiement, Immobilise(4s) une carte rivale à mi-distance. Les cibles appartiennent à cette voie.",
+          "Au déploiement, Immobilise(5s) une carte rivale de la voie à mi-distance."
+        ]
+      },
+      "S1_058": {
+        "name": "EBISU",
+        "ability": "Leçons Difficiles",
+        "descriptions": [
+          "Tous les alliés déployés gagnent Chakra(+2) mais Affaiblit(1) cette carte à chaque fois.",
+          "Les prochains alliés déployés gagnent Chakra(+3) mais Affaiblit(1) cette carte à chaque fois."
+        ]
+      },
+      "S1_059": {
+        "name": "INARI",
+        "ability": "Prend les armes",
+        "descriptions": [
+          "Au déploiement, Affaiblit(1) et Ralentit(6s) la carte rivale la plus proche à longue distance. Les cibles appartiennent à cette voie.",
+          "Au déploiement, Affaiblit(1) et Ralentit(8s) le premier rival de sa voie à longue distance."
+        ]
+      },
+      "S1_060": {
+        "name": "GATO",
+        "ability": "Parrain de la pègre",
+        "descriptions": [
+          "Au déploiement, Concentration(6s). Si la Concentration réussit, Invoque une carte aléatoire de coût maximum 3 depuis ton deck.",
+          "Au déploiement, Concentration(4s). Si la Concentration réussit, Invoque une carte aléatoire de coût maximum 3 depuis ton deck."
+        ]
+      },
+      "S1_061": {
+        "name": "NINJA HOUNDS",
+        "ability": "Les Crocs Traqueurs ",
+        "descriptions": [
+          "Au déploiement, Immobilise(6s) elle-même et l'adversaire de sa voie avec le chakra le plus élevé.",
+          "Au déploiement, Immobilise(8s) cette carte et l'adversaire de sa voie avec le chakra le plus élevé."
+        ]
+      },
+      "S1_062": {
+        "name": "TEUCHI",
+        "ability": "La voie du Ramen",
+        "descriptions": [
+          "Chakra(+1) aux alliés de sa voie après 8 secondes.",
+          "Chakra(+2) aux alliés de sa voie après 8 secondes."
+        ]
+      },
+      "S1_063": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Détermination",
+        "descriptions": [
+          "Lorsqu'un Iruka allié est sur le point de se retirer, le ramène au début de la voie et crée 3 clones avec Chakra(1) réparti sur toutes les voies.",
+          "Quand un Iruka allié est sur le point de se retirer, le ramène au début de la voie et Invoque 5 clones avec Chakra(1) répartis sur toutes les voies."
+        ]
+      },
+      "S1_064": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Showman",
+        "descriptions": [
+          "Chakra(+5) après 10 s.",
+          "Chakra(+6) après 10 s."
+        ]
+      },
+      "S1_065": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Sexy Méta Harem",
+        "descriptions": [
+          "À la confrontation, Immobilise(6s) la carte rivale, se téléporte derrière elle et Accélère(2s).",
+          "À la confrontation, Immobilise(8s) la carte rivale, se téléporte derrière elle et Accélère(4s)."
+        ]
+      },
+      "S1_066": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Prédiction",
+        "descriptions": [
+          "Ne peut pas être affaibli lors des confrontations avec des cartes rivales de 2 de Chakra ou moins.",
+          "Ne peut pas être affaibli lors des confrontations avec des cartes rivales de 3 de Chakra ou moins."
+        ]
+      },
+      "S1_067": {
+        "name": "SAKURA HARUNO",
+        "ability": "Feu intérieur",
+        "descriptions": [
+          "Gagne Chakra(+3) au premier déploiement d'un adversaire sur sa voie, puis Chakra(+1) chaque fois qu'un adversaire est déployé ou Transféré sur cette voie.",
+          "Gagne Chakra(+3) au premier déploiement d'un adversaire sur sa voie, puis Chakra(+2) chaque fois qu'un adversaire est déployé ou Transféré sur cette voie."
+        ]
+      },
+      "S1_068": {
+        "name": "KAKASHI HATAKE",
+        "ability": "1000 Ans de Souffrance",
+        "descriptions": [
+          "Saute sur la première carte rivale qui arrive à proximité, Affaiblit(1) et Repousse(3) cette dernière.",
+          "Saute sur la première carte rivale qui arrive à proximité, Affaiblit(1) et Repousse(4) cette dernière."
+        ]
+      },
+      "S1_069": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Grande Cataracte",
+        "descriptions": [
+          "Au déploiement, Repousse(3) et Affaiblit(2) tous les rivaux de la voie.",
+          "Au déploiement, Repousse(3) et Affaiblit(3) tous les rivaux de la voie."
+        ]
+      },
+      "S1_070": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Raikiri",
+        "descriptions": [
+          "Saute sur la première carte rivale qui s'approche et Affaiblit(3) cette dernière. Ignore les Parades.",
+          "Saute sur la première carte rivale qui s'approche et Affaiblit(4) cette dernière. Ignore les Parades."
+        ]
+      },
+      "S1_071": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Feinte de Clones",
+        "descriptions": [
+          "Dépense l'énergie restante pour invoquer jusqu'à 5 clones avec Chakra(2) déguisés en l'original.",
+          "Dépense l'énergie restante pour invoquer jusqu'à 6 clones avec Chakra(2) déguisés en l'original."
+        ]
+      },
+      "S1_072": {
+        "name": "IRUKA UMINO",
+        "ability": "Réprimande",
+        "descriptions": [
+          "Tant que cette carte est active, Chakra(+1) et Immobilise(2s) les alliés à 2 Chakra lorsqu'ils sont déployés.",
+          "Tant que cette carte est active, Chakra(+2) et Immobilise(2s) les alliés ayant 2 de Chakra lors de leur déploiement."
+        ]
+      },
+      "S1_073": {
+        "name": "HIRUZEN SARUTOBI",
+        "ability": "Flamme de la Volonté",
+        "descriptions": [
+          "Chakra[+1] à tous les alliés après 10 secondes.",
+          "Après 10 secondes, Chakra(+2) à tous les alliés."
+        ]
+      },
+      "S1_074": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Le Dragon Aqueux ",
+        "descriptions": [
+          "Au déploiement, Affaiblit(1) et Repousse(1) tous les rivaux de la voie à courte et moyenne distance.",
+          "Au déploiement, Affaiblit(1) et Repousse(3) toutes les cartes rivales de la voie à Courte et Mi-distance."
+        ]
+      },
+      "S1_075": {
+        "name": "HAKU",
+        "ability": "Démoniaques Miroirs de Glace",
+        "descriptions": [
+          "À la confrontation, Immobilise(2s) et Affaiblit(1) les adversaires proches de sa voie, puis Transfère sa propre carte. Cette compétence se réactive chaque fois qu'elle gagne du Chakra.",
+          "À la confrontation, Immobilise(4s) et Affaiblit(1) les adversaires proches de sa voie, puis Transfère sa propre carte. Cette compétence se réactive chaque fois qu'elle gagne du Chakra."
+        ]
+      },
+      "S1_076": {
+        "name": "GAMABUNTA",
+        "ability": "Coopération du Crapaud",
+        "descriptions": [
+          "Chakra(+1) lorsque des alliés Repoussent des rivaux.",
+          "Chakra(+2) lorsque des alliés Repoussent des rivaux."
+        ]
+      },
+      "S1_077": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Multiclonage Supra",
+        "descriptions": [
+          "Crée 2 clones sur les autres voies avec Chakra(2) et Accélère(4s), puis 2 nouveaux clones après 10 secondes. Chakra(+1) à chaque retrait de ces clones.",
+          "Invoque 2 clones sur les autres voies avec Chakra(2) et Accélère(6s), puis 2 nouveaux clones après 10 s. Chakra(+1) quand ces clones se retirent."
+        ]
+      },
+      "S1_078": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Fureur de Kyubi",
+        "descriptions": [
+          "Lorsque des alliés se retirent, Chakra(+1) et Accélère(1s)",
+          "Lorsque des alliés se retirent, Chakra(+2) et Accélère(1s)"
+        ]
+      },
+      "S1_079": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Coup de Poing Furieux",
+        "descriptions": [
+          "Déploiement à mi-distance, Affaiblit(2) et Repousse(1) tous les rivaux de la voie.",
+          "Déploiement à mi-distance, Affaiblit(2) et Repousse(3) tous les rivaux de la voie."
+        ]
+      },
+      "S1_080": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Déterminé",
+        "descriptions": [
+          "Chakra(+2) toutes les 8 secondes.",
+          "Chakra(+2) toutes les 6 secondes."
+        ]
+      },
+      "S1_081": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Boule de Feu Suprême",
+        "descriptions": [
+          "Au déploiement, Affaiblit(2) tous les rivaux à mi-distance.",
+          "Au déploiement, Affaiblit(3) tous les rivaux à mi-distance."
+        ]
+      },
+      "S1_082": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Plan de Bataille",
+        "descriptions": [
+          "Tant qu'elle est active, Chakra(+1) chaque fois que des alliés Affaiblissent leurs rivaux. Les alliés gagnent Chakra(+1) pour chaque carte affectée la première fois qu'ils Affaiblissent leurs rivaux.",
+          "Tant qu'elle est active, Chakra(+2) chaque fois que des alliés Affaiblissent leurs rivaux. Les alliés gagnent Chakra(+1) pour chaque carte affectée la première fois qu'ils Affaiblissent leurs rivaux."
+        ]
+      },
+      "S1_083": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Démon",
+        "descriptions": [
+          "Au déploiement, Affaiblit(1) toutes les cartes. Si elles ont 3 de Chakra ou moins, Affaiblit(3) à la place.",
+          "Au déploiement, Affaiblit(1) toutes les cartes. Si elles ont 4 de Chakra ou moins, Affaiblit(4) à la place."
+        ]
+      },
+      "S1_084": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Charge Téméraire",
+        "descriptions": [
+          "À chaque confrontation, Affaiblit(2) les cartes rivales avec 4 de Chakra ou moins et les pousse sur une autre voie. Accélère en permanence.",
+          "À chaque confrontation, Affaiblit(3) les cartes rivales avec 4 de Chakra ou moins et les Transfère sur une autre voie. Accélère en permanence."
+        ]
+      },
+      "S1_085": {
+        "name": "KYUBI",
+        "ability": "Catastrophe naturelle",
+        "descriptions": [
+          "Se déploie à Mi-distance, Repousse(1) et Affaiblit(3) toutes les cartes. Tant qu'elle est active, Affaiblit(1) les nouvelles cartes déployées. Ralentissement permanent.",
+          "Se déploie à Mi-distance, Repousse(1) et Affaiblit(4) toutes les cartes. Tant qu'elle est active, Affaiblit(1) les nouvelles cartes déployées. Ralentissement permanent."
+        ]
+      },
+      "S2_001": {
+        "name": "Naruto Uzumaki",
+        "ability": "Entraînement au Chakra",
+        "descriptions": [
+          "Au déploiement, 50% de chances de gagner Chakra(+3).",
+          "Au déploiement, 50% de chances de gagner Chakra(+4)."
+        ]
+      },
+      "S2_002": {
+        "name": "Naruto Uzumaki",
+        "ability": "Challenger",
+        "descriptions": [
+          "Au déploiement, Immobilisation(1s) et gagne Chakra(+2) pour chaque adversaire de sa voie ayant plus de Chakra.",
+          "Au déploiement, Immobilisation(2s) et gagne Chakra(+2) pour chaque adversaire de sa voie ayant plus de Chakra."
+        ]
+      },
+      "S2_003": {
+        "name": "Sasuke Uchiha",
+        "ability": "Fureur du Lion",
+        "descriptions": [
+          "Saute sur la première carte rivale qui arrive à proximité, et l'Affaiblit(2).",
+          "Saute sur la première carte rivale qui arrive à proximité, et l'Affaiblit(3)."
+        ]
+      },
+      "S2_004": {
+        "name": "Sakura Haruno",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(2s)",
+          "Accélère(3s)"
+        ]
+      },
+      "S2_005": {
+        "name": "Rock Lee",
+        "ability": "Protecteur",
+        "descriptions": [
+          "Accélère(+3s) chaque fois qu'un rival est déployé sur cette voie.",
+          "Accélère(+4s) chaque fois qu'un rival est déployé sur cette voie."
+        ]
+      },
+      "S2_006": {
+        "name": "Rock Lee",
+        "ability": "Bombe d'Amour",
+        "descriptions": [
+          "Chakra(+1) au prochain allié déployé. Transfère ce dernier toutes les 8 secondes tant que cette carte est active.",
+          "Chakra(+2) au prochain allié déployé. Transfère ce dernier toutes les 8 secondes tant que cette carte est active."
+        ]
+      },
+      "S2_007": {
+        "name": "Neji Hyuga",
+        "ability": "Poing Souple",
+        "descriptions": [
+          "À la confrontation, Affaiblit(2) et Repousse(1).",
+          "À la confrontation, Affaiblit(2) et Repousse(2)."
+        ]
+      },
+      "S2_008": {
+        "name": "Tenten",
+        "ability": "Dragons Jumeaux",
+        "descriptions": [
+          "Au déploiement, Affaiblit(1) et Ralentit(6s) tous les rivaux à Longue Distance.",
+          "Au déploiement, Affaiblit(1) et Ralentit(8s) tous les rivaux à Longue Distance."
+        ]
+      },
+      "S2_009": {
+        "name": "Gai Maito",
+        "ability": "Fougue de la Jeunesse",
+        "descriptions": [
+          "Tant que cette carte est active, Chakra(+2) aux cartes Rock Lee lors de leur déploiement.",
+          "Tant que cette carte est active, Chakra(+3) aux cartes Rock Lee lors de leur déploiement."
+        ]
+      },
+      "S2_010": {
+        "name": "Gaara",
+        "ability": "Dangereux",
+        "descriptions": [
+          "Déployez à Mi-distance, Chakra(+3) s'il y a une carte rivale à Mi-distance.",
+          "Déployez à Mi-distance, Chakra(+4) s'il y a une carte rivale à Mi-distance."
+        ]
+      },
+      "S2_011": {
+        "name": "Kankuro",
+        "ability": "Effronté",
+        "descriptions": [
+          "Chakra(+3) au prochain allié Gaara déployé.",
+          "Chakra(+4) au prochain allié Gaara déployé."
+        ]
+      },
+      "S2_012": {
+        "name": "Temari",
+        "ability": "Prudent",
+        "descriptions": [
+          "Octroie Parade(1) et Ralentit(6s) le prochain allié Gaara déployé.",
+          "Octroie Parade(1) et Ralentit(10s) le prochain allié Gaara déployé."
+        ]
+      },
+      "S2_013": {
+        "name": "Baki",
+        "ability": "Résilient",
+        "descriptions": [
+          "Accélère(3s) et Pare(1).",
+          "Accélère(4s) et Pare(1)."
+        ]
+      },
+      "S2_014": {
+        "name": "Ino Yamanaka",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(2s)",
+          "Accélère(3s)"
+        ]
+      },
+      "S2_015": {
+        "name": "Kabuto Yakushi",
+        "ability": "Explication",
+        "descriptions": [
+          "Au déploiement, les alliés à Courte Distance prennent aléatoirement Chakra(+1) ou Immobilisation(4s).",
+          "Au déploiement, les alliés à Courte Distance prennent aléatoirement Chakra(+2) ou Immobilisation(4s)."
+        ]
+      },
+      "S2_016": {
+        "name": "Student Trio",
+        "ability": "Équipe Konohamaru",
+        "descriptions": [
+          "Lors du retrait, se redéploie en tant que Konohamaru, Moegi et Udon avec Accélère(3s) et Chakra(1) sur chaque voie.",
+          "Lors du retrait, se redéploie en tant que Konohamaru, Moegi et Udon avec Accélère(4s) et Chakra(1) sur chaque voie."
+        ]
+      },
+      "S2_017": {
+        "name": "Ibiki Morino",
+        "ability": "Règles strictes",
+        "descriptions": [
+          "Au déploiement, Repousse(2) ou Immobilise(4s) tous les rivaux de sa voie.",
+          "Au déploiement, Repousse(3) ou Immobilise(5s) tous les rivaux de sa voie."
+        ]
+      },
+      "S2_018": {
+        "name": "Choza Akimichi",
+        "ability": "Vieux Amis",
+        "descriptions": [
+          "Tant que cette carte est active, Chakra(+1) aux cartes Shikaku et Inoichi alliées.",
+          "Tant que cette carte est active, Chakra(+2) aux cartes Shikaku et Inoichi alliées."
+        ]
+      },
+      "S2_019": {
+        "name": "Inoichi Yamanaka",
+        "ability": "Vieux Amis",
+        "descriptions": [
+          "Tant que cette carte est active, Chakra(+1) aux cartes Shikaku et Choza alliées.",
+          "Tant que cette carte est active, Chakra(+2) aux cartes Shikaku et Choza alliées."
+        ]
+      },
+      "S2_020": {
+        "name": "Shikaku Nara",
+        "ability": "Vieux Amis",
+        "descriptions": [
+          "Tant que cette carte est active, Chakra(+1) aux cartes Inoichi et Choza alliées.",
+          "Tant que cette carte est active, Chakra(+2) aux cartes Inoichi et Choza alliées."
+        ]
+      },
+      "S2_021": {
+        "name": "Hanabi Hyuga",
+        "ability": "Prodige",
+        "descriptions": [
+          "Accélère(2s). À la confrontation, Repousse(2).",
+          "Accélère(3s). À la confrontation, Repousse(3)."
+        ]
+      },
+      "S2_022": {
+        "name": "Hiashi Hyuga",
+        "ability": "Chef Hyuga",
+        "descriptions": [
+          "Tant que cette carte est active, les Hyuga alliés gagnent Chakra(+2) et Repousse(1). Repousse ne s'ajoute pas à une valeur déjà présente.",
+          "Tant que cette carte est active, les Hyuga alliés gagnent Chakra(+3) et Repousse(1). Repousse ne s'ajoute pas à une valeur déjà présente."
+        ]
+      },
+      "S2_023": {
+        "name": "Hizashi Hyuga",
+        "ability": "Sacrifice du Frère",
+        "descriptions": [
+          "Accelère(2s). Lorsqu'un Hiashi allié est sur le point de se retirer, il est ramené au début de sa voie, et cette carte se retire à sa place.",
+          "Accélère(3s). Lorsqu'un Hiashi allié est sur le point de se retirer, il est ramené au début de sa voie, et cette carte se retire à sa place."
+        ]
+      },
+      "S2_024": {
+        "name": "Zaku Abumi",
+        "ability": "Ondes Cinglantes",
+        "descriptions": [
+          "Au déploiement, Repousse(2) et Transfère deux cartes rivales à Moyenne Distance.",
+          "Au déploiement, Repousse(2) et Transfère de voie trois cartes rivales à Mi-distance."
+        ]
+      },
+      "S2_025": {
+        "name": "Dosu Kinuta",
+        "ability": "Affection par Sons Perçants",
+        "descriptions": [
+          "À la confrontation, Affaiblit(2) la carte adverse. Si l'adversaire ne se retire pas, Immobilise(4s) la carte, puis Transfert de voie.",
+          "À la confrontation, Affaiblit(2) la carte adverse. Si l'adversaire ne se retire pas, Immobilise(5s) la carte, puis Transfert de voie."
+        ]
+      },
+      "S2_026": {
+        "name": "Kin Tsuchi",
+        "ability": "Senbon aux Grelots",
+        "descriptions": [
+          "Au déploiement, Affaiblit(1) et Immobilise(2s) la carte rivale la plus proche.",
+          "Au déploiement, Affaiblit(2) et Immobilise(2s) la carte rivale la plus proche."
+        ]
+      },
+      "S2_027": {
+        "name": "Izumo Kamizuki",
+        "ability": "Sabotage",
+        "descriptions": [
+          "Au déploiement, Immobilise(2s) 2 alliés aléatoires sur sa voie.",
+          "Au déploiement, Immobilise(2s) 3 alliés aléatoires sur sa voie."
+        ]
+      },
+      "S2_028": {
+        "name": "Kotetsu Hagane",
+        "ability": "Désorientation",
+        "descriptions": [
+          "Au déploiement, Ralentit(4s) et Transfère 2 alliés aléatoires.",
+          "Au déploiement, Ralentit(4s) et Transfère de voie trois alliés aléatoires."
+        ]
+      },
+      "S2_029": {
+        "name": "Oboro",
+        "ability": "Clones de Brumes",
+        "descriptions": [
+          "Au déploiement, crée 2 clones avec Chakra(1). Quand les clones se retirent, 50 % de chances de créer un autre clone sur la même voie.",
+          "Au déploiement, Invoque 2 clones avec Chakra(2). Quand les clones se retirent, 50 % de chances de créer un autre clone sur la même voie."
+        ]
+      },
+      "S2_030": {
+        "name": "Yoroi Akado",
+        "ability": "Absorption de Chakra",
+        "descriptions": [
+          "À la confrontation, gagne Chakra(+1) et Affaiblit(1) la carte rivale. Désactive toute compétence active.",
+          "À la confrontation, gagne Chakra(+2) et Affaiblit(1) la carte rivale. Désactive toute compétence active."
+        ]
+      },
+      "S2_031": {
+        "name": "Ningame",
+        "ability": "Tempérance",
+        "descriptions": [
+          "Quand des alliés de sa voie gagnent Accélération, ils gagnent Chakra(+1) à la place.",
+          "Quand des alliés de sa voie gagnent Accélération, ils gagnent Chakra(+2) à la place."
+        ]
+      },
+      "S2_032": {
+        "name": "Gama",
+        "ability": "Parchemin du Crapaud",
+        "descriptions": [
+          "Au déploiement, Invoque un Crapaud aléatoire du deck avec Chakra(+1).",
+          "Au déploiement, Invoque un Crapaud aléatoire du deck avec Chakra(+2)."
+        ]
+      },
+      "S2_033": {
+        "name": "Gamakichi",
+        "ability": "Grande Gueule",
+        "descriptions": [
+          "Les Crapauds alliés Repoussent(1) à chaque confrontation tant que cette carte est active. Chakra(+1) à chaque fois qu'un Crapaud repousse un rival.",
+          "Les Crapauds alliés appliquent Repousse(2) lors d'une confrontation tant que cette carte est active. Chakra(+1) chaque fois qu'un Crapaud repousse un rival."
+        ]
+      },
+      "S2_034": {
+        "name": "Giant Snake",
+        "ability": "Glisser",
+        "descriptions": [
+          "Déploiement à Moyenne Distance et Transfère deux autres cartes présentes à Moyenne Distance.",
+          "Se déploie à Mi-distance et Transfère de voie 3 autres cartes présentes à Mi-distance."
+        ]
+      },
+      "S2_035": {
+        "name": "Raido Namiashi",
+        "ability": "Garde du Corps",
+        "descriptions": [
+          "Accélère(2s). Lorsqu'un Hiruzen allié est sur le point de se retirer, il est ramené au début de sa voie, et cette carte se retire à sa place.",
+          "Accélère(3s). Lorsqu'un Hiruzen allié est sur le point de se retirer, il est ramené au début de sa voie, et cette carte se retire à sa place."
+        ]
+      },
+      "S2_036": {
+        "name": "Homura Mitokado",
+        "ability": "Réconfort",
+        "descriptions": [
+          "Le prochain allié déployé Pare(1) et gagne Chakra(+1).",
+          "Le prochain allié déployé Pare(1) et gagne Chakra(+2)."
+        ]
+      },
+      "S2_037": {
+        "name": "Koharu Utatane",
+        "ability": "Sécurité",
+        "descriptions": [
+          "Après 10 secondes, déploie les forces spéciales Anbu.",
+          "Après 8 secondes, déploie les forces spéciales Anbu."
+        ]
+      },
+      "S2_038": {
+        "name": "Genma Shiranui",
+        "ability": "Procureur",
+        "descriptions": [
+          "Au déploiement, Concentration(6s). Si la Concentration réussit, Invoque une carte aléatoire du deck, d'un coût max. de 4. Si elle n'a que 3 ou moins de Chakra, elle prend Chakra(+2).",
+          "Au déploiement, Concentration(4s). Si la Concentration réussit, Invoque une carte aléatoire de coût maximum 4 depuis ton deck. Si elle a 3 Chakra ou moins, lui accorde Chakra(+2)."
+        ]
+      },
+      "S2_039": {
+        "name": "Genma Shiranui",
+        "ability": "Alerte",
+        "descriptions": [
+          "Au déploiement, Affaiblit(3) une carte rivale de sa voie à Mi-distance.",
+          "Au déploiement, Affaiblit(3) deux cartes rivales de sa voie à Mi-distance."
+        ]
+      },
+      "S2_040": {
+        "name": "Yashamaru",
+        "ability": "Devoir à Contrecœur",
+        "descriptions": [
+          "Lors du retrait, Affaiblit(3) toutes les cartes à proximité.",
+          "Lors du retrait, Affaiblit(4) toutes les cartes à proximité."
+        ]
+      },
+      "S2_041": {
+        "name": "Karura",
+        "ability": "Amour Maternel",
+        "descriptions": [
+          "Au déploiement, Chakra(+2) et Ralentit(3s) les cartes Gaara alliées.",
+          "Au déploiement, Chakra(+2) et Ralentit(5s) les cartes Gaara alliées."
+        ]
+      },
+      "S2_042": {
+        "name": "Yugao Uzuki",
+        "ability": "Serment de vengeance",
+        "descriptions": [
+          "Accélère(3s). Pare(1). À la confrontation, Affaiblit(2).",
+          "Accélère(4s). Pare(1). À la confrontation, Affaiblit(2)."
+        ]
+      },
+      "S2_043": {
+        "name": "Hana Inuzuka",
+        "ability": "Ruée",
+        "descriptions": [
+          "Accélère(4s)",
+          "Accélère(5s)"
+        ]
+      },
+      "S2_044": {
+        "name": "Tsume Inuzuka",
+        "ability": "Mener la Charge",
+        "descriptions": [
+          "Accélère(4s). Le prochain allié déployé gagne Accélère(+3s) et Chakra(+1).",
+          "Accélère(4s). Le prochain allié déployé gagne Accélère(+3s) et Chakra(+2)."
+        ]
+      },
+      "S2_045": {
+        "name": "Shibi Aburame",
+        "ability": "Secours Opportun",
+        "descriptions": [
+          "Accélère(5s). Chakra(+1) aux alliés dépassés.",
+          "Accélère(6s). Chakra(+1) aux alliés dépassés."
+        ]
+      },
+      "S2_046": {
+        "name": "Jirobo",
+        "ability": "Sud",
+        "descriptions": [
+          "Le prochain Orochimaru déployé gagne Chakra(+3).",
+          "Le prochain Orochimaru déployé gagne Chakra(+4)."
+        ]
+      },
+      "S2_047": {
+        "name": "Kidomaru",
+        "ability": "Est",
+        "descriptions": [
+          "Le prochain Orochimaru déployé Accélère(+4s).",
+          "Le prochain Orochimaru déployé Accélère(+5s)."
+        ]
+      },
+      "S2_048": {
+        "name": "Sakon",
+        "ability": "Ouest",
+        "descriptions": [
+          "Le prochain Orochimaru déployé Affaiblit(3) la carte rivale la plus proche.",
+          "Le prochain Orochimaru déployé Affaiblit(4) la carte rivale la plus proche."
+        ]
+      },
+      "S2_049": {
+        "name": "Tayuya",
+        "ability": "Nord",
+        "descriptions": [
+          "Le prochain Orochimaru déployé gagne Pare(1).",
+          "Le prochain Orochimaru déployé gagne Parade(2)."
+        ]
+      },
+      "S2_050": {
+        "name": "Anbu",
+        "ability": "Forces Spéciales",
+        "descriptions": [
+          "Au déploiement, prend aléatoirement Chakra(+2) ou Accélère(4s).",
+          "Au déploiement, prend aléatoirement Chakra(+3) ou Accélère(5s)."
+        ]
+      },
+      "S2_051": {
+        "name": "Naruto Uzumaki",
+        "ability": "Briseur de Destin",
+        "descriptions": [
+          "Parade(2). Quand Parade s'active, redémarre Accélération(2s) sans ajout à la durée restante. À la fin de l'Accélération, Transfère sa propre carte.",
+          "Parade(3). Quand Parade s'active, redémarre Accélération(2s) sans ajout à la durée restante. À la fin de l'Accélération, Transfère sa propre carte."
+        ]
+      },
+      "S2_052": {
+        "name": "Sakura Haruno",
+        "ability": "Fermeté",
+        "descriptions": [
+          "À la confrontation, Affaiblit(1) la carte rivale et Pare(1).",
+          "À la confrontation, Affaiblit(1) la carte rivale et Pare(2)."
+        ]
+      },
+      "S2_053": {
+        "name": "Rock Lee",
+        "ability": "Bourrasque de Konoha",
+        "descriptions": [
+          "À la confrontation, Repousse(1) et Affaiblit(2) la carte rivale.",
+          "À la confrontation, Repousse(2) et Affaiblit(2) la carte rivale."
+        ]
+      },
+      "S2_054": {
+        "name": "Neji Hyuga",
+        "ability": "Byakugan",
+        "descriptions": [
+          "Au déploiement, divise le Chakra de la carte rivale la plus proche par 2 et Accélère(2s).",
+          "Au déploiement, divise le Chakra de la carte rivale la plus proche par 2 et Accélère(4s)."
+        ]
+      },
+      "S2_055": {
+        "name": "Neji Hyuga",
+        "ability": "Fardeau du Destin",
+        "descriptions": [
+          "Chaque fois que cette carte gagne du Chakra, Chakra(+1) en plus. Elle ne peut pas avoir plus de 10 de Chakra au total.",
+          "Chaque fois que cette carte gagne du Chakra, Chakra(+2) en plus. Elle ne peut pas avoir plus de 10 de Chakra au total."
+        ]
+      },
+      "S2_056": {
+        "name": "Gai Maito",
+        "ability": "Réprimande",
+        "descriptions": [
+          "Déploiement à Mi-distance, Chakra(+2) et Immobilise(2s) l'allié de sa voie le plus proche.",
+          "Déploiement à Mi-distance, Chakra(+2) et Immobilise(6s) l'allié de sa voie le plus proche."
+        ]
+      },
+      "S2_057": {
+        "name": "Choji Akimichi",
+        "ability": "Boulet Humain",
+        "descriptions": [
+          "Accélère(3s). À chaque confrontation, Repousse(2) et Affaiblit(1) si Accélération est actif.",
+          "Accélère(4s). À chaque confrontation, Repousse(2) et Affaiblit(1) si Accélération est actif."
+        ]
+      },
+      "S2_058": {
+        "name": "Ino Yamanaka",
+        "ability": "Transposition",
+        "descriptions": [
+          "Au déploiement, Concentration(8s) et prend le contrôle du rival de sa voie à Mi-distance avec le Chakra le plus élevé. À la fin de la Concentration, rend le contrôle de la carte à ton rival.",
+          "Au déploiement, Concentration(12s) et prend le contrôle du rival de sa voie à Mi-distance avec le Chakra le plus élevé. À la fin de la Concentration, rend le contrôle de la carte à ton adversaire."
+        ]
+      },
+      "S2_059": {
+        "name": "Hinata Hyuga",
+        "ability": "Dévier",
+        "descriptions": [
+          "À la confrontation, Repousse(1) et Transfère la carte rivale.",
+          "À la confrontation, Repousse(2) et Transfère la carte rivale."
+        ]
+      },
+      "S2_060": {
+        "name": "Gaara",
+        "ability": "Bouclier de sable",
+        "descriptions": [
+          "Pare(2). Lorsque la Parade s'active, Chakra(+1).",
+          "Pare(3). Lorsque la Parade s'active, Chakra(+1)."
+        ]
+      },
+      "S2_061": {
+        "name": "Temari",
+        "ability": "Grand Eventail",
+        "descriptions": [
+          "Pare(2). Au déploiement et lorsque la Parade s'active, Repousse(2) tous les rivaux de sa voie.",
+          "Pare(3). Au déploiement et lorsque la Parade s'active, Repousse(3) tous les rivaux de sa voie."
+        ]
+      },
+      "S2_062": {
+        "name": "Anko Mitarashi",
+        "ability": "Poigne du Serpent Spectral",
+        "descriptions": [
+          "Au déploiement, Affaiblit(2) et Immobilise(4s) une carte rivale de sa voie à Mi-distance.",
+          "Au déploiement, Affaiblit(2) et Immobilise(4s) deux cartes rivales de sa voie à Mi-distance."
+        ]
+      },
+      "S2_063": {
+        "name": "Choza Akimichi",
+        "ability": "Décuplement Corporel",
+        "descriptions": [
+          "À la confrontation, Repousse(3) et Affaiblit(2) la carte rivale.",
+          "À la confrontation, Repousse(3) et Affaiblit(3) la carte rivale."
+        ]
+      },
+      "S2_064": {
+        "name": "Inoichi Yamanaka",
+        "ability": "Grande Confusion ",
+        "descriptions": [
+          "Au déploiement, Concentration(10s) et prend le contrôle de la carte rivale à Mi-distance la plus proche sur sa voie, la Ralentit(10s) et désactive définitivement toute compétence active. À la fin de la Concentration, rend le contrôle de la carte à ton rival.",
+          "Au déploiement, Concentration(14s) et prend le contrôle de la carte rivale à Mi-distance la plus proche sur sa voie, la Ralentit(10s) et désactive définitivement toute compétence active. À la fin de la Concentration, rend le contrôle de la carte à ton adversaire."
+        ]
+      },
+      "S2_065": {
+        "name": "Shikaku Nara",
+        "ability": "Prise des Ombres",
+        "descriptions": [
+          "Au déploiement, Immobilise(10s) elle-même et deux rivaux de sa voie à Longue Distance.",
+          "Au déploiement, Immobilise(12s) cette carte et deux cartes rivales de sa voie à Longue Distance."
+        ]
+      },
+      "S2_066": {
+        "name": "Jiraiya",
+        "ability": "Ermite Pervers",
+        "descriptions": [
+          "Transfert de voie toutes les 10 secondes.",
+          "Transfert de voie toutes les 8 secondes."
+        ]
+      },
+      "S2_067": {
+        "name": "Orochimaru",
+        "ability": "Machinations",
+        "descriptions": [
+          "Au déploiement et au retrait, Affaiblit(1) jusqu'à 4 cartes quelconques.",
+          "Au déploiement et au retrait, Affaiblit(1) jusqu'à 6 cartes quelconques."
+        ]
+      },
+      "S2_068": {
+        "name": "Hashirama Senju",
+        "ability": "Réincarnation",
+        "descriptions": [
+          "Quand son Chakra est inférieur à sa valeur initiale, Chakra(+1) toutes les 4 secondes jusqu'à sa valeur initiale.",
+          "Quand son Chakra est inférieur à sa valeur initiale, Chakra(+1) toutes les 3 secondes jusqu'à sa valeur initiale."
+        ]
+      },
+      "S2_069": {
+        "name": "Tobirama Senju",
+        "ability": "Réincarnation",
+        "descriptions": [
+          "Quand son Chakra est inférieur à sa valeur initiale, Chakra(+1) toutes les 4 secondes jusqu'à sa valeur initiale.",
+          "Quand son Chakra est inférieur à sa valeur initiale, Chakra(+1) toutes les 3 secondes jusqu'à sa valeur initiale."
+        ]
+      },
+      "S2_070": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Le Troisième",
+        "descriptions": [
+          "À la confrontation, Chakra(+2). Au retrait, Chakra(+2) à tous les alliés.",
+          "À la confrontation, Chakra(+3). Au retrait, Chakra(+2) à tous les alliés."
+        ]
+      },
+      "S2_071": {
+        "name": "Hayate Gekko",
+        "ability": "Danse sous la Nouvelle Lune",
+        "descriptions": [
+          "À la confrontation, Affaiblit(1) trois fois. Si l'adversaire ne se retire pas, Repousse(2) également.",
+          "À la confrontation, Affaiblit(1) trois fois. Si l'adversaire ne se retire pas, Repousse(3) également."
+        ]
+      },
+      "S2_072": {
+        "name": "Ibiki Morino",
+        "ability": "Interrogatoire",
+        "descriptions": [
+          "Au déploiement, Affaiblit(1) et Ralentit(4s) toutes les cartes.",
+          "Au déploiement, Affaiblit(1) et Ralentit(6s) toutes les cartes."
+        ]
+      },
+      "S2_073": {
+        "name": "Gamahiro",
+        "ability": "Soupeser",
+        "descriptions": [
+          "Au déploiement, gagne Chakra(+2) pour chaque Crapaud allié. Ralentissement permanent.",
+          "Au déploiement, gagne Chakra(+3) pour chaque Crapaud allié. Ralentissement permanent."
+        ]
+      },
+      "S2_074": {
+        "name": "Sasuke Uchiha",
+        "ability": "Chidori",
+        "descriptions": [
+          "À la confrontation, saute au travers des rivaux proches, Affaiblit(2) chacun d'eux. Ignore les Parades.",
+          "À la confrontation, saute au travers des rivaux proches, Affaiblit(3) chacun d'eux. Ignore les Parades."
+        ]
+      },
+      "S2_075": {
+        "name": "Rock Lee",
+        "ability": "Extrême Légèreté",
+        "descriptions": [
+          "Accélère(3s). À chaque confrontation, si la carte rivale a un Chakra supérieur, Repousse(1) et Affaiblit(2), puis Transfert de voie.",
+          "Accélère(3s). À chaque confrontation, si la carte rivale a un Chakra supérieur, Repousse(2) et Affaiblit(2), puis Transfert de voie."
+        ]
+      },
+      "S2_076": {
+        "name": "Neji Hyuga",
+        "ability": "Tourbillon Divin",
+        "descriptions": [
+          "À la confrontation, Repousse(2) et Affaiblit(3) toutes les cartes rivales à proximité.",
+          "À la confrontation, Repousse(4) et Affaiblit(3) toutes les cartes rivales à proximité."
+        ]
+      },
+      "S2_077": {
+        "name": "Kiba Inuzuka",
+        "ability": "Hommes-Bêtes Enragés",
+        "descriptions": [
+          "Le prochain Akamaru déployé devient une copie complète de cette carte avec Accélération(4s).",
+          "Le prochain Akamaru déployé devient une copie complète de cette carte avec Accélération(5s)."
+        ]
+      },
+      "S2_078": {
+        "name": "Shikamaru Nara",
+        "ability": "Maître de Shogi",
+        "descriptions": [
+          "Au déploiement, Immobilisation(10s) et gagne Chakra(+3). Tant que cette carte est active, chaque fois que tu Immobilises d'autres cartes alliées ou qu'elles se Concentrent, elles gagnent Chakra(+3).",
+          "Au déploiement, s'Immobilise(12s) et gagne Chakra(+4). Tant que cette carte est active, chaque fois que tu Immobilises d'autres cartes alliées ou qu'elles gagnent Concentration, elles gagnent Chakra(+3)."
+        ]
+      },
+      "S2_079": {
+        "name": "Asuma Sarutobi",
+        "ability": "Lames de Chakra",
+        "descriptions": [
+          "À chaque confrontation, Affaiblit(1). Quand cette carte provoque le retrait d'un rival, Accélère(+1s).",
+          "À chaque confrontation, Affaiblit(2). Quand cette carte provoque le retrait d'un rival, Accélère(+1s)."
+        ]
+      },
+      "S2_080": {
+        "name": "Gaara",
+        "ability": "Instable",
+        "descriptions": [
+          "Au déploiement, Affaiblit(2) et Ralentit(6s) toutes les cartes sur la voie.",
+          "Au déploiement, Affaiblit(2) et Ralentit(8s) toutes les cartes sur la voie."
+        ]
+      },
+      "S2_081": {
+        "name": "Gaara",
+        "ability": "Assoiffé de Sang",
+        "descriptions": [
+          "Chakra(+1) chaque fois qu'un allié Affaiblit d'autres cartes.",
+          "Chakra(+2) chaque fois qu'un allié Affaiblit d'autres cartes."
+        ]
+      },
+      "S2_082": {
+        "name": "Kankuro",
+        "ability": "Agression du Pantin",
+        "descriptions": [
+          "Affaiblit(3) et Ralentit(2s) le premier adversaire qui s'approche. S'il ne se retire pas, le Transfère. Gagne Chakra(+1) et réactive cette compétence lorsqu'un autre allié provoque le Transfert d'un adversaire.",
+          "Affaiblit(3) et Ralentit(5s) le premier adversaire qui s'approche. S'il ne se retire pas, le Transfère. Gagne Chakra(+1) et réactive cette compétence lorsqu'un autre allié provoque le Transfert d'un adversaire."
+        ]
+      },
+      "S2_083": {
+        "name": "Jiraya",
+        "ability": "Crapaud Ermite",
+        "descriptions": [
+          "Chakra(+3) aux Crapauds alliés tant que cette carte est active.",
+          "Chakra(+4) aux Crapauds alliés tant que cette carte est active."
+        ]
+      },
+      "S2_084": {
+        "name": "Orochimaru",
+        "ability": "Traîtrise",
+        "descriptions": [
+          "Ignore toutes les compétences et confrontations avec des cartes rivales. À Mi-distance, gagne Chakra(+2) et devient vulnérable.",
+          "Ignore toutes les compétences et confrontations avec des cartes rivales. À Mi-distance, gagne Chakra(+3) et devient vulnérable."
+        ]
+      },
+      "S2_085": {
+        "name": "Orochimaru",
+        "ability": "Kusanagi",
+        "descriptions": [
+          "À chaque confrontation, Affaiblit(2). Chaque fois qu'une carte rivale fait un Transfert de voie, cette carte se Transfère dans la même voie et Pare(1).",
+          "À chaque confrontation, Affaiblit(3). Chaque fois qu'une carte rivale fait un Transfert de voie, cette carte se Transfère dans la même voie et Pare(1)."
+        ]
+      },
+      "S2_086": {
+        "name": "Orochimaru",
+        "ability": "Réincarnation des Âmes",
+        "descriptions": [
+          "Au déploiement, Affaiblit(2) les deux alliés au Chakra le plus bas. Pour chaque retrait ainsi généré, Invoque Edotensei Hashirama et Tobirama depuis le deck, avec Accélération(3s).",
+          "Au déploiement, Affaiblit(2) les deux alliés au Chakra le plus bas. Pour chaque retrait ainsi généré, Invoque Edotensei Hashirama et Tobirama depuis le deck, avec Accélération(5s)."
+        ]
+      },
+      "S2_087": {
+        "name": "Hashirama Senju",
+        "ability": "Croissance Luxuriante de la Forêt ",
+        "descriptions": [
+          "Au déploiement, Immobilise(12s) toutes les cartes rivales.",
+          "Au déploiement, Immobilise(14s) toutes les cartes rivales."
+        ]
+      },
+      "S2_088": {
+        "name": "Tobirama Senju",
+        "ability": "Suiton : Raz de Marée",
+        "descriptions": [
+          "Au déploiement, Affaiblit(2) et Ralentit(4s) toutes les cartes rivales.",
+          "Au déploiement, Affaiblit(2) et Ralentit(8s) toutes les cartes rivales."
+        ]
+      },
+      "S2_089": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Souffle du Dragon de Feu",
+        "descriptions": [
+          "Au déploiement, Affaiblit(3) et Brûle(4) la carte rivale la plus proche.",
+          "Au déploiement, Affaiblit(3) et Brûle(5) la carte rivale la plus proche."
+        ]
+      },
+      "S2_090": {
+        "name": "Enma",
+        "ability": "Roi Singe",
+        "descriptions": [
+          "Chakra(+1) aux alliés lorsqu'ils Transfèrent.",
+          "Chakra(+2) aux alliés lorsqu'ils Transfèrent."
+        ]
+      },
+      "S2_091": {
+        "name": "Naruto Uzumaki",
+        "ability": "Volonté de Protection",
+        "descriptions": [
+          "La première fois que son Chakra descend en dessous de sa valeur initiale, gagne Chakra(+4) et Accélère(3s). Au retrait, augmente définitivement son Chakra initial de 2.",
+          "La première fois que son Chakra descend en dessous de sa valeur initiale, gagne Chakra(+5) et Accélère(3s). Au retrait, augmente définitivement son Chakra initial de 2."
+        ]
+      },
+      "S2_092": {
+        "name": "Sasuke Uchiha",
+        "ability": "Marque Maudite",
+        "descriptions": [
+          "Au déploiement, Chakra(+3). Après chaque confrontation, Chakra(+2).",
+          "Au déploiement, Chakra(+4). Après chaque confrontation, Chakra(+2)."
+        ]
+      },
+      "S2_093": {
+        "name": "Sakura Haruno",
+        "ability": "Inflexible",
+        "descriptions": [
+          "Parade permanente. À chaque Parade, Chakra(+1) et Transfert de voie.",
+          "Parade permanente. À chaque Parade, Chakra(+2) et Transfert de voie."
+        ]
+      },
+      "S2_094": {
+        "name": "Rock Lee",
+        "ability": "Cinquième Porte",
+        "descriptions": [
+          "Au déploiement, Concentration(5s). Si la Concentration réussit, gagne Chakra(+7) et active le reste de cette compétence. Saute sur la prochaine carte rivale qui s'approche. À chaque confrontation, Affaiblit(2) la carte rivale et s'Affaiblit(1) elle-même.",
+          "Au déploiement, Concentration(3s). Si la Concentration réussit, gagne Chakra(+7) et active le reste de cette compétence. Saute sur la prochaine carte rivale qui s'approche. À chaque confrontation, Affaiblit(2) la carte rivale et s'Affaiblit(1) elle-même."
+        ]
+      },
+      "S2_095": {
+        "name": "Neji Hyuga",
+        "ability": "64 Poings du Hakke",
+        "descriptions": [
+          "À chaque confrontation, Repousse(1) et Affaiblit(1). Lorsque cette carte provoque le retrait d'un rival, réduit définitivement le Chakra initial de ce dernier de 2.",
+          "À chaque confrontation, Repousse(1) et Affaiblit(2). Lorsque cette carte provoque le retrait d'un rival, réduit définitivement le Chakra initial de ce dernier de 2."
+        ]
+      },
+      "S2_096": {
+        "name": "Gaara",
+        "ability": "Déchaînement du Sable",
+        "descriptions": [
+          "Pare(1). Lorsqu'une carte rivale s'approche, Immobilise(8s) et gagne Chakra(+2). Si le rival est déjà Immobilisé, Affaiblit(3) et gagne Pare(1) à la place.",
+          "Pare(2). Chaque fois qu'une carte rivale s'approche, l'Immobilise(8s) et gagne Chakra(+2). Si le rival est déjà Immobilisé, l'Affaiblit(3) et gagne Parade(1) à la place."
+        ]
+      },
+      "S2_097": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Maître des Éléments",
+        "descriptions": [
+          "Au déploiement, Affaiblit(1) et Ralentit(8s) les cartes rivales de la voie. La première fois que le Chakra de cette carte augmente, Affaiblit(2) et Brûle(3) les cartes rivales de sa voie.",
+          "Au déploiement, Affaiblit(1) et Ralentit(12s) toutes les cartes rivales de la voie. La première fois que cette carte gagne du Chakra, Affaiblit(2) et Brûle(4) toutes les cartes rivales de la voie."
+        ]
+      },
+      "S2_098": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Emprisonnement des Morts  ",
+        "descriptions": [
+          "Au déploiement, Concentration(4s). Si la Concentration réussit, active le reste de cette compétence. Quand une carte rivale s'approche avec un Chakra égal ou supérieur, lui retire jusqu'à 12 Chakra et désactive sa compétence active. Si la cible se retire, Scelle(15s). Au retrait, se Scelle(15s) elle-même. Se retire immédiatement après avoir scellé 3 cartes.",
+          "Au déploiement, Concentration(4s). Si la Concentration réussit, active le reste de cette compétence. Quand une carte rivale s'approche avec un Chakra égal ou supérieur, lui retire jusqu'à 15 Chakra et désactive toute compétence active. Si la cible se retire, la Scelle(15s). Lors de son propre retrait, se Scelle(15s). Se retire instantanément après avoir scellé 3 cartes."
+        ]
+      },
+      "S2_099": {
+        "name": "Ichibi",
+        "ability": "Distorsion de l’Air ",
+        "descriptions": [
+          "Au déploiement, Affaiblit(2) tous les rivaux de la voie à Longue Distance. Toutes les 10 secondes, Concentration(2s). Si la Concentration réussit, Affaiblit(2) tous les rivaux de la voie à Longue Distance.",
+          "Au déploiement, Affaiblit(3) tous les rivaux de la voie à Longue Distance. Toutes les 10 secondes, Concentration(2s). Si la Concentration réussit, Affaiblit(3) tous les rivaux de la voie à Longue Distance."
+        ]
+      },
+      "S2_100": {
+        "name": "Kyubi",
+        "ability": "Destin Lié",
+        "descriptions": [
+          "Chakra(+7) au prochain allié déployé. Les cartes sont liées : lorsqu’une carte se retire, l’autre également.",
+          "Chakra(+8) au prochain allié déployé. Les cartes sont liées : lorsqu’une carte se retire, l’autre également."
+        ]
+      },
+      "S3_001": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rêve partagé",
+        "descriptions": [
+          "Chaque fois qu'une autre carte avec Rêve Partagé se retire, cette carte gagne Chakra(+1).",
+          "Chaque fois qu'une autre carte avec Rêve Partagé se retire, cette carte gagne Chakra(+2)."
+        ]
+      },
+      "S3_002": {
+        "name": "Sasuke Uchiha",
+        "ability": "Entraînement à la boule de feu",
+        "descriptions": [
+          "Accélère(1s). Au déploiement, Chakra(+1) pour chaque carte rivale affectée par Brûlure.",
+          "Accélère(2s). Au déploiement, Chakra(+1) pour chaque carte rivale affectée par Brûlure."
+        ]
+      },
+      "S3_003": {
+        "name": "Choji Akimichi",
+        "ability": "Expansion partielle",
+        "descriptions": [
+          "Quand une carte rivale s'approche, Affaiblit(1) et Repousse(2).",
+          "Quand une carte rivale s'approche, Affaiblit(1) et Repousse(4)."
+        ]
+      },
+      "S3_004": {
+        "name": "Kankuro",
+        "ability": "Transfert de marionnette",
+        "descriptions": [
+          "À la confrontation, Téléporte derrière la carte rivale, l'Affaiblit(2) et l'Immobilise(5s).",
+          "À la confrontation, Téléporte derrière la carte rivale, l'Affaiblit(2) et l'Immobilise(8s)."
+        ]
+      },
+      "S3_005": {
+        "name": "Kankuro",
+        "ability": "Vierge de fer",
+        "descriptions": [
+          "Quand une carte rivale s'approche, l'attire vers cette carte et désactive sa compétence, puis l'Affaiblit(2).",
+          "Quand une carte rivale s'approche, l'attire vers cette carte et désactive sa compétence, puis l'Affaiblit(3)."
+        ]
+      },
+      "S3_006": {
+        "name": "Neji Hyuga",
+        "ability": "Défense ciblée",
+        "descriptions": [
+          "Parade(2). Quand Parade s'active, 50 % de chances de s'Immobiliser(6s).",
+          "Parade(3). Quand Parade s'active, 50 % de chances de s'Immobiliser(6s)."
+        ]
+      },
+      "S3_007": {
+        "name": "Shikamaru Nara",
+        "ability": "Flemmard",
+        "descriptions": [
+          "Accélère(2s)",
+          "Accélère(3s)"
+        ]
+      },
+      "S3_008": {
+        "name": "Jiraiya",
+        "ability": "Accélération",
+        "descriptions": [
+          "Accélère(4s)",
+          "Accélère(5s)"
+        ]
+      },
+      "S3_009": {
+        "name": "Jiraiya",
+        "ability": "Piège de la bouche du crapaud",
+        "descriptions": [
+          "Au déploiement, Immobilise(6s) toutes les cartes de la voie.",
+          "Au déploiement, Immobilise(10s) toutes les cartes de la voie."
+        ]
+      },
+      "S3_010": {
+        "name": "Jiraiya",
+        "ability": "Entraînement avancé",
+        "descriptions": [
+          "Chaque fois que tu déploies un allié de voie avec 3 Chakra ou moins, lui accorde Concentration(8s). Si cette Concentration réussit, la carte alliée gagne Chakra(+3).",
+          "Chaque fois que tu déploies un allié de voie avec 3 Chakra ou moins, lui accorde Concentration(8s). Si cette Concentration réussit, la carte alliée gagne Chakra(+4)."
+        ]
+      },
+      "S3_011": {
+        "name": "Orochimaru",
+        "ability": "Sur ses gardes",
+        "descriptions": [
+          "Parade(1)",
+          "Parade(2)"
+        ]
+      },
+      "S3_012": {
+        "name": "Orochimaru",
+        "ability": "Insaisissable",
+        "descriptions": [
+          "Accélère(3s). Quand une carte rivale s'approche, l'Affaiblit(1) et Change de voie.",
+          "Accélère(5s). Quand une carte rivale s'approche, l'Affaiblit(1) et Change de voie."
+        ]
+      },
+      "S3_013": {
+        "name": "Tsunade",
+        "ability": "Accélération",
+        "descriptions": [
+          "Accélère(3s)",
+          "Accélère(4s)"
+        ]
+      },
+      "S3_014": {
+        "name": "Tsunade",
+        "ability": "Pichenette puissante",
+        "descriptions": [
+          "Parade(1). Quand une carte rivale s'approche, bondit dessus et la Repousse(2).",
+          "Parade(1). Quand une carte rivale s'approche, bondit dessus et la Repousse(4)."
+        ]
+      },
+      "S3_015": {
+        "name": "Tsunade",
+        "ability": "Aguerri",
+        "descriptions": [
+          "Accélère(3s). À la confrontation, Repousse(1).",
+          "Accélère(4s). À la confrontation, Repousse(1)."
+        ]
+      },
+      "S3_016": {
+        "name": "Manda",
+        "ability": "Serpent colossal",
+        "descriptions": [
+          "Accélère(4s) et Parade(1). Quand Parade s'active, Change de voie.",
+          "Accélère(4s) et Parade(2). Quand Parade s'active, Change de voie."
+        ]
+      },
+      "S3_017": {
+        "name": "Katsuyu",
+        "ability": "Jet d'acide",
+        "descriptions": [
+          "Au déploiement, Affaiblit(2) et Ralentit(6s) tous les rivaux à Mi-distance.",
+          "Au déploiement, Affaiblit(3) et Ralentit(6s) tous les rivaux à Mi-distance."
+        ]
+      },
+      "S3_018": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Épreuve des clochettes",
+        "descriptions": [
+          "Ralentit(6s) les trois prochains alliés déployés, leur accordant Chakra(+1) toutes les 3 secondes tant qu'ils subissent ce Ralentissement.",
+          "Ralentit(9s) les trois prochains alliés déployés, leur accordant Chakra(+1) toutes les 3 secondes tant qu'ils subissent ce Ralentissement."
+        ]
+      },
+      "S3_019": {
+        "name": "Itachi Uchiha",
+        "ability": "Grand frère",
+        "descriptions": [
+          "Le prochain Sasuke déployé gagne Chakra(+2) et Accélère(4s) s'il est déployé sur la même voie, ou Parade(2) et Ralentit(10s) s'il est déployé sur une autre voie.",
+          "Le prochain Sasuke déployé gagne Chakra(+2) et Accélère(5s) s'il est déployé sur la même voie, ou Parade(2) et Ralentit(12s) s'il est déployé sur une autre voie."
+        ]
+      },
+      "S3_020": {
+        "name": "Jirobo",
+        "ability": "Libération du sceau maudit",
+        "descriptions": [
+          "Parade(1). À la confrontation, Repousse(1).",
+          "Parade(2). À la confrontation, Repousse(1)."
+        ]
+      },
+      "S3_021": {
+        "name": "Kidomaru",
+        "ability": "Libération du sceau maudit",
+        "descriptions": [
+          "Parade(1) et Accélère(2s).",
+          "Parade(1) et Accélère(4s)."
+        ]
+      },
+      "S3_022": {
+        "name": "Kidomaru",
+        "ability": "Pluie d'araignées",
+        "descriptions": [
+          "Au déploiement, Immobilise(4s) ou Ralentit(6s) aléatoirement toutes les cartes rivales.",
+          "Au déploiement, Immobilise(6s) ou Ralentit(8s) aléatoirement toutes les cartes rivales."
+        ]
+      },
+      "S3_023": {
+        "name": "Kimimaro",
+        "ability": "Contrôle des os",
+        "descriptions": [
+          "Accélère(2s). À la confrontation, Affaiblit(3).",
+          "Accélère(4s). À la confrontation, Affaiblit(3)."
+        ]
+      },
+      "S3_024": {
+        "name": "Sakon & Ukon",
+        "ability": "Libération du sceau maudit",
+        "descriptions": [
+          "Parade(1). À la confrontation, Affaiblit(1).",
+          "Parade(1). À la confrontation, Affaiblit(2)."
+        ]
+      },
+      "S3_025": {
+        "name": "Tayuya",
+        "ability": "Libération du sceau maudit",
+        "descriptions": [
+          "Parade(1) et Accélère(2s).",
+          "Parade(1) et Accélère(4s)."
+        ]
+      },
+      "S3_026": {
+        "name": "Kimimaro",
+        "ability": "Libération du sceau maudit",
+        "descriptions": [
+          "Parade(1). Quand une carte rivale s'approche, s'Immobilise(2s) et Chakra(+1). À la confrontation, Affaiblit(1).",
+          "Parade(2). Quand une carte rivale s'approche, s'Immobilise(2s) et Chakra(+1). À la confrontation, Affaiblit(1)."
+        ]
+      },
+      "S3_027": {
+        "name": "Shizune",
+        "ability": "Cochon dévoué",
+        "descriptions": [
+          "Au déploiement, Invoque Tonton avec Chakra(1) et Accélère(5s) sur la même voie que la Tsunade alliée. En atteignant une carte Tsunade alliée, lui accorde Chakra(+3) puis se retire.",
+          "Au déploiement, Invoque Tonton avec Chakra(1) et Accélère(5s) sur la même voie que la Tsunade alliée. En atteignant une carte Tsunade alliée, lui accorde Chakra(+4) puis se retire."
+        ]
+      },
+      "S3_028": {
+        "name": "Tsume Inuzuka",
+        "ability": "Maîtresse des chiens",
+        "descriptions": [
+          "Au déploiement, Invoque Kuromaru avec Chakra(3) sur une autre voie. Le prochain Chien Ninja déployé gagne Chakra(+2).",
+          "Au déploiement, Invoque Kuromaru avec Chakra(3) sur une autre voie. Le prochain Chien Ninja déployé gagne Chakra(+3)."
+        ]
+      },
+      "S3_029": {
+        "name": "Akahoshi",
+        "ability": "Entraînement trompeur",
+        "descriptions": [
+          "Chaque fois que des cartes alliées se concentrent, leur accorde Concentration(+4s). Affaiblit(1) les cartes alliées toutes les 4 secondes pendant la Concentration.",
+          "Chaque fois que des cartes alliées se concentrent, leur accorde Concentration(+6s). Affaiblit(1) les cartes alliées toutes les 4 secondes pendant la Concentration."
+        ]
+      },
+      "S3_030": {
+        "name": "Amachi",
+        "ability": "Boulet d'eau",
+        "descriptions": [
+          "Accélère(2s). Au déploiement, Affaiblit(1) la carte rivale la plus proche à Mi-distance.",
+          "Accélère(3s). Au déploiement, Affaiblit(2) la carte rivale la plus proche à Mi-distance."
+        ]
+      },
+      "S3_031": {
+        "name": "Aoi Rokusho",
+        "ability": "Pluie d'aiguilles",
+        "descriptions": [
+          "À la confrontation, Affaiblit(1) et Ralentit(3s) tous les rivaux de voie à proximité.",
+          "À la confrontation, Affaiblit(1) et Ralentit(5s) tous les rivaux de voie à proximité."
+        ]
+      },
+      "S3_032": {
+        "name": "Dan Kato",
+        "ability": "Rêve partagé",
+        "descriptions": [
+          "Chaque fois qu'une autre carte avec Rêve Partagé se retire, cette carte gagne Chakra(+1).",
+          "Chaque fois qu'une autre carte avec Rêve Partagé se retire, cette carte gagne Chakra(+2)."
+        ]
+      },
+      "S3_033": {
+        "name": "Fugaku Uchiha",
+        "ability": "Chef des Uchiha",
+        "descriptions": [
+          "Au déploiement de cartes Uchiwa alliées, elles gagnent Parade(+1) et Ralentit(6s) si elles ont 3 Chakra ou moins, sinon elles gagnent Chakra(+2) et Immobilisation(4s).",
+          "Au déploiement de cartes Uchiwa alliées, elles gagnent Parade(+2) et Ralentit(6s) si elles ont 3 Chakra ou moins, sinon elles gagnent Chakra(+3) et Immobilisation(4s)."
+        ]
+      },
+      "S3_034": {
+        "name": "Fūjin",
+        "ability": "Force légendaire",
+        "descriptions": [
+          "Parade(1). À la confrontation, Affaiblit(1) et Repousse(3).",
+          "Parade(2). À la confrontation, Affaiblit(1) et Repousse(3)."
+        ]
+      },
+      "S3_035": {
+        "name": "Gamatatsu",
+        "ability": "Motivé par la nourriture",
+        "descriptions": [
+          "Au déploiement, Se concentre(12s). Toutes les 4 secondes pendant la Concentration, dépense 1 énergie si disponible pour accorder Chakra(+2) aux autres Crapauds alliés.",
+          "Au déploiement, Se concentre(16s). Toutes les 4 secondes pendant la Concentration, dépense 1 énergie si disponible pour accorder Chakra(+2) aux autres Crapauds alliés."
+        ]
+      },
+      "S3_036": {
+        "name": "Hanzaki",
+        "ability": "Plan de vol",
+        "descriptions": [
+          "Accélère(2s). Au déploiement, Affaiblit(1) tous les alliés de voie, gagnant Chakra(+2) pour chaque allié affecté.",
+          "Accélère(3s). Au déploiement, Affaiblit(1) tous les alliés de voie, gagnant Chakra(+2) pour chaque allié affecté."
+        ]
+      },
+      "S3_037": {
+        "name": "Hanzaki",
+        "ability": "Estocade au Zanbato",
+        "descriptions": [
+          "Parade(1). Quand une carte rivale s'approche, bondit dessus puis l'Affaiblit(1) ou la Repousse(1).",
+          "Parade(2). Quand une carte rivale s'approche, bondit dessus puis l'Affaiblit(1) ou la Repousse(1)."
+        ]
+      },
+      "S3_038": {
+        "name": "Idate Morino",
+        "ability": "Coureur",
+        "descriptions": [
+          "Accélère(4s). À la confrontation, Change de voie.",
+          "Accélère(5s). À la confrontation, Change de voie."
+        ]
+      },
+      "S3_039": {
+        "name": "Jirocho Wasabi",
+        "ability": "Foi sincère",
+        "descriptions": [
+          "Le prochain allié déployé sur une autre voie gagne Accélère(2s) et Parade(1). Quand il atteint la Mi-distance, convertit l'Accélération restante en Chakra, jusqu'à 3.",
+          "Le prochain allié déployé sur une autre voie gagne Accélère(3s) et Parade(1). Quand il atteint la Mi-distance, convertit l'Accélération restante en Chakra, jusqu'à 3."
+        ]
+      },
+      "S3_040": {
+        "name": "Arashi",
+        "ability": "Mandala d'entrave",
+        "descriptions": [
+          "Au déploiement, Repousse(2) et Immobilise(8s) le rival de voie avec le plus de Chakra. Tant qu'il subit cette Immobilisation, Affaiblit(1) la carte rivale toutes les 4 s.",
+          "Au déploiement, Repousse(4) et Immobilise(8s) le rival de voie avec le plus de Chakra. Tant qu'il subit cette Immobilisation, Affaiblit(1) la carte rivale toutes les 4 s."
+        ]
+      },
+      "S3_041": {
+        "name": "Kagerō",
+        "ability": "Art ninja Kagero",
+        "descriptions": [
+          "Au déploiement, Affaiblit(3) deux rivaux de voie à Mi-distance, puis Change de voie avec deux alliés de voie à Courte Distance.",
+          "Au déploiement, Affaiblit(4) deux rivaux de voie à Mi-distance, puis Change de voie avec deux alliés de voie à Courte Distance."
+        ]
+      },
+      "S3_042": {
+        "name": "Kyuroku Wagarashi",
+        "ability": "Déshonneur",
+        "descriptions": [
+          "Le prochain allié de voie déployé gagne Accélère(4s). Au retrait, Change de voie et Ralentit(3s) tous les alliés de voie.",
+          "Le prochain allié de voie déployé gagne Accélère(5s). Au retrait, Change de voie et Ralentit(3s) tous les alliés de voie."
+        ]
+      },
+      "S3_043": {
+        "name": "Mikoto Uchiha",
+        "ability": "Apaisement",
+        "descriptions": [
+          "Le prochain Sasuke déployé gagne Chakra(+1). La première fois qu'une carte Sasuke alliée passe sous son Chakra de base, la Soigne(1).",
+          "Le prochain Sasuke déployé gagne Chakra(+1). La première fois qu'une carte Sasuke alliée passe sous son Chakra de base, la Soigne(2)."
+        ]
+      },
+      "S3_044": {
+        "name": "Mizuki",
+        "ability": "Sceau maudit animal",
+        "descriptions": [
+          "À la confrontation, Affaiblit(4). Après 20 secondes, réduit son Chakra à Chakra(1) et désactive cette compétence.",
+          "À la confrontation, Affaiblit(5). Après 20 secondes, réduit son Chakra à Chakra(1) et désactive cette compétence."
+        ]
+      },
+      "S3_045": {
+        "name": "Nawaki",
+        "ability": "Rêve partagé",
+        "descriptions": [
+          "Chaque fois qu'une autre carte avec Rêve Partagé se retire, cette carte gagne Chakra(+1).",
+          "Chaque fois qu'une autre carte avec Rêve Partagé se retire, cette carte gagne Chakra(+2)."
+        ]
+      },
+      "S3_046": {
+        "name": "Raiga Kurosuki",
+        "ability": "Épées de foudre",
+        "descriptions": [
+          "Quand une carte rivale s'approche, l'Affaiblit(1) et Change sa voie.",
+          "Quand une carte rivale s'approche, l'Affaiblit(2) et Change sa voie."
+        ]
+      },
+      "S3_047": {
+        "name": "Raijin",
+        "ability": "Force légendaire",
+        "descriptions": [
+          "Parade(1). À la confrontation, Affaiblit(1) et Repousse(3).",
+          "Parade(2). À la confrontation, Affaiblit(1) et Repousse(3)."
+        ]
+      },
+      "S3_048": {
+        "name": "Sumaru",
+        "ability": "Guide local",
+        "descriptions": [
+          "Au déploiement, deux alliés à Courte Distance gagnent Accélère(3s).",
+          "Au déploiement, trois alliés à Courte Distance gagnent Accélère(3s)."
+        ]
+      },
+      "S3_049": {
+        "name": "Yoshino Nara",
+        "ability": "Sévérité",
+        "descriptions": [
+          "Le prochain Shikamaru déployé gagne Chakra(+1) et Ralentit(8s).",
+          "Le prochain Shikamaru déployé gagne Chakra(+1) et Ralentit(12s)."
+        ]
+      },
+      "S3_050": {
+        "name": "Uchiha Trio",
+        "ability": "Soupçon",
+        "descriptions": [
+          "Accélère(4s). Lorsqu'elle est à Mi-distance, Chakra(+2).",
+          "Accélère(6s). Lorsqu'elle est à Mi-distance, Chakra(+2)."
+        ]
+      },
+      "S3_051": {
+        "name": "Naruto Uzumaki",
+        "ability": "Manteau du renard démoniaque",
+        "descriptions": [
+          "Accélère(3s). Au déploiement, Chakra(+2). La première fois que cette carte passe sous son Chakra de base, Soigne(2).",
+          "Accélère(5s). Au déploiement, Chakra(+2). La première fois que cette carte passe sous son Chakra de base, Soigne(2)."
+        ]
+      },
+      "S3_052": {
+        "name": "Sasuke Uchiha",
+        "ability": "Libération du sceau maudit",
+        "descriptions": [
+          "La première fois que cette carte gagne du Chakra, gagne Chakra(+2) supplémentaire.",
+          "La première fois que cette carte gagne du Chakra, gagne Chakra(+4) supplémentaire."
+        ]
+      },
+      "S3_053": {
+        "name": "Kankuro",
+        "ability": "Supériorité tactique",
+        "descriptions": [
+          "Chaque fois que des alliés se téléportent derrière des rivaux, gagne Chakra(+2).",
+          "Chaque fois que des alliés se téléportent derrière des rivaux, gagne Chakra(+3)."
+        ]
+      },
+      "S3_054": {
+        "name": "Shikamaru Nara",
+        "ability": "Étranglement de l'ombre",
+        "descriptions": [
+          "Quand un adversaire s'approche, l'Immobilise(6s) ainsi que cette carte. L'adversaire perd 1 Chakra toutes les 2 secondes tant qu'il subit cette Immobilisation.",
+          "Quand un adversaire s'approche, l'Immobilise(8s) ainsi que cette carte. L'adversaire perd 1 Chakra toutes les 2 secondes tant qu'il subit cette Immobilisation."
+        ]
+      },
+      "S3_055": {
+        "name": "Akamaru",
+        "ability": "Marquage",
+        "descriptions": [
+          "Au déploiement, Ralentit(8s) tous les rivaux de voie. Tant que ce Ralentissement est actif, Affaiblissement(+1) aux compétences Affaiblir alliées appliquées aux rivaux affectés.",
+          "Au déploiement, Ralentit(12s) tous les rivaux de voie. Tant que ce Ralentissement est actif, Affaiblissement(+1) aux compétences Affaiblir alliées appliquées aux rivaux affectés."
+        ]
+      },
+      "S3_056": {
+        "name": "Itachi Uchiha",
+        "ability": "Sang-froid",
+        "descriptions": [
+          "Gagne Chakra(+1) et s'Immobilise(2s) chaque fois qu'une carte gagne la Concentration.",
+          "Gagne Chakra(+2) et s'Immobilise(4s) chaque fois qu'une carte gagne la Concentration."
+        ]
+      },
+      "S3_057": {
+        "name": "Jiraiya",
+        "ability": "Aguerri",
+        "descriptions": [
+          "Accélère(3s). À la confrontation, Change de voie.",
+          "Accélère(4s). À la confrontation, Change de voie."
+        ]
+      },
+      "S3_058": {
+        "name": "Jiraiya",
+        "ability": "Jizo d'aiguilles",
+        "descriptions": [
+          "Parade(2). Quand Parade s'active, Affaiblit(2) le rival qui l'a déclenchée. Ignore Parade.",
+          "Parade(3). Quand Parade s'active, Affaiblit(2) le rival qui l'a déclenchée. Ignore Parade."
+        ]
+      },
+      "S3_059": {
+        "name": "Orochimaru",
+        "ability": "Aguerri",
+        "descriptions": [
+          "Accélère(3s). À la confrontation, Affaiblit(1).",
+          "Accélère(4s). À la confrontation, Affaiblit(1)."
+        ]
+      },
+      "S3_060": {
+        "name": "Tsunade",
+        "ability": "La Cinquième",
+        "descriptions": [
+          "Au déploiement, donne Chakra(+1) à tous les alliés des autres voies. Tant que cette carte est active, Soigne(2) chaque allié la première fois qu'il est Affaibli.",
+          "Au déploiement, donne Chakra(+2) à tous les alliés des autres voies. Tant que cette carte est active, Soigne(2) chaque allié la première fois qu'il est Affaibli."
+        ]
+      },
+      "S3_061": {
+        "name": "Tsunade",
+        "ability": "Cible facile légendaire",
+        "descriptions": [
+          "Au déploiement, 10 % de chances de gagner Chakra(+6). Sinon, gagne Accélère(3s).",
+          "Au déploiement, 10 % de chances de gagner Chakra(+7). Sinon, gagne Accélère(4s)."
+        ]
+      },
+      "S3_062": {
+        "name": "Tsunade",
+        "ability": "Soin désespéré",
+        "descriptions": [
+          "Au déploiement, Soigne(2) l'allié de voie le plus proche. La première fois qu'un allié de voie perd du Chakra, quelle qu'en soit la source, le Soigne(2).",
+          "Au déploiement, Soigne(3) l'allié de voie le plus proche. La première fois qu'un allié de voie perd du Chakra, quelle qu'en soit la source, le Soigne(3)."
+        ]
+      },
+      "S3_063": {
+        "name": "Gamabunta",
+        "ability": "Kenjutsu du crapaud",
+        "descriptions": [
+          "Quand une carte rivale s'approche, bondit dessus et l'Affaiblit(2). Gagne Accélère(+3s) la première fois qu'elle gagne du Chakra.",
+          "Quand une carte rivale s'approche, bondit dessus et l'Affaiblit(3). Gagne Accélère(+4s) la première fois qu'elle gagne du Chakra."
+        ]
+      },
+      "S3_064": {
+        "name": "Kabuto Yakuchi",
+        "ability": "Scalpel de Chakra",
+        "descriptions": [
+          "Accélère(2s). À la confrontation, Téléporte derrière la carte rivale et l'Immobilise définitivement.",
+          "Accélère(3s). À la confrontation, Téléporte derrière la carte rivale et l'Immobilise définitivement."
+        ]
+      },
+      "S3_065": {
+        "name": "Kisame Hoshigaki",
+        "ability": "Parade de Samehada",
+        "descriptions": [
+          "Parade(3). Quand Parade s'active, Affaiblit(1) le rival qui l'a déclenchée et gagne Chakra(+1).",
+          "Parade(4). Quand Parade s'active, Affaiblit(1) le rival qui l'a déclenchée et gagne Chakra(+1)."
+        ]
+      },
+      "S3_066": {
+        "name": "Jirobo",
+        "ability": "Drain de Chakra",
+        "descriptions": [
+          "À chaque confrontation, Chakra(+1) pour cette carte et Affaiblit(1) la carte rivale.",
+          "À chaque confrontation, Chakra(+1) pour cette carte et Affaiblit(2) la carte rivale."
+        ]
+      },
+      "S3_067": {
+        "name": "Sakon & Ukon",
+        "ability": "Fusion maudite",
+        "descriptions": [
+          "À la confrontation, Téléporte derrière la carte rivale puis l'Immobilise(6s) ainsi que cette carte. Le rival perd 1 Chakra toutes les 2 secondes tant qu'il subit cette Immobilisation.",
+          "À la confrontation, Téléporte derrière la carte rivale puis l'Immobilise(8s) ainsi que cette carte. Le rival perd 1 Chakra toutes les 2 secondes tant qu'il subit cette Immobilisation."
+        ]
+      },
+      "S3_068": {
+        "name": "Kurenai Yuhi",
+        "ability": "Feinte de genjutsu",
+        "descriptions": [
+          "À la confrontation, Téléporte derrière la carte rivale, l'Affaiblit(2) et la Ralentit(4s).",
+          "À la confrontation, Téléporte derrière la carte rivale, l'Affaiblit(2) et la Ralentit(8s)."
+        ]
+      },
+      "S3_069": {
+        "name": "Shizune",
+        "ability": "Brume empoisonnée",
+        "descriptions": [
+          "Au déploiement, Ralentit(8s) toutes les cartes à Mi-distance et désactive leurs compétences. Elles perdent 2 Chakra toutes les 4 secondes tant qu'elles subissent ce Ralentissement.",
+          "Au déploiement, Ralentit(12s) toutes les cartes à Mi-distance et désactive leurs compétences. Elles perdent 2 Chakra toutes les 4 secondes tant qu'elles subissent ce Ralentissement."
+        ]
+      },
+      "S3_070": {
+        "name": "Akahoshi",
+        "ability": "Sans scrupules",
+        "descriptions": [
+          "Parade(1). Quand Parade s'active, Affaiblit(2) le rival qui l'a activée. La première fois que cette carte perd du Chakra, Affaiblit(2) un allié aléatoire et gagne Chakra(+2) et Parade(+1).",
+          "Parade(1). Quand Parade s'active, Affaiblit(2) le rival qui l'a activée. La première fois que cette carte perd du Chakra, Affaiblit(2) un allié aléatoire et gagne Chakra(+3) et Parade(+1)."
+        ]
+      },
+      "S3_071": {
+        "name": "Amachi",
+        "ability": "Monstre marin",
+        "descriptions": [
+          "Au déploiement, s'Immobilise(6s). Tant qu'elle subit l'Immobilisation, toutes les 3 secondes Immobilise(3s) ou Ralentit(6s) tous les rivaux de voie.",
+          "Au déploiement, s'Immobilise(9s). Tant qu'elle subit l'Immobilisation, toutes les 3 secondes Immobilise(3s) ou Ralentit(6s) tous les rivaux de voie."
+        ]
+      },
+      "S3_072": {
+        "name": "Aoi Rokusho",
+        "ability": "Épée de Raijin",
+        "descriptions": [
+          "Parade(2). À la confrontation, Affaiblit(1) et Immobilise(2s) la carte rivale. Ignore Parade.",
+          "Parade(2). À la confrontation, Affaiblit(2) et Immobilise(4s) la carte rivale. Ignore Parade."
+        ]
+      },
+      "S3_073": {
+        "name": "Sumaru",
+        "ability": "Chakra de l'étoile",
+        "descriptions": [
+          "Au déploiement, Chakra(+1) et Change de voie s'il y a des alliés de voie. À la confrontation, Affaiblit(2) la carte rivale.",
+          "Au déploiement, Chakra(+1) et Change de voie s'il y a des alliés de voie. À la confrontation, Affaiblit(3) la carte rivale."
+        ]
+      },
+      "S3_074": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rasengan",
+        "descriptions": [
+          "À la confrontation, Affaiblit(2) et Repousse(4). Retire toute Parade de la carte rivale.",
+          "À la confrontation, Affaiblit(3) et Repousse(5). Retire toute Parade de la carte rivale."
+        ]
+      },
+      "S3_075": {
+        "name": "Naruto Uzumaki",
+        "ability": "Forme à une queue",
+        "descriptions": [
+          "À chaque confrontation, Affaiblit(1). La première fois que cette carte passe sous son Chakra de base, se Soigne(3).",
+          "À chaque confrontation, Affaiblit(1). La première fois que cette carte passe sous son Chakra de base, se Soigne(4)."
+        ]
+      },
+      "S3_076": {
+        "name": "Sasuke Uchiha",
+        "ability": "Prédiction évoluée",
+        "descriptions": [
+          "Parade(3). Quand Parade s'active, Chakra(+1). Ne peut pas être Affaibli lors des confrontations avec des cartes rivales de 3 Chakra ou moins.",
+          "Parade(3). Quand Parade s'active, Chakra(+2). Ne peut pas être Affaibli lors des confrontations avec des cartes rivales de 3 Chakra ou moins."
+        ]
+      },
+      "S3_077": {
+        "name": "Sasuke Uchiha",
+        "ability": "Défense ailée",
+        "descriptions": [
+          "Parade(2). À la confrontation, Affaiblit(2). Quand Parade s'active, gagne Accélère(2s) et réactive cette compétence.",
+          "Parade(2). À la confrontation, Affaiblit(2). Quand Parade s'active, gagne Accélère(4s) et réactive cette compétence."
+        ]
+      },
+      "S3_078": {
+        "name": "Gaara",
+        "ability": "Bouclier de Shukaku",
+        "descriptions": [
+          "Parade(3). Tant que cette carte est active, les alliés de voie derrière elle ignorent les effets de compétence rivaux mais consomment la Parade de cette carte.",
+          "Parade(4). Tant que cette carte est active, les alliés de voie derrière elle ignorent les effets de compétence rivaux mais consomment la Parade de cette carte."
+        ]
+      },
+      "S3_079": {
+        "name": "Kiba Inuzuka",
+        "ability": "Combo de transformation",
+        "descriptions": [
+          "Au déploiement, retire Akamaru et Kiba alliés et transfère leur Chakra à cette carte, gagnant Chakra(+1) supplémentaire par retrait. À chaque confrontation, Affaiblit(1).",
+          "Au déploiement, retire Akamaru et Kiba alliés et transfère leur Chakra à cette carte, gagnant Chakra(+2) supplémentaire par retrait. À chaque confrontation, Affaiblit(1)."
+        ]
+      },
+      "S3_080": {
+        "name": "Rock Lee",
+        "ability": "Poing de l'homme ivre",
+        "descriptions": [
+          "Toutes les 10s, se Concentre(3s). Si la Concentration réussit, gagne aléatoirement Accélère(2s), Parade(1) ou Chakra(+1). À chaque confrontation, Affaiblit(1).",
+          "Toutes les 8s, se Concentre(3s). Si la Concentration réussit, gagne aléatoirement Accélère(2s), Parade(1) ou Chakra(+1). À chaque confrontation, Affaiblit(1)."
+        ]
+      },
+      "S3_081": {
+        "name": "Temari",
+        "ability": "Danse de décapitation rapide",
+        "descriptions": [
+          "Au déploiement, Se concentre(9s). Toutes les 3 secondes pendant la Concentration, Affaiblit(1) et Repousse(2) tous les rivaux à Mi- et Longue distance.",
+          "Au déploiement, Se concentre(9s). Toutes les 3 secondes pendant la Concentration, Affaiblit(1) et Repousse(4) tous les rivaux à Mi- et Longue distance."
+        ]
+      },
+      "S3_082": {
+        "name": "Itachi Uchiha",
+        "ability": "Armée de Tsukuyomi",
+        "descriptions": [
+          "Tant que cette carte est active, chaque fois que tu Immobilises des cartes rivales, Invoque un clone de cette carte sur cette même voie avec Accélère(4s) et perd 1 Chakra. Les clones ne peuvent pas marquer de points ni gagner de Chakra.",
+          "Tant que cette carte est active, chaque fois que tu Immobilises des cartes rivales, Invoque un clone de cette carte sur cette même voie avec Accélère(6s) et perd 1 Chakra. Les clones ne peuvent pas marquer de points ni gagner de Chakra."
+        ]
+      },
+      "S3_083": {
+        "name": "Itachi Uchiha",
+        "ability": "Fuite d'Amaterasu",
+        "descriptions": [
+          "Chaque fois qu'une carte rivale s'approche, la Brûle(10), puis Change de voie et perd 1 Chakra. Cet effet de Brûlure peut se propager aux autres cartes à leur contact et ignore Parade.",
+          "Chaque fois qu'une carte rivale s'approche, la Brûle(15), puis Change de voie et perd 1 Chakra. Cet effet de Brûlure peut se propager aux autres cartes à leur contact et ignore Parade."
+        ]
+      },
+      "S3_084": {
+        "name": "Jiraiya",
+        "ability": "Lance-flammes à l'huile de crapaud",
+        "descriptions": [
+          "Au déploiement, Brûle(3) toutes les cartes rivales puis Se concentre(8s). Pendant la Concentration, gagne Chakra(+1) chaque fois que des alliés appliquent Brûlure. Si la Concentration réussit, Brûle(4) toutes les cartes rivales.",
+          "Au déploiement, Brûle(3) toutes les cartes rivales puis Se concentre(8s). Pendant la Concentration, gagne Chakra(+1) chaque fois que des alliés appliquent Brûlure. Si la Concentration réussit, Brûle(5) toutes les cartes rivales."
+        ]
+      },
+      "S3_085": {
+        "name": "Gamabunta",
+        "ability": "Combo à l'huile de crapaud",
+        "descriptions": [
+          "Au déploiement, Brûle(3) tous les rivaux de voie. Si des rivaux subissent déjà Brûlure, déclenche instantanément le montant de Brûlure restant.",
+          "Au déploiement, Brûle(4) tous les rivaux de voie. Si des rivaux subissent déjà Brûlure, déclenche instantanément le montant de Brûlure restant."
+        ]
+      },
+      "S3_086": {
+        "name": "Kidomaru",
+        "ability": "Arc d'araignée",
+        "descriptions": [
+          "Au déploiement, Se concentre(12s). Toutes les 4 secondes pendant la Concentration, Affaiblit(2) et Immobilise(6s) le rival avec le plus de Chakra à Longue Distance.",
+          "Au déploiement, Se concentre(16s). Toutes les 4 secondes pendant la Concentration, Affaiblit(2) et Immobilise(6s) le rival avec le plus de Chakra à Longue Distance."
+        ]
+      },
+      "S3_087": {
+        "name": "Tayuya",
+        "ability": "Flûte démoniaque",
+        "descriptions": [
+          "Au déploiement, Chakra(+1). Tant que cette carte est active, les Ralentissements appliqués par des alliés n'expirent pas.",
+          "Au déploiement, Chakra(+2). Tant que cette carte est active, les Ralentissements appliqués par des alliés n'expirent pas."
+        ]
+      },
+      "S3_088": {
+        "name": "Kimimaro",
+        "ability": "Arme vivante",
+        "descriptions": [
+          "Parade(3). À chaque confrontation, Affaiblit(2). Change de voie lorsqu'elle fait se retirer un rival.",
+          "Parade(5). À chaque confrontation, Affaiblit(2). Change de voie lorsqu'elle fait se retirer un rival."
+        ]
+      },
+      "S3_089": {
+        "name": "Akahoshi",
+        "ability": "Dragon de l'étoile",
+        "descriptions": [
+          "Au déploiement, Repousse(2), Affaiblit(1) et Immobilise(4s) tous les rivaux de voie.",
+          "Au déploiement, Repousse(2), Affaiblit(1) et Immobilise(8s) tous les rivaux de voie."
+        ]
+      },
+      "S3_090": {
+        "name": "Raiga Kurosuki",
+        "ability": "Tornade du dragon de foudre",
+        "descriptions": [
+          "Au déploiement, Se concentre(8s). Si la Concentration réussit, Affaiblit(3) et Repousse(2) tous les rivaux de voie à Courte et Mi-distance.",
+          "Au déploiement, Se concentre(6s). Si la Concentration réussit, Affaiblit(3) et Repousse(2) tous les rivaux de voie à Courte et Mi-distance."
+        ]
+      },
+      "S3_091": {
+        "name": "Sasuke Uchiha",
+        "ability": "Chidori noir",
+        "descriptions": [
+          "Accélère(4s). Saute sur la première carte rivale qui s'approche, gagne Chakra(+2) et l'Affaiblit(3). Affaiblit(2) toutes les autres cartes à proximité. Ignore Parade.",
+          "Accélère(5s). Saute sur la première carte rivale qui s'approche, gagne Chakra(+2) et l'Affaiblit(4). Affaiblit(2) toutes les autres cartes à proximité. Ignore Parade."
+        ]
+      },
+      "S3_092": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rasengan du renard démoniaque",
+        "descriptions": [
+          "Accélère(4s). Saute sur la première carte rivale qui s'approche, l'Affaiblit(3) et la Repousse(2). Affaiblit(2) toutes les autres cartes à proximité. Retire toute la Parade de la carte adverse.",
+          "Accélère(5s). Saute sur la première carte rivale qui s'approche, l'Affaiblit(4) et la Repousse(2). Affaiblit(2) toutes les autres cartes à proximité. Retire toute la Parade de la carte adverse."
+        ]
+      },
+      "S3_093": {
+        "name": "Choji Akimichi",
+        "ability": "Fureur du papillon",
+        "descriptions": [
+          "Parade(3). Quand Parade s'active, Chakra(+2). Si la carte rivale qui a déclenché Parade est à proximité, bondit dessus. Tant que Parade est disponible, Affaiblit(2) et Repousse(1) à chaque confrontation.",
+          "Parade(3). Quand Parade s'active, Chakra(+3). Si la carte rivale qui a déclenché Parade est à proximité, bondit dessus. Tant que Parade est disponible, Affaiblit(2) et Repousse(1) à chaque confrontation."
+        ]
+      },
+      "S3_094": {
+        "name": "Gaara",
+        "ability": "Tsunami de sable",
+        "descriptions": [
+          "Au déploiement, Se concentre(6s). Toutes les 2 secondes pendant la Concentration, Affaiblit(1) et Repousse(1) toutes les cartes rivales. Si elles ont 2 Chakra ou moins, Affaiblit(2) à la place. Lorsque cette carte en fait se retirer une autre, la Scelle(5s).",
+          "Au déploiement, Se concentre(8s). Toutes les 2 secondes pendant la Concentration, Affaiblit(1) et Repousse(1) toutes les cartes rivales. Si elles ont 3 Chakra ou moins, Affaiblit(3) à la place. Lorsque cette carte en fait se retirer une autre, la Scelle(5s)."
+        ]
+      },
+      "S3_095": {
+        "name": "Itachi Uchiha",
+        "ability": "Tsukuyomi",
+        "descriptions": [
+          "Au déploiement, Immobilise(12s) la carte rivale la plus proche, puis perd 1 Chakra. Si la carte rivale a plus de 1 Chakra, elle perd 1 Chakra par seconde. Chaque fois que des alliés Immobilisent des cartes rivales, redéclenche cette compétence pour chaque rival affecté.",
+          "Au déploiement, Immobilise(16s) la carte rivale la plus proche, puis perd 1 Chakra. Si la carte rivale a plus de 1 Chakra, elle perd 1 Chakra par seconde. Chaque fois que des alliés Immobilisent des cartes rivales, redéclenche cette compétence pour chaque rival affecté."
+        ]
+      },
+      "S3_096": {
+        "name": "Itachi Uchiha",
+        "ability": "Carnage",
+        "descriptions": [
+          "Chaque fois qu'une carte est déployée sur la même voie, l'Affaiblit(1) et l'Immobilise(10s). Si elle a 3 Chakra ou moins, l'Affaiblit(3) à la place. Change de voie ensuite.",
+          "Chaque fois qu'une carte est déployée sur la même voie, l'Affaiblit(2) et l'Immobilise(10s). Si elle a 4 Chakra ou moins, l'Affaiblit(4) à la place. Change de voie ensuite."
+        ]
+      },
+      "S3_097": {
+        "name": "Tsunade",
+        "ability": "Régénération mitotique",
+        "descriptions": [
+          "La première fois que cette carte descend sous son Chakra de base, Soigne jusqu'au Chakra de base et gagne Chakra(+4). Pendant les 10 secondes suivantes, ignore les compétences adverses et Soigne(4) après chaque confrontation. Au retrait, réduit définitivement son Chakra de base de 1.",
+          "La première fois que cette carte descend sous son Chakra de base, Soigne jusqu'au Chakra de base et gagne Chakra(+5). Pendant les 10 secondes suivantes, ignore les compétences adverses et Soigne(4) après chaque confrontation. Au retrait, réduit définitivement son Chakra de base de 1."
+        ]
+      },
+      "S3_098": {
+        "name": "Sakon & Ukon",
+        "ability": "Défense synchronisée",
+        "descriptions": [
+          "Se déploie en Sakon et Ukon sur des voies distinctes avec Parade(2). Chaque fois que la Parade d'un allié s'active, les deux cartes gagnent Chakra(+1).",
+          "Se déploie en Sakon et Ukon sur des voies distinctes avec Parade(4). Chaque fois que la Parade d'un allié s'active, les deux cartes gagnent Chakra(+1)."
+        ]
+      },
+      "S3_099": {
+        "name": "Tayuya",
+        "ability": "Invocation des Doki",
+        "descriptions": [
+          "Au déploiement, Se concentre(8s). Si la Concentration réussit, Invoque un démon Doki sur chaque voie. Chaque fois que tu Invoques d'autres cartes, elles gagnent Chakra(+1). Ignore toutes les compétences et confrontations rivales tant que les démons sont actifs.",
+          "Au déploiement, Se concentre(6s). Si la Concentration réussit, Invoque un démon Doki sur chaque voie. Chaque fois que tu Invoques d'autres cartes, elles gagnent Chakra(+1). Ignore toutes les compétences et confrontations rivales tant que les démons sont actifs."
+        ]
+      },
+      "S3_100": {
+        "name": "Kimimaro",
+        "ability": "Loyauté inébranlable",
+        "descriptions": [
+          "Au déploiement, gagne Chakra(+6) et Accélère(5s). Parade permanente tant que l'Accélération est active. À chaque confrontation, s'Affaiblit(1) et Affaiblit(3) la carte rivale. Au retrait, Affaiblit(2) toutes les cartes. Ne peut pas être affectée par les compétences alliées.",
+          "Au déploiement, gagne Chakra(+8) et Accélère(6s). Parade permanente tant que l'Accélération est active. À chaque confrontation, s'Affaiblit(1) et Affaiblit(3) la carte rivale. Au retrait, Affaiblit(2) toutes les cartes. Ne peut pas être affectée par les compétences alliées."
+        ]
+      }
+    },
+    "ruleNotes": {
+      "S2_041": "{allies} alliés du personnage requis ; la composition du deck n'est pas vérifiée.",
+      "S1_004": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S1_005": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S1_008": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S1_010": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S1_023": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S1_030": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S1_035": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S2_007": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S2_025": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S2_030": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S2_042": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S2_052": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S2_053": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S2_063": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S3_004": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S3_023": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S3_024": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S3_034": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S3_044": "Une confrontation avant 20s ; le retour ultérieur à Chakra(1) est exclu du maximum. Les effets sans répétition explicite s'appliquent une fois.",
+      "S3_047": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S3_059": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S3_068": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S3_072": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S3_074": "Effets de confrontation appliqués sur {activations} confrontations.",
+      "S1_003": "Une nouvelle unité avec le Chakra indiqué.",
+      "S1_019": "{allies} cibles/événements du groupe indiqué ; conditions favorables.",
+      "S1_046": "{allies} cibles/événements du groupe indiqué ; conditions favorables.",
+      "S1_062": "{allies} cibles/événements du groupe indiqué ; conditions favorables.",
+      "S1_073": "{allies} cibles/événements du groupe indiqué ; conditions favorables.",
+      "S2_015": "{allies} cibles/événements du groupe indiqué ; conditions favorables.",
+      "S2_022": "{allies} cibles/événements du groupe indiqué ; conditions favorables.",
+      "S2_073": "{allies} cibles/événements du groupe indiqué ; conditions favorables.",
+      "S2_083": "{allies} cibles/événements du groupe indiqué ; conditions favorables.",
+      "S3_002": "{allies} cibles/événements du groupe indiqué ; conditions favorables.",
+      "S1_020": "Les dégâts à un allié sont soustraits.",
+      "S1_021": "3 alliés.",
+      "S1_022": "3 alliés.",
+      "S1_024": "Le nombre d'alliés indiqué pour ce niveau.",
+      "S1_033": "Un bonus : Akamaru ou cette carte. Le rappel depuis le deck ne double pas la puissance de base.",
+      "S1_038": "Le nombre d'alliés indiqué pour ce niveau.",
+      "S1_053": "{enemies} adversaires touchés.",
+      "S1_069": "{enemies} adversaires touchés.",
+      "S1_074": "{enemies} adversaires touchés.",
+      "S1_079": "{enemies} adversaires touchés.",
+      "S1_081": "{enemies} adversaires touchés.",
+      "S2_008": "{enemies} adversaires touchés.",
+      "S2_076": "{enemies} adversaires dans une confrontation. Les effets sans répétition explicite s'appliquent une fois.",
+      "S2_088": "{enemies} adversaires touchés.",
+      "S3_017": "{enemies} adversaires touchés.",
+      "S3_031": "{enemies} adversaires dans une confrontation. Les effets sans répétition explicite s'appliquent une fois.",
+      "S3_089": "{enemies} adversaires touchés.",
+      "S3_090": "{enemies} adversaires touchés.",
+      "S1_056": "L'option avec un bonus numérique est utilisée. Rappeler Hiruzen n'ajoute pas sa puissance une deuxième fois.",
+      "S1_060": "Carte rappelée du deck : sa puissance est déjà incluse, aucune nouvelle unité n'est comptée.",
+      "S1_071": "Nombre maximal de clones indiqué, avec assez d'énergie supposée.",
+      "S1_083": "Meilleure option conditionnelle : {enemies} adversaires et {allies} alliés, sans gain net.",
+      "S2_002": "{enemies} adversaires avec un Chakra supérieur.",
+      "S2_016": "Trois nouvelles unités avec Chakra(1) ; le recyclage de la carte n'est pas simulé.",
+      "S2_018": "Un allié pour chacun des deux noms ; les identités requises ne sont pas vérifiées.",
+      "S2_019": "Un allié pour chacun des deux noms ; les identités requises ne sont pas vérifiées.",
+      "S2_020": "Un allié pour chacun des deux noms ; les identités requises ne sont pas vérifiées.",
+      "S2_032": "Bonus au Crapaud rappelé ; sa puissance est déjà incluse dans le deck.",
+      "S2_037": "Le Chakra des Anbu n'est pas indiqué : l'Invocation n'est pas quantifiée.",
+      "S2_038": "Option de bonus à faible Chakra ; la carte invoquée depuis le deck n'est pas comptée deux fois.",
+      "S2_039": "Un ou deux adversaires, selon le niveau.",
+      "S2_040": "{enemies} adversaires et {allies} alliés touchés au retrait ; aucun gain net.",
+      "S2_054": "Divise le Chakra adverse par deux selon le Chakra configuré pour la cible.",
+      "S2_058": "Le contrôle temporaire d'un adversaire n'est pas converti en puissance.",
+      "S2_064": "Le contrôle temporaire d'un adversaire n'est pas converti en puissance.",
+      "S2_062": "Un ou deux adversaires, selon le niveau.",
+      "S2_067": "Nombre explicite de cibles ; un déploiement et un retrait.",
+      "S2_070": "Une confrontation ; bonus à {allies} alliés une fois au retrait. Les effets sans répétition explicite s'appliquent une fois.",
+      "S2_071": "3 coups dans une confrontation. Les effets sans répétition explicite s'appliquent une fois.",
+      "S2_072": "{enemies} adversaires et {allies} alliés : les dégâts alliés compensent les dégâts adverses.",
+      "S2_080": "{enemies} adversaires et {allies} alliés : les dégâts alliés compensent les dégâts adverses.",
+      "S2_074": "{enemies} adversaires proches dans une confrontation. Les effets sans répétition explicite s'appliquent une fois.",
+      "S2_077": "Copie d'une carte alliée, sans ajout de puissance au total du deck.",
+      "S2_086": "Les dégâts aux deux alliés sont soustraits ; le rappel depuis le deck n'est pas compté deux fois et les sacrifices ne sont pas simulés.",
+      "S2_089": "La Brûlure est comptée comme des dégâts totaux égaux à sa valeur.",
+      "S2_091": "Bonus unique. L'augmentation de base au retrait concerne la vie suivante et n'est pas ajoutée.",
+      "S2_097": "Deux événements distincts, chacun contre {enemies} adversaires ; la Brûlure est comptée en dégâts totaux.",
+      "S3_027": "Nouveau Tonton et bonus à Tsunade ; la présence et la survie de Tsunade ne sont pas simulées.",
+      "S3_028": "Nouveau Kuromaru et bonus au prochain Chien Ninja.",
+      "S3_036": "{allies} alliés subissent 1 dégât ; cette carte gagne 2 pour chacun.",
+      "S3_041": "Deux adversaires.",
+      "S3_043": "Bonus au prochain Sasuke et un Soin ultérieur.",
+      "S3_051": "Bonus initial et un Soin.",
+      "S3_060": "Les alliés configurés sont supposés sur d'autres voies et touchés pour la première fois : un bonus et un Soin par allié.",
+      "S3_062": "Un Soin initial et le premier Soin réactif.",
+      "S3_073": "Bonus initial et dégâts dans une confrontation. Les effets sans répétition explicite s'appliquent une fois.",
+      "S3_085": "{enemies} adversaires ; la Brûlure existante n'est pas comptée sans valeur connue.",
+      "S3_091": "Première cible, bonus et dégâts à 5 autres adversaires et {allies} alliés. Le terme « autres cartes » est ambigu.",
+      "S3_092": "La première cible est touchée séparément ; les dégâts aux autres cartes l'excluent et incluent tous les alliés configurés.",
+      "S3_039": "Conversion favorable de l'Accélération initiale restante : 2/3 Chakra aux niveaux 1/2, maximum 3 ; aucun bonus externe simulé."
+    },
+    "calculation": {
+      "effectC": "bonus de Chakra",
+      "effectW": "Affaiblissement",
+      "effectH": "Soin",
+      "effectB": "Brûlure par cible",
+      "effectK": "Chakra invoqué",
+      "amount": "{value} {effect}",
+      "burnTotal": "{value} Brûlure par cible, durée totale limitée par le Chakra adverse",
+      "copy": "{value} Chakra de la copie",
+      "restore": "{value} Soins de 1 Chakra au Chakra de base",
+      "rush": "{value} Chakra de l'Accélération restante (maximum 3)",
+      "enemies": {
+        "one": "{value} adversaire",
+        "other": "{value} adversaires"
+      },
+      "otherEnemies": "{value} autres adversaires, première cible exclue",
+      "allies": {
+        "one": "{value} allié",
+        "other": "{value} alliés"
+      },
+      "first": "{value} première activation",
+      "remaining": {
+        "one": "{value} activation suivante",
+        "other": "{value} activations suivantes"
+      },
+      "activations": {
+        "one": "{value} activation",
+        "other": "{value} activations"
+      },
+      "enemyChakra": "{value} Chakra adverse",
+      "targets": {
+        "one": "{value} cible",
+        "other": "{value} cibles"
+      },
+      "drain": "{value} Chakra retiré sans descendre sous 1",
+      "removable": "{value} Chakra retirable",
+      "bestBranch": "meilleure option : {label}",
+      "unquantified": "Contribution numérique pas encore quantifiée.",
+      "repeated": "Effet appliqué sur {activations} activations.",
+      "once": "Effet de confrontation compté une fois ; seuls les effets indiquant chaque confrontation sont répétés.",
+      "favourable": "Conditions favorables supposées. Les synergies entre cartes ne sont pas simulées.",
+      "tactical": "Effet tactique sans bonus numérique de Chakra, dégâts ou Soins.",
+      "halving": "La division par deux utilise le Chakra adverse configuré ; l'arrondi exact en jeu reste à confirmer.",
+      "burnNote": "Brûlure : cibles touchées × min(durée en secondes, Chakra adverse). La propagation est limitée aux cibles adverses configurées ; les applications multiples ne comptent pas deux fois les mêmes points de Chakra.",
+      "allCards": "Effet sur toutes les cartes : {enemies} adversaires et {allies} alliés. Les dégâts alliés, limités au Chakra allié par application, réduisent la Puissance.",
+      "ebisu": "Bonus et pénalités selon le nombre d'alliés configuré ; la survie de la carte n'est pas simulée."
+    },
+    "errors": {
+      "invalidJson": "Le fichier ne contient pas de JSON de deck valide.",
+      "invalidDeck": "Fichier de deck invalide.",
+      "invalidCards": "Vérifiez les cartes, les doublons et les niveaux du fichier.",
+      "invalidOptions": "Options de calcul invalides.",
+      "invalidValues": "Valeurs d'hypothèses invalides.",
+      "invalidOverrides": "Réglages individuels de carte invalides.",
+      "missingCard": "Les hypothèses font référence à une carte absente du deck.",
+      "fileTooLarge": "Le fichier est trop volumineux.",
+      "importFailed": "Impossible d'importer le deck.",
+      "invalidRule": "Règle invalide : {id}, niveau {level}, {factor}",
+      "invalidFactor": "Facteur invalide : {factor}"
+    },
+    "normalizations": []
+  },
+  "pt": {
+    "name": "Português (Brasil)",
+    "locale": "pt-BR",
+    "ui": {
+      "pageTitle": "Naruto · Cartas e decks",
+      "brand": "Naruto · Criador de decks",
+      "heading": "Cartas e decks",
+      "catalogDescription": "3 séries · efeitos das cartas · imagens locais",
+      "database": "Banco de cartas",
+      "builder": "Montar deck",
+      "sections": "Seções",
+      "language": "Idioma",
+      "filters": "Filtrar cartas",
+      "searchFilters": "Pesquisa e filtros",
+      "textOrIndex": "Texto ou número",
+      "searchPlaceholder": "Pesquisar",
+      "rarity": "Raridade",
+      "season": "Série",
+      "skillType": "Tipo de habilidade",
+      "cost": "Custo",
+      "chakra": "Chakra",
+      "minPower": "Poder mín.",
+      "minimum": "min",
+      "cardLevel": "Nível da carta",
+      "sort": "Ordenar",
+      "sortCards": "Ordenar cartas",
+      "index": "Número",
+      "alphabetical": "Nome",
+      "quality": "Qualidade",
+      "power": "Poder",
+      "resetFilters": "Limpar filtros",
+      "allFeminine": "Todas",
+      "all": "Todos",
+      "none": "Sem tipo",
+      "common": "Comum",
+      "rare": "Rara",
+      "epic": "Épica",
+      "legendary": "Lendária",
+      "first": "Primeira",
+      "second": "Segunda",
+      "third": "Terceira",
+      "ascending": "Crescente",
+      "descending": "Decrescente",
+      "ascendingAction": "Ordem crescente. Mudar para decrescente",
+      "descendingAction": "Ordem decrescente. Mudar para crescente",
+      "selectedCount": "{count} selecionados",
+      "cardCount": "{count} cartas",
+      "noResults": "Nenhuma carta corresponde aos filtros.",
+      "assumptions": "Hipóteses de cálculo",
+      "enemyChakra": "Chakra adversário",
+      "enemies": "Alvos adversários",
+      "allyChakra": "Chakra aliado",
+      "allies": "Alvos aliados",
+      "activations": "Ativações da carta",
+      "applyStandard": "Aplicar padrão",
+      "calculationInfo": "Informações de cálculo",
+      "standardApplied": "Valores aplicados a todas as cartas desta sessão.",
+      "standardPending": "Alterações pendentes: as cartas ainda usam os valores anteriores.",
+      "deck": "Deck atual",
+      "defaultDeckName": "Deck 1",
+      "deckNameLabel": "Nome do deck:",
+      "deckNamePlaceholder": "Nome do deck",
+      "deckSlots": "Os dez espaços do deck",
+      "deckCardsLevels": "Cartas e níveis do deck",
+      "averageCost": "Custo médio",
+      "averagePower": "Poder médio",
+      "averageQuality": "Qualidade média",
+      "viewDeck": "Ver detalhes do deck",
+      "import": "Importar",
+      "export": "Exportar",
+      "clearDeck": "Esvaziar",
+      "closeDeck": "Fechar deck",
+      "closeCard": "Fechar detalhes da carta",
+      "closeInfo": "Fechar informações de cálculo",
+      "distribution": "Distribuição de custos",
+      "curveCaption": "Número de cartas em cada custo.",
+      "databaseEffects": "Banco de efeitos das cartas",
+      "builderCards": "Cartas para o deck",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "replaceDeck": "Substituir o deck atual pelo deck importado?",
+      "confirmClear": "Remover todas as cartas do deck?",
+      "deckImported": "Deck importado.",
+      "sessionUnavailable": "O salvamento automático da sessão está indisponível. Exporte seu deck para preservá-lo.",
+      "sessionInvalid": "Não foi possível restaurar a sessão salva. Você pode importar um deck exportado.",
+      "addToDeck": "Adicionar ao deck",
+      "removeFromDeck": "Remover do deck",
+      "addCard": "Adicionar {name} ao deck",
+      "removeCard": "Remover {name} do deck",
+      "openCard": "Abrir {name} · {reference}",
+      "removeNamedCard": "Remover {name}",
+      "emptySlot": "Espaço {slot} vazio",
+      "cardLevelTitle": "{name} · {reference} · nível {level}",
+      "levelShort": "Nv.{level}",
+      "changeLevel": "Mudar nível",
+      "changeLevelTitle": "Clique para mudar para o nível {level}",
+      "changeLevelAction": "Nível {level}. Mudar para o nível {next}",
+      "powerQuality": "Poder e qualidade",
+      "localAssumptions": "Hipóteses desta carta",
+      "useStandard": "Usar padrão",
+      "localChanges": "Alterações imediatas, apenas nesta carta.",
+      "powerComposition": "Composição do poder",
+      "contributions": "Contribuições do cálculo",
+      "noContributions": "Nenhuma contribuição numérica adicional.",
+      "baseChakra": "Chakra base",
+      "summonedChakra": "Chakra invocado",
+      "chakraBoosts": "Bônus de Chakra",
+      "friendlyDamage": "Dano a si / aos aliados",
+      "enemyDamage": "Dano aos adversários",
+      "burn": "Queimadura",
+      "heal": "Cura",
+      "curveBar": "Custo {cost}: {count} cartas",
+      "energyCost": "Custo de energia",
+      "costValue": "Custo {value}",
+      "chakraValue": "Chakra base {value}",
+      "info1": "Poder = Chakra base + Invocações + bônus − dano a si e aos aliados + dano aos adversários + Queimadura + Cura.",
+      "info2": "Qualidade = Poder / custo da carta.",
+      "info3": "Queimadura = alvos adversários × duração em segundos (ou Chakra adversário, se for menor que a duração).",
+      "info4": "Os efeitos são contados pelo número de ativações indicado na carta ou nas hipóteses de cálculo.",
+      "info5": "Movimento, Bloqueio e outros modificadores não entram no Poder da carta.",
+      "info6": "O seletor de nível dos filtros altera toda a lista, exceto as cartas que já estão no deck. As exportações incluem níveis individuais e hipóteses de cálculo."
+    },
+    "effects": {
+      "Cost": "Custo",
+      "Chakra": "Chakra",
+      "Weaken": "Enfraquecimento",
+      "Push": "Empurra",
+      "Pin": "Imobilização",
+      "Rush": "Ímpeto",
+      "Slow": "Desaceleração",
+      "Guard": "Bloqueio",
+      "Seal": "Selo",
+      "Switch": "Troca",
+      "Summon": "Invocação",
+      "Teleport": "Teletransporte",
+      "Burn": "Queimadura",
+      "Focus": "Concentração",
+      "Heal": "Cura"
+    },
+    "terms": {
+      "Cost": "custos?",
+      "Chakra": "chakra",
+      "Weaken": "enfraque[\\p{L}]*",
+      "Push": "empurr[\\p{L}]*|repelir",
+      "Pin": "imobiliz[\\p{L}]*|fixa[\\p{L}]*",
+      "Rush": "ímpeto[\\p{L}]*|acelera[\\p{L}]*",
+      "Slow": "desacelera[\\p{L}]*|lentidão|retarda[\\p{L}]*",
+      "Guard": "bloque[\\p{L}]*|defesa[\\p{L}]*|guarda[\\p{L}]*",
+      "Seal": "sel[\\p{L}]*",
+      "Switch": "troc[\\p{L}]*",
+      "Summon": "invoc[\\p{L}]*",
+      "Teleport": "teletransport[\\p{L}]*",
+      "Burn": "queim[\\p{L}]*",
+      "Focus": "concentr[\\p{L}]*",
+      "Heal": "cura[\\p{L}]*"
+    },
+    "cards": {
+      "S1_001": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Potencial",
+        "descriptions": [
+          "Na primeira vez que esta carta ganha chakra, ela ganha um Chakra(+1) adicional.",
+          "Na primeira vez que esta carta ganha chakra, ela ganha um Chakra(+2) adicional."
+        ]
+      },
+      "S1_002": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Aprendizado",
+        "descriptions": [
+          "Chakra(+2) após 6 segundos.",
+          "Chakra(+3) após 6 segundos."
+        ]
+      },
+      "S1_003": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Jutsu Clones das Sombras",
+        "descriptions": [
+          "Cria 1 clone em outra fileira com Chakra(1).",
+          "Invoca 1 clone em outra fileira com Chakra(2)."
+        ]
+      },
+      "S1_004": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Juramento",
+        "descriptions": [
+          "Chakra(+1) após um confronto bem-sucedido.",
+          "Chakra(+2) após um confronto bem-sucedido."
+        ]
+      },
+      "S1_005": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Domínio da Kunai",
+        "descriptions": [
+          "Ao confrontar, Enfraquece(2) a carta adversária.",
+          "Ao confrontar, Enfraquece(3) a carta adversária."
+        ]
+      },
+      "S1_006": {
+        "name": "SAKURA HARUNO",
+        "ability": "Arremesso de Kunai",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(2) um adversário em Longo Alcance aleatório. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, Enfraquece(3) um adversário em Longo Alcance aleatório. Os alvos pertencem à própria fileira."
+        ]
+      },
+      "S1_007": {
+        "name": "SAKURA HARUNO",
+        "ability": "Equilíbrio dos Chakras",
+        "descriptions": [
+          "Quando aliados em sua fileira forem bem-sucedidos em um confronto, Chakra(+1) para eles e Imobilização(3s) para si.",
+          "Quando aliados em sua fileira forem bem-sucedidos em um confronto, Chakra(+1) para eles e Imobilização(5s) para si."
+        ]
+      },
+      "S1_008": {
+        "name": "SAKURA HARUNO",
+        "ability": "Chute Giratório",
+        "descriptions": [
+          "Ao confrontar, Empurra(1) e Enfraquece(1) a carta adversária.",
+          "Ao confrontar, Empurra(2) e Enfraquece(1) a carta adversária."
+        ]
+      },
+      "S1_009": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(5s)",
+          "Ímpeto(6s)"
+        ]
+      },
+      "S1_010": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Líder de Equipe",
+        "descriptions": [
+          "Ao confrontar, Chakra(+2) para um aliado em Curto Alcance. Os alvos pertencem à própria fileira.",
+          "Ao confrontar, Chakra(+3) para um aliado da fileira em Curto Alcance."
+        ]
+      },
+      "S1_011": {
+        "name": "IRUKA UMINO",
+        "ability": "Sensei",
+        "descriptions": [
+          "Chakra(+2) para o próximo aliado implantado.",
+          "Chakra(+3) para o próximo aliado implantado."
+        ]
+      },
+      "S1_012": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Entrada Ameaçadora",
+        "descriptions": [
+          "É mobilizada no Médio Alcance, Desacelera(4s) e Troca de fileira o adversário da própria fileira com mais Chakra.",
+          "É mobilizada no Médio Alcance, Desacelera(6s) e Troca de fileira o adversário da própria fileira com mais Chakra."
+        ]
+      },
+      "S1_013": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Agressão",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(3) a carta adversária mais próxima na fileira.",
+          "Ao ser mobilizado, Enfraquece(4) a carta adversária mais próxima na fileira."
+        ]
+      },
+      "S1_014": {
+        "name": "HAKU",
+        "ability": "Agulhas",
+        "descriptions": [
+          "Ao ser mobilizado, Imobiliza(6s) o adversário mais próximo em sua fileira.",
+          "Ao ser mobilizado, Imobiliza(7s) o adversário mais próximo em sua fileira."
+        ]
+      },
+      "S1_015": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Arremesso de Shuriken",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(1) um adversário aleatório em Curto Alcance. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, Enfraquece(2) um adversário aleatório em Curto Alcance. Os alvos pertencem à própria fileira."
+        ]
+      },
+      "S1_016": {
+        "name": "EBISU",
+        "ability": "Lição Rápida",
+        "descriptions": [
+          "Ao ser mobilizado, Chakra(+2) para o aliado mais próximo. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, Chakra(+3) para o aliado mais próximo. Os alvos pertencem à própria fileira."
+        ]
+      },
+      "S1_017": {
+        "name": "TAZUNA",
+        "ability": "Construtor de Pontes",
+        "descriptions": [
+          "Ao ser mobilizado, puxe 2 aliados em Médio Alcance para esta carta. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, puxe 3 aliados em Médio Alcance para esta carta. Os alvos pertencem à própria fileira."
+        ]
+      },
+      "S1_018": {
+        "name": "INARI",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(2s)",
+          "Ímpeto(3s)"
+        ]
+      },
+      "S1_019": {
+        "name": "KAIZA",
+        "ability": "Mártir",
+        "descriptions": [
+          "Ao se retirar, concede Chakra(+1) apenas aos aliados da própria fileira.",
+          "Ao se retirar, concede Chakra(+2) apenas aos aliados da própria fileira."
+        ]
+      },
+      "S1_020": {
+        "name": "MIZUKI TOJI",
+        "ability": "Intenção Oculta",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(2) um aliado aleatório de sua fileira e Chakra(+3) para este card.",
+          "Ao ser mobilizado, Enfraquece(2) um aliado aleatório de sua fileira e Chakra(+4) para este card."
+        ]
+      },
+      "S1_021": {
+        "name": "MIZUKI TOJI",
+        "ability": "Presa Fácil",
+        "descriptions": [
+          "Ao se retirar, Chakra(+1) para 3 aliados aleatórios.",
+          "Ao se retirar, Chakra(+2) para 3 aliados aleatórios."
+        ]
+      },
+      "S1_022": {
+        "name": "MADAME SHIJIMI",
+        "ability": "Resgate de Gatos",
+        "descriptions": [
+          "Ao ser mobilizado, Chakra(+1) para 3 aliados da sua fileira em Curto Alcance e Desaceleração(3s) neles.",
+          "Ao ser mobilizado, Chakra(+2) para 3 aliados da sua fileira em Curto Alcance e Desaceleração(3s) neles."
+        ]
+      },
+      "S1_023": {
+        "name": "GOZU",
+        "ability": "Emboscada",
+        "descriptions": [
+          "Ao confrontar, Enfraquece(1) a carta adversária e Teletransporta para trás dela.",
+          "Ao confrontar, Enfraquece(2) a carta adversária e Teletransporta para trás dela."
+        ]
+      },
+      "S1_024": {
+        "name": "TSUNAMI",
+        "ability": "Hospitalidade",
+        "descriptions": [
+          "Ao ser mobilizado, Chakra(+1) para 2 aliados da sua fileira.",
+          "Ao ser mobilizado, Chakra(+1) para 3 aliados da sua fileira."
+        ]
+      },
+      "S1_025": {
+        "name": "WARAJI",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(3s)",
+          "Ímpeto(4s)"
+        ]
+      },
+      "S1_026": {
+        "name": "ZORI",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(3s)",
+          "Ímpeto(4s)"
+        ]
+      },
+      "S1_027": {
+        "name": "INO YAMANAKA",
+        "ability": "Charme",
+        "descriptions": [
+          "Ao ser mobilizado, Chakra(+1) ao aliado mais próximo em Curto Alcance e o empurra para Médio Alcance.",
+          "Ao ser mobilizado, Chakra(+2) ao aliado mais próximo no Curto Alcance e o Empurra para o Médio Alcance."
+        ]
+      },
+      "S1_028": {
+        "name": "SHIKAMARU NARA",
+        "ability": "Jutsu de Paralisia das Sombras",
+        "descriptions": [
+          "Ao ser mobilizado, Imobiliza(10s) a si mesmo e a carta adversária mais próxima. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, Imobiliza(12s) a si mesmo e a carta adversária mais próxima. Os alvos pertencem à própria fileira."
+        ]
+      },
+      "S1_029": {
+        "name": "CHOJI AKIMICHI",
+        "ability": "Força",
+        "descriptions": [
+          "Ao confrontar, Empurra(1) a carta adversária.",
+          "Ao confrontar, Empurra(2) a carta adversária."
+        ]
+      },
+      "S1_030": {
+        "name": "ASUMA SARUTOBI",
+        "ability": "Destreza de Corpo A Corpo",
+        "descriptions": [
+          "Ao confrontar, Chakra(+3) se a carta adversária tiver um número de chakra maior.",
+          "Ao confrontar, Chakra(+4) se a carta adversária tiver um número de chakra maior."
+        ]
+      },
+      "S1_031": {
+        "name": "HINATA HYUGA",
+        "ability": "Tímido",
+        "descriptions": [
+          "Ao ser mobilizado, Empurra(2) a carta adversária mais próxima em Curto Alcance. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, Empurra(3) a carta adversária mais próxima em Curto Alcance. Os alvos pertencem à própria fileira."
+        ]
+      },
+      "S1_032": {
+        "name": "HINATA HYUGA",
+        "ability": "Punho Gentil",
+        "descriptions": [
+          "No primeiro confronto, Empurra(1) apenas o adversário encontrado, se ele tiver 3 Chakra ou menos.",
+          "No primeiro confronto, Empurra(2) apenas o adversário encontrado, se ele tiver 3 Chakra ou menos."
+        ]
+      },
+      "S1_033": {
+        "name": "KIBA INUZUKA",
+        "ability": "Melhor amigo",
+        "descriptions": [
+          "Invoca um Akamaru aleatório do seu baralho e dê a ele Chakra(+1). Se não houver nenhum Akamaru, esta carta ganha Chakra(+1) em vez disso.",
+          "Invoca um Akamaru aleatório do seu baralho e dê a ele Chakra(+2). Se não houver nenhum Akamaru, esta carta ganha Chakra(+2) em vez disso."
+        ]
+      },
+      "S1_034": {
+        "name": "AKAMARU",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(6s)",
+          "Ímpeto(7s)"
+        ]
+      },
+      "S1_035": {
+        "name": "SHINO ABURAME",
+        "ability": "Insetos de Chakra",
+        "descriptions": [
+          "Ao confrontar, Chakra(+2) para esta carta e Enfraquece(1) a carta adversária.",
+          "Ao confrontar, Chakra(+2) para esta carta e Enfraquece(2) a carta adversária."
+        ]
+      },
+      "S1_036": {
+        "name": "KURENAI YUHI",
+        "ability": "Finta",
+        "descriptions": [
+          "Ao confrontar, Empurra(2) e Imobiliza(2s) a carta adversária.",
+          "Ao confrontar, Empurra(2) e Imobiliza(4s) a carta adversária."
+        ]
+      },
+      "S1_037": {
+        "name": "PAKKUN",
+        "ability": "Nariz Aguçado",
+        "descriptions": [
+          "Ignora todas as habilidades e confrontos adversários até atingir o Médio Alcance. Aliados ganham Ímpeto(+2s) ao serem mobilizados nesta fileira enquanto esta carta estiver ativa.",
+          "Ignora todas as habilidades e confrontos rivais até alcançar o Médio Alcance. Aliados ganham Ímpeto(+3s) ao serem mobilizados nesta fileira enquanto esta carta estiver ativa."
+        ]
+      },
+      "S1_038": {
+        "name": "AYAME",
+        "ability": "Refeição Fresca",
+        "descriptions": [
+          "Ao ser mobilizado, Chakra(+2) a 2 aliados em sua fileira em Médio Alcance.",
+          "Ao ser mobilizado, Chakra(+2) a 3 aliados em sua fileira em Médio Alcance."
+        ]
+      },
+      "S1_039": {
+        "name": "MOEGI KAZAMATSURI",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(2s)",
+          "Ímpeto(3s)"
+        ]
+      },
+      "S1_040": {
+        "name": "UDON ISE",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(2s)",
+          "Ímpeto(3s)"
+        ]
+      },
+      "S1_041": {
+        "name": "NINJA TROOPS",
+        "ability": "Vanguarda",
+        "descriptions": [
+          "Ímpeto(2s). Ao se retirar, Chakra(+3) para o aliado mobilizado mais recentemente.",
+          "Ímpeto(3s). Ao se retirar, Chakra(+3) para o aliado mobilizado mais recentemente."
+        ]
+      },
+      "S1_042": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Inofensivo",
+        "descriptions": [
+          "Quando se retira, Enfraquece(3) a carta rival.",
+          "Quando se retira, Enfraquece(4) a carta rival."
+        ]
+      },
+      "S1_043": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Brincalhão",
+        "descriptions": [
+          "Ao ser mobilizado, Desacelera(10s) todas as cartas na fileira.",
+          "Ao ser mobilizado, Desacelera(12s) todas as cartas na fileira."
+        ]
+      },
+      "S1_044": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Jutsu Sexy",
+        "descriptions": [
+          "Ao ser mobilizado, Imobiliza(4s) uma carta adversária em Médio Alcance. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, Imobiliza(5s) uma carta adversária em sua fileira em Médio Alcance."
+        ]
+      },
+      "S1_045": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Solidão",
+        "descriptions": [
+          "Ao ser mobilizado, Chakra(+3) e Desacelera(6s) se não houver aliados em sua fileira.",
+          "Ao ser mobilizado, Chakra(+4) e Desacelera(6s) se não houver aliados em sua fileira."
+        ]
+      },
+      "S1_046": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Diplomacia",
+        "descriptions": [
+          "Esta carta ganha Chakra(+1) para cada aliado da própria fileira no Curto Alcance.",
+          "Esta carta ganha Chakra(+2) para cada aliado da própria fileira no Curto Alcance."
+        ]
+      },
+      "S1_047": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Jutsu de Transformação",
+        "descriptions": [
+          "Ao ser mobilizado, ela se disfarça como outra carta de até 3 de custo do seu baralho. Ela retorna à sua forma original ao confrontar ou quando enfraquecida.",
+          "Ao ser mobilizado, ela se disfarça como outra carta de até 4 de custo do seu baralho. Ela retorna à sua forma original ao confrontar ou quando enfraquecida."
+        ]
+      },
+      "S1_048": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Astucioso",
+        "descriptions": [
+          "Ao confrontar, Imobiliza(4s) a carta adversária e Teletransporta para trás dela.",
+          "Ao confrontar, Imobiliza(6s) a carta adversária e Teletransporta para trás dela."
+        ]
+      },
+      "S1_049": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Projeção",
+        "descriptions": [
+          "O próximo aliado é mobilizado no Médio Alcance. Imobiliza(4s) e Troca de fileira um adversário aleatório da própria fileira no Médio Alcance.",
+          "O próximo aliado é mobilizado no Médio Alcance. Imobiliza(8s) e Troca de fileira um adversário aleatório da própria fileira no Médio Alcance."
+        ]
+      },
+      "S1_050": {
+        "name": "HIRUZEN SARUTOBI",
+        "ability": "Técnica de Telescópios",
+        "descriptions": [
+          "Quando os aliados ganham Ímpeto, aplica Chakra(+1) e Ímpeto(+1s) neles.",
+          "Quando os aliados ganham Ímpeto, aplica Chakra(+1) e Ímpeto(+2s) neles."
+        ]
+      },
+      "S1_051": {
+        "name": "IRUKA UMINO",
+        "ability": "Impressionado",
+        "descriptions": [
+          "Troque de fileira aleatoriamente a cada 8 segundos.",
+          "Troque de fileira aleatoriamente a cada 6 segundos."
+        ]
+      },
+      "S1_052": {
+        "name": "IRUKA UMINO",
+        "ability": "Sacrifício",
+        "descriptions": [
+          "Mobiliza em Médio Alcance e Chakra(+1) ao aliado mais próximo. Os alvos pertencem à própria fileira.",
+          "É mobilizada em Médio Alcance e Chakra(+2) para o aliado mais próximo. Os alvos pertencem à própria fileira."
+        ]
+      },
+      "S1_053": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Escondido na Névoa",
+        "descriptions": [
+          "Ao ser mobilizada, Imobiliza(6s) e Enfraquece(1) todos os adversários da própria fileira no Curto Alcance.",
+          "Ao ser mobilizada, Imobiliza(6s) e Enfraquece(2) todos os adversários da própria fileira no Curto Alcance."
+        ]
+      },
+      "S1_054": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Brisa",
+        "descriptions": [
+          "Ganha Chakra(+3) na primeira vez que um aliado do seu caminho se retira.",
+          "Ganha Chakra(+4) na primeira vez que um aliado do seu caminho se retira."
+        ]
+      },
+      "S1_055": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Jutsu Sexy Imperfeito",
+        "descriptions": [
+          "Ao ser mobilizado, 50% de chance de Imobilizar(6s) uma carta adversária em Médio Alcance. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, 50% de chance de Imobilizar(8s) uma carta adversária na fileira em Médio Alcance."
+        ]
+      },
+      "S1_056": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Legado",
+        "descriptions": [
+          "Ao ser mobilizado, há 50% de chance de invocar um Hiruzen aleatório do seu baralho. Caso contrário, Chakra(+2).",
+          "Ao ser mobilizado, há 50% de chance de invocar um Hiruzen aleatório do seu baralho. Caso contrário, Chakra(+3)."
+        ]
+      },
+      "S1_057": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Jutsu Sexy",
+        "descriptions": [
+          "Ao ser mobilizado, Imobiliza(4s) uma carta adversária em Médio Alcance. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, Imobiliza(5s) uma carta adversária na fileira em Médio Alcance."
+        ]
+      },
+      "S1_058": {
+        "name": "EBISU",
+        "ability": "Lições Difíceis",
+        "descriptions": [
+          "Todos os aliados mobilizados ganham Chakra(+2), mas Enfraquece(1) esta carta cada vez.",
+          "Todos os aliados mobilizados ganham Chakra(+3), mas Enfraquece(1) esta carta cada vez."
+        ]
+      },
+      "S1_059": {
+        "name": "INARI",
+        "ability": "Agir",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(1) e Lentidão(6s) a carta adversária mais próxima em Longo Alcance. Os alvos pertencem à própria fileira.",
+          "Ao ser mobilizado, Enfraquece(1) e Desacelera(8s) o adversário em Longo Alcance na fileira mais próxima."
+        ]
+      },
+      "S1_060": {
+        "name": "GATO",
+        "ability": "Senhor do Crime",
+        "descriptions": [
+          "Ao ser mobilizado, Concentração(6s). Se a Concentração for bem-sucedida, invoca uma carta aleatória com custo de até 3 do seu baralho.",
+          "Ao ser mobilizado, Concentração(4s). Se a Concentração for bem-sucedida, Invoca uma carta aleatória com custo de até 3 do seu baralho."
+        ]
+      },
+      "S1_061": {
+        "name": "NINJA HOUNDS",
+        "ability": "As Presas do Rastreador",
+        "descriptions": [
+          "Ao ser mobilizado, Imobiliza(6s) a si mesmo e o adversário em sua fileira com o chakra mais alto.",
+          "Ao ser mobilizado, Imobiliza(8s) a si mesma e o adversário em sua fileira com o chakra mais alto."
+        ]
+      },
+      "S1_062": {
+        "name": "TEUCHI",
+        "ability": "O Caminho do Lámen",
+        "descriptions": [
+          "Chakra(+1) para aliados em sua fileira após 8 segundos.",
+          "Chakra(+2) para aliados em sua fileira após 8 segundos."
+        ]
+      },
+      "S1_063": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Determinação",
+        "descriptions": [
+          "Quando o Iruka aliado estiver prestes a recuar, o traz de volta ao início da fileira e cria 3 clones com Chakra(1) distribuído por todas as fileiras.",
+          "Quando um Iruka aliado está prestes a se retirar, puxa-o de volta ao início da fileira e Invoca 5 clones com Chakra(1) distribuídos em todas as fileiras."
+        ]
+      },
+      "S1_064": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Showman",
+        "descriptions": [
+          "Chakra(+5) após 10 s.",
+          "Chakra(+6) após 10 s."
+        ]
+      },
+      "S1_065": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Jutsu Sexy em Massa",
+        "descriptions": [
+          "Ao confrontar, Imobiliza(6s) a carta adversária, teletransporta para trás dela e ganha Ímpeto(2s).",
+          "Ao confrontar, Imobiliza(8s) a carta adversária, teletransporta para trás dela e ganha Ímpeto(4s)."
+        ]
+      },
+      "S1_066": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Previsão",
+        "descriptions": [
+          "Não pode ser enfraquecido durante confrontos com cartas rivais de 2 Chakras ou menos.",
+          "Não pode ser enfraquecido durante confrontos com cartas rivais de 3 Chakras ou menos."
+        ]
+      },
+      "S1_067": {
+        "name": "SAKURA HARUNO",
+        "ability": "Fogo Interior",
+        "descriptions": [
+          "Ganha Chakra(+3) na primeira mobilização de um adversário na própria fileira; depois, Chakra(+1) sempre que um adversário é mobilizado ou Troca para esta fileira.",
+          "Ganha Chakra(+3) na primeira mobilização de um adversário na própria fileira; depois, Chakra(+2) sempre que um adversário é mobilizado ou Troca para esta fileira."
+        ]
+      },
+      "S1_068": {
+        "name": "KAKASHI HATAKE",
+        "ability": "1000 Anos de Morte",
+        "descriptions": [
+          "Salta para a primeira carta rival que se aproximar, Enfraquece(1) e Empurra(3)-a para trás.",
+          "Salta para a primeira carta rival que se aproximar, Enfraquece(1) e Empurra(4)-a para trás."
+        ]
+      },
+      "S1_069": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Jutsu Vórtex Gigante",
+        "descriptions": [
+          "Ao ser mobilizado, Empurra(3) e Enfraquece(2) todos os adversários da fileira.",
+          "Ao ser mobilizado, Empurra(3) e Enfraquece(3) todos os adversários da fileira."
+        ]
+      },
+      "S1_070": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Raikiri",
+        "descriptions": [
+          "Pule na primeira carta adversária que se aproximar e Enfraqueça(3). Ignora Bloqueio.",
+          "Pule na primeira carta adversária que se aproximar e Enfraqueça(4). Ignora Bloqueio."
+        ]
+      },
+      "S1_071": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Clonar Falso",
+        "descriptions": [
+          "Gaste a energia restante para invocar até 5 clones com Chakra(2) disfarçados como o original.",
+          "Gaste a energia restante para invocar até 6 clones com Chakra(2) disfarçados como o original."
+        ]
+      },
+      "S1_072": {
+        "name": "IRUKA UMINO",
+        "ability": "Reprimenda",
+        "descriptions": [
+          "Enquanto esta carta estiver ativa, Chakra(+1) e Imobiliza(2s) aliados com 2 Chakra ao mobilizá-los.",
+          "Enquanto esta carta estiver ativa, Chakra(+2) e Imobiliza(2s) aos aliados com 2 Chakra ao mobilizá-los."
+        ]
+      },
+      "S1_073": {
+        "name": "HIRUZEN SARUTOBI",
+        "ability": "Vontade do Fogo",
+        "descriptions": [
+          "Chakra[+1] a todos os aliados após 10 segundos.",
+          "Após 10 segundos, Chakra(+2) para todos os aliados."
+        ]
+      },
+      "S1_074": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Jutsu Dragão de Água",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(1) e Empurra(1) todos os adversários da fileira em Curto e Médio Alcance.",
+          "Ao ser mobilizado, Enfraquece(1) e Empurra(3) todos os rivais da fileira no Curto e Médio Alcance."
+        ]
+      },
+      "S1_075": {
+        "name": "HAKU",
+        "ability": "Espelhos Demoníacos de Gelo",
+        "descriptions": [
+          "Ao confrontar, Imobiliza(2s) e Enfraquece(1) os adversários próximos da própria fileira, depois Troca de fileira. Esta habilidade é reativada sempre que ganha Chakra.",
+          "Ao confrontar, Imobiliza(4s) e Enfraquece(1) os adversários próximos da própria fileira, depois Troca de fileira. Esta habilidade é reativada sempre que ganha Chakra."
+        ]
+      },
+      "S1_076": {
+        "name": "GAMABUNTA",
+        "ability": "Cooperação de sapos",
+        "descriptions": [
+          "Chakra(+1) quando aliados Repelir rivais.",
+          "Chakra(+2) quando aliados Empurrar rivais."
+        ]
+      },
+      "S1_077": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Múltiplos Clones das Sombras",
+        "descriptions": [
+          "Cria 2 clones com Chakra(2) e Ímpeto(4s) nas outras fileiras, depois 2 novos clones após 10s. Chakra(+1) sempre que esses clones recuarem.",
+          "Invoca 2 clones nas outras fileiras com Chakra(2) e Ímpeto(6s) e, então, 2 novos clones após 10s. Chakra(+1) sempre que esses clones se retiram."
+        ]
+      },
+      "S1_078": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Fúria de Kyubi",
+        "descriptions": [
+          "Quando os aliados se retiram, Chakra(+1) e Ímpeto(1s)",
+          "Quando os aliados se retiram, Chakra(+2) e Ímpeto(1s)"
+        ]
+      },
+      "S1_079": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Soco Furioso",
+        "descriptions": [
+          "É mobilizada em Médio Alcance, Enfraquece(2) e Empurra(1) todos os adversários da fileira.",
+          "É mobilizada em Médio Alcance, Enfraquece(2) e Empurra(3) todos os adversários da fileira."
+        ]
+      },
+      "S1_080": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Determinado",
+        "descriptions": [
+          "Chakra(+2) a cada 8s.",
+          "Chakra(+2) a cada 6s."
+        ]
+      },
+      "S1_081": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Jutsu Bola de Fogo",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(2) todos os adversários em Médio Alcance.",
+          "Ao ser mobilizado, Enfraquece(3) todos os adversários em Médio Alcance."
+        ]
+      },
+      "S1_082": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Plano de Batalha",
+        "descriptions": [
+          "Enquanto estiver ativo, ganha Chakra(+1) sempre que aliados Enfraquecem rivais. Aliados ganham Chakra(+1) para cada carta afetada na primeira vez que eles Enfraquecem rivais.",
+          "Enquanto estiver ativo, ganha Chakra(+2) sempre que aliados Enfraquecem rivais. Aliados ganham Chakra(+1) para cada carta afetada na primeira vez que eles Enfraquecem rivais."
+        ]
+      },
+      "S1_083": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Demônio",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(1) todas as cartas. Se elas tiverem 3 ou menos de Chakra,Enfraquece(3) em vez disso.",
+          "Ao ser mobilizado, Enfraquece(1) todas as cartas. Se elas tiverem 4 ou menos de Chakra,Enfraquece(4) em vez disso."
+        ]
+      },
+      "S1_084": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Investida Imprudente",
+        "descriptions": [
+          "Em cada confronto, Enfraquece(2) cartas adversárias com 4 ou menos de Chakra e as empurra para outra fileira. Ímpeto permanente.",
+          "Em cada confronto, Enfraquece(3) cartas adversárias com 4 ou menos de Chakra, e Trocam de fileira. Ímpeto permanente."
+        ]
+      },
+      "S1_085": {
+        "name": "KYUBI",
+        "ability": "Desastre natural",
+        "descriptions": [
+          "É mobilizada no Médio Alcance, Empurra(1) e Enfraquece(3) todas as cartas. Enquanto estiver ativa, Enfraquece(1) as cartas recém-mobilizadas. Desaceleração permanente.",
+          "É mobilizada no Médio Alcance, Empurra(1) e Enfraquece(4) todas as cartas. Enquanto estiver ativa, Enfraquece(1) as cartas recém-mobilizadas. Desaceleração permanente."
+        ]
+      },
+      "S2_001": {
+        "name": "Naruto Uzumaki",
+        "ability": "Treinamento de Chakra",
+        "descriptions": [
+          "Ao ser mobilizado, 50% de chance de Chakra(+3).",
+          "Ao ser mobilizado, 50% de chance de Chakra(+4)."
+        ]
+      },
+      "S2_002": {
+        "name": "Naruto Uzumaki",
+        "ability": "Desafiante",
+        "descriptions": [
+          "Ao ser mobilizada, Imobilização(1s) e ganha Chakra(+2) para cada adversário da própria fileira com mais Chakra.",
+          "Ao ser mobilizada, Imobilização(2s) e ganha Chakra(+2) para cada adversário da própria fileira com mais Chakra."
+        ]
+      },
+      "S2_003": {
+        "name": "Sasuke Uchiha",
+        "ability": "Barragem do Leão",
+        "descriptions": [
+          "Salta para a primeira carta rival que se aproximar, e Enfraquece(2)-a para trás.",
+          "Salta para a primeira carta rival que se aproximar, e Enfraquece(3)-a para trás."
+        ]
+      },
+      "S2_004": {
+        "name": "Sakura Haruno",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(2s)",
+          "Ímpeto(3s)"
+        ]
+      },
+      "S2_005": {
+        "name": "Rock Lee",
+        "ability": "Protetor",
+        "descriptions": [
+          "Ímpeto(+3s) sempre que um adversário for mobilizado nesta fileira.",
+          "Ímpeto(+4s) sempre que um adversário for mobilizado nesta fileira."
+        ]
+      },
+      "S2_006": {
+        "name": "Rock Lee",
+        "ability": "Bomba do Amor",
+        "descriptions": [
+          "Chakra(+1) ao próximo aliado mobilizado. Enquanto esta carta estiver ativa, Troca de fileira esse aliado a cada 8 segundos.",
+          "Chakra(+2) ao próximo aliado mobilizado. Enquanto esta carta estiver ativa, Troque de fileira esse aliado a cada 8 segundos."
+        ]
+      },
+      "S2_007": {
+        "name": "Neji Hyuga",
+        "ability": "Punho Gentil",
+        "descriptions": [
+          "Ao confrontar, Enfraquece(2) e Empurra(1).",
+          "Ao confrontar, Enfraquece(2) e Empurra(2)."
+        ]
+      },
+      "S2_008": {
+        "name": "Tenten",
+        "ability": "Dragões Gêmeos",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(1) e Desacelera(6s) todos os adversários no Longo Alcance.",
+          "Ao ser mobilizado, Enfraquece(1) e Desacelera(8s) todos os adversários no Longo Alcance."
+        ]
+      },
+      "S2_009": {
+        "name": "Gai Maito",
+        "ability": "Poder da Juventude",
+        "descriptions": [
+          "Enquanto esta carta estiver ativa, Chakra(+2) para as cartas de Rock Lee ao mobilizá-las.",
+          "Enquanto esta carta estiver ativa, Chakra(+3) para as cartas de Rock Lee ao mobilizá-las."
+        ]
+      },
+      "S2_010": {
+        "name": "Gaara",
+        "ability": "Perigoso",
+        "descriptions": [
+          "É mobilizada em Médio Alcance. Chakra(+3) se houver uma carta adversária no Médio Alcance.",
+          "É mobilizada em Médio Alcance. Chakra(+4) se houver uma carta adversária no Médio Alcance."
+        ]
+      },
+      "S2_011": {
+        "name": "Kankuro",
+        "ability": "Descarado",
+        "descriptions": [
+          "Chakra(+3) ao próximo Gaara aliado mobilizado.",
+          "Chakra(+4) ao próximo Gaara aliado mobilizado."
+        ]
+      },
+      "S2_012": {
+        "name": "Temari",
+        "ability": "Prudente",
+        "descriptions": [
+          "Bloqueio(1) e Desaceleração(6s) ao próximo Gaara aliado mobilizado.",
+          "Bloqueio(1) e Desaceleração(10s) ao próximo Gaara aliado mobilizado."
+        ]
+      },
+      "S2_013": {
+        "name": "Baki",
+        "ability": "Resiliente",
+        "descriptions": [
+          "Ímpeto(3s) e Bloqueio(1).",
+          "Ímpeto(4s) e Bloqueio(1)."
+        ]
+      },
+      "S2_014": {
+        "name": "Ino Yamanaka",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(2s)",
+          "Ímpeto(3s)"
+        ]
+      },
+      "S2_015": {
+        "name": "Kabuto Yakushi",
+        "ability": "Explicação",
+        "descriptions": [
+          "Ao ser mobilizado, todos os aliados no Curto Alcance ganham aleatoriamente Chakra(+1) ou Imobilização(4s).",
+          "Ao ser mobilizado, todos os aliados no Curto Alcance ganham aleatoriamente Chakra(+2) ou Imobilização(4s)."
+        ]
+      },
+      "S2_016": {
+        "name": "Student Trio",
+        "ability": "Equipe Konohamaru",
+        "descriptions": [
+          "Ao retirar-se, remobiliza como Konohamaru, Moegi e Udon com Ímpeto(3s) e Chakra(1) em cada fileira.",
+          "Ao retirar-se, remobiliza como Konohamaru, Moegi e Udon com Ímpeto(4s) e Chakra(1) em cada fileira."
+        ]
+      },
+      "S2_017": {
+        "name": "Ibiki Morino",
+        "ability": "Regras Rígidas",
+        "descriptions": [
+          "Ao ser mobilizado, Empurra(2) ou Imobiliza(4s) todos os adversários em sua fileira.",
+          "Ao ser mobilizado, Empurra(3) ou Imobiliza(5s) todos os adversários em sua fileira."
+        ]
+      },
+      "S2_018": {
+        "name": "Choza Akimichi",
+        "ability": "Velhos Amigos",
+        "descriptions": [
+          "Enquanto esta carta estiver ativa, Chakra(+1) para as cartas de Shikaku e Inoichi aliadas.",
+          "Enquanto esta carta estiver ativa, Chakra(+2) para as cartas de Shikaku e Inoichi aliadas."
+        ]
+      },
+      "S2_019": {
+        "name": "Inoichi Yamanaka",
+        "ability": "Velhos Amigos",
+        "descriptions": [
+          "Enquanto esta carta estiver ativa, Chakra(+1) para as cartas de Choza e Shikaku aliadas.",
+          "Enquanto esta carta estiver ativa, Chakra(+2) para as cartas de Choza e Shikaku aliadas."
+        ]
+      },
+      "S2_020": {
+        "name": "Shikaku Nara",
+        "ability": "Velhos Amigos",
+        "descriptions": [
+          "Enquanto esta carta estiver ativa, Chakra(+1) para as cartas de Inoichi e Choza aliadas.",
+          "Enquanto esta carta estiver ativa, Chakra(+2) para as cartas de Inoichi e Choza aliadas."
+        ]
+      },
+      "S2_021": {
+        "name": "Hanabi Hyuga",
+        "ability": "Prodígio",
+        "descriptions": [
+          "Ímpeto(2s). Ao confrontar, Empurro(2).",
+          "Ímpeto(3s). Ao confrontar, Empurro(3)."
+        ]
+      },
+      "S2_022": {
+        "name": "Hiashi Hyuga",
+        "ability": "Líder Hyuga",
+        "descriptions": [
+          "Enquanto esta carta estiver ativa, os Hyuga aliados ganham Chakra(+2) e Empurra(1). Empurra não aumenta um valor já existente.",
+          "Enquanto esta carta estiver ativa, os Hyuga aliados ganham Chakra(+3) e Empurra(1). Empurra não aumenta um valor já existente."
+        ]
+      },
+      "S2_023": {
+        "name": "Hizashi Hyuga",
+        "ability": "Sacrifício do Irmão",
+        "descriptions": [
+          "Ímpeto(2s). Quando Hiashi aliado estiver prestes a se retirar, coloque-o de volta no início da fileira e recue em seu lugar.",
+          "Ímpeto(3s). Quando Hiashi aliado estiver prestes a se retirar, coloque-o de volta no início da fileira e recue em seu lugar."
+        ]
+      },
+      "S2_024": {
+        "name": "Zaku Abumi",
+        "ability": "Onda Sonora Cortante",
+        "descriptions": [
+          "Ao ser mobilizado, Empurra(2) e Troca de fileira duas cartas adversárias em Médio Alcance.",
+          "Ao ser mobilizado, Empurra(2) e Troca de fileira três cartas rivais no Médio Alcance."
+        ]
+      },
+      "S2_025": {
+        "name": "Dosu Kinuta",
+        "ability": "Broca de Eco Ressonante",
+        "descriptions": [
+          "Ao confrontar, Enfraquece(2) a carta adversária. Se o adversário não for retirado, Imobilize(4s) e depois Troque de fileira.",
+          "Ao confrontar, Enfraquece(2) a carta adversária. Se o adversário não for retirado, Imobilize(5s) e depois Troque de fileira."
+        ]
+      },
+      "S2_026": {
+        "name": "Kin Tsuchi",
+        "ability": "Agulhas de Sino",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(1) e Imobiliza(2s) a carta adversária mais próxima.",
+          "Ao ser mobilizado, Enfraquece(2) e Imobiliza(2s) a carta adversária mais próxima."
+        ]
+      },
+      "S2_027": {
+        "name": "Izumo Kamizuki",
+        "ability": "Sabotar",
+        "descriptions": [
+          "Ao ser mobilizado, Imobiliza(2s) dois aliados aleatórios na fileira.",
+          "Ao ser mobilizado, Imobiliza(2s) três aliados aleatórios na fileira."
+        ]
+      },
+      "S2_028": {
+        "name": "Kotetsu Hagane",
+        "ability": "Desorientação",
+        "descriptions": [
+          "Ao ser mobilizado, Lentidão(4s) e Troca de fileira 2 aliados aleatórios.",
+          "Ao ser mobilizado, Desacelera(4s) e Troca de fileira três aliados aleatórios."
+        ]
+      },
+      "S2_029": {
+        "name": "Oboro",
+        "ability": "Clone da Névoa",
+        "descriptions": [
+          "Ao ser mobilizado, cria 2 clones com Chakra(1). Quando os clones são retirados, 50% de chance de criar outro clone na mesma fileira.",
+          "Ao ser mobilizado, Invoca 2 clones com Chakra(2). Quando os clones são retirados, 50% de chance de criar outro clone na mesma fileira."
+        ]
+      },
+      "S2_030": {
+        "name": "Yoroi Akado",
+        "ability": "Absorção de Chakra",
+        "descriptions": [
+          "Ao confrontar, Chakra(+1) para essa carta e Enfraquece(1) a carta adversária. Também desativa qualquer habilidade ativa.",
+          "Ao confrontar, Chakra(+2) para essa carta e Enfraquece(1) a carta adversária. Também desativa qualquer habilidade ativa."
+        ]
+      },
+      "S2_031": {
+        "name": "Ningame",
+        "ability": "Temperança",
+        "descriptions": [
+          "Sempre que aliados na fileira ganharem Ímpeto, será convertido em Chakra(+1).",
+          "Sempre que aliados na fileira ganharem Ímpeto, será convertido em Chakra(+2)."
+        ]
+      },
+      "S2_032": {
+        "name": "Gama",
+        "ability": "Pergaminho do Sapo",
+        "descriptions": [
+          "Ao ser mobilizado, Invoca um Sapo aleatório do seu baralho e concede a ele Chakra(+1).",
+          "Ao ser mobilizado, Invoca um Sapo aleatório do seu baralho e concede a ele Chakra(+2)."
+        ]
+      },
+      "S2_033": {
+        "name": "Gamakichi",
+        "ability": "Falastrão",
+        "descriptions": [
+          "Sapos aliados aplicam Empurra(1) ao confrontar enquanto esta carta estiver ativa. Chakra(+1) sempre que um Sapo empurra um adversário.",
+          "Sapos aliados aplicam Empurra(2) ao confrontar enquanto esta carta estiver ativa. Chakra(+1) sempre que um Sapo empurra um rival."
+        ]
+      },
+      "S2_034": {
+        "name": "Giant Snake",
+        "ability": "Deslize",
+        "descriptions": [
+          "Mobiliza em Médio Alcance e Troca de fileira duas outras cartas presentes em Médio Alcance.",
+          "Mobiliza-se no Médio Alcance e Troca de fileira 3 outras cartas presentes no Médio Alcance."
+        ]
+      },
+      "S2_035": {
+        "name": "Raido Namiashi",
+        "ability": "Escolta",
+        "descriptions": [
+          "Ímpeto(2s). Quando Hiruzen aliado estiver prestes a ser retirado, coloque-o de volta no início da fileira e se retira em seu lugar.",
+          "Ímpeto(3s). Quando Hiruzen aliado estiver prestes a ser retirado, coloque-o de volta no início da fileira e se retira em seu lugar."
+        ]
+      },
+      "S2_036": {
+        "name": "Homura Mitokado",
+        "ability": "Resseguro",
+        "descriptions": [
+          "O próximo aliado mobilizado ganha Bloqueio(1) e Chakra(+1).",
+          "O próximo aliado mobilizado ganha Bloqueio(1) e Chakra(+2)."
+        ]
+      },
+      "S2_037": {
+        "name": "Koharu Utatane",
+        "ability": "Segurança",
+        "descriptions": [
+          "Após 10 segundos, mobiliza Os Caçadores Especiais Anbu.",
+          "Após 8 segundos, mobiliza Os Caçadores Especiais Anbu."
+        ]
+      },
+      "S2_038": {
+        "name": "Genma Shiranui",
+        "ability": "Examinador",
+        "descriptions": [
+          "Ao ser mobilizado, Concentração(6s). Se a Concentração for bem-sucedida, Invoca uma carta aleatória de custo até 4 do seu deck. Se ela tiver 3 ou menos de Chakra, conceda a ela Chakra(+2).",
+          "Ao ser mobilizado, Concentração(4s). Se a Concentração for bem-sucedida, Invoca uma carta aleatória com custo de até 4 do seu baralho. Se tiver 3 de Chakra ou menos, concede-lhe Chakra(+2)."
+        ]
+      },
+      "S2_039": {
+        "name": "Genma Shiranui",
+        "ability": "Alerta",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(3) um rival da fileira no Médio Alcance.",
+          "Ao ser mobilizado, Enfraquece(3) dois rivais da fileira no Médio Alcance."
+        ]
+      },
+      "S2_040": {
+        "name": "Yashamaru",
+        "ability": "Dever Relutante",
+        "descriptions": [
+          "Ao ser retirado, Enfraquece(3) todos os cards próximos.",
+          "Ao ser retirado, Enfraquece(4) todos os cards próximos."
+        ]
+      },
+      "S2_041": {
+        "name": "Karura",
+        "ability": "Amor de Mãe",
+        "descriptions": [
+          "Ao ser mobilizado, concede Chakra(+2) e Retarda(3s) aos cards de Gaara aliados.",
+          "Ao ser mobilizado, concede Chakra(+2) e Desacelera(5s) aos cards de Gaara aliados."
+        ]
+      },
+      "S2_042": {
+        "name": "Yugao Uzuki",
+        "ability": "Juramento Vingativo",
+        "descriptions": [
+          "Ímpeto(3s). Bloqueio(1). Ao encontrar, Enfraquece(2).",
+          "Ímpeto(4s). Bloqueio(1). Ao encontrar, Enfraquece(2)."
+        ]
+      },
+      "S2_043": {
+        "name": "Hana Inuzuka",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(4s)",
+          "Ímpeto(5s)"
+        ]
+      },
+      "S2_044": {
+        "name": "Tsume Inuzuka",
+        "ability": "Liderar A Investida",
+        "descriptions": [
+          "Ímpeto(4s). O próximo aliado mobilizado ganha Ímpeto(+3s) e Chakra(+1).",
+          "Ímpeto(4s). O próximo aliado mobilizado ganha Ímpeto(+3s) e Chakra(+2)."
+        ]
+      },
+      "S2_045": {
+        "name": "Shibi Aburame",
+        "ability": "Ajuda Oportuna",
+        "descriptions": [
+          "Ímpeto(5s). Concede Chakra(+1) aos aliados ao alcançá-los.",
+          "Ímpeto(6s). Concede Chakra(+1) aos aliados ao alcançá-los."
+        ]
+      },
+      "S2_046": {
+        "name": "Jirobo",
+        "ability": "Sul",
+        "descriptions": [
+          "O próximo Orochimaru mobilizado ganha Chakra(+3).",
+          "O próximo Orochimaru mobilizado ganha Chakra(+4)."
+        ]
+      },
+      "S2_047": {
+        "name": "Kidomaru",
+        "ability": "Leste",
+        "descriptions": [
+          "O próximo Orochimaru mobilizado ganha Ímpeto(+4s).",
+          "O próximo Orochimaru mobilizado ganha Ímpeto(+5s)."
+        ]
+      },
+      "S2_048": {
+        "name": "Sakon",
+        "ability": "Oeste",
+        "descriptions": [
+          "O próximo Orochimaru mobilizado Enfraquecerá(3) o card rival mais próximo.",
+          "O próximo Orochimaru mobilizado Enfraquecerá(4) o card rival mais próximo."
+        ]
+      },
+      "S2_049": {
+        "name": "Tayuya",
+        "ability": "Norte",
+        "descriptions": [
+          "O próximo Orochimaru mobilizado ganha Bloqueio(1).",
+          "O próximo Orochimaru mobilizado ganha Bloqueio(2)."
+        ]
+      },
+      "S2_050": {
+        "name": "Anbu",
+        "ability": "Caçadores Especiais",
+        "descriptions": [
+          "Ao ser mobilizado, ganha aleatoriamente Chakra(+2) ou Ímpeto(4s).",
+          "Ao ser mobilizado, ganha aleatoriamente Chakra(+3) ou Ímpeto(5s)."
+        ]
+      },
+      "S2_051": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rompedor do Destino",
+        "descriptions": [
+          "Bloqueio(2). Quando Bloqueio é ativado, reinicia Ímpeto(2s), sem somar à duração restante. Quando Ímpeto termina, Troca de fileira.",
+          "Bloqueio(3). Quando Bloqueio é ativado, reinicia Ímpeto(2s), sem somar à duração restante. Quando Ímpeto termina, Troca de fileira."
+        ]
+      },
+      "S2_052": {
+        "name": "Sakura Haruno",
+        "ability": "Inabalável",
+        "descriptions": [
+          "Ao encontrar, Enfraquece(1) o card rival e Bloqueio(1).",
+          "Ao encontrar, Enfraquece(1) o card rival e Bloqueio(2)."
+        ]
+      },
+      "S2_053": {
+        "name": "Rock Lee",
+        "ability": "Redemoinho da Folha",
+        "descriptions": [
+          "Ao confrontar, Empurra(1) e Enfraquece(2) a carta adversária.",
+          "Ao confrontar, Empurra(2) e Enfraquece(2) a carta adversária."
+        ]
+      },
+      "S2_054": {
+        "name": "Neji Hyuga",
+        "ability": "Byakugan",
+        "descriptions": [
+          "Ao ser mobilizado, reduz o Chakra do card rival mais próximo pela metade e ganha Ímpeto(2s).",
+          "Ao ser mobilizado, reduz o Chakra do card rival mais próximo pela metade e ganha Ímpeto(4s)."
+        ]
+      },
+      "S2_055": {
+        "name": "Neji Hyuga",
+        "ability": "Fardo do Destino",
+        "descriptions": [
+          "Sempre que este card ganha Chakra, ganha Chakra(+1) extra. Não pode ter mais de 10 de Chakra total.",
+          "Sempre que este card ganha Chakra, ganha Chakra(+2) extra. Não pode ter mais de 10 de Chakra total."
+        ]
+      },
+      "S2_056": {
+        "name": "Gai Maito",
+        "ability": "Reprimenda",
+        "descriptions": [
+          "Mobiliza para o Médio Alcance, ganha Chakra(+2) e Fixa(2s) o aliado da fileira mais próximo.",
+          "Mobiliza para o Médio Alcance, ganha Chakra(+2) e Imobiliza(6s) o aliado da fileira mais próximo."
+        ]
+      },
+      "S2_057": {
+        "name": "Choji Akimichi",
+        "ability": "Massa Humana",
+        "descriptions": [
+          "Ímpeto(3s). Em cada encontro, Empurra(2) e Enfraquece(1) se Acelerar estiver ativo.",
+          "Ímpeto(4s). Em cada encontro, Empurra(2) e Enfraquece(1) se Ímpeto estiver ativo."
+        ]
+      },
+      "S2_058": {
+        "name": "Ino Yamanaka",
+        "ability": "Transferência de Mente",
+        "descriptions": [
+          "Ao ser mobilizado, Concentração(8s) e assume o controle do rival no Médio Alcance da fileira com o Chakra mais alto. Quando a Concentração termina, devolve o controle da carta ao seu rival.",
+          "Ao ser mobilizado, Concentração(12s) e assume o controle do rival no Médio Alcance da fileira com o Chakra mais alto. Ao fim da Concentração, devolve o controle da carta ao seu adversário."
+        ]
+      },
+      "S2_059": {
+        "name": "Hinata Hyuga",
+        "ability": "Desviar",
+        "descriptions": [
+          "Ao encontrar, Empurra(1) e Troca de fileira com o card rival.",
+          "Ao encontrar, Empurra(2) e Troca de fileira com o card rival."
+        ]
+      },
+      "S2_060": {
+        "name": "Gaara",
+        "ability": "Escudo de Areia",
+        "descriptions": [
+          "Bloqueio(2). Quando a Bloqueio é ativada, Chakra(+1).",
+          "Bloqueio(3). Quando Bloquear ativa, ganha Chakra(+1)."
+        ]
+      },
+      "S2_061": {
+        "name": "Temari",
+        "ability": "Ventilador Gigante",
+        "descriptions": [
+          "Bloqueio(2). Ao ser mobilizado e quando a Bloqueio é ativada, Empurra(2) todos os adversários da fileira.",
+          "Bloqueio(3). Ao ser mobilizado e quando Bloqueio ativa, Empurra(3) todos os rivais da fileira."
+        ]
+      },
+      "S2_062": {
+        "name": "Anko Mitarashi",
+        "ability": "Serpente da Sombra que Ataca",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(2) e Fixa(4s) um carta rival da fileira no Médio Alcance.",
+          "Ao ser mobilizado, Enfraquece(2) e Imobiliza(4s) duas cartas rivais da fileira no Médio Alcance."
+        ]
+      },
+      "S2_063": {
+        "name": "Choza Akimichi",
+        "ability": "Expansão Corporal",
+        "descriptions": [
+          "Ao confrontar, Empurra(3) e Enfraquece(2) a carta adversária.",
+          "Ao confrontar, Empurra(3) e Enfraquece(3) a carta adversária."
+        ]
+      },
+      "S2_064": {
+        "name": "Inoichi Yamanaka",
+        "ability": "Destuição da Mente",
+        "descriptions": [
+          "Ao ser mobilizado, Concentração(10s) e assume o controle do rival no Médio Alcance da fileira mais próximo, o Retarda(10s) e desativa permanentemente qualquer habilidade ativa. Quando a Concentração termina, devolve o controle da carta ao seu rival.",
+          "Ao ser mobilizado, Concentração(14s) e assume o controle do rival no Médio Alcance da fileira mais próximo, o Desacelera(10s) e desativa permanentemente qualquer habilidade ativa. Ao fim da Concentração, devolve o controle da carta ao seu adversário."
+        ]
+      },
+      "S2_065": {
+        "name": "Shikaku Nara",
+        "ability": "Sombra Paralisante",
+        "descriptions": [
+          "Ao ser mobilizado, Imobiliza(10s) a si mesmo e dois adversários da fileira em Longo Alcance.",
+          "Ao ser mobilizado, Imobiliza(12s) a si mesmo e dois rivais da fileira no Longo Alcance."
+        ]
+      },
+      "S2_066": {
+        "name": "Jiraiya",
+        "ability": "Sábio Tarado",
+        "descriptions": [
+          "Troca de fileira aleatoriamente a cada 10 segundos.",
+          "Troca de fileira aleatoriamente a cada 8 segundos."
+        ]
+      },
+      "S2_067": {
+        "name": "Orochimaru",
+        "ability": "Maquinações",
+        "descriptions": [
+          "Ao ser mobilizado e ao se retirar, Enfraquece(1) até 4 cartas quaisquer.",
+          "Ao ser mobilizado e ao se retirar, Enfraquece(1) até 6 cartas quaisquer."
+        ]
+      },
+      "S2_068": {
+        "name": "Hashirama Senju",
+        "ability": "Reanimação Edo",
+        "descriptions": [
+          "Quando abaixo do Chakra base, ganha Chakra(+1) a cada 4 segundos até voltar ao Chakra base.",
+          "Quando abaixo do Chakra base, ganha Chakra(+1) a cada 3 segundos até voltar ao Chakra base."
+        ]
+      },
+      "S2_069": {
+        "name": "Tobirama Senju",
+        "ability": "Reanimação Edo",
+        "descriptions": [
+          "Quando abaixo do Chakra base, ganha Chakra(+1) a cada 4 segundos até voltar ao Chakra base.",
+          "Quando abaixo do Chakra base, ganha Chakra(+1) a cada 3 segundos até voltar ao Chakra base."
+        ]
+      },
+      "S2_070": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "O Terceiro",
+        "descriptions": [
+          "Ao encontrar, ganha Chakra(+2). Ao ser retirado, concede Chakra(+2) a todos os aliados.",
+          "Ao encontrar, ganha Chakra(+3). Ao ser retirado, concede Chakra(+2) a todos os aliados."
+        ]
+      },
+      "S2_071": {
+        "name": "Hayate Gekko",
+        "ability": "Dança da Lua Crescente",
+        "descriptions": [
+          "Ao encontrar, Enfraquece(1) três vezes. Se o rival não for retirado, também Empurra(2).",
+          "Ao encontrar, Enfraquece(1) três vezes. Se o rival não for retirado, também Empurra(3)."
+        ]
+      },
+      "S2_072": {
+        "name": "Ibiki Morino",
+        "ability": "Interrogatório",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(1) e Retarda(4s) todos os cards.",
+          "Ao ser mobilizado, Enfraquece(1) e Desacelera(6s) todos os cards."
+        ]
+      },
+      "S2_073": {
+        "name": "Gamahiro",
+        "ability": "Peso",
+        "descriptions": [
+          "Ao ser mobilizado, ganha Chakra(+2) para cada Sapo aliado. Desaceleração permanente.",
+          "Ao ser mobilizado, ganha Chakra(+3) para cada Sapo aliado. Desaceleração permanente."
+        ]
+      },
+      "S2_074": {
+        "name": "Sasuke Uchiha",
+        "ability": "Chidori",
+        "descriptions": [
+          "Ao encontrar, salta através dos rivais próximos, Enfraquecendo(2) cada um deles. Ignora Bloqueio.",
+          "Ao encontrar, salta através dos rivais próximos, Enfraquecendo(3) cada um deles. Ignora Bloqueio."
+        ]
+      },
+      "S2_075": {
+        "name": "Rock Lee",
+        "ability": "Leveza",
+        "descriptions": [
+          "Ímpeto(3s). Em cada encontro, se o card rival tiver Chakra superior, Empurra(1) e Enfraquece(2), depois Troca de fileira.",
+          "Ímpeto(3s). Em cada encontro, se o card rival tiver Chakra superior, Empurra(2) e Enfraquece(2), depois Troca de fileira."
+        ]
+      },
+      "S2_076": {
+        "name": "Neji Hyuga",
+        "ability": "Rotação",
+        "descriptions": [
+          "Ao encontrar, Empurra(2) e Enfraquece(3) todos os cards rivais próximos.",
+          "Ao encontrar, Empurra(4) e Enfraquece(3) todos os cards rivais próximos."
+        ]
+      },
+      "S2_077": {
+        "name": "Kiba Inuzuka",
+        "ability": "Clone de Homem Besta",
+        "descriptions": [
+          "O próximo Akamaru mobilizado torna-se uma cópia completa deste card com Ímpeto(4s).",
+          "O próximo Akamaru mobilizado torna-se uma cópia completa deste card com Ímpeto(5s)."
+        ]
+      },
+      "S2_078": {
+        "name": "Shikamaru Nara",
+        "ability": "Mestre de Shogi",
+        "descriptions": [
+          "Ao ser mobilizado, Fixa(10s) a si mesmo e ganha Chakra(+3). Enquanto este card estiver ativo, sempre que você Fixar outros cards aliados ou eles se Concentrarem, eles ganham Chakra(+3).",
+          "Ao ser mobilizado, Imobiliza(12s) a si mesmo e ganha Chakra(+4). Enquanto este card estiver ativo, sempre que você Imobilizar outros cards aliados ou eles ganharem Concentração, eles ganham Chakra(+3)."
+        ]
+      },
+      "S2_079": {
+        "name": "Asuma Sarutobi",
+        "ability": "Lâminas de Chakra",
+        "descriptions": [
+          "Em cada encontro, Enfraquece(1). Quando este card faz um rival ser retirado, Ímpeto(+1s).",
+          "Em cada encontro, Enfraquece(2). Quando este card faz um rival ser retirado, Ímpeto(+1s)."
+        ]
+      },
+      "S2_080": {
+        "name": "Gaara",
+        "ability": "Instável",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(2) e Retarda(6s) todos os cards na fileira.",
+          "Ao ser mobilizado, Enfraquece(2) e Desacelera(8s) todos os cards na fileira."
+        ]
+      },
+      "S2_081": {
+        "name": "Gaara",
+        "ability": "Sede de Sangue",
+        "descriptions": [
+          "Ganha Chakra(+1) sempre que cards aliados Enfraquecem qualquer card.",
+          "Ganha Chakra(+2) sempre que cards aliados Enfraquecem qualquer card."
+        ]
+      },
+      "S2_082": {
+        "name": "Kankuro",
+        "ability": "Ataque de Marionete",
+        "descriptions": [
+          "Enfraquece(3) e Desacelera(2s) o primeiro adversário que se aproxima. Se ele não se retirar, Troca sua fileira. Ganha Chakra(+1) e reativa esta habilidade quando outro aliado faz um adversário Trocar de fileira.",
+          "Enfraquece(3) e Desacelera(5s) o primeiro adversário que se aproxima. Se ele não se retirar, Troca sua fileira. Ganha Chakra(+1) e reativa esta habilidade quando outro aliado faz um adversário Trocar de fileira."
+        ]
+      },
+      "S2_083": {
+        "name": "Jiraya",
+        "ability": "Sábio dos Sapos",
+        "descriptions": [
+          "Concede Chakra(+3) aos Sapos aliados enquanto este card estiver ativo.",
+          "Concede Chakra(+4) aos Sapos aliados enquanto este card estiver ativo."
+        ]
+      },
+      "S2_084": {
+        "name": "Orochimaru",
+        "ability": "Traição",
+        "descriptions": [
+          "Ignora todas as habilidades e encontros rivais. Quando no Médio Alcance, ganha Chakra(+2) e torna-se vulnerável.",
+          "Ignora todas as habilidades e encontros rivais. Quando no Médio Alcance, ganha Chakra(+3) e torna-se vulnerável."
+        ]
+      },
+      "S2_085": {
+        "name": "Orochimaru",
+        "ability": "Kusanagi",
+        "descriptions": [
+          "Em cada encontro, Enfraquece(2). Sempre que um card rival Troca de fileira, Troca para a mesma fileira e ganha Bloqueio(1).",
+          "Em cada encontro, Enfraquece(3). Sempre que um card rival Troca de fileira, Troca para a mesma fileira e ganha Bloqueio(1)."
+        ]
+      },
+      "S2_086": {
+        "name": "Orochimaru",
+        "ability": "Invocação: Reencarnação Impura",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(2) dois aliados com o menor Chakra. Para cada retirada, Invoca Edo Hashirama e Tobirama do seu deck, concedendo-lhes Ímpeto(3s).",
+          "Ao ser mobilizado, Enfraquece(2) dois aliados com o menor Chakra. Para cada retirada, Invoca Edo Hashirama e Tobirama do seu deck, concedendo-lhes Ímpeto(5s)."
+        ]
+      },
+      "S2_087": {
+        "name": "Hashirama Senju",
+        "ability": "Emersão da Floresta Profunda",
+        "descriptions": [
+          "Ao ser mobilizado, Fixa(12s) todos os cards rivais.",
+          "Ao ser mobilizado, Imobiliza(14s) todos os cards rivais."
+        ]
+      },
+      "S2_088": {
+        "name": "Tobirama Senju",
+        "ability": "Onda Chocante de Agua",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(2) e Lentidão(4s) todas as cartas adversárias.",
+          "Ao ser mobilizado, Enfraquece(2) e Desacelera(8s) todos os cards rivais."
+        ]
+      },
+      "S2_089": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Bomba do Dragão de Fogo",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(3) e Queima(4) a carta adversária mais próxima.",
+          "Ao ser mobilizado, Enfraquece(3) e Queima(5) o card rival mais próximo."
+        ]
+      },
+      "S2_090": {
+        "name": "Enma",
+        "ability": "Rei Macaco",
+        "descriptions": [
+          "Concede Chakra(+1) aos aliados quando eles Trocam de fileira.",
+          "Concede Chakra(+2) aos aliados quando eles Trocam de fileira."
+        ]
+      },
+      "S2_091": {
+        "name": "Naruto Uzumaki",
+        "ability": "Vontade de Proteger",
+        "descriptions": [
+          "Na primeira vez que este card fica abaixo do Chakra base, ganha Chakra(+4) e Ímpeto(3s). Ao ser retirado, aumenta permanentemente o Chakra base em 2.",
+          "Na primeira vez que este card fica abaixo do Chakra base, ganha Chakra(+5) e Ímpeto(3s). Ao ser retirado, aumenta permanentemente o Chakra base em 2."
+        ]
+      },
+      "S2_092": {
+        "name": "Sasuke Uchiha",
+        "ability": "Marca da Maldição",
+        "descriptions": [
+          "Ao ser mobilizado, ganha Chakra(+3). Após cada encontro, ganha Chakra(+2).",
+          "Ao ser mobilizado, ganha Chakra(+4). Após cada encontro, ganha Chakra(+2)."
+        ]
+      },
+      "S2_093": {
+        "name": "Sakura Haruno",
+        "ability": "Inflexível",
+        "descriptions": [
+          "Bloqueio Permanente. Toda vez que Bloqueio ativa, ganha Chakra(+1) e Troca de fileira.",
+          "Bloqueio Permanente. Toda vez que Bloqueio ativa, ganha Chakra(+2) e Troca de fileira."
+        ]
+      },
+      "S2_094": {
+        "name": "Rock Lee",
+        "ability": "Quinto Portão",
+        "descriptions": [
+          "Ao ser mobilizado, Concentração(5s). Se a Concentração for bem-sucedida, ganha Chakra(+7) e ativa o restante desta habilidade. Pule para a primeira carta rival que aparecer por perto. Em cada encontro, Enfraqueça(2) a carta rival e Enfraqueça(1) você mesmo.",
+          "Ao ser mobilizado, Concentração(3s). Se a Concentração for bem-sucedida, ganha Chakra(+7) e ativa o resto desta habilidade. Pule para a primeira carta rival que aparecer por perto. Em cada encontro, Enfraqueça(2) a carta rival e Enfraqueça(1) você mesmo."
+        ]
+      },
+      "S2_095": {
+        "name": "Neji Hyuga",
+        "ability": "Sessenta e Quatro Golpes",
+        "descriptions": [
+          "Em cada encontro, Empurra(1) e Enfraquece(1). Quando este card faz um rival ser retirado, também reduz permanentemente seu Chakra base em 2.",
+          "Em cada encontro, Empurra(1) e Enfraquece(2). Quando este card faz um rival ser retirado, também reduz permanentemente seu Chakra base em 2."
+        ]
+      },
+      "S2_096": {
+        "name": "Gaara",
+        "ability": "Liberação de Areia",
+        "descriptions": [
+          "Bloqueio(1). Quando uma carta adversária se aproxima, Imobiliza(8s) e ganha Chakra(+2). Se o adversário já estiver imobilizado, em vez disso Enfraquece(3) e ganha Bloqueio(1).",
+          "Bloqueio(2). Sempre que uma carta rival se aproxima, Imobiliza(8s) e ganha Chakra(+2). Se o rival já estiver Imobilizado, Enfraquece(3) e ganha Bloqueio(1) em vez disso."
+        ]
+      },
+      "S2_097": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Mestre Elemental",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(1) e Lentidão(8s) todos os adversários da fileira. A primeira vez que esta carta ganha Chakra, Enfraquece(2) e Queima(3) todos os adversários da fileira.",
+          "Ao ser mobilizado, Enfraquece(1) e Desacelera(12s) todos os rivais da fileira. Na primeira vez que esta carta ganha Chakra, Enfraquece(2) e Queima(4) todos os rivais da fileira."
+        ]
+      },
+      "S2_098": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Selo Ceifeiro da Morte",
+        "descriptions": [
+          "Ao ser mobilizado, Concentração(4s). Se a Concentração for bem-sucedida, ativa o restante desta habilidade. Quando uma carta adversária se aproxima com Chakra igual ou maior, remove até 12 Chakra dela e desativa qualquer habilidade ativa. Se o alvo recuar, Sela(15s). Ao recuar, se Sela(15s). Recua instantaneamente após selar 3 cartas.",
+          "Ao ser mobilizado, Concentração(4s). Se a Concentração for bem-sucedida, ativa o resto desta habilidade. Quando uma carta rival se aproxima com Chakra igual ou superior, remove dela até 15 Chakra e desativa qualquer habilidade ativa. Se o alvo se retirar, aplica Selo(15s). Ao se retirar, aplica Selo(15s) a si mesmo. Retira-se instantaneamente após selar 3 cartas."
+        ]
+      },
+      "S2_099": {
+        "name": "Ichibi",
+        "ability": "Bolas de Ar",
+        "descriptions": [
+          "Ao ser mobilizado, Enfraquece(2) todos os adversários de sua fileira em Longo Alcance. A cada 10 segundos, Concentração(2s). Se a Concentração for bem-sucedida, Enfraquece(2) todos os adversários de sua fileira em Longo Alcance.",
+          "Ao ser mobilizado, Enfraquece(3) todos os adversários de sua fileira em Longo Alcance. A cada 10 segundos, Concentração(2s). Se a Concentração for bem-sucedida, Enfraquece(3) todos os adversários de sua fileira em Longo Alcance."
+        ]
+      },
+      "S2_100": {
+        "name": "Kyubi",
+        "ability": "Destino Conectado",
+        "descriptions": [
+          "Chakra(+7) ao próximo aliado mobilizado. As cartas estão ligadas. Quando um é retirado, o outro também é.",
+          "Chakra(+8) ao próximo aliado mobilizado. As cartas estão ligadas. Quando um é retirado, o outro também é."
+        ]
+      },
+      "S3_001": {
+        "name": "Naruto Uzumaki",
+        "ability": "Sonho compartilhado",
+        "descriptions": [
+          "Sempre que outra carta com Sonho Compartilhado se retira, esta carta ganha Chakra(+1).",
+          "Sempre que outra carta com Sonho Compartilhado se retira, esta carta ganha Chakra(+2)."
+        ]
+      },
+      "S3_002": {
+        "name": "Sasuke Uchiha",
+        "ability": "Treinamento de bola de fogo",
+        "descriptions": [
+          "Ímpeto(1s). Ao ser mobilizada, Chakra(+1) para cada carta rival afetada por Queimadura.",
+          "Ímpeto(2s). Ao ser mobilizada, Chakra(+1) para cada carta rival afetada por Queimadura."
+        ]
+      },
+      "S3_003": {
+        "name": "Choji Akimichi",
+        "ability": "Expansão parcial",
+        "descriptions": [
+          "Quando uma carta rival se aproxima, Enfraquece(1) e Empurra(2).",
+          "Quando uma carta rival se aproxima, Enfraquece(1) e Empurra(4)."
+        ]
+      },
+      "S3_004": {
+        "name": "Kankuro",
+        "ability": "Troca de marionete",
+        "descriptions": [
+          "Ao confrontar, Teletransporta para trás da carta rival, Enfraquece(2) e Imobiliza(5s).",
+          "Ao confrontar, Teletransporta para trás da carta rival, Enfraquece(2) e Imobiliza(8s)."
+        ]
+      },
+      "S3_005": {
+        "name": "Kankuro",
+        "ability": "Dama de ferro",
+        "descriptions": [
+          "Quando uma carta rival se aproxima, puxa-a para esta carta e desativa sua habilidade, então Enfraquece(2).",
+          "Quando uma carta rival se aproxima, puxa-a para esta carta e desativa sua habilidade, então Enfraquece(3)."
+        ]
+      },
+      "S3_006": {
+        "name": "Neji Hyuga",
+        "ability": "Defesa restrita",
+        "descriptions": [
+          "Bloqueio(2). Quando Bloqueio ativa, 50% de chance de Imobilizar(6s) a si mesma.",
+          "Bloqueio(3). Quando Bloqueio ativa, 50% de chance de Imobilizar(6s) a si mesma."
+        ]
+      },
+      "S3_007": {
+        "name": "Shikamaru Nara",
+        "ability": "Preguiçoso",
+        "descriptions": [
+          "Ímpeto(2s)",
+          "Ímpeto(3s)"
+        ]
+      },
+      "S3_008": {
+        "name": "Jiraiya",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(4s)",
+          "Ímpeto(5s)"
+        ]
+      },
+      "S3_009": {
+        "name": "Jiraiya",
+        "ability": "Armadilha da boca do sapo",
+        "descriptions": [
+          "Ao ser mobilizada, Imobiliza(6s) todas as cartas da fileira.",
+          "Ao ser mobilizada, Imobiliza(10s) todas as cartas da fileira."
+        ]
+      },
+      "S3_010": {
+        "name": "Jiraiya",
+        "ability": "Treinamento avançado",
+        "descriptions": [
+          "Sempre que você mobiliza um aliado de fileira com 3 ou menos de Chakra, concede a ele Concentração(8s). Se essa Concentração for bem-sucedida, a carta aliada ganha Chakra(+3).",
+          "Sempre que você mobiliza um aliado de fileira com 3 ou menos de Chakra, concede a ele Concentração(8s). Se essa Concentração for bem-sucedida, a carta aliada ganha Chakra(+4)."
+        ]
+      },
+      "S3_011": {
+        "name": "Orochimaru",
+        "ability": "Em guarda",
+        "descriptions": [
+          "Bloqueio(1)",
+          "Bloqueio(2)"
+        ]
+      },
+      "S3_012": {
+        "name": "Orochimaru",
+        "ability": "Esquivo",
+        "descriptions": [
+          "Ímpeto(3s). Quando uma carta rival se aproxima, Enfraquece(1) e Troca de fileira.",
+          "Ímpeto(5s). Quando uma carta rival se aproxima, Enfraquece(1) e Troca de fileira."
+        ]
+      },
+      "S3_013": {
+        "name": "Tsunade",
+        "ability": "Ímpeto",
+        "descriptions": [
+          "Ímpeto(3s)",
+          "Ímpeto(4s)"
+        ]
+      },
+      "S3_014": {
+        "name": "Tsunade",
+        "ability": "Peteleco poderoso",
+        "descriptions": [
+          "Bloqueio(1). Quando uma carta rival se aproxima, salta sobre ela e a Empurra(2).",
+          "Bloqueio(1). Quando uma carta rival se aproxima, salta sobre ela e a Empurra(4)."
+        ]
+      },
+      "S3_015": {
+        "name": "Tsunade",
+        "ability": "Experiente",
+        "descriptions": [
+          "Ímpeto(3s). Ao confrontar, Empurra(1).",
+          "Ímpeto(4s). Ao confrontar, Empurra(1)."
+        ]
+      },
+      "S3_016": {
+        "name": "Manda",
+        "ability": "Serpente colossal",
+        "descriptions": [
+          "Ímpeto(4s) e Bloqueio(1). Quando Bloqueio ativa, Troca de fileira.",
+          "Ímpeto(4s) e Bloqueio(2). Quando Bloqueio ativa, Troca de fileira."
+        ]
+      },
+      "S3_017": {
+        "name": "Katsuyu",
+        "ability": "Jato de ácido",
+        "descriptions": [
+          "Ao ser mobilizada, Enfraquece(2) e Desacelera(6s) todos os rivais em Médio Alcance.",
+          "Ao ser mobilizada, Enfraquece(3) e Desacelera(6s) todos os rivais em Médio Alcance."
+        ]
+      },
+      "S3_018": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Teste dos sinos",
+        "descriptions": [
+          "Desacelera(6s) os próximos três aliados mobilizados, concedendo-lhes Chakra(+1) a cada 3 segundos enquanto estiverem sob esta Desaceleração.",
+          "Desacelera(9s) os próximos três aliados mobilizados, concedendo-lhes Chakra(+1) a cada 3 segundos enquanto estiverem sob esta Desaceleração."
+        ]
+      },
+      "S3_019": {
+        "name": "Itachi Uchiha",
+        "ability": "Irmão mais velho",
+        "descriptions": [
+          "O próximo Sasuke mobilizado ganha Chakra(+2) e Ímpeto(4s) se for mobilizado na mesma fileira, ou Bloqueio(2) e Desacelera(10s) se for mobilizado em outra fileira.",
+          "O próximo Sasuke mobilizado ganha Chakra(+2) e Ímpeto(5s) se for mobilizado na mesma fileira, ou Bloqueio(2) e Desacelera(12s) se for mobilizado em outra fileira."
+        ]
+      },
+      "S3_020": {
+        "name": "Jirobo",
+        "ability": "Liberação do selo amaldiçoado",
+        "descriptions": [
+          "Bloqueio(1). Ao confrontar, Empurra(1).",
+          "Bloqueio(2). Ao confrontar, Empurra(1)."
+        ]
+      },
+      "S3_021": {
+        "name": "Kidomaru",
+        "ability": "Liberação do selo amaldiçoado",
+        "descriptions": [
+          "Bloqueio(1) e Ímpeto(2s).",
+          "Bloqueio(1) e Ímpeto(4s)."
+        ]
+      },
+      "S3_022": {
+        "name": "Kidomaru",
+        "ability": "Chuva de aranhas",
+        "descriptions": [
+          "Ao ser mobilizada, Imobiliza(4s) ou Desacelera(6s) aleatoriamente todas as cartas rivais.",
+          "Ao ser mobilizada, Imobiliza(6s) ou Desacelera(8s) aleatoriamente todas as cartas rivais."
+        ]
+      },
+      "S3_023": {
+        "name": "Kimimaro",
+        "ability": "Controle dos ossos",
+        "descriptions": [
+          "Ímpeto(2s). Ao confrontar, Enfraquece(3).",
+          "Ímpeto(4s). Ao confrontar, Enfraquece(3)."
+        ]
+      },
+      "S3_024": {
+        "name": "Sakon & Ukon",
+        "ability": "Liberação do selo amaldiçoado",
+        "descriptions": [
+          "Bloqueio(1). Ao confrontar, Enfraquece(1).",
+          "Bloqueio(1). Ao confrontar, Enfraquece(2)."
+        ]
+      },
+      "S3_025": {
+        "name": "Tayuya",
+        "ability": "Liberação do selo amaldiçoado",
+        "descriptions": [
+          "Bloqueio(1) e Ímpeto(2s).",
+          "Bloqueio(1) e Ímpeto(4s)."
+        ]
+      },
+      "S3_026": {
+        "name": "Kimimaro",
+        "ability": "Liberação do selo amaldiçoado",
+        "descriptions": [
+          "Bloqueio(1). Quando uma carta rival se aproxima, Imobiliza(2s) a si mesma e Chakra(+1). Ao confrontar, Enfraquece(1).",
+          "Bloqueio(2). Quando uma carta rival se aproxima, Imobiliza(2s) a si mesma e Chakra(+1). Ao confrontar, Enfraquece(1)."
+        ]
+      },
+      "S3_027": {
+        "name": "Shizune",
+        "ability": "Porquinho devotado",
+        "descriptions": [
+          "Ao ser mobilizada, Invoca Tonton com Chakra(1) e Ímpeto(5s) na mesma fileira que a Tsunade aliada. Ao alcançar uma carta Tsunade aliada, concede-lhe Chakra(+3) e então se retira.",
+          "Ao ser mobilizada, Invoca Tonton com Chakra(1) e Ímpeto(5s) na mesma fileira que a Tsunade aliada. Ao alcançar uma carta Tsunade aliada, concede-lhe Chakra(+4) e então se retira."
+        ]
+      },
+      "S3_028": {
+        "name": "Tsume Inuzuka",
+        "ability": "Mestra dos cães",
+        "descriptions": [
+          "Ao ser mobilizada, Invoca Kuromaru com Chakra(3) em outra fileira. O próximo Cão Ninja mobilizado ganha Chakra(+2).",
+          "Ao ser mobilizada, Invoca Kuromaru com Chakra(3) em outra fileira. O próximo Cão Ninja mobilizado ganha Chakra(+3)."
+        ]
+      },
+      "S3_029": {
+        "name": "Akahoshi",
+        "ability": "Treinamento enganoso",
+        "descriptions": [
+          "Sempre que cartas aliadas se concentram, concede-lhes Concentração(+4s). Enfraquece(1) as cartas aliadas a cada 4 segundos durante a Concentração.",
+          "Sempre que cartas aliadas se concentram, concede-lhes Concentração(+6s). Enfraquece(1) as cartas aliadas a cada 4 segundos durante a Concentração."
+        ]
+      },
+      "S3_030": {
+        "name": "Amachi",
+        "ability": "Bala de água",
+        "descriptions": [
+          "Ímpeto(2s). Ao ser mobilizada, Enfraquece(1) a carta rival mais próxima em Médio Alcance.",
+          "Ímpeto(3s). Ao ser mobilizada, Enfraquece(2) a carta rival mais próxima em Médio Alcance."
+        ]
+      },
+      "S3_031": {
+        "name": "Aoi Rokusho",
+        "ability": "Chuva de agulhas",
+        "descriptions": [
+          "Ao confrontar, Enfraquece(1) e Desacelera(3s) todos os rivais de fileira próximos.",
+          "Ao confrontar, Enfraquece(1) e Desacelera(5s) todos os rivais de fileira próximos."
+        ]
+      },
+      "S3_032": {
+        "name": "Dan Kato",
+        "ability": "Sonho compartilhado",
+        "descriptions": [
+          "Sempre que outra carta com Sonho Compartilhado se retira, esta carta ganha Chakra(+1).",
+          "Sempre que outra carta com Sonho Compartilhado se retira, esta carta ganha Chakra(+2)."
+        ]
+      },
+      "S3_033": {
+        "name": "Fugaku Uchiha",
+        "ability": "Líder dos Uchiha",
+        "descriptions": [
+          "Ao mobilizar cartas Uchiha aliadas, elas ganham Bloqueio(+1) e Desacelera(6s) se tiverem 3 de Chakra ou menos, caso contrário ganham Chakra(+2) e Imobilização(4s).",
+          "Ao mobilizar cartas Uchiha aliadas, elas ganham Bloqueio(+2) e Desacelera(6s) se tiverem 3 de Chakra ou menos, caso contrário ganham Chakra(+3) e Imobilização(4s)."
+        ]
+      },
+      "S3_034": {
+        "name": "Fūjin",
+        "ability": "Força lendária",
+        "descriptions": [
+          "Bloqueio(1). Ao confrontar, Enfraquece(1) e Empurra(3).",
+          "Bloqueio(2). Ao confrontar, Enfraquece(1) e Empurra(3)."
+        ]
+      },
+      "S3_035": {
+        "name": "Gamatatsu",
+        "ability": "Motivado por comida",
+        "descriptions": [
+          "Ao ser mobilizada, Concentra(12s). A cada 4 segundos durante a Concentração, gasta 1 energia se disponível para conceder Chakra(+2) aos outros Sapos aliados.",
+          "Ao ser mobilizada, Concentra(16s). A cada 4 segundos durante a Concentração, gasta 1 energia se disponível para conceder Chakra(+2) aos outros Sapos aliados."
+        ]
+      },
+      "S3_036": {
+        "name": "Hanzaki",
+        "ability": "Plano de roubo",
+        "descriptions": [
+          "Ímpeto(2s). Ao ser mobilizada, Enfraquece(1) todos os aliados de fileira, ganhando Chakra(+2) para cada aliado afetado.",
+          "Ímpeto(3s). Ao ser mobilizada, Enfraquece(1) todos os aliados de fileira, ganhando Chakra(+2) para cada aliado afetado."
+        ]
+      },
+      "S3_037": {
+        "name": "Hanzaki",
+        "ability": "Investida do Zanbato",
+        "descriptions": [
+          "Bloqueio(1). Quando uma carta rival se aproxima, salta sobre ela e a Enfraquece(1) ou Empurra(1).",
+          "Bloqueio(2). Quando uma carta rival se aproxima, salta sobre ela e a Enfraquece(1) ou Empurra(1)."
+        ]
+      },
+      "S3_038": {
+        "name": "Idate Morino",
+        "ability": "Corredor",
+        "descriptions": [
+          "Ímpeto(4s). Ao confrontar, Troca de fileira.",
+          "Ímpeto(5s). Ao confrontar, Troca de fileira."
+        ]
+      },
+      "S3_039": {
+        "name": "Jirocho Wasabi",
+        "ability": "Crença sincera",
+        "descriptions": [
+          "O próximo aliado mobilizado em outra fileira ganha Ímpeto(2s) e Bloqueio(1). Quando ele chega ao Médio Alcance, converte o Ímpeto restante em até 3 Chakra.",
+          "O próximo aliado mobilizado em outra fileira ganha Ímpeto(3s) e Bloqueio(1). Quando ele chega ao Médio Alcance, converte o Ímpeto restante em até 3 Chakra."
+        ]
+      },
+      "S3_040": {
+        "name": "Arashi",
+        "ability": "Mandala de aprisionamento",
+        "descriptions": [
+          "Ao ser mobilizada, Empurra(2) e Imobiliza(8s) o rival de fileira com mais Chakra. Enquanto sob esta Imobilização, Enfraquece(1) a carta rival a cada 4s.",
+          "Ao ser mobilizada, Empurra(4) e Imobiliza(8s) o rival de fileira com mais Chakra. Enquanto sob esta Imobilização, Enfraquece(1) a carta rival a cada 4s."
+        ]
+      },
+      "S3_041": {
+        "name": "Kagerō",
+        "ability": "Arte ninja Kagero",
+        "descriptions": [
+          "Ao ser mobilizada, Enfraquece(3) dois rivais de fileira em Médio Alcance, então Troca de fileira a si mesma e a dois aliados de fileira em Curto Alcance.",
+          "Ao ser mobilizada, Enfraquece(4) dois rivais de fileira em Médio Alcance, então Troca de fileira a si mesma e a dois aliados de fileira em Curto Alcance."
+        ]
+      },
+      "S3_042": {
+        "name": "Kyuroku Wagarashi",
+        "ability": "Desonra",
+        "descriptions": [
+          "O próximo aliado de fileira mobilizado ganha Ímpeto(4s). Ao se retirar, Troca de fileira e Desacelera(3s) todos os aliados de fileira.",
+          "O próximo aliado de fileira mobilizado ganha Ímpeto(5s). Ao se retirar, Troca de fileira e Desacelera(3s) todos os aliados de fileira."
+        ]
+      },
+      "S3_043": {
+        "name": "Mikoto Uchiha",
+        "ability": "Alívio",
+        "descriptions": [
+          "O próximo Sasuke mobilizado ganha Chakra(+1). A primeira vez que uma carta Sasuke aliada fica abaixo do Chakra base, Cura(1).",
+          "O próximo Sasuke mobilizado ganha Chakra(+1). A primeira vez que uma carta Sasuke aliada fica abaixo do Chakra base, Cura(2)."
+        ]
+      },
+      "S3_044": {
+        "name": "Mizuki",
+        "ability": "Selo amaldiçoado animal",
+        "descriptions": [
+          "Ao confrontar, Enfraquece(4). Após 20 segundos, define seu Chakra em Chakra(1) e desativa esta habilidade.",
+          "Ao confrontar, Enfraquece(5). Após 20 segundos, define seu Chakra em Chakra(1) e desativa esta habilidade."
+        ]
+      },
+      "S3_045": {
+        "name": "Nawaki",
+        "ability": "Sonho compartilhado",
+        "descriptions": [
+          "Sempre que outra carta com Sonho Compartilhado se retira, esta carta ganha Chakra(+1).",
+          "Sempre que outra carta com Sonho Compartilhado se retira, esta carta ganha Chakra(+2)."
+        ]
+      },
+      "S3_046": {
+        "name": "Raiga Kurosuki",
+        "ability": "Espadas do trovão",
+        "descriptions": [
+          "Quando uma carta rival se aproxima, Enfraquece(1) e Troca a fileira dela.",
+          "Quando uma carta rival se aproxima, Enfraquece(2) e Troca a fileira dela."
+        ]
+      },
+      "S3_047": {
+        "name": "Raijin",
+        "ability": "Força lendária",
+        "descriptions": [
+          "Bloqueio(1). Ao confrontar, Enfraquece(1) e Empurra(3).",
+          "Bloqueio(2). Ao confrontar, Enfraquece(1) e Empurra(3)."
+        ]
+      },
+      "S3_048": {
+        "name": "Sumaru",
+        "ability": "Guia local",
+        "descriptions": [
+          "Ao ser mobilizada, dois aliados em Curto Alcance ganham Ímpeto(3s).",
+          "Ao ser mobilizada, três aliados em Curto Alcance ganham Ímpeto(3s)."
+        ]
+      },
+      "S3_049": {
+        "name": "Yoshino Nara",
+        "ability": "Rigor",
+        "descriptions": [
+          "O próximo Shikamaru mobilizado ganha Chakra(+1) e Desacelera(8s).",
+          "O próximo Shikamaru mobilizado ganha Chakra(+1) e Desacelera(12s)."
+        ]
+      },
+      "S3_050": {
+        "name": "Uchiha Trio",
+        "ability": "Suspeita",
+        "descriptions": [
+          "Ímpeto(4s). Quando em Médio Alcance, Chakra(+2).",
+          "Ímpeto(6s). Quando em Médio Alcance, Chakra(+2)."
+        ]
+      },
+      "S3_051": {
+        "name": "Naruto Uzumaki",
+        "ability": "Manto da raposa demoníaca",
+        "descriptions": [
+          "Ímpeto(3s). Ao ser mobilizada, Chakra(+2). A primeira vez que esta carta fica abaixo do Chakra base, Cura(2).",
+          "Ímpeto(5s). Ao ser mobilizada, Chakra(+2). A primeira vez que esta carta fica abaixo do Chakra base, Cura(2)."
+        ]
+      },
+      "S3_052": {
+        "name": "Sasuke Uchiha",
+        "ability": "Liberação do selo amaldiçoado",
+        "descriptions": [
+          "A primeira vez que esta carta ganha Chakra, ganha Chakra(+2) adicional.",
+          "A primeira vez que esta carta ganha Chakra, ganha Chakra(+4) adicional."
+        ]
+      },
+      "S3_053": {
+        "name": "Kankuro",
+        "ability": "Superioridade tática",
+        "descriptions": [
+          "Sempre que aliados se teletransportam para trás de rivais, ganha Chakra(+2).",
+          "Sempre que aliados se teletransportam para trás de rivais, ganha Chakra(+3)."
+        ]
+      },
+      "S3_054": {
+        "name": "Shikamaru Nara",
+        "ability": "Estrangulamento da sombra",
+        "descriptions": [
+          "Quando um adversário se aproxima, Imobiliza(6s) ele e esta carta. O adversário perde 1 Chakra a cada 2 segundos enquanto estiver sob esta Imobilização.",
+          "Quando um adversário se aproxima, Imobiliza(8s) ele e esta carta. O adversário perde 1 Chakra a cada 2 segundos enquanto estiver sob esta Imobilização."
+        ]
+      },
+      "S3_055": {
+        "name": "Akamaru",
+        "ability": "Marcação",
+        "descriptions": [
+          "Ao ser mobilizada, Desacelera(8s) todos os rivais de fileira. Enquanto esta Desaceleração estiver ativa, Enfraquecimento(+1) às habilidades Enfraquecer aliadas aplicadas aos rivais afetados.",
+          "Ao ser mobilizada, Desacelera(12s) todos os rivais de fileira. Enquanto esta Desaceleração estiver ativa, Enfraquecimento(+1) às habilidades Enfraquecer aliadas aplicadas aos rivais afetados."
+        ]
+      },
+      "S3_056": {
+        "name": "Itachi Uchiha",
+        "ability": "Compostura",
+        "descriptions": [
+          "Ganha Chakra(+1) e Imobiliza(2s) a si mesma sempre que uma carta ganha Foco.",
+          "Ganha Chakra(+2) e Imobiliza(4s) a si mesma sempre que uma carta ganha Foco."
+        ]
+      },
+      "S3_057": {
+        "name": "Jiraiya",
+        "ability": "Experiente",
+        "descriptions": [
+          "Ímpeto(3s). Ao confrontar, Troca de fileira.",
+          "Ímpeto(4s). Ao confrontar, Troca de fileira."
+        ]
+      },
+      "S3_058": {
+        "name": "Jiraiya",
+        "ability": "Jizo de agulhas",
+        "descriptions": [
+          "Bloqueio(2). Quando Bloqueio ativa, Enfraquece(2) o rival que o acionou. Ignora Bloqueio.",
+          "Bloqueio(3). Quando Bloqueio ativa, Enfraquece(2) o rival que o acionou. Ignora Bloqueio."
+        ]
+      },
+      "S3_059": {
+        "name": "Orochimaru",
+        "ability": "Experiente",
+        "descriptions": [
+          "Ímpeto(3s). Ao confrontar, Enfraquece(1).",
+          "Ímpeto(4s). Ao confrontar, Enfraquece(1)."
+        ]
+      },
+      "S3_060": {
+        "name": "Tsunade",
+        "ability": "A Quinta",
+        "descriptions": [
+          "Ao ser mobilizada, concede Chakra(+1) a todos os aliados nas outras fileiras. Enquanto esta carta estiver ativa, Cura(2) cada aliado na primeira vez que ele é Enfraquecido.",
+          "Ao ser mobilizada, concede Chakra(+2) a todos os aliados nas outras fileiras. Enquanto esta carta estiver ativa, Cura(2) cada aliado na primeira vez que ele é Enfraquecido."
+        ]
+      },
+      "S3_061": {
+        "name": "Tsunade",
+        "ability": "Alvo fácil lendário",
+        "descriptions": [
+          "Ao ser mobilizada, 10% de chance de ganhar Chakra(+6). Caso contrário, ganha Ímpeto(3s).",
+          "Ao ser mobilizada, 10% de chance de ganhar Chakra(+7). Caso contrário, ganha Ímpeto(4s)."
+        ]
+      },
+      "S3_062": {
+        "name": "Tsunade",
+        "ability": "Cura desesperada",
+        "descriptions": [
+          "Ao ser mobilizada, Cura(2) o aliado de fileira mais próximo. A primeira vez que um aliado de fileira perde Chakra de qualquer fonte, Cura(2).",
+          "Ao ser mobilizada, Cura(3) o aliado de fileira mais próximo. A primeira vez que um aliado de fileira perde Chakra de qualquer fonte, Cura(3)."
+        ]
+      },
+      "S3_063": {
+        "name": "Gamabunta",
+        "ability": "Kenjutsu do sapo",
+        "descriptions": [
+          "Quando uma carta rival se aproxima, salta sobre ela e a Enfraquece(2). Ganha Ímpeto(+3s) na primeira vez que ganha Chakra.",
+          "Quando uma carta rival se aproxima, salta sobre ela e a Enfraquece(3). Ganha Ímpeto(+4s) na primeira vez que ganha Chakra."
+        ]
+      },
+      "S3_064": {
+        "name": "Kabuto Yakuchi",
+        "ability": "Bisturi de Chakra",
+        "descriptions": [
+          "Ímpeto(2s). Ao confrontar, Teletransporta para trás da carta rival e a Imobiliza permanentemente.",
+          "Ímpeto(3s). Ao confrontar, Teletransporta para trás da carta rival e a Imobiliza permanentemente."
+        ]
+      },
+      "S3_065": {
+        "name": "Kisame Hoshigaki",
+        "ability": "Bloqueio da Samehada",
+        "descriptions": [
+          "Bloqueio(3). Quando Bloqueio ativa, Enfraquece(1) o rival que o acionou e ganha Chakra(+1).",
+          "Bloqueio(4). Quando Bloqueio ativa, Enfraquece(1) o rival que o acionou e ganha Chakra(+1)."
+        ]
+      },
+      "S3_066": {
+        "name": "Jirobo",
+        "ability": "Drenagem de Chakra",
+        "descriptions": [
+          "A cada confronto, Chakra(+1) para esta carta e Enfraquece(1) a carta rival.",
+          "A cada confronto, Chakra(+1) para esta carta e Enfraquece(2) a carta rival."
+        ]
+      },
+      "S3_067": {
+        "name": "Sakon & Ukon",
+        "ability": "Fusão amaldiçoada",
+        "descriptions": [
+          "Ao confrontar, Teletransporta para trás da carta rival e então Imobiliza(6s) a ela e a esta carta. O rival perde 1 Chakra a cada 2 segundos enquanto sob esta Imobilização.",
+          "Ao confrontar, Teletransporta para trás da carta rival e então Imobiliza(8s) a ela e a esta carta. O rival perde 1 Chakra a cada 2 segundos enquanto sob esta Imobilização."
+        ]
+      },
+      "S3_068": {
+        "name": "Kurenai Yuhi",
+        "ability": "Finta de genjutsu",
+        "descriptions": [
+          "Ao confrontar, Teletransporta para trás da carta rival, Enfraquece(2) e Desacelera(4s).",
+          "Ao confrontar, Teletransporta para trás da carta rival, Enfraquece(2) e Desacelera(8s)."
+        ]
+      },
+      "S3_069": {
+        "name": "Shizune",
+        "ability": "Névoa venenosa",
+        "descriptions": [
+          "Ao ser mobilizada, Desacelera(8s) todas as cartas em Médio Alcance e desativa suas habilidades. Elas perdem 2 Chakra a cada 4 segundos enquanto sob esta Desaceleração.",
+          "Ao ser mobilizada, Desacelera(12s) todas as cartas em Médio Alcance e desativa suas habilidades. Elas perdem 2 Chakra a cada 4 segundos enquanto sob esta Desaceleração."
+        ]
+      },
+      "S3_070": {
+        "name": "Akahoshi",
+        "ability": "Sem escrúpulos",
+        "descriptions": [
+          "Bloqueio(1). Quando Bloqueio ativa, Enfraquece(2) o rival que o ativou. A primeira vez que esta carta perde Chakra, Enfraquece(2) um aliado aleatório e ganha Chakra(+2) e Bloqueio(+1).",
+          "Bloqueio(1). Quando Bloqueio ativa, Enfraquece(2) o rival que o ativou. A primeira vez que esta carta perde Chakra, Enfraquece(2) um aliado aleatório e ganha Chakra(+3) e Bloqueio(+1)."
+        ]
+      },
+      "S3_071": {
+        "name": "Amachi",
+        "ability": "Monstro marinho",
+        "descriptions": [
+          "Ao ser mobilizada, Imobiliza(6s) a si mesma. Enquanto sob Imobilização, a cada 3 segundos Imobiliza(3s) ou Desacelera(6s) todos os rivais de fileira.",
+          "Ao ser mobilizada, Imobiliza(9s) a si mesma. Enquanto sob Imobilização, a cada 3 segundos Imobiliza(3s) ou Desacelera(6s) todos os rivais de fileira."
+        ]
+      },
+      "S3_072": {
+        "name": "Aoi Rokusho",
+        "ability": "Espada de Raijin",
+        "descriptions": [
+          "Bloqueio(2). Ao confrontar, Enfraquece(1) e Imobiliza(2s) a carta rival. Ignora Bloqueio.",
+          "Bloqueio(2). Ao confrontar, Enfraquece(2) e Imobiliza(4s) a carta rival. Ignora Bloqueio."
+        ]
+      },
+      "S3_073": {
+        "name": "Sumaru",
+        "ability": "Chakra da estrela",
+        "descriptions": [
+          "Ao ser mobilizada, Chakra(+1) e Troca de fileira se houver aliados de fileira. Ao confrontar, Enfraquece(2) a carta rival.",
+          "Ao ser mobilizada, Chakra(+1) e Troca de fileira se houver aliados de fileira. Ao confrontar, Enfraquece(3) a carta rival."
+        ]
+      },
+      "S3_074": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rasengan",
+        "descriptions": [
+          "Ao confrontar, Enfraquece(2) e Empurra(4). Remove toda Bloqueio da carta adversária.",
+          "Ao confrontar, Enfraquece(3) e Empurra(5). Remove toda Bloqueio da carta adversária."
+        ]
+      },
+      "S3_075": {
+        "name": "Naruto Uzumaki",
+        "ability": "Forma de uma cauda",
+        "descriptions": [
+          "A cada confronto, Enfraquece(1). A primeira vez que esta carta fica abaixo do Chakra base, Cura(3) a si mesma.",
+          "A cada confronto, Enfraquece(1). A primeira vez que esta carta fica abaixo do Chakra base, Cura(4) a si mesma."
+        ]
+      },
+      "S3_076": {
+        "name": "Sasuke Uchiha",
+        "ability": "Previsão evoluída",
+        "descriptions": [
+          "Bloqueio(3). Quando Bloqueio ativa, Chakra(+1). Não pode ser Enfraquecido em confrontos com cartas rivais de 3 de Chakra ou menos.",
+          "Bloqueio(3). Quando Bloqueio ativa, Chakra(+2). Não pode ser Enfraquecido em confrontos com cartas rivais de 3 de Chakra ou menos."
+        ]
+      },
+      "S3_077": {
+        "name": "Sasuke Uchiha",
+        "ability": "Defesa alada",
+        "descriptions": [
+          "Bloqueio(2). Ao confrontar, Enfraquece(2). Quando Bloqueio ativa, ganha Ímpeto(2s) e reativa esta habilidade.",
+          "Bloqueio(2). Ao confrontar, Enfraquece(2). Quando Bloqueio ativa, ganha Ímpeto(4s) e reativa esta habilidade."
+        ]
+      },
+      "S3_078": {
+        "name": "Gaara",
+        "ability": "Escudo de Shukaku",
+        "descriptions": [
+          "Bloqueio(3). Enquanto esta carta estiver ativa, os aliados de fileira atrás dela ignoram os efeitos de habilidade rivais, mas consomem o Bloqueio desta carta.",
+          "Bloqueio(4). Enquanto esta carta estiver ativa, os aliados de fileira atrás dela ignoram os efeitos de habilidade rivais, mas consomem o Bloqueio desta carta."
+        ]
+      },
+      "S3_079": {
+        "name": "Kiba Inuzuka",
+        "ability": "Combo de transformação",
+        "descriptions": [
+          "Ao ser mobilizada, retira Akamaru e Kiba aliados e transfere o Chakra deles para esta carta, ganhando Chakra(+1) adicional por retirada. A cada confronto, Enfraquece(1).",
+          "Ao ser mobilizada, retira Akamaru e Kiba aliados e transfere o Chakra deles para esta carta, ganhando Chakra(+2) adicional por retirada. A cada confronto, Enfraquece(1)."
+        ]
+      },
+      "S3_080": {
+        "name": "Rock Lee",
+        "ability": "Punho embriagado",
+        "descriptions": [
+          "A cada 10s, Concentra(3s). Se a Concentração for bem-sucedida, ganha aleatoriamente Ímpeto(2s), Bloqueio(1) ou Chakra(+1). A cada confronto, Enfraquece(1).",
+          "A cada 8s, Concentra(3s). Se a Concentração for bem-sucedida, ganha aleatoriamente Ímpeto(2s), Bloqueio(1) ou Chakra(+1). A cada confronto, Enfraquece(1)."
+        ]
+      },
+      "S3_081": {
+        "name": "Temari",
+        "ability": "Dança de decapitação rápida",
+        "descriptions": [
+          "Ao ser mobilizada, Concentra(9s). A cada 3 segundos durante a Concentração, Enfraquece(1) e Empurra(2) todos os rivais em Médio e Longo Alcance.",
+          "Ao ser mobilizada, Concentra(9s). A cada 3 segundos durante a Concentração, Enfraquece(1) e Empurra(4) todos os rivais em Médio e Longo Alcance."
+        ]
+      },
+      "S3_082": {
+        "name": "Itachi Uchiha",
+        "ability": "Exército de Tsukuyomi",
+        "descriptions": [
+          "Enquanto esta carta estiver ativa, sempre que você Imobiliza cartas rivais, Invoca um clone desta carta nessa mesma fileira com Ímpeto(4s) e perde 1 Chakra. Os clones não podem marcar pontos nem ganhar Chakra.",
+          "Enquanto esta carta estiver ativa, sempre que você Imobiliza cartas rivais, Invoca um clone desta carta nessa mesma fileira com Ímpeto(6s) e perde 1 Chakra. Os clones não podem marcar pontos nem ganhar Chakra."
+        ]
+      },
+      "S3_083": {
+        "name": "Itachi Uchiha",
+        "ability": "Fuga do Amaterasu",
+        "descriptions": [
+          "Sempre que uma carta rival se aproxima, Queima(10), então Troca de fileira e perde 1 Chakra. Este efeito de Queimadura pode se espalhar para outras cartas ao se tocarem e ignora Bloqueio.",
+          "Sempre que uma carta rival se aproxima, Queima(15), então Troca de fileira e perde 1 Chakra. Este efeito de Queimadura pode se espalhar para outras cartas ao se tocarem e ignora Bloqueio."
+        ]
+      },
+      "S3_084": {
+        "name": "Jiraiya",
+        "ability": "Lança-chamas de óleo de sapo",
+        "descriptions": [
+          "Ao ser mobilizada, Queima(3) todas as cartas rivais e então Concentra(8s). Durante a Concentração, ganha Chakra(+1) sempre que aliados aplicam Queimadura. Se a Concentração for bem-sucedida, Queima(4) todas as cartas rivais.",
+          "Ao ser mobilizada, Queima(3) todas as cartas rivais e então Concentra(8s). Durante a Concentração, ganha Chakra(+1) sempre que aliados aplicam Queimadura. Se a Concentração for bem-sucedida, Queima(5) todas as cartas rivais."
+        ]
+      },
+      "S3_085": {
+        "name": "Gamabunta",
+        "ability": "Combo de óleo de sapo",
+        "descriptions": [
+          "Ao ser mobilizada, Queima(3) todos os rivais de fileira. Se algum rival já estiver sob Queimadura, dispara instantaneamente a quantidade de Queimadura restante.",
+          "Ao ser mobilizada, Queima(4) todos os rivais de fileira. Se algum rival já estiver sob Queimadura, dispara instantaneamente a quantidade de Queimadura restante."
+        ]
+      },
+      "S3_086": {
+        "name": "Kidomaru",
+        "ability": "Arco da aranha",
+        "descriptions": [
+          "Ao ser mobilizada, Concentra(12s). A cada 4 segundos durante a Concentração, Enfraquece(2) e Imobiliza(6s) o rival com mais Chakra em Longo Alcance.",
+          "Ao ser mobilizada, Concentra(16s). A cada 4 segundos durante a Concentração, Enfraquece(2) e Imobiliza(6s) o rival com mais Chakra em Longo Alcance."
+        ]
+      },
+      "S3_087": {
+        "name": "Tayuya",
+        "ability": "Flauta demoníaca",
+        "descriptions": [
+          "Ao ser mobilizada, Chakra(+1). Enquanto esta carta estiver ativa, as Desacelerações aplicadas por aliados não expiram.",
+          "Ao ser mobilizada, Chakra(+2). Enquanto esta carta estiver ativa, as Desacelerações aplicadas por aliados não expiram."
+        ]
+      },
+      "S3_088": {
+        "name": "Kimimaro",
+        "ability": "Arma viva",
+        "descriptions": [
+          "Bloqueio(3). A cada confronto, Enfraquece(2). Troca de fileira ao fazer um rival se retirar.",
+          "Bloqueio(5). A cada confronto, Enfraquece(2). Troca de fileira ao fazer um rival se retirar."
+        ]
+      },
+      "S3_089": {
+        "name": "Akahoshi",
+        "ability": "Dragão da estrela",
+        "descriptions": [
+          "Ao ser mobilizada, Empurra(2), Enfraquece(1) e Imobiliza(4s) todos os rivais de fileira.",
+          "Ao ser mobilizada, Empurra(2), Enfraquece(1) e Imobiliza(8s) todos os rivais de fileira."
+        ]
+      },
+      "S3_090": {
+        "name": "Raiga Kurosuki",
+        "ability": "Tornado do dragão do trovão",
+        "descriptions": [
+          "Ao ser mobilizada, Concentra(8s). Se a Concentração for bem-sucedida, Enfraquece(3) e Empurra(2) todos os rivais de fileira em Curto e Médio Alcance.",
+          "Ao ser mobilizada, Concentra(6s). Se a Concentração for bem-sucedida, Enfraquece(3) e Empurra(2) todos os rivais de fileira em Curto e Médio Alcance."
+        ]
+      },
+      "S3_091": {
+        "name": "Sasuke Uchiha",
+        "ability": "Chidori negro",
+        "descriptions": [
+          "Ímpeto(4s). Pule para a primeira carta rival que aparecer por perto, ganha Chakra(+2) e a Enfraquece(3). Enfraquece(2) todas as outras cartas por perto. Ignora Bloqueio.",
+          "Ímpeto(5s). Pule para a primeira carta rival que aparecer por perto, ganha Chakra(+2) e a Enfraquece(4). Enfraquece(2) todas as outras cartas por perto. Ignora Bloqueio."
+        ]
+      },
+      "S3_092": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rasengan da raposa demoníaca",
+        "descriptions": [
+          "Ímpeto(4s). Pule para a primeira carta rival que aparecer por perto, a Enfraquece(3) e a Empurra(2). Enfraquece(2) todas as outras cartas por perto. Remove todo o Bloqueio da carta adversária.",
+          "Ímpeto(5s). Pule para a primeira carta rival que aparecer por perto, a Enfraquece(4) e a Empurra(2). Enfraquece(2) todas as outras cartas por perto. Remove todo o Bloqueio da carta adversária."
+        ]
+      },
+      "S3_093": {
+        "name": "Choji Akimichi",
+        "ability": "Fúria da borboleta",
+        "descriptions": [
+          "Bloqueio(3). Quando Bloqueio ativa, Chakra(+2). Se a carta rival que acionou Bloqueio estiver por perto, salta sobre ela. Enquanto Bloqueio estiver disponível, Enfraquece(2) e Empurra(1) a cada confronto.",
+          "Bloqueio(3). Quando Bloqueio ativa, Chakra(+3). Se a carta rival que acionou Bloqueio estiver por perto, salta sobre ela. Enquanto Bloqueio estiver disponível, Enfraquece(2) e Empurra(1) a cada confronto."
+        ]
+      },
+      "S3_094": {
+        "name": "Gaara",
+        "ability": "Tsunami de areia",
+        "descriptions": [
+          "Ao ser mobilizada, Concentra(6s). A cada 2 segundos durante a Concentração, Enfraquece(1) e Empurra(1) todas as cartas rivais. Se tiverem 2 de Chakra ou menos, Enfraquece(2) em vez disso. Quando esta carta faz outra se retirar, Sela(5s).",
+          "Ao ser mobilizada, Concentra(8s). A cada 2 segundos durante a Concentração, Enfraquece(1) e Empurra(1) todas as cartas rivais. Se tiverem 3 de Chakra ou menos, Enfraquece(3) em vez disso. Quando esta carta faz outra se retirar, Sela(5s)."
+        ]
+      },
+      "S3_095": {
+        "name": "Itachi Uchiha",
+        "ability": "Tsukuyomi",
+        "descriptions": [
+          "Ao ser mobilizada, Imobiliza(12s) a carta rival mais próxima, então perde 1 Chakra. Se a carta rival tiver mais de 1 Chakra, ela perde 1 Chakra por segundo. Sempre que aliados Imobilizam cartas rivais, redispara esta habilidade para cada rival afetado.",
+          "Ao ser mobilizada, Imobiliza(16s) a carta rival mais próxima, então perde 1 Chakra. Se a carta rival tiver mais de 1 Chakra, ela perde 1 Chakra por segundo. Sempre que aliados Imobilizam cartas rivais, redispara esta habilidade para cada rival afetado."
+        ]
+      },
+      "S3_096": {
+        "name": "Itachi Uchiha",
+        "ability": "Carnificina",
+        "descriptions": [
+          "Sempre que uma carta é mobilizada na mesma fileira, Enfraquece(1) e Imobiliza(10s). Se tiver 3 de Chakra ou menos, Enfraquece(3) em vez disso. Troca de fileira em seguida.",
+          "Sempre que uma carta é mobilizada na mesma fileira, Enfraquece(2) e Imobiliza(10s). Se tiver 4 de Chakra ou menos, Enfraquece(4) em vez disso. Troca de fileira em seguida."
+        ]
+      },
+      "S3_097": {
+        "name": "Tsunade",
+        "ability": "Regeneração mitótica",
+        "descriptions": [
+          "Na primeira vez que esta carta fica abaixo do Chakra base, Cura até o Chakra base e ganha Chakra(+4). Nos 10 segundos seguintes, ignora habilidades adversárias e Cura(4) após cada confronto. Ao se retirar, reduz permanentemente seu Chakra base em 1.",
+          "Na primeira vez que esta carta fica abaixo do Chakra base, Cura até o Chakra base e ganha Chakra(+5). Nos 10 segundos seguintes, ignora habilidades adversárias e Cura(4) após cada confronto. Ao se retirar, reduz permanentemente seu Chakra base em 1."
+        ]
+      },
+      "S3_098": {
+        "name": "Sakon & Ukon",
+        "ability": "Defesa sincronizada",
+        "descriptions": [
+          "Mobiliza-se como Sakon e Ukon em fileiras separadas com Bloqueio(2). Sempre que o Bloqueio de um aliado ativa, ambas as cartas ganham Chakra(+1).",
+          "Mobiliza-se como Sakon e Ukon em fileiras separadas com Bloqueio(4). Sempre que o Bloqueio de um aliado ativa, ambas as cartas ganham Chakra(+1)."
+        ]
+      },
+      "S3_099": {
+        "name": "Tayuya",
+        "ability": "Invocação dos Doki",
+        "descriptions": [
+          "Ao ser mobilizada, Concentra(8s). Se a Concentração for bem-sucedida, Invoca um demônio Doki em cada fileira. Sempre que você Invoca outras cartas, elas ganham Chakra(+1). Ignora todas as habilidades e confrontos rivais enquanto os demônios estiverem ativos.",
+          "Ao ser mobilizada, Concentra(6s). Se a Concentração for bem-sucedida, Invoca um demônio Doki em cada fileira. Sempre que você Invoca outras cartas, elas ganham Chakra(+1). Ignora todas as habilidades e confrontos rivais enquanto os demônios estiverem ativos."
+        ]
+      },
+      "S3_100": {
+        "name": "Kimimaro",
+        "ability": "Lealdade inabalável",
+        "descriptions": [
+          "Ao ser mobilizada, ganha Chakra(+6) e Ímpeto(5s). Bloqueio permanente enquanto Ímpeto estiver ativo. A cada confronto, Enfraquece(1) a si mesma e Enfraquece(3) a carta rival. Ao se retirar, Enfraquece(2) todas as cartas. Não pode ser afetada por habilidades aliadas.",
+          "Ao ser mobilizada, ganha Chakra(+8) e Ímpeto(6s). Bloqueio permanente enquanto Ímpeto estiver ativo. A cada confronto, Enfraquece(1) a si mesma e Enfraquece(3) a carta rival. Ao se retirar, Enfraquece(2) todas as cartas. Não pode ser afetada por habilidades aliadas."
+        ]
+      }
+    },
+    "ruleNotes": {
+      "S2_041": "{allies} aliados do personagem exigido; a composição do deck não é verificada.",
+      "S1_004": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S1_005": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S1_008": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S1_010": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S1_023": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S1_030": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S1_035": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S2_007": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S2_025": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S2_030": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S2_042": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S2_052": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S2_053": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S2_063": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S3_004": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S3_023": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S3_024": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S3_034": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S3_044": "Um confronto antes de 20s; o retorno posterior a Chakra(1) fica fora do pico. Efeitos sem repetição explícita se aplicam uma vez.",
+      "S3_047": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S3_059": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S3_068": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S3_072": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S3_074": "Efeitos de confronto aplicados em {activations} confrontos.",
+      "S1_003": "Uma nova unidade com o Chakra indicado.",
+      "S1_019": "{allies} alvos/eventos do grupo indicado; condições favoráveis.",
+      "S1_046": "{allies} alvos/eventos do grupo indicado; condições favoráveis.",
+      "S1_062": "{allies} alvos/eventos do grupo indicado; condições favoráveis.",
+      "S1_073": "{allies} alvos/eventos do grupo indicado; condições favoráveis.",
+      "S2_015": "{allies} alvos/eventos do grupo indicado; condições favoráveis.",
+      "S2_022": "{allies} alvos/eventos do grupo indicado; condições favoráveis.",
+      "S2_073": "{allies} alvos/eventos do grupo indicado; condições favoráveis.",
+      "S2_083": "{allies} alvos/eventos do grupo indicado; condições favoráveis.",
+      "S3_002": "{allies} alvos/eventos do grupo indicado; condições favoráveis.",
+      "S1_020": "O dano a um aliado é subtraído.",
+      "S1_021": "3 aliados.",
+      "S1_022": "3 aliados.",
+      "S1_024": "O número de aliados indicado para o nível.",
+      "S1_033": "Um bônus: Akamaru ou esta carta. Trazer do deck não duplica o poder base.",
+      "S1_038": "O número de aliados indicado para o nível.",
+      "S1_053": "{enemies} adversários atingidos.",
+      "S1_069": "{enemies} adversários atingidos.",
+      "S1_074": "{enemies} adversários atingidos.",
+      "S1_079": "{enemies} adversários atingidos.",
+      "S1_081": "{enemies} adversários atingidos.",
+      "S2_008": "{enemies} adversários atingidos.",
+      "S2_076": "{enemies} adversários em um confronto. Efeitos sem repetição explícita se aplicam uma vez.",
+      "S2_088": "{enemies} adversários atingidos.",
+      "S3_017": "{enemies} adversários atingidos.",
+      "S3_031": "{enemies} adversários em um confronto. Efeitos sem repetição explícita se aplicam uma vez.",
+      "S3_089": "{enemies} adversários atingidos.",
+      "S3_090": "{enemies} adversários atingidos.",
+      "S1_056": "A opção com bônus numérico é usada. Trazer Hiruzen não soma seu poder novamente.",
+      "S1_060": "Carta trazida do deck: seu poder já está incluído, portanto nenhuma nova unidade é contada.",
+      "S1_071": "Número máximo indicado de clones, presumindo energia suficiente.",
+      "S1_083": "Melhor opção condicional: {enemies} adversários e {allies} aliados, sem ganho líquido.",
+      "S2_002": "{enemies} adversários com Chakra maior.",
+      "S2_016": "Três novas unidades com Chakra(1); a reciclagem da carta não é simulada.",
+      "S2_018": "Um aliado para cada um dos dois nomes; as identidades exigidas não são verificadas.",
+      "S2_019": "Um aliado para cada um dos dois nomes; as identidades exigidas não são verificadas.",
+      "S2_020": "Um aliado para cada um dos dois nomes; as identidades exigidas não são verificadas.",
+      "S2_032": "Bônus ao Sapo trazido; seu poder já está incluído no deck.",
+      "S2_037": "O Chakra dos Anbu não é indicado: a Invocação não é quantificada.",
+      "S2_038": "Opção de bônus com Chakra baixo; a carta invocada do deck não é contada duas vezes.",
+      "S2_039": "Um ou dois adversários, conforme o nível.",
+      "S2_040": "{enemies} adversários e {allies} aliados atingidos ao se retirar; sem ganho líquido.",
+      "S2_054": "Divide o Chakra adversário por dois usando o Chakra configurado para o alvo.",
+      "S2_058": "O controle temporário de um adversário não é convertido em poder.",
+      "S2_064": "O controle temporário de um adversário não é convertido em poder.",
+      "S2_062": "Um ou dois adversários, conforme o nível.",
+      "S2_067": "Número explícito de alvos; uma mobilização e uma retirada.",
+      "S2_070": "Um confronto; bônus para {allies} aliados uma vez ao se retirar. Efeitos sem repetição explícita se aplicam uma vez.",
+      "S2_071": "3 golpes em um confronto. Efeitos sem repetição explícita se aplicam uma vez.",
+      "S2_072": "{enemies} adversários e {allies} aliados: o dano aliado compensa o dano adversário.",
+      "S2_080": "{enemies} adversários e {allies} aliados: o dano aliado compensa o dano adversário.",
+      "S2_074": "{enemies} adversários próximos em um confronto. Efeitos sem repetição explícita se aplicam uma vez.",
+      "S2_077": "Cópia de uma carta aliada, sem adicionar poder ao total do deck.",
+      "S2_086": "O dano aos dois aliados é subtraído; trazer do deck não é contado duas vezes e os sacrifícios não são simulados.",
+      "S2_089": "A Queimadura é contada como dano total igual ao seu valor.",
+      "S2_091": "Bônus uma vez. O aumento base ao se retirar vale para a próxima vida e não é somado.",
+      "S2_097": "Dois eventos distintos, ambos contra {enemies} adversários; a Queimadura é contada como dano total.",
+      "S3_027": "Novo Tonton e bônus para Tsunade; a presença e a sobrevivência de Tsunade não são simuladas.",
+      "S3_028": "Novo Kuromaru e bônus para o próximo Cão Ninja.",
+      "S3_036": "{allies} aliados sofrem 1 de dano; esta carta ganha 2 para cada um.",
+      "S3_041": "Dois adversários.",
+      "S3_043": "Bônus para o próximo Sasuke e uma Cura posterior.",
+      "S3_051": "Bônus inicial e uma Cura.",
+      "S3_060": "Os aliados configurados são considerados em outras fileiras e atingidos pela primeira vez: um bônus e uma Cura por aliado.",
+      "S3_062": "Uma Cura inicial e a primeira Cura reativa.",
+      "S3_073": "Bônus inicial e dano em um confronto. Efeitos sem repetição explícita se aplicam uma vez.",
+      "S3_085": "{enemies} adversários; a Queimadura existente não é contada sem um valor conhecido.",
+      "S3_091": "Primeiro alvo, bônus e dano a 5 outros adversários e {allies} aliados. A expressão “outras cartas” é ambígua.",
+      "S3_092": "O primeiro alvo é atingido separadamente; o dano às outras cartas o exclui e inclui todos os aliados configurados.",
+      "S3_039": "Conversão favorável do Ímpeto inicial restante: 2/3 Chakra nos níveis 1/2, máximo 3; nenhum bônus externo simulado."
+    },
+    "calculation": {
+      "effectC": "bônus de Chakra",
+      "effectW": "Enfraquecimento",
+      "effectH": "Cura",
+      "effectB": "Queimadura por alvo",
+      "effectK": "Chakra invocado",
+      "amount": "{value} {effect}",
+      "burnTotal": "{value} Queimadura por alvo, duração total limitada pelo Chakra adversário",
+      "copy": "{value} Chakra da cópia",
+      "restore": "{value} Cura de 1 Chakra até o Chakra base",
+      "rush": "{value} Chakra do Ímpeto restante (máximo 3)",
+      "enemies": {
+        "one": "{value} adversário",
+        "other": "{value} adversários"
+      },
+      "otherEnemies": "{value} outros adversários, excluindo o primeiro alvo",
+      "allies": {
+        "one": "{value} aliado",
+        "other": "{value} aliados"
+      },
+      "first": "{value} primeira ativação",
+      "remaining": {
+        "one": "{value} ativação seguinte",
+        "other": "{value} ativações seguintes"
+      },
+      "activations": {
+        "one": "{value} ativação",
+        "other": "{value} ativações"
+      },
+      "enemyChakra": "{value} Chakra adversário",
+      "targets": {
+        "one": "{value} alvo",
+        "other": "{value} alvos"
+      },
+      "drain": "{value} Chakra removido sem ficar abaixo de 1",
+      "removable": "{value} Chakra removível",
+      "bestBranch": "melhor opção: {label}",
+      "unquantified": "Contribuição numérica ainda não quantificada.",
+      "repeated": "Efeito aplicado em {activations} ativações.",
+      "once": "Efeito de confronto contado uma vez; apenas efeitos que indicam cada confronto se repetem.",
+      "favourable": "Condições favoráveis presumidas. Sinergias entre cartas não são simuladas.",
+      "tactical": "Efeito tático sem bônus numérico de Chakra, dano ou Cura.",
+      "halving": "A divisão por dois usa o Chakra adversário configurado; o arredondamento exato no jogo ainda não foi confirmado.",
+      "burnNote": "Queimadura: alvos afetados × mín(duração em segundos, Chakra adversário). A propagação se limita aos alvos adversários configurados; aplicações múltiplas não contam os mesmos pontos de Chakra duas vezes.",
+      "allCards": "Efeito em todas as cartas: {enemies} adversários e {allies} aliados. O dano aliado, limitado pelo Chakra aliado por aplicação, reduz o Poder.",
+      "ebisu": "Bônus e penalidades usam o número configurado de aliados; a sobrevivência da carta não é simulada."
+    },
+    "errors": {
+      "invalidJson": "O arquivo não contém um JSON de deck válido.",
+      "invalidDeck": "Arquivo de deck inválido.",
+      "invalidCards": "Verifique cartas, duplicatas e níveis no arquivo.",
+      "invalidOptions": "Opções de cálculo inválidas.",
+      "invalidValues": "Valores de hipóteses inválidos.",
+      "invalidOverrides": "Ajustes individuais de carta inválidos.",
+      "missingCard": "As hipóteses se referem a uma carta fora do deck.",
+      "fileTooLarge": "O arquivo é grande demais.",
+      "importFailed": "Não foi possível importar o deck.",
+      "invalidRule": "Regra inválida: {id}, nível {level}, {factor}",
+      "invalidFactor": "Fator inválido: {factor}"
+    },
+    "normalizations": []
+  },
+  "es": {
+    "name": "Español",
+    "locale": "es-ES",
+    "ui": {
+      "pageTitle": "Naruto · Cartas y mazos",
+      "brand": "Naruto · Constructor de mazos",
+      "heading": "Cartas y mazos",
+      "catalogDescription": "3 series · efectos de cartas · imágenes locales",
+      "database": "Base de cartas",
+      "builder": "Crear mazo",
+      "sections": "Secciones",
+      "language": "Idioma",
+      "filters": "Filtrar cartas",
+      "searchFilters": "Búsqueda y filtros",
+      "textOrIndex": "Texto o número",
+      "searchPlaceholder": "Buscar",
+      "rarity": "Rareza",
+      "season": "Serie",
+      "skillType": "Tipo de habilidad",
+      "cost": "Coste",
+      "chakra": "Chakra",
+      "minPower": "Potencia mín.",
+      "minimum": "mín",
+      "cardLevel": "Nivel de carta",
+      "sort": "Ordenar",
+      "sortCards": "Ordenar cartas",
+      "index": "Número",
+      "alphabetical": "Nombre",
+      "quality": "Calidad",
+      "power": "Potencia",
+      "resetFilters": "Borrar filtros",
+      "allFeminine": "Todas",
+      "all": "Todos",
+      "none": "Sin tipo",
+      "common": "Común",
+      "rare": "Rara",
+      "epic": "Épica",
+      "legendary": "Legendaria",
+      "first": "Primera",
+      "second": "Segunda",
+      "third": "Tercera",
+      "ascending": "Ascendente",
+      "descending": "Descendente",
+      "ascendingAction": "Orden ascendente. Cambiar a descendente",
+      "descendingAction": "Orden descendente. Cambiar a ascendente",
+      "selectedCount": "{count} seleccionados",
+      "cardCount": "{count} cartas",
+      "noResults": "Ninguna carta coincide con los filtros.",
+      "assumptions": "Hipótesis de cálculo",
+      "enemyChakra": "Chakra rival",
+      "enemies": "Objetivos rivales",
+      "allyChakra": "Chakra aliado",
+      "allies": "Objetivos aliados",
+      "activations": "Activaciones de carta",
+      "applyStandard": "Aplicar valores",
+      "calculationInfo": "Información del cálculo",
+      "standardApplied": "Valores aplicados a todas las cartas de esta sesión.",
+      "standardPending": "Cambios pendientes: las cartas siguen usando los valores anteriores.",
+      "deck": "Mazo actual",
+      "defaultDeckName": "Mazo 1",
+      "deckNameLabel": "Nombre del mazo:",
+      "deckNamePlaceholder": "Nombre del mazo",
+      "deckSlots": "Los diez espacios del mazo",
+      "deckCardsLevels": "Cartas y niveles del mazo",
+      "averageCost": "Coste medio",
+      "averagePower": "Potencia media",
+      "averageQuality": "Calidad media",
+      "viewDeck": "Ver detalles del mazo",
+      "import": "Importar",
+      "export": "Exportar",
+      "clearDeck": "Vaciar",
+      "closeDeck": "Cerrar mazo",
+      "closeCard": "Cerrar detalles de la carta",
+      "closeInfo": "Cerrar información del cálculo",
+      "distribution": "Distribución de costes",
+      "curveCaption": "Número de cartas de cada coste.",
+      "databaseEffects": "Base de efectos de cartas",
+      "builderCards": "Cartas para el mazo",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "replaceDeck": "¿Reemplazar el mazo actual por el importado?",
+      "confirmClear": "¿Quitar todas las cartas del mazo?",
+      "deckImported": "Mazo importado.",
+      "sessionUnavailable": "El guardado automático de sesión no está disponible. Exporta tu mazo para conservarlo.",
+      "sessionInvalid": "No se pudo restaurar la sesión guardada. Puedes importar un mazo exportado.",
+      "addToDeck": "Añadir al mazo",
+      "removeFromDeck": "Quitar del mazo",
+      "addCard": "Añadir {name} al mazo",
+      "removeCard": "Quitar {name} del mazo",
+      "openCard": "Abrir {name} · {reference}",
+      "removeNamedCard": "Quitar {name}",
+      "emptySlot": "Espacio {slot} vacío",
+      "cardLevelTitle": "{name} · {reference} · nivel {level}",
+      "levelShort": "Nv.{level}",
+      "changeLevel": "Cambiar nivel",
+      "changeLevelTitle": "Haz clic para cambiar al nivel {level}",
+      "changeLevelAction": "Nivel {level}. Cambiar al nivel {next}",
+      "powerQuality": "Potencia y calidad",
+      "localAssumptions": "Hipótesis de esta carta",
+      "useStandard": "Usar valores generales",
+      "localChanges": "Cambios inmediatos, solo para esta carta.",
+      "powerComposition": "Desglose de potencia",
+      "contributions": "Contribuciones al cálculo",
+      "noContributions": "Sin contribución numérica adicional.",
+      "baseChakra": "Chakra base",
+      "summonedChakra": "Chakra invocado",
+      "chakraBoosts": "Aumentos de Chakra",
+      "friendlyDamage": "Daño propio / a aliados",
+      "enemyDamage": "Daño a rivales",
+      "burn": "Quemadura",
+      "heal": "Cura",
+      "curveBar": "Coste {cost}: {count} cartas",
+      "energyCost": "Coste de energía",
+      "costValue": "Coste {value}",
+      "chakraValue": "Chakra base {value}",
+      "info1": "Potencia = Chakra base + Invocaciones + aumentos − daño propio y a aliados + daño a rivales + Quemadura + Cura.",
+      "info2": "Calidad = Potencia / coste de la carta.",
+      "info3": "Quemadura = objetivos rivales × duración en segundos (o Chakra rival si es menor que la duración).",
+      "info4": "Los efectos se cuentan según las activaciones indicadas en la carta o en las hipótesis de cálculo.",
+      "info5": "El movimiento, la Protección y otros modificadores no se incluyen en la Potencia.",
+      "info6": "El selector de nivel de los filtros cambia toda la lista, excepto las cartas del mazo. Las exportaciones incluyen niveles individuales e hipótesis de cálculo."
+    },
+    "effects": {
+      "Cost": "Coste",
+      "Chakra": "Chakra",
+      "Weaken": "Debilitamiento",
+      "Push": "Empuja",
+      "Pin": "Inmovilización",
+      "Rush": "Aceleración",
+      "Slow": "Ralentización",
+      "Guard": "Protección",
+      "Seal": "Sello",
+      "Switch": "Cambio",
+      "Summon": "Invocación",
+      "Teleport": "Teletransporte",
+      "Burn": "Quemadura",
+      "Focus": "Concentración",
+      "Heal": "Cura"
+    },
+    "terms": {
+      "Cost": "costes?",
+      "Chakra": "chakra",
+      "Weaken": "debilit[\\p{L}]*",
+      "Push": "empuj[\\p{L}]*(?: hacia atrás)?",
+      "Pin": "inmoviliz[\\p{L}]*",
+      "Rush": "acelera[\\p{L}]*|ímpeto[\\p{L}]*",
+      "Slow": "ralentiz[\\p{L}]*",
+      "Guard": "protecci[óo]n[\\p{L}]*|guardia[\\p{L}]*",
+      "Seal": "sell[\\p{L}]*",
+      "Switch": "cambi[\\p{L}]*",
+      "Summon": "invoc[\\p{L}]*",
+      "Teleport": "teletransport[\\p{L}]*",
+      "Burn": "quem[\\p{L}]*",
+      "Focus": "concentr[\\p{L}]*",
+      "Heal": "cura[\\p{L}]*"
+    },
+    "cards": {
+      "S1_001": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Potencial",
+        "descriptions": [
+          "La primera vez que esta carta gana chakra, gana un Chakra(+1) adicional.",
+          "La primera vez que esta carta gana chakra, gana un Chakra(+2) adicional."
+        ]
+      },
+      "S1_002": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Aprendiendo",
+        "descriptions": [
+          "Obtiene Chakra(+2) después de 6 segundos.",
+          "Obtiene Chakra(+3) después de 6 segundos."
+        ]
+      },
+      "S1_003": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Multiplicación oculta de cuerpo",
+        "descriptions": [
+          "Crea 1 clon en otra línea con Chakra(1).",
+          "Invoca 1 clon en otra línea con Chakra(2)."
+        ]
+      },
+      "S1_004": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Juramento",
+        "descriptions": [
+          "Obtiene Chakra(+1) después de un enfrentamiento con éxito.",
+          "Obtiene Chakra(+2) después de un enfrentamiento con éxito."
+        ]
+      },
+      "S1_005": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Maestría del Kunai",
+        "descriptions": [
+          "En caso de enfrentamiento, Debilita(2) la carta rival.",
+          "En caso de enfrentamiento, Debilita(3) la carta rival."
+        ]
+      },
+      "S1_006": {
+        "name": "SAKURA HARUNO",
+        "ability": "Lanzamiento de Kunai",
+        "descriptions": [
+          "Al desplegarse, Debilita(2) a un rival aleatorio a largo alcance. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarse, Debilita(3) a un rival aleatorio a largo alcance. Los objetivos pertenecen a su propia línea."
+        ]
+      },
+      "S1_007": {
+        "name": "SAKURA HARUNO",
+        "ability": "Equilibrio de Chakra",
+        "descriptions": [
+          "Cuando los aliados en su línea tienen éxito en un enfrentamiento, les otorga Chakra(+1) y Inmoviliza(3s) esta carta.",
+          "Cuando los aliados en su línea tienen éxito en un enfrentamiento, les otorga Chakra(+1) y Inmoviliza(5s) esta carta."
+        ]
+      },
+      "S1_008": {
+        "name": "SAKURA HARUNO",
+        "ability": "Patada Giratoria",
+        "descriptions": [
+          "En caso de enfrentamiento, Empuja(1) y Debilita(1) la carta rival.",
+          "En caso de enfrentamiento, Empuja(2) y Debilita(1) la carta rival."
+        ]
+      },
+      "S1_009": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(5s)",
+          "Acelerar(6s)"
+        ]
+      },
+      "S1_010": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Jefe de Equipo",
+        "descriptions": [
+          "En caso de enfrentamiento, otorga Chakra(+2) a un aliado a corto alcance. Los objetivos pertenecen a su propia línea.",
+          "En caso de enfrentamiento, otorga Chakra(+3) a un aliado en su línea a corto alcance."
+        ]
+      },
+      "S1_011": {
+        "name": "IRUKA UMINO",
+        "ability": "Sensei",
+        "descriptions": [
+          "Otorga Chakra(+2) al siguiente aliado desplegado.",
+          "Otorga Chakra(+3) al siguiente aliado desplegado."
+        ]
+      },
+      "S1_012": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Entrada Amenazadora",
+        "descriptions": [
+          "Se despliega a medio alcance, Ralentiza(4s) y Cambia de línea al rival de su propia línea con más Chakra.",
+          "Se despliega a medio alcance, Ralentiza(6s) y Cambia de línea al rival de su propia línea con más Chakra."
+        ]
+      },
+      "S1_013": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Agresión",
+        "descriptions": [
+          "Al desplegarse, Debilita(3) a la carta rival más cercana en su línea.",
+          "Al desplegarse, Debilita(4) a la carta rival más cercana en su línea."
+        ]
+      },
+      "S1_014": {
+        "name": "HAKU",
+        "ability": "Agujas",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(6s) al rival más cercano en su línea.",
+          "Al desplegarse, Inmoviliza(7s) al rival más cercano en su línea."
+        ]
+      },
+      "S1_015": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Lanzamiento de Shuriken",
+        "descriptions": [
+          "Al desplegarse, Debilita(1) a un rival aleatorio a corto alcance. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarse, Debilita(2) a un rival aleatorio a corto alcance. Los objetivos pertenecen a su propia línea."
+        ]
+      },
+      "S1_016": {
+        "name": "EBISU",
+        "ability": "Lección Rápida",
+        "descriptions": [
+          "Al desplegarse, otorga Chakra(+2) al aliado más cercano. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarse, otorga Chakra(+3) al aliado más cercano. Los objetivos pertenecen a su propia línea."
+        ]
+      },
+      "S1_017": {
+        "name": "TAZUNA",
+        "ability": "Constructor de Puentes",
+        "descriptions": [
+          "Al desplegarte, lleva a 2 aliados de una posición de medio alcance a esta carta. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarte, lleva a 3 aliados de una posición de medio alcance a esta carta. Los objetivos pertenecen a su propia línea."
+        ]
+      },
+      "S1_018": {
+        "name": "INARI",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(2s)",
+          "Acelerar(3s)"
+        ]
+      },
+      "S1_019": {
+        "name": "KAIZA",
+        "ability": "Mártir",
+        "descriptions": [
+          "Al retirarse, otorga Chakra(+1) solo a los aliados de su propia línea.",
+          "Al retirarse, otorga Chakra(+2) solo a los aliados de su propia línea."
+        ]
+      },
+      "S1_020": {
+        "name": "MIZUKI TOJI",
+        "ability": "Intención Oculta",
+        "descriptions": [
+          "Al desplegarse, Debilita(2) a un aliado aleatorio en su linea y Chakra(+3) para esta carta.",
+          "Al desplegarse, Debilita(2) a un aliado aleatorio en su linea y Chakra(+4) para esta carta."
+        ]
+      },
+      "S1_021": {
+        "name": "MIZUKI TOJI",
+        "ability": "Presa Fácil",
+        "descriptions": [
+          "Cuando se retira, otorga Chakra(+1) a 3 aliados aleatorios.",
+          "Cuando se retira, otorga Chakra(+2) a 3 aliados aleatorios."
+        ]
+      },
+      "S1_022": {
+        "name": "MADAME SHIJIMI",
+        "ability": "Rescate Gatuno",
+        "descriptions": [
+          "Al desplegarse, Chakra(+1) y Ralentiza(3s) a 3 aliados en su línea a corto alcance.",
+          "Al desplegarse, Chakra(+2) y Ralentiza(3s) a 3 aliados en su línea a corto alcance."
+        ]
+      },
+      "S1_023": {
+        "name": "GOZU",
+        "ability": "Emboscada",
+        "descriptions": [
+          "En caso de enfrentamiento, Debilita(1) la carta rival y se Teletransporta detrás de ella.",
+          "En caso de enfrentamiento, Debilita(2) la carta rival y se Teletransporta detrás de ella."
+        ]
+      },
+      "S1_024": {
+        "name": "TSUNAMI",
+        "ability": "Hospitalidad",
+        "descriptions": [
+          "Al desplegarse, otorga Chakra(+1) a 2 aliados en su línea.",
+          "Al desplegarse, otorga Chakra(+1) a 3 aliados en su línea."
+        ]
+      },
+      "S1_025": {
+        "name": "WARAJI",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(3s)",
+          "Acelerar(4s)"
+        ]
+      },
+      "S1_026": {
+        "name": "ZORI",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(3s)",
+          "Acelerar(4s)"
+        ]
+      },
+      "S1_027": {
+        "name": "INO YAMANAKA",
+        "ability": "Encanto",
+        "descriptions": [
+          "Al desplegarse, otorga Chakra(+1) al aliado más cercano a corto alcance y lo empuja a medio alcance.",
+          "Al desplegarse, otorga Chakra(+2) al aliado más cercano a corto alcance y lo Empuja a medio alcance."
+        ]
+      },
+      "S1_028": {
+        "name": "SHIKAMARU NARA",
+        "ability": "Imitación de Sombra",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(10s) esta carta y la carta rival más cercana. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarse, Inmoviliza(12s) esta carta y la carta rival más cercana. Los objetivos pertenecen a su propia línea."
+        ]
+      },
+      "S1_029": {
+        "name": "CHOJI AKIMICHI",
+        "ability": "Fortaleza",
+        "descriptions": [
+          "En caso de enfrentamiento, Empuja(1) la carta rival.",
+          "En caso de enfrentamiento, Empuja(2) la carta rival."
+        ]
+      },
+      "S1_030": {
+        "name": "ASUMA SARUTOBI",
+        "ability": "Maestría Cuerpo a Cuerpo",
+        "descriptions": [
+          "En caso de enfrentamiento, obtiene Chakra(+3) si la carta rival tiene un Chakra superior.",
+          "En caso de enfrentamiento, obtiene Chakra(+4) si la carta rival tiene un Chakra superior."
+        ]
+      },
+      "S1_031": {
+        "name": "HINATA HYUGA",
+        "ability": "Timidez",
+        "descriptions": [
+          "Al desplegarse, Empuja(2) la carta rival más cercana a corto alcance. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarse, Empuja(3) la carta rival más cercana a corto alcance. Los objetivos pertenecen a su propia línea."
+        ]
+      },
+      "S1_032": {
+        "name": "HINATA HYUGA",
+        "ability": "Puño Suave",
+        "descriptions": [
+          "En el primer enfrentamiento, Empuja(1) solo al rival encontrado si tiene 3 Chakra o menos.",
+          "En el primer enfrentamiento, Empuja(2) solo al rival encontrado si tiene 3 Chakra o menos."
+        ]
+      },
+      "S1_033": {
+        "name": "KIBA INUZUKA",
+        "ability": "Mejor Amigo",
+        "descriptions": [
+          "Invoca un Akamaru aleatorio de tu baraja y otórgale Chakra(+1). Si no hay Akamaru, esta carta gana Chakra(+1).",
+          "Invoca un Akamaru aleatorio de tu baraja y otórgale Chakra(+2). Si no hay Akamaru, esta carta gana Chakra(+2)."
+        ]
+      },
+      "S1_034": {
+        "name": "AKAMARU",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(6s)",
+          "Acelerar(7s)"
+        ]
+      },
+      "S1_035": {
+        "name": "SHINO ABURAME",
+        "ability": "Insectos de Chakra",
+        "descriptions": [
+          "En caso de enfrentamiento, otorga Chakra(+2) a esta carta y Debilita(1) a la carta rival.",
+          "En caso de enfrentamiento, otorga Chakra(+2) a esta carta y Debilita(2) a la carta rival."
+        ]
+      },
+      "S1_036": {
+        "name": "KURENAI YUHI",
+        "ability": "Finta",
+        "descriptions": [
+          "En caso de enfrentamiento, Empuja(2) e Inmoviliza(2s) la carta rival.",
+          "En caso de enfrentamiento, Empuja(2) e Inmoviliza(4s) la carta rival."
+        ]
+      },
+      "S1_037": {
+        "name": "PAKKUN",
+        "ability": "Nariz Delicada",
+        "descriptions": [
+          "Ignora todas las habilidades y enfrentamientos de los rivales hasta llegar a medio alcance. Los aliados desplegados en esta línea obtienen Acelerar(+2s) mientras esta carta esté activa.",
+          "Ignora todas las habilidades y enfrentamientos rivales hasta llegar a medio alcance. Los aliados ganan Acelera(+3s) al desplegarse en esta línea mientras esta carta está activa."
+        ]
+      },
+      "S1_038": {
+        "name": "AYAME",
+        "ability": "Comida Fresca",
+        "descriptions": [
+          "Al desplegarse, otorga Chakra(+2) a 2 aliados en su línea a medio alcance.",
+          "Al desplegarse, otorga Chakra(+2) a 3 aliados en su línea a medio alcance."
+        ]
+      },
+      "S1_039": {
+        "name": "MOEGI KAZAMATSURI",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(2s)",
+          "Acelerar(3s)"
+        ]
+      },
+      "S1_040": {
+        "name": "UDON ISE",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(2s)",
+          "Acelerar(3s)"
+        ]
+      },
+      "S1_041": {
+        "name": "NINJA TROOPS",
+        "ability": "Vanguardia",
+        "descriptions": [
+          "Acelera(2s). Al retirarse, otorga Chakra(+3) al aliado desplegado más recientemente.",
+          "Acelera(3s). Al retirarse, otorga Chakra(+3) al aliado desplegado más recientemente."
+        ]
+      },
+      "S1_042": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Indefenso",
+        "descriptions": [
+          "Cuando se retira, Debilita(3) la carta rival.",
+          "Cuando se retira, Debilita(4) la carta rival."
+        ]
+      },
+      "S1_043": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Bromista",
+        "descriptions": [
+          "Al desplegarse, Ralentiza(10s) todas las cartas en la línea.",
+          "Al desplegarse, Ralentiza(12s) todas las cartas en la línea."
+        ]
+      },
+      "S1_044": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Técnica Erótica",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(4s) una carta rival a medio alcance. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarse, Inmoviliza(5s) una carta rival de la línea a medio alcance."
+        ]
+      },
+      "S1_045": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Soledad",
+        "descriptions": [
+          "Al desplegarse, obtiene Chakra(+3) y Ralentiza(6s) si no hay aliados en la línea presentes.",
+          "Al desplegarse, obtiene Chakra(+4) y Ralentiza(6s) si no hay aliados en la línea presentes."
+        ]
+      },
+      "S1_046": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Graduación",
+        "descriptions": [
+          "Obtiene Chakra(+1) por cada aliado de la línea a corto alcance.",
+          "Obtiene Chakra(+2) por cada aliado de la línea a corto alcance."
+        ]
+      },
+      "S1_047": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Técnica de Transformación",
+        "descriptions": [
+          "Al desplegarse, se disfraza de otra carta de tu baraja que cuesta hasta 3 de Energía. Vuelve a su forma original en caso de enfrentamiento o al debilitarse.",
+          "Al desplegarse, se disfraza de otra carta de tu baraja que cuesta hasta 4 de Energía. Vuelve a su forma original en caso de enfrentamiento o al debilitarse."
+        ]
+      },
+      "S1_048": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Astuto",
+        "descriptions": [
+          "En caso de enfrentamiento, Inmoviliza(4s) la carta rival y se Teletransporta detrás de ella.",
+          "En caso de enfrentamiento, Inmoviliza(6s) la carta rival y se Teletransporta detrás de ella."
+        ]
+      },
+      "S1_049": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Proyección",
+        "descriptions": [
+          "El siguiente aliado se despliega a medio alcance. Inmoviliza(4s) y Cambia de línea a un rival aleatorio de su propia línea a medio alcance.",
+          "El siguiente aliado se despliega a medio alcance. Inmoviliza(8s) y Cambia de línea a un rival aleatorio de su propia línea a medio alcance."
+        ]
+      },
+      "S1_050": {
+        "name": "HIRUZEN SARUTOBI",
+        "ability": "Técnica Bola de Cristal",
+        "descriptions": [
+          "Cuando los aliados se aceleran, les aplica Chakra(+1) y Acelerar(+1s).",
+          "Cuando los aliados se aceleran, les aplica Chakra(+1) y Acelerar(+2s)."
+        ]
+      },
+      "S1_051": {
+        "name": "IRUKA UMINO",
+        "ability": "Bromista",
+        "descriptions": [
+          "Cambia de línea aleatoriamente cada 8 segundos.",
+          "Cambia de línea aleatoriamente cada 6 segundos."
+        ]
+      },
+      "S1_052": {
+        "name": "IRUKA UMINO",
+        "ability": "Sacrificio",
+        "descriptions": [
+          "Despliega a medio alcance y otorga Chakra(+1) al aliado más cercano. Los objetivos pertenecen a su propia línea.",
+          "Despliega a medio alcance y otorga Chakra(+2) al aliado más cercano. Los objetivos pertenecen a su propia línea."
+        ]
+      },
+      "S1_053": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Ocultación en la Niebla",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(6s) y Debilita(1) a todos los rivales de su propia línea a corto alcance.",
+          "Al desplegarse, Inmoviliza(6s) y Debilita(2) a todos los rivales de su propia línea a corto alcance."
+        ]
+      },
+      "S1_054": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Roto",
+        "descriptions": [
+          "Obtiene Chakra(+3) la primera vez que un aliado de su línea se retira.",
+          "Obtiene Chakra(+4) la primera vez que un aliado de su línea se retira."
+        ]
+      },
+      "S1_055": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Técnica Erótica Imperfecta",
+        "descriptions": [
+          "Al desplegarse, hay un 50 % de probabilidades de Inmovilizar(6s) una carta rival a medio alcance. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarse, hay un 50 % de probabilidades de Inmovilizar(8s) una carta rival en su línea a medio alcance."
+        ]
+      },
+      "S1_056": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Legado",
+        "descriptions": [
+          "Al desplegarse, hay un 50 % de probabilidades de invocar un Hiruzen aleatorio de tu baraja, de lo contrario, obtiene Chakra(+2).",
+          "Al desplegarse, hay un 50 % de probabilidades de invocar un Hiruzen aleatorio de tu baraja, de lo contrario, obtiene Chakra(+3)."
+        ]
+      },
+      "S1_057": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Técnica Erótica",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(4s) una carta rival a medio alcance. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarse, Inmoviliza(5s) una carta rival en su línea a medio alcance."
+        ]
+      },
+      "S1_058": {
+        "name": "EBISU",
+        "ability": "Lecciones Difíciles",
+        "descriptions": [
+          "Todos los aliados desplegados obtienen Chakra(+2) pero se Debilita(1) esta carta por cada vez.",
+          "Todos los aliados desplegados obtienen Chakra(+3) pero se Debilita(1) esta carta por cada vez."
+        ]
+      },
+      "S1_059": {
+        "name": "INARI",
+        "ability": "Tomar las Armas",
+        "descriptions": [
+          "Al desplegarse, Debilita(1) y Ralentiza(6s) a la carta rival más cercana a largo alcance. Los objetivos pertenecen a su propia línea.",
+          "Al desplegarse, Debilita(1) y Ralentiza(8s) al primer rival en su línea a largo alcance."
+        ]
+      },
+      "S1_060": {
+        "name": "GATO",
+        "ability": "Señor del Crimen",
+        "descriptions": [
+          "Al desplegarse, Concentración(6s). Si la Concentración tiene éxito, Invoca una carta aleatoria con un coste máximo de 3 desde tu baraja.",
+          "Al desplegarse, Concentración(4s). Si la Concentración tiene éxito, Invoca una carta aleatoria con un coste máximo de 3 desde tu baraja."
+        ]
+      },
+      "S1_061": {
+        "name": "NINJA HOUNDS",
+        "ability": "Persecución de Colmillos",
+        "descriptions": [
+          "Al desplegarse, se Inmoviliza(6s) a sí mismo y al oponente en su línea con el chakra más alto.",
+          "Al desplegarse, se Inmoviliza(8s) a sí mismo y al oponente en su línea con el chakra más alto."
+        ]
+      },
+      "S1_062": {
+        "name": "TEUCHI",
+        "ability": "Camino del Ramen",
+        "descriptions": [
+          "Chakra(+1) a los aliados en su linea después de 8 segundos.",
+          "Chakra(+2) a los aliados en su linea después de 8 segundos."
+        ]
+      },
+      "S1_063": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Determinación",
+        "descriptions": [
+          "Cuando Iruka aliado esté a punto de retirarse, lo devuelve al inicio de la línea y crea 3 clones con Chakra(1) distribuidos en todas las líneas.",
+          "Cuando un Iruka aliado está a punto de retirarse, lo devuelve al inicio de la línea e Invoca 5 clones con Chakra(1) distribuidos en todas las líneas."
+        ]
+      },
+      "S1_064": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Pose Perfecta",
+        "descriptions": [
+          "Obtiene Chakra(+5) después de 10 s.",
+          "Obtiene Chakra(+6) después de 10 s."
+        ]
+      },
+      "S1_065": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Técnica Erótica Masiva",
+        "descriptions": [
+          "En caso de enfrentamiento, Inmoviliza(6s) la carta rival, se teletransporta detrás de ella y Acelera(2s).",
+          "En caso de enfrentamiento, Inmoviliza(8s) la carta rival, se teletransporta detrás de ella y Acelera(4s)."
+        ]
+      },
+      "S1_066": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Predicción",
+        "descriptions": [
+          "No se puede debilitar durante enfrentamientos con cartas rivales de 2 o menos Chakra.",
+          "No se puede debilitar durante enfrentamientos con cartas rivales de 3 o menos Chakra."
+        ]
+      },
+      "S1_067": {
+        "name": "SAKURA HARUNO",
+        "ability": "Fuego Interior",
+        "descriptions": [
+          "Gana Chakra(+3) la primera vez que se despliega un rival en su línea; después, Chakra(+1) cada vez que un rival se despliega o Cambia a esta línea.",
+          "Gana Chakra(+3) la primera vez que se despliega un rival en su línea; después, Chakra(+2) cada vez que un rival se despliega o Cambia a esta línea."
+        ]
+      },
+      "S1_068": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Muerte Milenaria",
+        "descriptions": [
+          "Salta sobre la primera carta rival que se acerca, la Debilita(1) y la Empuja(3).",
+          "Salta sobre la primera carta rival que se acerca, la Debilita(1) y la Empuja(4)."
+        ]
+      },
+      "S1_069": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Gran Catarata",
+        "descriptions": [
+          "Al desplegarse, Empuja(3) y Debilita(2) a todos los rivales de la línea.",
+          "Al desplegarse, Empuja(3) y Debilita(3) a todos los rivales de la línea."
+        ]
+      },
+      "S1_070": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Raikiri",
+        "descriptions": [
+          "Salta sobre la primera carta rival que se acerca y la Debilita(3). Ignora Protección.",
+          "Salta sobre la primera carta rival que se acerca y la Debilita(4). Ignora Protección."
+        ]
+      },
+      "S1_071": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Clon Falso",
+        "descriptions": [
+          "Gasta la energía restante para invocar hasta 5 clones con Chakra(2) disfrazados del original.",
+          "Gasta la energía restante para invocar hasta 6 clones con Chakra(2) disfrazados del original."
+        ]
+      },
+      "S1_072": {
+        "name": "IRUKA UMINO",
+        "ability": "Reprimenda",
+        "descriptions": [
+          "Mientras esta carta esté activa, otorga Chakra(+1) y Inmoviliza(2s) a los aliados con 2 Chakra al desplegarlos.",
+          "Mientras esta carta está activa, Chakra(+2) y Inmoviliza(2s) a los aliados con 2 Chakra al desplegarlos."
+        ]
+      },
+      "S1_073": {
+        "name": "HIRUZEN SARUTOBI",
+        "ability": "Voluntad de Fuego",
+        "descriptions": [
+          "Chakra[+1] a todos los aliados después de 10 segundos.",
+          "Tras 10 segundos, Chakra(+2) a todos los aliados."
+        ]
+      },
+      "S1_074": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Dragón de Agua",
+        "descriptions": [
+          "Al desplegarse, Debilita(1) y Empuja(1) a todos los rivales en su línea a corto y medio alcance.",
+          "Al desplegarse, Debilita(1) y Empuja(3) a todos los rivales de la línea a corto y medio alcance."
+        ]
+      },
+      "S1_075": {
+        "name": "HAKU",
+        "ability": "Espejos de Hielo Demoníacos",
+        "descriptions": [
+          "En caso de enfrentamiento, Inmoviliza(2s) y Debilita(1) a los rivales cercanos de su propia línea; después, Cambia de línea. Esta habilidad se reactiva cada vez que gana Chakra.",
+          "En caso de enfrentamiento, Inmoviliza(4s) y Debilita(1) a los rivales cercanos de su propia línea; después, Cambia de línea. Esta habilidad se reactiva cada vez que gana Chakra."
+        ]
+      },
+      "S1_076": {
+        "name": "GAMABUNTA",
+        "ability": "Cooperación de sapo",
+        "descriptions": [
+          "Chakra(+1) cuando los aliados Empujan a los rivales.",
+          "Chakra(+2) cuando los aliados Empujan a los rivales."
+        ]
+      },
+      "S1_077": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Clones de Sombra",
+        "descriptions": [
+          "Crea 2 clones con Chakra(2) y Acelerar(4s) en las otras líneas, luego 2 clones nuevos después de 10s. Chakra(+1) cada vez que estos clones se retiran.",
+          "Invoca 2 clones con Chakra(2) y Acelera(6s) en las otras líneas, y luego 2 nuevos clones tras 10 s. Chakra(+1) cada vez que estos clones se retiran."
+        ]
+      },
+      "S1_078": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Furia de Kyubi",
+        "descriptions": [
+          "Cuando los aliados se retiran, Chakra(+1) y Acelerar(1s)",
+          "Cuando los aliados se retiran, Chakra(+2) y Acelerar(1s)"
+        ]
+      },
+      "S1_079": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Puñetazo furioso",
+        "descriptions": [
+          "Se despliega a medio alcance, Debilita(2) y Empuja hacia atrás(1) a todos los rivales de la línea.",
+          "Se despliega a medio alcance, Debilita(2) y Empuja(3) hacia atrás a todos los rivales de la línea."
+        ]
+      },
+      "S1_080": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Determinación",
+        "descriptions": [
+          "Obtiene Chakra(+2) cada 8 s.",
+          "Obtiene Chakra(+2) cada 6 s."
+        ]
+      },
+      "S1_081": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Gran Bola de Fuego",
+        "descriptions": [
+          "Al desplegarse, Debilita(2) a todos los rivales a medio alcance.",
+          "Al desplegarse, Debilita(3) a todos los rivales a medio alcance."
+        ]
+      },
+      "S1_082": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Plan de Batalla",
+        "descriptions": [
+          "Mientras está activo, Chakra(+1) siempre que los aliados Debiliten a sus rivales. Los aliados obtienen Chakra(+1) por cada carta afectada la primera vez que Debilitan a sus rivales.",
+          "Mientras está activo, Chakra(+2) siempre que los aliados Debiliten a sus rivales. Los aliados obtienen Chakra(+1) por cada carta afectada la primera vez que Debilitan a sus rivales."
+        ]
+      },
+      "S1_083": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Demonio",
+        "descriptions": [
+          "Al desplegar, Debilita(1) todas las cartas. Si tienen 3 chakras o menos, Debilita(3).",
+          "Al desplegar, Debilita(1) todas las cartas. Si tienen 4 chakras o menos, Debilita(4)."
+        ]
+      },
+      "S1_084": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Carga Temeraria",
+        "descriptions": [
+          "En cada enfrentamiento, Debilita(2) cartas rivales con Chakra de 4 o menos y las empuja a otra línea. Acelera continuamente.",
+          "En cada enfrentamiento, Debilita(3) cartas rivales con Chakra de 4 o menos y ellas Cambian de línea. Acelera continuamente."
+        ]
+      },
+      "S1_085": {
+        "name": "KYUBI",
+        "ability": "Desastre natural",
+        "descriptions": [
+          "Se despliega a medio alcance, Empuja(1) y Debilita(3) a todas las cartas. Mientras está activa, Debilita(1) a las nuevas cartas desplegadas. Ralentización permanente.",
+          "Se despliega a medio alcance, Empuja(1) y Debilita(4) a todas las cartas. Mientras está activa, Debilita(1) a las nuevas cartas desplegadas. Ralentización permanente."
+        ]
+      },
+      "S2_001": {
+        "name": "Naruto Uzumaki",
+        "ability": "Entrenamiento de Chakra",
+        "descriptions": [
+          "Al desplegarse, hay un 50 % de probabilidades de Chakra(+3).",
+          "Al desplegarse, hay un 50 % de probabilidades de Chakra(+4)."
+        ]
+      },
+      "S2_002": {
+        "name": "Naruto Uzumaki",
+        "ability": "Aspirante",
+        "descriptions": [
+          "Al desplegarse, Inmovilización(1s) y gana Chakra(+2) por cada rival de su línea con más Chakra.",
+          "Al desplegarse, Inmovilización(2s) y gana Chakra(+2) por cada rival de su línea con más Chakra."
+        ]
+      },
+      "S2_003": {
+        "name": "Sasuke Uchiha",
+        "ability": "Combo del León",
+        "descriptions": [
+          "Salta sobre la primera carta rival que se acerca, y la Debilita(2).",
+          "Salta sobre la primera carta rival que se acerca, y la Debilita(3)."
+        ]
+      },
+      "S2_004": {
+        "name": "Sakura Haruno",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(2s)",
+          "Acelerar(3s)"
+        ]
+      },
+      "S2_005": {
+        "name": "Rock Lee",
+        "ability": "Protector",
+        "descriptions": [
+          "Acelera(+3s) cada vez que un rival se despliega en esta línea.",
+          "Acelera(+4s) cada vez que un rival se despliega en esta línea."
+        ]
+      },
+      "S2_006": {
+        "name": "Rock Lee",
+        "ability": "Bomba de Amor",
+        "descriptions": [
+          "Chakra(+1) al siguiente aliado desplegado. Mientras esta carta esté activa, Cambia de línea a ese aliado cada 8 segundos.",
+          "Chakra(+2) al siguiente aliado desplegado. Mientras esta carta está activa, Cambia a ese aliado de línea cada 8 segundos."
+        ]
+      },
+      "S2_007": {
+        "name": "Neji Hyuga",
+        "ability": "Puño Suave",
+        "descriptions": [
+          "En caso de enfrentamiento, Debilita(2) y Empuja(1).",
+          "En caso de enfrentamiento, Debilita(2) y Empuja(2)."
+        ]
+      },
+      "S2_008": {
+        "name": "Tenten",
+        "ability": "Dragones Gemelos",
+        "descriptions": [
+          "Al desplegarse, Debilita(1) y Ralentiza(6s) a todos los rivales a largo alcance.",
+          "Al desplegarse, Debilita(1) y Ralentiza(8s) a todos los rivales a largo alcance."
+        ]
+      },
+      "S2_009": {
+        "name": "Gai Maito",
+        "ability": "Poder de la Juventud",
+        "descriptions": [
+          "Mientras esta carta está activa, otorga Chakra(+2) a las cartas de Rock Lee al desplegarlas.",
+          "Mientras esta carta está activa, otorga Chakra(+3) a las cartas de Rock Lee al desplegarlas."
+        ]
+      },
+      "S2_010": {
+        "name": "Gaara",
+        "ability": "Peligroso",
+        "descriptions": [
+          "Se despliega a medio alcance, Chakra(+3) si hay una carta rival a medio alcance.",
+          "Se despliega a medio alcance, Chakra(+4) si hay una carta rival a medio alcance."
+        ]
+      },
+      "S2_011": {
+        "name": "Kankuro",
+        "ability": "Descarado",
+        "descriptions": [
+          "Otorga Chakra(+3) al siguiente Gaara aliado desplegado.",
+          "Otorga Chakra(+4) al siguiente Gaara aliado desplegado."
+        ]
+      },
+      "S2_012": {
+        "name": "Temari",
+        "ability": "Prudente",
+        "descriptions": [
+          "Otorga Protección(1) y Ralentiza(6s) al siguiente Gaara aliado desplegado.",
+          "Otorga Protección(1) y Ralentiza(10s) al siguiente Gaara aliado desplegado."
+        ]
+      },
+      "S2_013": {
+        "name": "Baki",
+        "ability": "Resiliente",
+        "descriptions": [
+          "Acelera(3s) y Protección(1).",
+          "Acelera(4s) y Protección(1)."
+        ]
+      },
+      "S2_014": {
+        "name": "Ino Yamanaka",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(2s)",
+          "Acelerar(3s)"
+        ]
+      },
+      "S2_015": {
+        "name": "Kabuto Yakushi",
+        "ability": "Explicación",
+        "descriptions": [
+          "Al desplegarse, todos los aliados a corto alcance ganan aleatoriamente Chakra(+1) o Inmovilizar(4s).",
+          "Al desplegarse, todos los aliados a corto alcance ganan aleatoriamente Chakra(+2) o Inmovilizar(4s)."
+        ]
+      },
+      "S2_016": {
+        "name": "Student Trio",
+        "ability": "Equipo Konohamaru",
+        "descriptions": [
+          "Al retirarse, vuelve a desplegarse como Konohamaru, Moegi y Udon con Acelerar(3s) y Chakra(1) en cada línea.",
+          "Al retirarse, vuelve a desplegarse como Konohamaru, Moegi y Udon con Acelerar(4s) y Chakra(1) en cada línea."
+        ]
+      },
+      "S2_017": {
+        "name": "Ibiki Morino",
+        "ability": "Reglas Estrictas",
+        "descriptions": [
+          "Al desplegarse, Empuja(2) o Inmoviliza(4s) a todos los rivales de la línea.",
+          "Al desplegarse, Empuja(3) o Inmoviliza(5s) a todos los rivales de la línea."
+        ]
+      },
+      "S2_018": {
+        "name": "Choza Akimichi",
+        "ability": "Viejos Amigos",
+        "descriptions": [
+          "Mientras esta carta está activa, otorga Chakra(+1) a las cartas aliadas de Shikaku e Inoichi.",
+          "Mientras esta carta está activa, otorga Chakra(+2) a las cartas aliadas de Shikaku e Inoichi."
+        ]
+      },
+      "S2_019": {
+        "name": "Inoichi Yamanaka",
+        "ability": "Viejos Amigos",
+        "descriptions": [
+          "Mientras esta carta está activa, otorga Chakra(+1) a las cartas aliadas de Choza y Shikaku.",
+          "Mientras esta carta está activa, otorga Chakra(+2) a las cartas aliadas de Choza y Shikaku."
+        ]
+      },
+      "S2_020": {
+        "name": "Shikaku Nara",
+        "ability": "Viejos Amigos",
+        "descriptions": [
+          "Mientras esta carta está activa, otorga Chakra(+1) a las cartas aliadas de Inoichi y Choza.",
+          "Mientras esta carta está activa, otorga Chakra(+2) a las cartas aliadas de Inoichi y Choza."
+        ]
+      },
+      "S2_021": {
+        "name": "Hanabi Hyuga",
+        "ability": "Prodigio",
+        "descriptions": [
+          "Acelera(2s). En caso de enfrentamiento, Empuja(2).",
+          "Acelera(3s). En caso de enfrentamiento, Empuja(3)."
+        ]
+      },
+      "S2_022": {
+        "name": "Hiashi Hyuga",
+        "ability": "Líder Hyuga",
+        "descriptions": [
+          "Mientras esta carta está activa, los Hyuga aliados ganan Chakra(+2) y Empuja(1). Empuja no aumenta un valor ya existente.",
+          "Mientras esta carta está activa, los Hyuga aliados ganan Chakra(+3) y Empuja(1). Empuja no aumenta un valor ya existente."
+        ]
+      },
+      "S2_023": {
+        "name": "Hizashi Hyuga",
+        "ability": "Sacrificio del Hermano",
+        "descriptions": [
+          "Acelera(2s). Cuando un Hiashi aliado esté a punto de retirarse, tira de él hacia el comienzo de la línea y se retira en su lugar.",
+          "Acelera(3s). Cuando un Hiashi aliado esté a punto de retirarse, tira de él hacia el comienzo de la línea y se retira en su lugar."
+        ]
+      },
+      "S2_024": {
+        "name": "Zaku Abumi",
+        "ability": "Ondas Decapitadoras",
+        "descriptions": [
+          "Al desplegarse, Empuja(2) y Cambia de línea a dos cartas rivales a medio alcance.",
+          "Al desplegarse, Empuja(2) y Cambia de línea a tres cartas rivales a medio alcance."
+        ]
+      },
+      "S2_025": {
+        "name": "Dosu Kinuta",
+        "ability": "Altavoz de Eco Resonante",
+        "descriptions": [
+          "En caso de enfrentamiento, Debilita(2) la carta rival. Si el rival no se retira, lo Inmoviliza(4s) y Cambia de línea.",
+          "En caso de enfrentamiento, Debilita(2) la carta rival. Si el rival no se retira, lo Inmoviliza(5s) y Cambia de línea."
+        ]
+      },
+      "S2_026": {
+        "name": "Kin Tsuchi",
+        "ability": "Agujas de Cascabel",
+        "descriptions": [
+          "Al desplegarse, Debilita(1) e Inmoviliza(2s) la carta rival más cercana.",
+          "Al desplegarse, Debilita(2) e Inmoviliza(2s) la carta rival más cercana."
+        ]
+      },
+      "S2_027": {
+        "name": "Izumo Kamizuki",
+        "ability": "Sabotaje",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(2s) a dos aliados de la línea aleatorios.",
+          "Al desplegarse, Inmoviliza(2s) a tres aliados de la línea aleatorios."
+        ]
+      },
+      "S2_028": {
+        "name": "Kotetsu Hagane",
+        "ability": "Desorientación",
+        "descriptions": [
+          "Al desplegarse, Ralentiza(4s) y Cambia de línea a 2 aliados aleatorios.",
+          "Al desplegarse, Ralentiza(4s) y Cambia de línea a tres aliados aleatorios."
+        ]
+      },
+      "S2_029": {
+        "name": "Oboro",
+        "ability": "Clon de Niebla",
+        "descriptions": [
+          "Al desplegarse, crea 2 clones con Chakra(1). Cuando los clones se retiran, hay un 50 % de probabilidad de crear otro clon en la misma línea.",
+          "Al desplegarse, Invoca 2 clones con Chakra(2). Cuando los clones se retiran, hay un 50 % de probabilidad de crear otro clon en la misma línea."
+        ]
+      },
+      "S2_030": {
+        "name": "Yoroi Akado",
+        "ability": "Absorción de Chakra",
+        "descriptions": [
+          "En caso de enfrentamiento, otorga Chakra(+1) a esta carta y Debilita(1) a la carta rival. También desactiva cualquier habilidad activa.",
+          "En caso de enfrentamiento, otorga Chakra(+2) a esta carta y Debilita(1) a la carta rival. También desactiva cualquier habilidad activa."
+        ]
+      },
+      "S2_031": {
+        "name": "Ningame",
+        "ability": "Templanza",
+        "descriptions": [
+          "Cada vez que los aliados de la línea ganan Acelerar, se convierte en un Chakra(+1) en su lugar.",
+          "Cada vez que los aliados de la línea ganan Acelerar, se convierte en un Chakra(+2) en su lugar."
+        ]
+      },
+      "S2_032": {
+        "name": "Gama",
+        "ability": "Pergamino de Sapo",
+        "descriptions": [
+          "Al desplegarse, Invoca un Sapo aleatorio de tu baraja y le otorga Chakra(+1).",
+          "Al desplegarse, Invoca un Sapo aleatorio de tu baraja y le otorga Chakra(+2)."
+        ]
+      },
+      "S2_033": {
+        "name": "Gamakichi",
+        "ability": "Bocaza",
+        "descriptions": [
+          "Los Sapos aliados aplican Empuja(1) al enfrentarse, mientras esta carta esté activa. Chakra(+1) cada vez que un Sapo empuja a un rival.",
+          "Los sapos aliados aplican Empuja(2) al enfrentarse mientras esta carta está activa. Chakra(+1) cada vez que un sapo empuja a un rival."
+        ]
+      },
+      "S2_034": {
+        "name": "Giant Snake",
+        "ability": "Serpenteo",
+        "descriptions": [
+          "Despliega a medio alcance y Cambia de línea a dos cartas más presentes a medio alcance.",
+          "Se despliega a medio alcance y Cambia de línea a otras 3 cartas presentes a medio alcance."
+        ]
+      },
+      "S2_035": {
+        "name": "Raido Namiashi",
+        "ability": "Guardaespaldas",
+        "descriptions": [
+          "Acelera(2s). Cuando un Hiruzen aliado esté a punto de retirarse, tira de él hacia el comienzo de la línea y se retira en su lugar.",
+          "Acelera(3s). Cuando un Hiruzen aliado esté a punto de retirarse, tira de él hacia el comienzo de la línea y se retira en su lugar."
+        ]
+      },
+      "S2_036": {
+        "name": "Homura Mitokado",
+        "ability": "Consuelo",
+        "descriptions": [
+          "El siguiente aliado desplegado gana Protección(1) y Chakra(+1).",
+          "El siguiente aliado desplegado gana Protección(1) y Chakra(+2)."
+        ]
+      },
+      "S2_037": {
+        "name": "Koharu Utatane",
+        "ability": "Seguridad",
+        "descriptions": [
+          "Después de 10 segundos, despliega a los Cuerpos de élite.",
+          "Después de 8 segundos, despliega a los Cuerpos de élite."
+        ]
+      },
+      "S2_038": {
+        "name": "Genma Shiranui",
+        "ability": "Proctor",
+        "descriptions": [
+          "Al desplegarse, Concentración(6s). Si la Concentración tiene éxito, Invoca una carta aleatoria de tu mazo con un coste de hasta 4. Si tiene 3 o menos Chakra, concédele Chakra(+2).",
+          "Al desplegarse, Concentración(4s). Si la Concentración tiene éxito, Invoca una carta aleatoria con un coste máximo de 4 desde tu baraja. Si tiene 3 de Chakra o menos, le otorga Chakra(+2)."
+        ]
+      },
+      "S2_039": {
+        "name": "Genma Shiranui",
+        "ability": "Alerta",
+        "descriptions": [
+          "Al desplegarse, Debilita(3) a un rival de la línea a medio alcance.",
+          "Al desplegarse, Debilita(3) a dos rivales de la línea a medio alcance."
+        ]
+      },
+      "S2_040": {
+        "name": "Yashamaru",
+        "ability": "Deber Reticente",
+        "descriptions": [
+          "Al retirarse, Debilita(3) todas las cartas cercanas.",
+          "Al retirarse, Debilita(4) todas las cartas cercanas."
+        ]
+      },
+      "S2_041": {
+        "name": "Karura",
+        "ability": "Amor de Madre",
+        "descriptions": [
+          "Al desplegarse, otorga Chakra(+2) y Ralentiza(3s) a las cartas Gaara aliadas.",
+          "Al desplegarse, otorga Chakra(+2) y Ralentiza(5s) a las cartas Gaara aliadas."
+        ]
+      },
+      "S2_042": {
+        "name": "Yugao Uzuki",
+        "ability": "Juramento de Venganza",
+        "descriptions": [
+          "Acelera(3s). Protección(1). En caso de enfrentamiento, Debilita(2).",
+          "Acelera(4s). Protección(1). En caso de enfrentamiento, Debilita(2)."
+        ]
+      },
+      "S2_043": {
+        "name": "Hana Inuzuka",
+        "ability": "Acelerón",
+        "descriptions": [
+          "Acelerar(4s)",
+          "Acelerar(5s)"
+        ]
+      },
+      "S2_044": {
+        "name": "Tsume Inuzuka",
+        "ability": "Liderar la Carga",
+        "descriptions": [
+          "Acelera(4s). El siguiente aliado desplegado gana Acelerar(+3s) y Chakra(+1).",
+          "Acelera(4s). El siguiente aliado desplegado gana Acelerar(+3s) y Chakra(+2)."
+        ]
+      },
+      "S2_045": {
+        "name": "Shibi Aburame",
+        "ability": "Ayuda Oportuna",
+        "descriptions": [
+          "Acelera(5s). Chakra(+1) a los aliados al alcanzarlos.",
+          "Acelera(6s). Chakra(+1) a los aliados al alcanzarlos."
+        ]
+      },
+      "S2_046": {
+        "name": "Jirobo",
+        "ability": "Sur",
+        "descriptions": [
+          "El siguiente Orochimaru desplegado obtiene Chakra(+3).",
+          "El siguiente Orochimaru desplegado obtiene Chakra(+4)."
+        ]
+      },
+      "S2_047": {
+        "name": "Kidomaru",
+        "ability": "Este",
+        "descriptions": [
+          "El siguiente Orochimaru desplegado obtiene Acelerar(+4s).",
+          "El siguiente Orochimaru desplegado obtiene Acelerar(+5s)."
+        ]
+      },
+      "S2_048": {
+        "name": "Sakon",
+        "ability": "Oeste",
+        "descriptions": [
+          "El siguiente Orochimaru desplegado Debilita(3) a la carta rival más cercana.",
+          "El siguiente Orochimaru desplegado Debilita(4) a la carta rival más cercana."
+        ]
+      },
+      "S2_049": {
+        "name": "Tayuya",
+        "ability": "Norte",
+        "descriptions": [
+          "El siguiente Orochimaru desplegado gana Guardia(1).",
+          "El siguiente Orochimaru desplegado obtiene Protección(2)."
+        ]
+      },
+      "S2_050": {
+        "name": "Anbu",
+        "ability": "Cuerpos de Élite",
+        "descriptions": [
+          "Al desplegarse, gana aleatoriamente Chakra(+2) o Acelerar(4s).",
+          "Al desplegarse, gana aleatoriamente Chakra(+3) o Acelerar(5s)."
+        ]
+      },
+      "S2_051": {
+        "name": "Naruto Uzumaki",
+        "ability": "Destructor del Destino",
+        "descriptions": [
+          "Protección(2). Cuando se activa Protección, reinicia Aceleración(2s), sin sumarse a la duración restante. Al terminar la Aceleración, Cambia de línea.",
+          "Protección(3). Cuando se activa Protección, reinicia Aceleración(2s), sin sumarse a la duración restante. Al terminar la Aceleración, Cambia de línea."
+        ]
+      },
+      "S2_052": {
+        "name": "Sakura Haruno",
+        "ability": "Firme",
+        "descriptions": [
+          "En caso de enfrentamiento, Debilita(1) la carta rival y obtiene Protección(1).",
+          "En caso de enfrentamiento, Debilita(1) la carta rival y obtiene Protección(2)."
+        ]
+      },
+      "S2_053": {
+        "name": "Rock Lee",
+        "ability": "Remolino de la Hoja",
+        "descriptions": [
+          "En caso de enfrentamiento, Empuja(1) y Debilita(2) la carta rival.",
+          "En caso de enfrentamiento, Empuja(2) y Debilita(2) la carta rival."
+        ]
+      },
+      "S2_054": {
+        "name": "Neji Hyuga",
+        "ability": "Byakugan",
+        "descriptions": [
+          "Al desplegarse, reduce el Chakra de la carta rival más cercana a la mitad y gana Acelerar(2s).",
+          "Al desplegarse, reduce el Chakra de la carta rival más cercana a la mitad y gana Acelerar(4s)."
+        ]
+      },
+      "S2_055": {
+        "name": "Neji Hyuga",
+        "ability": "Carga del Destino",
+        "descriptions": [
+          "Cada vez que esta carta gane Chakra, gana Chakra(+1) adicional. No puede tener más de 10 de chakra en total.",
+          "Cada vez que esta carta gane Chakra, gana Chakra(+2) adicional. No puede tener más de 10 de chakra en total."
+        ]
+      },
+      "S2_056": {
+        "name": "Gai Maito",
+        "ability": "Reprimenda",
+        "descriptions": [
+          "Se despliega a medio alcance, otorga Chakra(+2) e Inmoviliza(2s) al aliado de línea más cercano.",
+          "Se despliega a medio alcance, otorga Chakra(+2) e Inmoviliza(6s) al aliado de línea más cercano."
+        ]
+      },
+      "S2_057": {
+        "name": "Choji Akimichi",
+        "ability": "Bala de Cañón Humana",
+        "descriptions": [
+          "Acelera(3s). En cada de enfrentamiento, Empuja(2) y Debilita(1) si Acelerar está activo.",
+          "Acelera(4s). En cada de enfrentamiento, Empuja(2) y Debilita(1) si Acelerar está activo."
+        ]
+      },
+      "S2_058": {
+        "name": "Ino Yamanaka",
+        "ability": "Traspaso Mental",
+        "descriptions": [
+          "Al desplegarse, Concentración(8s) y toma el control del rival a medio alcance de línea con el Chakra más alto. Cuando termina la Concentración, devuelve el control de la carta a tu rival.",
+          "Al desplegarse, Concentración(12s) y toma el control del rival a medio alcance de línea con el Chakra más alto. Al terminar la Concentración, devuelve el control de la carta a tu rival."
+        ]
+      },
+      "S2_059": {
+        "name": "Hinata Hyuga",
+        "ability": "Cambiar",
+        "descriptions": [
+          "En caso de enfrentamiento, Empuja(1) y Cambia de línea a la carta rival.",
+          "En caso de enfrentamiento, Empuja(2) y Cambia de línea a la carta rival."
+        ]
+      },
+      "S2_060": {
+        "name": "Gaara",
+        "ability": "Escudo de Arena",
+        "descriptions": [
+          "Guardia(2). Cuando se activa Guardia, Chakra(+1).",
+          "Protección(3). Cuando Protección se activa, obtiene Chakra(+1)."
+        ]
+      },
+      "S2_061": {
+        "name": "Temari",
+        "ability": "Abanico Gigante",
+        "descriptions": [
+          "Guardia(2). Al desplegarse y cuando se activa Guardia, Empuja(2) a todos los rivales en su línea.",
+          "Protección(3). Al desplegarse y cuando Protección se activa, Empuja(3) a todos los rivales de línea."
+        ]
+      },
+      "S2_062": {
+        "name": "Anko Mitarashi",
+        "ability": "Serpiente de las Sombras",
+        "descriptions": [
+          "Al desplegarse, Debilita(2) y Inmoviliza(4s) una carta rival de línea a medio alcance.",
+          "Al desplegarse, Debilita(2) y Inmoviliza(4s) dos cartas rivales de línea a medio alcance."
+        ]
+      },
+      "S2_063": {
+        "name": "Choza Akimichi",
+        "ability": "Expansión de Cuerpo",
+        "descriptions": [
+          "En caso de enfrentamiento, Empuja(3) y Debilita(2) la carta rival.",
+          "En caso de enfrentamiento, Empuja(3) y Debilita(3) la carta rival."
+        ]
+      },
+      "S2_064": {
+        "name": "Inoichi Yamanaka",
+        "ability": "Confusión Mental",
+        "descriptions": [
+          "Al desplegarse, Concentración(10s) y toma el control del rival a medio alcance de línea más cercano, lo Ralentiza(10s) y desactiva permanentemente cualquier habilidad activa. Cuando termina la Concentración, devuelve el control de la carta a tu rival.",
+          "Al desplegarse, Concentración(14s) y toma el control del rival a medio alcance de línea más cercano, lo Ralentiza(10s) y desactiva permanentemente cualquier habilidad activa. Al terminar la Concentración, devuelve el control de la carta a tu rival."
+        ]
+      },
+      "S2_065": {
+        "name": "Shikaku Nara",
+        "ability": "Sombra Vinculante",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(10s) a sí mismo y a dos rivales en su línea a largo alcance.",
+          "Al desplegarse, Inmoviliza(12s) a sí mismo y a dos rivales de línea a largo alcance."
+        ]
+      },
+      "S2_066": {
+        "name": "Jiraiya",
+        "ability": "Salvia Pervia",
+        "descriptions": [
+          "Cambia aleatoriamente de línea cada 10 segundos.",
+          "Cambia aleatoriamente de línea cada 8 segundos."
+        ]
+      },
+      "S2_067": {
+        "name": "Orochimaru",
+        "ability": "Maquinaciones",
+        "descriptions": [
+          "Al desplegarse y al retirarse, Debilita(1) hasta cualquier 4 cartas.",
+          "Al desplegarse y al retirarse, Debilita(1) hasta cualquier 6 cartas."
+        ]
+      },
+      "S2_068": {
+        "name": "Hashirama Senju",
+        "ability": "Reanimación de Edo",
+        "descriptions": [
+          "Cuando esté por debajo del chakra base, obtiene Chakra(+1) cada 4 segundos hasta volver al chakra base.",
+          "Cuando esté por debajo del chakra base, obtiene Chakra(+1) cada 3 segundos hasta volver al chakra base."
+        ]
+      },
+      "S2_069": {
+        "name": "Tobirama Senju",
+        "ability": "Reanimación de Edo",
+        "descriptions": [
+          "Cuando esté por debajo del chakra base, obtiene Chakra(+1) cada 4 segundos hasta volver al chakra base.",
+          "Cuando esté por debajo del chakra base, obtiene Chakra(+1) cada 3 segundos hasta volver al chakra base."
+        ]
+      },
+      "S2_070": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "El Tercero",
+        "descriptions": [
+          "En caso de enfrentamiento, obtiene Chakra(+2). Al retirarse, otorga Chakra(+2) a todos los aliados.",
+          "En caso de enfrentamiento, obtiene Chakra(+3). Al retirarse, otorga Chakra(+2) a todos los aliados."
+        ]
+      },
+      "S2_071": {
+        "name": "Hayate Gekko",
+        "ability": "Danza de las Tres Lunas",
+        "descriptions": [
+          "En caso de enfrentamiento, Debilita(1) tres veces. Si el rival no se retira, también Empuja(2).",
+          "En caso de enfrentamiento, Debilita(1) tres veces. Si el rival no se retira, también Empuja(3)."
+        ]
+      },
+      "S2_072": {
+        "name": "Ibiki Morino",
+        "ability": "Interrogatorio",
+        "descriptions": [
+          "Al desplegarse, Debilita(1) y Ralentiza(4s) todas las cartas.",
+          "Al desplegarse, Debilita(1) y Ralentiza(6s) todas las cartas."
+        ]
+      },
+      "S2_073": {
+        "name": "Gamahiro",
+        "ability": "Peso",
+        "descriptions": [
+          "Al desplegarse, gana Chakra(+2) por cada sapo aliado. Ralentización permanente.",
+          "Al desplegarse, gana Chakra(+3) por cada sapo aliado. Ralentización permanente."
+        ]
+      },
+      "S2_074": {
+        "name": "Sasuke Uchiha",
+        "ability": "Chidori",
+        "descriptions": [
+          "En caso de enfrentamiento, salta a través de los rivales cercanos, Debilita(2) a cada uno de ellos. Ignora Protección.",
+          "En caso de enfrentamiento, salta a través de los rivales cercanos, Debilita(3) a cada uno de ellos. Ignora Protección."
+        ]
+      },
+      "S2_075": {
+        "name": "Rock Lee",
+        "ability": "Sin Peso",
+        "descriptions": [
+          "Acelera(3s). En cada enfrentamiento, si la carta rival tiene un Chakra más alto, Empuja(1) y Debilita(2), entonces Cambia de línea.",
+          "Acelera(3s). En cada enfrentamiento, si la carta rival tiene un Chakra más alto, Empuja(2) y Debilita(2), entonces Cambia de línea."
+        ]
+      },
+      "S2_076": {
+        "name": "Neji Hyuga",
+        "ability": "Rotación",
+        "descriptions": [
+          "En caso de enfrentamiento, Empuja(2) y Debilita(3) a todas las cartas rivales cercanas.",
+          "En caso de enfrentamiento, Empuja(4) y Debilita(3) a todas las cartas rivales cercanas."
+        ]
+      },
+      "S2_077": {
+        "name": "Kiba Inuzuka",
+        "ability": "Colmillos Cruzados",
+        "descriptions": [
+          "El siguiente Akamaru desplegado se convierte en una copia completa de esta carta con Acelerar(4s).",
+          "El siguiente Akamaru desplegado se convierte en una copia completa de esta carta con Acelerar(5s)."
+        ]
+      },
+      "S2_078": {
+        "name": "Shikamaru Nara",
+        "ability": "Maestro de Shogi",
+        "descriptions": [
+          "Al desplegarse, se Inmoviliza(10s) a sí mismo y gana Chakra(+3). Mientras esta carta está activa, cada vez que Inmovilizas a otras cartas aliadas o estas se Concentran, ganan Chakra(+3).",
+          "Al desplegarse, se Inmoviliza(12s) a sí mismo y gana Chakra(+4). Mientras esta carta está activa, cada vez que Inmovilizas a otras cartas aliadas o estas ganan Concentración, ganan Chakra(+3)."
+        ]
+      },
+      "S2_079": {
+        "name": "Asuma Sarutobi",
+        "ability": "Cuchillas de Chakra",
+        "descriptions": [
+          "En cada enfrentamiento, Debilita(1). Cuando esta carta hace que un rival se retire, Acelera(+1s).",
+          "En cada enfrentamiento, Debilita(2). Cuando esta carta hace que un rival se retire, Acelera(+1s)."
+        ]
+      },
+      "S2_080": {
+        "name": "Gaara",
+        "ability": "Inestable",
+        "descriptions": [
+          "Al desplegarse, Debilita(2) y Ralentiza(6s) a todas las cartas de la línea.",
+          "Al desplegarse, Debilita(2) y Ralentiza(8s) a todas las cartas de la línea."
+        ]
+      },
+      "S2_081": {
+        "name": "Gaara",
+        "ability": "Sed de Sangre",
+        "descriptions": [
+          "Chakra(+1) cada vez que cualquier carta aliada Debilita a cualquier carta.",
+          "Chakra(+2) cada vez que cualquier carta aliada Debilita a cualquier carta."
+        ]
+      },
+      "S2_082": {
+        "name": "Kankuro",
+        "ability": "Asalto de Marionetas",
+        "descriptions": [
+          "Debilita(3) y Ralentiza(2s) al primer rival que se acerca. Si no se retira, lo Cambia de línea. Gana Chakra(+1) y reactiva esta habilidad cuando otro aliado hace que un rival Cambie de línea.",
+          "Debilita(3) y Ralentiza(5s) al primer rival que se acerca. Si no se retira, lo Cambia de línea. Gana Chakra(+1) y reactiva esta habilidad cuando otro aliado hace que un rival Cambie de línea."
+        ]
+      },
+      "S2_083": {
+        "name": "Jiraya",
+        "ability": "Sabio Sapo",
+        "descriptions": [
+          "Chakra(+3) a los sapos aliados mientras esta carta está activa.",
+          "Chakra(+4) a los sapos aliados mientras esta carta está activa."
+        ]
+      },
+      "S2_084": {
+        "name": "Orochimaru",
+        "ability": "Traición",
+        "descriptions": [
+          "Ignora todas las habilidades y enfrentamientos rivales. Cuando llega al medio alcance, obtiene Chakra(+2) y se vuelve vulnerable.",
+          "Ignora todas las habilidades y enfrentamientos rivales. Cuando llega al medio alcance, obtiene Chakra(+3) y se vuelve vulnerable."
+        ]
+      },
+      "S2_085": {
+        "name": "Orochimaru",
+        "ability": "Kusanagi",
+        "descriptions": [
+          "En cada enfrentamiento, Debilita(2). Siempre que una carta rival Cambie de línea, Cambia a la misma línea y obtiene Protección(1).",
+          "En cada enfrentamiento, Debilita(3). Siempre que una carta rival Cambie de línea, Cambia a la misma línea y obtiene Protección(1)."
+        ]
+      },
+      "S2_086": {
+        "name": "Orochimaru",
+        "ability": "Hechicero. Transmigración",
+        "descriptions": [
+          "Al desplegarse, Debilita(2) a los dos aliados con el chakra más bajo. Por cada retirada, Invoca a Edo Hashirama y Tobirama desde tu baraja, otorgándoles Acelerar(3s).",
+          "Al desplegarse, Debilita(2) a los dos aliados con el chakra más bajo. Por cada retirada, Invoca a Edo Hashirama y Tobirama desde tu baraja, otorgándoles Acelerar(5s)."
+        ]
+      },
+      "S2_087": {
+        "name": "Hashirama Senju",
+        "ability": "¡Génesis de los Bosques!",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(12s) a todas las cartas rivales.",
+          "Al desplegarse, Inmoviliza(14s) a todas las cartas rivales."
+        ]
+      },
+      "S2_088": {
+        "name": "Tobirama Senju",
+        "ability": "¡Muro de Agua!",
+        "descriptions": [
+          "Al desplegarse, Debilita(2) y Ralentiza(4s) a todas las cartas rivales.",
+          "Al desplegarse, Debilita(2) y Ralentiza(8s) a todas las cartas rivales."
+        ]
+      },
+      "S2_089": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Bombas de Dragón de Fuego",
+        "descriptions": [
+          "Al desplegarse, Debilita(3) y Quema(4) a la carta rival más cercana.",
+          "Al desplegarse, Debilita(3) y Quema(5) a la carta rival más cercana."
+        ]
+      },
+      "S2_090": {
+        "name": "Enma",
+        "ability": "Rey Mono",
+        "descriptions": [
+          "Chakra(+1) a los aliados cuando hacen un Cambio de línea.",
+          "Chakra(+2) a los aliados cuando hacen un Cambio de línea."
+        ]
+      },
+      "S2_091": {
+        "name": "Naruto Uzumaki",
+        "ability": "Voluntad de Proteger",
+        "descriptions": [
+          "La primera vez que esta carta esté por debajo del Chakra base, gana Chakra(+4) y Acelerar(3s). Al retirarse, aumenta permanentemente el Chakra base en 2.",
+          "La primera vez que esta carta esté por debajo del Chakra base, gana Chakra(+5) y Acelerar(3s). Al retirarse, aumenta permanentemente el Chakra base en 2."
+        ]
+      },
+      "S2_092": {
+        "name": "Sasuke Uchiha",
+        "ability": "Marca de Maldición",
+        "descriptions": [
+          "Al desplegarse, obtiene Chakra(+3). Tras cada enfrentamiento, obtiene Chakra(+2).",
+          "Al desplegarse, obtiene Chakra(+4). Tras cada enfrentamiento, obtiene Chakra(+2)."
+        ]
+      },
+      "S2_093": {
+        "name": "Sakura Haruno",
+        "ability": "Inflexible",
+        "descriptions": [
+          "Tiene Protección permanente. Cada vez que Protección se activa, Chakra(+1) y Cambia de línea.",
+          "Tiene Protección permanente. Cada vez que Protección se activa, Chakra(+2) y Cambia de línea."
+        ]
+      },
+      "S2_094": {
+        "name": "Rock Lee",
+        "ability": "Quinta Puerta",
+        "descriptions": [
+          "Al desplegarse, Concentración(5s). Si la Concentración tiene éxito, obtiene Chakra(+7) y activa el resto de esta habilidad. Salta a la primera carta rival que se acerque. En cada encuentro, Debilita(2) la carta rival y Debilita(1) a ti mismo.",
+          "Al desplegarse, Concentración(3s). Si la Concentración tiene éxito, obtiene Chakra(+7) y activa el resto de esta habilidad. Salta a la primera carta rival que se acerque. En cada encuentro, Debilita(2) la carta rival y Debilita(1) a ti mismo."
+        ]
+      },
+      "S2_095": {
+        "name": "Neji Hyuga",
+        "ability": "64 puntos Hakke",
+        "descriptions": [
+          "En cada enfrentamiento Empuja(1) y Debilita(1). Cuando esta carta hace que un rival se retire, también reduce permanentemente su Chakra base en 2.",
+          "En cada enfrentamiento Empuja(1) y Debilita(2). Cuando esta carta hace que un rival se retire, también reduce permanentemente su Chakra base en 2."
+        ]
+      },
+      "S2_096": {
+        "name": "Gaara",
+        "ability": "Liberación de Arena",
+        "descriptions": [
+          "Guardia(1). Cuando una carta rival se acerca, Inmoviliza(8s) y gana Chakra(+2). Si el rival ya está inmovilizado, en su lugar Debilita(3) y gana Guardia(1).",
+          "Protección(2). Cada vez que una carta rival se acerca, la Inmoviliza(8s) y obtiene Chakra(+2). Si el rival ya está Inmovilizado, lo Debilita(3) y obtiene Protección(1) en su lugar."
+        ]
+      },
+      "S2_097": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Maestro Elemental",
+        "descriptions": [
+          "Al desplegarse, Debilita(1) y Ralentiza(8s) a todos los rivales en su línea. La primera vez que esta carta gana Chakra, Debilita(2) y Quema(3) a todos los rivales en su línea.",
+          "Al desplegarse, Debilita(1) y Ralentiza(12s) a todos los rivales de la línea. La primera vez que esta carta gana Chakra, Debilita(2) y Quema(4) a todos los rivales de la línea."
+        ]
+      },
+      "S2_098": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Sello de la Parca",
+        "descriptions": [
+          "Al desplegarse, Concentración(4s). Si la Concentración tiene éxito, activa el resto de esta habilidad. Cuando una carta rival se acerca con Chakra igual o mayor, le quita hasta 12 Chakra y desactiva cualquier habilidad activa. Si el objetivo se retira, Sella(15s). Al retirarse, se Sella(15s) a sí mismo. Se retira al instante tras sellar 3 cartas.",
+          "Al desplegarse, Concentración(4s). Si la Concentración tiene éxito, activa el resto de esta habilidad. Cuando una carta rival se acerca con Chakra igual o superior, le quita hasta 15 Chakra y desactiva cualquier habilidad activa. Si el objetivo se retira, lo Sella(15s). Al retirarse, se Sella(15s) a sí mismo. Se retira al instante tras sellar 3 cartas."
+        ]
+      },
+      "S2_099": {
+        "name": "Ichibi",
+        "ability": "Golpe del Vacío",
+        "descriptions": [
+          "Al desplegarse, Debilita(2) a todos los rivales de la línea a largo alcance. Cada 10 segundos, Concentración(2s). Si la Concentración tiene éxito, Debilita(2) a todos los rivales de la línea a largo alcance.",
+          "Al desplegarse, Debilita(3) a todos los rivales de la línea a largo alcance. Cada 10 segundos, Concentración(2s). Si la Concentración tiene éxito, Debilita(3) a todos los rivales de la línea a largo alcance."
+        ]
+      },
+      "S2_100": {
+        "name": "Kyubi",
+        "ability": "Destino Vinculado",
+        "descriptions": [
+          "Otorga Chakra(+7) al siguiente aliado desplegado. Las cartas se vinculan, cuando una se retira también lo hace la otra.",
+          "Otorga Chakra(+8) al siguiente aliado desplegado. Las cartas se vinculan, cuando una se retira también lo hace la otra."
+        ]
+      },
+      "S3_001": {
+        "name": "Naruto Uzumaki",
+        "ability": "Sueño compartido",
+        "descriptions": [
+          "Cada vez que otra carta con Sueño Compartido se retira, esta carta gana Chakra(+1).",
+          "Cada vez que otra carta con Sueño Compartido se retira, esta carta gana Chakra(+2)."
+        ]
+      },
+      "S3_002": {
+        "name": "Sasuke Uchiha",
+        "ability": "Entrenamiento de bola de fuego",
+        "descriptions": [
+          "Acelerar(1s). Al desplegarse, Chakra(+1) por cada carta rival afectada por Quemadura.",
+          "Acelerar(2s). Al desplegarse, Chakra(+1) por cada carta rival afectada por Quemadura."
+        ]
+      },
+      "S3_003": {
+        "name": "Choji Akimichi",
+        "ability": "Expansión parcial",
+        "descriptions": [
+          "Cuando una carta rival se acerca, Debilita(1) y Empuja(2).",
+          "Cuando una carta rival se acerca, Debilita(1) y Empuja(4)."
+        ]
+      },
+      "S3_004": {
+        "name": "Kankuro",
+        "ability": "Cambio de marioneta",
+        "descriptions": [
+          "En caso de enfrentamiento, Teletransporta detrás de la carta rival, la Debilita(2) y la Inmoviliza(5s).",
+          "En caso de enfrentamiento, Teletransporta detrás de la carta rival, la Debilita(2) y la Inmoviliza(8s)."
+        ]
+      },
+      "S3_005": {
+        "name": "Kankuro",
+        "ability": "Doncella de hierro",
+        "descriptions": [
+          "Cuando una carta rival se acerca, la atrae hacia esta carta y desactiva su habilidad, luego la Debilita(2).",
+          "Cuando una carta rival se acerca, la atrae hacia esta carta y desactiva su habilidad, luego la Debilita(3)."
+        ]
+      },
+      "S3_006": {
+        "name": "Neji Hyuga",
+        "ability": "Defensa concentrada",
+        "descriptions": [
+          "Protección(2). Cuando Protección se activa, 50% de probabilidad de Inmovilizarse(6s).",
+          "Protección(3). Cuando Protección se activa, 50% de probabilidad de Inmovilizarse(6s)."
+        ]
+      },
+      "S3_007": {
+        "name": "Shikamaru Nara",
+        "ability": "Perezoso",
+        "descriptions": [
+          "Acelerar(2s)",
+          "Acelerar(3s)"
+        ]
+      },
+      "S3_008": {
+        "name": "Jiraiya",
+        "ability": "Aceleración",
+        "descriptions": [
+          "Acelerar(4s)",
+          "Acelerar(5s)"
+        ]
+      },
+      "S3_009": {
+        "name": "Jiraiya",
+        "ability": "Trampa de la boca del sapo",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(6s) a todas las cartas de la línea.",
+          "Al desplegarse, Inmoviliza(10s) a todas las cartas de la línea."
+        ]
+      },
+      "S3_010": {
+        "name": "Jiraiya",
+        "ability": "Entrenamiento avanzado",
+        "descriptions": [
+          "Cada vez que despliegas a un aliado de línea con 3 o menos de Chakra, le concede Concentración(8s). Si esa Concentración tiene éxito, la carta aliada gana Chakra(+3).",
+          "Cada vez que despliegas a un aliado de línea con 3 o menos de Chakra, le concede Concentración(8s). Si esa Concentración tiene éxito, la carta aliada gana Chakra(+4)."
+        ]
+      },
+      "S3_011": {
+        "name": "Orochimaru",
+        "ability": "En guardia",
+        "descriptions": [
+          "Protección(1)",
+          "Protección(2)"
+        ]
+      },
+      "S3_012": {
+        "name": "Orochimaru",
+        "ability": "Escurridizo",
+        "descriptions": [
+          "Acelerar(3s). Cuando una carta rival se acerca, la Debilita(1) y Cambia de línea.",
+          "Acelerar(5s). Cuando una carta rival se acerca, la Debilita(1) y Cambia de línea."
+        ]
+      },
+      "S3_013": {
+        "name": "Tsunade",
+        "ability": "Aceleración",
+        "descriptions": [
+          "Acelerar(3s)",
+          "Acelerar(4s)"
+        ]
+      },
+      "S3_014": {
+        "name": "Tsunade",
+        "ability": "Capirotazo potente",
+        "descriptions": [
+          "Protección(1). Cuando una carta rival se acerca, salta sobre ella y la Empuja(2).",
+          "Protección(1). Cuando una carta rival se acerca, salta sobre ella y la Empuja(4)."
+        ]
+      },
+      "S3_015": {
+        "name": "Tsunade",
+        "ability": "Veterano",
+        "descriptions": [
+          "Acelerar(3s). En caso de enfrentamiento, Empuja(1).",
+          "Acelerar(4s). En caso de enfrentamiento, Empuja(1)."
+        ]
+      },
+      "S3_016": {
+        "name": "Manda",
+        "ability": "Serpiente colosal",
+        "descriptions": [
+          "Acelerar(4s) y Protección(1). Cuando Protección se activa, Cambia de línea.",
+          "Acelerar(4s) y Protección(2). Cuando Protección se activa, Cambia de línea."
+        ]
+      },
+      "S3_017": {
+        "name": "Katsuyu",
+        "ability": "Disparo de ácido",
+        "descriptions": [
+          "Al desplegarse, Debilita(2) y Ralentiza(6s) a todos los rivales a medio alcance.",
+          "Al desplegarse, Debilita(3) y Ralentiza(6s) a todos los rivales a medio alcance."
+        ]
+      },
+      "S3_018": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Prueba de los cascabeles",
+        "descriptions": [
+          "Ralentiza(6s) a los próximos tres aliados desplegados, otorgándoles Chakra(+1) cada 3 segundos mientras estén bajo esta Ralentización.",
+          "Ralentiza(9s) a los próximos tres aliados desplegados, otorgándoles Chakra(+1) cada 3 segundos mientras estén bajo esta Ralentización."
+        ]
+      },
+      "S3_019": {
+        "name": "Itachi Uchiha",
+        "ability": "Hermano mayor",
+        "descriptions": [
+          "El próximo Sasuke desplegado gana Chakra(+2) y Acelerar(4s) si se despliega en la misma línea, o Protección(2) y Ralentiza(10s) si se despliega en otra línea.",
+          "El próximo Sasuke desplegado gana Chakra(+2) y Acelerar(5s) si se despliega en la misma línea, o Protección(2) y Ralentiza(12s) si se despliega en otra línea."
+        ]
+      },
+      "S3_020": {
+        "name": "Jirobo",
+        "ability": "Liberación del sello maldito",
+        "descriptions": [
+          "Protección(1). En caso de enfrentamiento, Empuja(1).",
+          "Protección(2). En caso de enfrentamiento, Empuja(1)."
+        ]
+      },
+      "S3_021": {
+        "name": "Kidomaru",
+        "ability": "Liberación del sello maldito",
+        "descriptions": [
+          "Protección(1) y Acelerar(2s).",
+          "Protección(1) y Acelerar(4s)."
+        ]
+      },
+      "S3_022": {
+        "name": "Kidomaru",
+        "ability": "Lluvia de arañas",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(4s) o Ralentiza(6s) aleatoriamente a todas las cartas rivales.",
+          "Al desplegarse, Inmoviliza(6s) o Ralentiza(8s) aleatoriamente a todas las cartas rivales."
+        ]
+      },
+      "S3_023": {
+        "name": "Kimimaro",
+        "ability": "Control de huesos",
+        "descriptions": [
+          "Acelerar(2s). En caso de enfrentamiento, Debilita(3).",
+          "Acelerar(4s). En caso de enfrentamiento, Debilita(3)."
+        ]
+      },
+      "S3_024": {
+        "name": "Sakon & Ukon",
+        "ability": "Liberación del sello maldito",
+        "descriptions": [
+          "Protección(1). En caso de enfrentamiento, Debilita(1).",
+          "Protección(1). En caso de enfrentamiento, Debilita(2)."
+        ]
+      },
+      "S3_025": {
+        "name": "Tayuya",
+        "ability": "Liberación del sello maldito",
+        "descriptions": [
+          "Protección(1) y Acelerar(2s).",
+          "Protección(1) y Acelerar(4s)."
+        ]
+      },
+      "S3_026": {
+        "name": "Kimimaro",
+        "ability": "Liberación del sello maldito",
+        "descriptions": [
+          "Protección(1). Cuando una carta rival se acerca, se Inmoviliza(2s) y Chakra(+1). En caso de enfrentamiento, Debilita(1).",
+          "Protección(2). Cuando una carta rival se acerca, se Inmoviliza(2s) y Chakra(+1). En caso de enfrentamiento, Debilita(1)."
+        ]
+      },
+      "S3_027": {
+        "name": "Shizune",
+        "ability": "Cerdito devoto",
+        "descriptions": [
+          "Al desplegarse, Invoca a Tonton con Chakra(1) y Acelerar(5s) en la misma línea que la Tsunade aliada. Al alcanzar una carta Tsunade aliada, le otorga Chakra(+3) y luego se retira.",
+          "Al desplegarse, Invoca a Tonton con Chakra(1) y Acelerar(5s) en la misma línea que la Tsunade aliada. Al alcanzar una carta Tsunade aliada, le otorga Chakra(+4) y luego se retira."
+        ]
+      },
+      "S3_028": {
+        "name": "Tsume Inuzuka",
+        "ability": "Maestra de los perros",
+        "descriptions": [
+          "Al desplegarse, Invoca a Kuromaru con Chakra(3) en otra línea. El próximo Perro Ninja desplegado gana Chakra(+2).",
+          "Al desplegarse, Invoca a Kuromaru con Chakra(3) en otra línea. El próximo Perro Ninja desplegado gana Chakra(+3)."
+        ]
+      },
+      "S3_029": {
+        "name": "Akahoshi",
+        "ability": "Entrenamiento engañoso",
+        "descriptions": [
+          "Cada vez que las cartas aliadas se concentran, les concede Concentración(+4s). Debilita(1) a las cartas aliadas cada 4 segundos durante la Concentración.",
+          "Cada vez que las cartas aliadas se concentran, les concede Concentración(+6s). Debilita(1) a las cartas aliadas cada 4 segundos durante la Concentración."
+        ]
+      },
+      "S3_030": {
+        "name": "Amachi",
+        "ability": "Bala de agua",
+        "descriptions": [
+          "Acelerar(2s). Al desplegarse, Debilita(1) a la carta rival más cercana a medio alcance.",
+          "Acelerar(3s). Al desplegarse, Debilita(2) a la carta rival más cercana a medio alcance."
+        ]
+      },
+      "S3_031": {
+        "name": "Aoi Rokusho",
+        "ability": "Lluvia de agujas",
+        "descriptions": [
+          "En caso de enfrentamiento, Debilita(1) y Ralentiza(3s) a todos los rivales de línea cercanos.",
+          "En caso de enfrentamiento, Debilita(1) y Ralentiza(5s) a todos los rivales de línea cercanos."
+        ]
+      },
+      "S3_032": {
+        "name": "Dan Kato",
+        "ability": "Sueño compartido",
+        "descriptions": [
+          "Cada vez que otra carta con Sueño Compartido se retira, esta carta gana Chakra(+1).",
+          "Cada vez que otra carta con Sueño Compartido se retira, esta carta gana Chakra(+2)."
+        ]
+      },
+      "S3_033": {
+        "name": "Fugaku Uchiha",
+        "ability": "Líder de los Uchiha",
+        "descriptions": [
+          "Al desplegar cartas Uchiha aliadas, estas ganan Protección(+1) y Ralentiza(6s) si tienen 3 de Chakra o menos, de lo contrario ganan Chakra(+2) y Inmoviliza(4s).",
+          "Al desplegar cartas Uchiha aliadas, estas ganan Protección(+2) y Ralentiza(6s) si tienen 3 de Chakra o menos, de lo contrario ganan Chakra(+3) y Inmoviliza(4s)."
+        ]
+      },
+      "S3_034": {
+        "name": "Fūjin",
+        "ability": "Fuerza legendaria",
+        "descriptions": [
+          "Protección(1). En caso de enfrentamiento, Debilita(1) y Empuja(3).",
+          "Protección(2). En caso de enfrentamiento, Debilita(1) y Empuja(3)."
+        ]
+      },
+      "S3_035": {
+        "name": "Gamatatsu",
+        "ability": "Motivado por la comida",
+        "descriptions": [
+          "Al desplegarse, Se concentra(12s). Cada 4 segundos durante la Concentración, gasta 1 de energía si está disponible para otorgar Chakra(+2) a los demás Sapos aliados.",
+          "Al desplegarse, Se concentra(16s). Cada 4 segundos durante la Concentración, gasta 1 de energía si está disponible para otorgar Chakra(+2) a los demás Sapos aliados."
+        ]
+      },
+      "S3_036": {
+        "name": "Hanzaki",
+        "ability": "Plan de robo",
+        "descriptions": [
+          "Acelerar(2s). Al desplegarse, Debilita(1) a todos los aliados de línea, ganando Chakra(+2) por cada aliado afectado.",
+          "Acelerar(3s). Al desplegarse, Debilita(1) a todos los aliados de línea, ganando Chakra(+2) por cada aliado afectado."
+        ]
+      },
+      "S3_037": {
+        "name": "Hanzaki",
+        "ability": "Estocada con Zanbato",
+        "descriptions": [
+          "Protección(1). Cuando una carta rival se acerca, salta sobre ella y la Debilita(1) o la Empuja(1).",
+          "Protección(2). Cuando una carta rival se acerca, salta sobre ella y la Debilita(1) o la Empuja(1)."
+        ]
+      },
+      "S3_038": {
+        "name": "Idate Morino",
+        "ability": "Corredor",
+        "descriptions": [
+          "Acelerar(4s). En caso de enfrentamiento, Cambia de línea.",
+          "Acelerar(5s). En caso de enfrentamiento, Cambia de línea."
+        ]
+      },
+      "S3_039": {
+        "name": "Jirocho Wasabi",
+        "ability": "Confianza sincera",
+        "descriptions": [
+          "El siguiente aliado desplegado en otra línea gana Acelerar(2s) y Protección(1). Cuando llega a medio alcance, convierte la Aceleración restante en hasta 3 Chakra.",
+          "El siguiente aliado desplegado en otra línea gana Acelerar(3s) y Protección(1). Cuando llega a medio alcance, convierte la Aceleración restante en hasta 3 Chakra."
+        ]
+      },
+      "S3_040": {
+        "name": "Arashi",
+        "ability": "Mandala de atadura",
+        "descriptions": [
+          "Al desplegarse, Empuja(2) e Inmoviliza(8s) al rival de línea con más Chakra. Mientras esté bajo esta Inmovilización, Debilita(1) a la carta rival cada 4s.",
+          "Al desplegarse, Empuja(4) e Inmoviliza(8s) al rival de línea con más Chakra. Mientras esté bajo esta Inmovilización, Debilita(1) a la carta rival cada 4s."
+        ]
+      },
+      "S3_041": {
+        "name": "Kagerō",
+        "ability": "Arte ninja Kagero",
+        "descriptions": [
+          "Al desplegarse, Debilita(3) a dos rivales de línea a medio alcance, luego Cambia de línea a sí misma y a dos aliados de línea a corto alcance.",
+          "Al desplegarse, Debilita(4) a dos rivales de línea a medio alcance, luego Cambia de línea a sí misma y a dos aliados de línea a corto alcance."
+        ]
+      },
+      "S3_042": {
+        "name": "Kyuroku Wagarashi",
+        "ability": "Deshonor",
+        "descriptions": [
+          "El próximo aliado de línea desplegado gana Acelerar(4s). Al retirarse, Cambia de línea y Ralentiza(3s) a todos los aliados de línea.",
+          "El próximo aliado de línea desplegado gana Acelerar(5s). Al retirarse, Cambia de línea y Ralentiza(3s) a todos los aliados de línea."
+        ]
+      },
+      "S3_043": {
+        "name": "Mikoto Uchiha",
+        "ability": "Consuelo",
+        "descriptions": [
+          "El próximo Sasuke desplegado gana Chakra(+1). La primera vez que una carta Sasuke aliada baja de su Chakra base, la Cura(1).",
+          "El próximo Sasuke desplegado gana Chakra(+1). La primera vez que una carta Sasuke aliada baja de su Chakra base, la Cura(2)."
+        ]
+      },
+      "S3_044": {
+        "name": "Mizuki",
+        "ability": "Sello maldito animal",
+        "descriptions": [
+          "En caso de enfrentamiento, Debilita(4). Tras 20 segundos, fija su Chakra en Chakra(1) y desactiva esta habilidad.",
+          "En caso de enfrentamiento, Debilita(5). Tras 20 segundos, fija su Chakra en Chakra(1) y desactiva esta habilidad."
+        ]
+      },
+      "S3_045": {
+        "name": "Nawaki",
+        "ability": "Sueño compartido",
+        "descriptions": [
+          "Cada vez que otra carta con Sueño Compartido se retira, esta carta gana Chakra(+1).",
+          "Cada vez que otra carta con Sueño Compartido se retira, esta carta gana Chakra(+2)."
+        ]
+      },
+      "S3_046": {
+        "name": "Raiga Kurosuki",
+        "ability": "Espadas del trueno",
+        "descriptions": [
+          "Cuando una carta rival se acerca, la Debilita(1) y Cambia su línea.",
+          "Cuando una carta rival se acerca, la Debilita(2) y Cambia su línea."
+        ]
+      },
+      "S3_047": {
+        "name": "Raijin",
+        "ability": "Fuerza legendaria",
+        "descriptions": [
+          "Protección(1). En caso de enfrentamiento, Debilita(1) y Empuja(3).",
+          "Protección(2). En caso de enfrentamiento, Debilita(1) y Empuja(3)."
+        ]
+      },
+      "S3_048": {
+        "name": "Sumaru",
+        "ability": "Guía local",
+        "descriptions": [
+          "Al desplegarse, dos aliados a corto alcance ganan Acelerar(3s).",
+          "Al desplegarse, tres aliados a corto alcance ganan Acelerar(3s)."
+        ]
+      },
+      "S3_049": {
+        "name": "Yoshino Nara",
+        "ability": "Severidad",
+        "descriptions": [
+          "El próximo Shikamaru desplegado gana Chakra(+1) y Ralentiza(8s).",
+          "El próximo Shikamaru desplegado gana Chakra(+1) y Ralentiza(12s)."
+        ]
+      },
+      "S3_050": {
+        "name": "Uchiha Trio",
+        "ability": "Sospecha",
+        "descriptions": [
+          "Acelerar(4s). Cuando está a medio alcance, Chakra(+2).",
+          "Acelerar(6s). Cuando está a medio alcance, Chakra(+2)."
+        ]
+      },
+      "S3_051": {
+        "name": "Naruto Uzumaki",
+        "ability": "Manto del zorro demoníaco",
+        "descriptions": [
+          "Acelerar(3s). Al desplegarse, Chakra(+2). La primera vez que esta carta baja de su Chakra base, Cura(2).",
+          "Acelerar(5s). Al desplegarse, Chakra(+2). La primera vez que esta carta baja de su Chakra base, Cura(2)."
+        ]
+      },
+      "S3_052": {
+        "name": "Sasuke Uchiha",
+        "ability": "Liberación del sello maldito",
+        "descriptions": [
+          "La primera vez que esta carta gana Chakra, gana Chakra(+2) adicional.",
+          "La primera vez que esta carta gana Chakra, gana Chakra(+4) adicional."
+        ]
+      },
+      "S3_053": {
+        "name": "Kankuro",
+        "ability": "Superioridad táctica",
+        "descriptions": [
+          "Cada vez que aliados se teletransportan detrás de rivales, gana Chakra(+2).",
+          "Cada vez que aliados se teletransportan detrás de rivales, gana Chakra(+3)."
+        ]
+      },
+      "S3_054": {
+        "name": "Shikamaru Nara",
+        "ability": "Estrangulamiento de sombra",
+        "descriptions": [
+          "Cuando un rival se acerca, lo Inmoviliza(6s) junto con esta carta. El rival pierde 1 Chakra cada 2 segundos mientras dure esta Inmovilización.",
+          "Cuando un rival se acerca, lo Inmoviliza(8s) junto con esta carta. El rival pierde 1 Chakra cada 2 segundos mientras dure esta Inmovilización."
+        ]
+      },
+      "S3_055": {
+        "name": "Akamaru",
+        "ability": "Marcado",
+        "descriptions": [
+          "Al desplegarse, Ralentiza(8s) a todos los rivales de línea. Mientras esta Ralentización esté activa, Debilitar(+1) a las habilidades Debilitar aliadas aplicadas a los rivales afectados.",
+          "Al desplegarse, Ralentiza(12s) a todos los rivales de línea. Mientras esta Ralentización esté activa, Debilitar(+1) a las habilidades Debilitar aliadas aplicadas a los rivales afetados."
+        ]
+      },
+      "S3_056": {
+        "name": "Itachi Uchiha",
+        "ability": "Compostura",
+        "descriptions": [
+          "Gana Chakra(+1) y se Inmoviliza(2s) cada vez que una carta gana Concentración.",
+          "Gana Chakra(+2) y se Inmoviliza(4s) cada vez que una carta gana Concentración."
+        ]
+      },
+      "S3_057": {
+        "name": "Jiraiya",
+        "ability": "Veterano",
+        "descriptions": [
+          "Acelerar(3s). En caso de enfrentamiento, Cambia de línea.",
+          "Acelerar(4s). En caso de enfrentamiento, Cambia de línea."
+        ]
+      },
+      "S3_058": {
+        "name": "Jiraiya",
+        "ability": "Jizo de agujas",
+        "descriptions": [
+          "Protección(2). Cuando Protección se activa, Debilita(2) al rival que la activó. Ignora Protección.",
+          "Protección(3). Cuando Protección se activa, Debilita(2) al rival que la activó. Ignora Protección."
+        ]
+      },
+      "S3_059": {
+        "name": "Orochimaru",
+        "ability": "Veterano",
+        "descriptions": [
+          "Acelerar(3s). En caso de enfrentamiento, Debilita(1).",
+          "Acelerar(4s). En caso de enfrentamiento, Debilita(1)."
+        ]
+      },
+      "S3_060": {
+        "name": "Tsunade",
+        "ability": "La Quinta",
+        "descriptions": [
+          "Al desplegarse, otorga Chakra(+1) a todos los aliados de las otras líneas. Mientras está activa, Cura(2) a cada aliado la primera vez que es Debilitado.",
+          "Al desplegarse, otorga Chakra(+2) a todos los aliados de las otras líneas. Mientras está activa, Cura(2) a cada aliado la primera vez que es Debilitado."
+        ]
+      },
+      "S3_061": {
+        "name": "Tsunade",
+        "ability": "Blanco fácil legendario",
+        "descriptions": [
+          "Al desplegarse, 10% de probabilidad de ganar Chakra(+6). De lo contrario, gana Acelerar(3s).",
+          "Al desplegarse, 10% de probabilidad de ganar Chakra(+7). De lo contrario, gana Acelerar(4s)."
+        ]
+      },
+      "S3_062": {
+        "name": "Tsunade",
+        "ability": "Cura desesperada",
+        "descriptions": [
+          "Al desplegarse, Cura(2) al aliado de línea más cercano. La primera vez que un aliado de línea pierde Chakra de cualquier fuente, lo Cura(2).",
+          "Al desplegarse, Cura(3) al aliado de línea más cercano. La primera vez que un aliado de línea pierde Chakra de cualquier fuente, lo Cura(3)."
+        ]
+      },
+      "S3_063": {
+        "name": "Gamabunta",
+        "ability": "Kenjutsu del sapo",
+        "descriptions": [
+          "Cuando una carta rival se acerca, salta sobre ella y la Debilita(2). Gana Acelerar(+3s) la primera vez que gana Chakra.",
+          "Cuando una carta rival se acerca, salta sobre ella y la Debilita(3). Gana Acelerar(+4s) la primera vez que gana Chakra."
+        ]
+      },
+      "S3_064": {
+        "name": "Kabuto Yakuchi",
+        "ability": "Bisturí de Chakra",
+        "descriptions": [
+          "Acelerar(2s). En caso de enfrentamiento, Teletransporta detrás de la carta rival y la Inmoviliza permanentemente.",
+          "Acelerar(3s). En caso de enfrentamiento, Teletransporta detrás de la carta rival y la Inmoviliza permanentemente."
+        ]
+      },
+      "S3_065": {
+        "name": "Kisame Hoshigaki",
+        "ability": "Protección de Samehada",
+        "descriptions": [
+          "Protección(3). Cuando Protección se activa, Debilita(1) al rival que la activó y gana Chakra(+1).",
+          "Protección(4). Cuando Protección se activa, Debilita(1) al rival que la activó y gana Chakra(+1)."
+        ]
+      },
+      "S3_066": {
+        "name": "Jirobo",
+        "ability": "Drenaje de Chakra",
+        "descriptions": [
+          "En cada enfrentamiento, Chakra(+1) para esta carta y Debilita(1) a la carta rival.",
+          "En cada enfrentamiento, Chakra(+1) para esta carta y Debilita(2) a la carta rival."
+        ]
+      },
+      "S3_067": {
+        "name": "Sakon & Ukon",
+        "ability": "Fusión maldita",
+        "descriptions": [
+          "En caso de enfrentamiento, Teletransporta detrás de la carta rival y luego la Inmoviliza(6s) a ella y a esta carta. El rival pierde 1 Chakra cada 2 segundos mientras esté bajo esta Inmovilización.",
+          "En caso de enfrentamiento, Teletransporta detrás de la carta rival y luego la Inmoviliza(8s) a ella y a esta carta. El rival pierde 1 Chakra cada 2 segundos mientras esté bajo esta Inmovilización."
+        ]
+      },
+      "S3_068": {
+        "name": "Kurenai Yuhi",
+        "ability": "Finta de genjutsu",
+        "descriptions": [
+          "En caso de enfrentamiento, Teletransporta detrás de la carta rival, la Debilita(2) y la Ralentiza(4s).",
+          "En caso de enfrentamiento, Teletransporta detrás de la carta rival, la Debilita(2) y la Ralentiza(8s)."
+        ]
+      },
+      "S3_069": {
+        "name": "Shizune",
+        "ability": "Niebla venenosa",
+        "descriptions": [
+          "Al desplegarse, Ralentiza(8s) a todas las cartas a medio alcance y desactiva sus habilidades. Pierden 2 Chakra cada 4 segundos mientras estén bajo esta Ralentización.",
+          "Al desplegarse, Ralentiza(12s) a todas las cartas a medio alcance y desactiva sus habilidades. Pierden 2 Chakra cada 4 segundos mientras estén bajo esta Ralentización."
+        ]
+      },
+      "S3_070": {
+        "name": "Akahoshi",
+        "ability": "Sin escrúpulos",
+        "descriptions": [
+          "Protección(1). Cuando Protección se activa, Debilita(2) al rival que la activó. La primera vez que esta carta pierde Chakra, Debilita(2) a un aliado aleatorio y gana Chakra(+2) y Protección(+1).",
+          "Protección(1). Cuando Protección se activa, Debilita(2) al rival que la activó. La primera vez que esta carta pierde Chakra, Debilita(2) a un aliado aleatorio y gana Chakra(+3) y Protección(+1)."
+        ]
+      },
+      "S3_071": {
+        "name": "Amachi",
+        "ability": "Monstruo marino",
+        "descriptions": [
+          "Al desplegarse, se Inmoviliza(6s). Mientras esté bajo Inmovilización, cada 3 segundos Inmoviliza(3s) o Ralentiza(6s) a todos los rivales de línea.",
+          "Al desplegarse, se Inmoviliza(9s). Mientras esté bajo Inmovilización, cada 3 segundos Inmoviliza(3s) o Ralentiza(6s) a todos los rivales de línea."
+        ]
+      },
+      "S3_072": {
+        "name": "Aoi Rokusho",
+        "ability": "Espada de Raijin",
+        "descriptions": [
+          "Protección(2). En caso de enfrentamiento, Debilita(1) e Inmoviliza(2s) a la carta rival. Ignora Protección.",
+          "Protección(2). En caso de enfrentamiento, Debilita(2) e Inmoviliza(4s) a la carta rival. Ignora Protección."
+        ]
+      },
+      "S3_073": {
+        "name": "Sumaru",
+        "ability": "Chakra de la estrella",
+        "descriptions": [
+          "Al desplegarse, Chakra(+1) y Cambia de línea si hay aliados de línea. En caso de enfrentamiento, Debilita(2) a la carta rival.",
+          "Al desplegarse, Chakra(+1) y Cambia de línea si hay aliados de línea. En caso de enfrentamiento, Debilita(3) a la carta rival."
+        ]
+      },
+      "S3_074": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rasengan",
+        "descriptions": [
+          "En caso de enfrentamiento, Debilita(2) y Empuja(4). Elimina toda Protección de la carta rival.",
+          "En caso de enfrentamiento, Debilita(3) y Empuja(5). Elimina toda Protección de la carta rival."
+        ]
+      },
+      "S3_075": {
+        "name": "Naruto Uzumaki",
+        "ability": "Forma de una cola",
+        "descriptions": [
+          "En cada enfrentamiento, Debilita(1). La primera vez que esta carta baja de su Chakra base, se Cura(3).",
+          "En cada enfrentamiento, Debilita(1). La primera vez que esta carta baja de su Chakra base, se Cura(4)."
+        ]
+      },
+      "S3_076": {
+        "name": "Sasuke Uchiha",
+        "ability": "Predicción evolucionada",
+        "descriptions": [
+          "Protección(3). Cuando Protección se activa, Chakra(+1). No puede ser Debilitado en enfrentamientos con cartas rivales de 3 de Chakra o menos.",
+          "Protección(3). Cuando Protección se activa, Chakra(+2). No puede ser Debilitado en enfrentamientos con cartas rivales de 3 de Chakra o menos."
+        ]
+      },
+      "S3_077": {
+        "name": "Sasuke Uchiha",
+        "ability": "Defensa alada",
+        "descriptions": [
+          "Protección(2). En caso de enfrentamiento, Debilita(2). Cuando Protección se activa, gana Acelerar(2s) y reactiva esta habilidad.",
+          "Protección(2). En caso de enfrentamiento, Debilita(2). Cuando Protección se activa, gana Acelerar(4s) y reactiva esta habilidad."
+        ]
+      },
+      "S3_078": {
+        "name": "Gaara",
+        "ability": "Escudo de Shukaku",
+        "descriptions": [
+          "Protección(3). Mientras esta carta esté activa, los aliados de línea detrás de ella ignoran los efectos de habilidad rivales, pero consumen la Protección de esta carta.",
+          "Protección(4). Mientras esta carta esté activa, los aliados de línea detrás de ella ignoran los efectos de habilidad rivales, pero consumen la Protección de esta carta."
+        ]
+      },
+      "S3_079": {
+        "name": "Kiba Inuzuka",
+        "ability": "Combo de transformación",
+        "descriptions": [
+          "Al desplegarse, retira a Akamaru y Kiba aliados y transfiere su Chakra a esta carta, ganando Chakra(+1) adicional por cada retirada. En cada enfrentamiento, Debilita(1).",
+          "Al desplegarse, retira a Akamaru y Kiba aliados y transfiere su Chakra a esta carta, ganando Chakra(+2) adicional por cada retirada. En cada enfrentamiento, Debilita(1)."
+        ]
+      },
+      "S3_080": {
+        "name": "Rock Lee",
+        "ability": "Puño ebrio",
+        "descriptions": [
+          "Cada 10s, se Concentra(3s). Si la Concentración tiene éxito, gana aleatoriamente Acelerar(2s), Protección(1) o Chakra(+1). En cada enfrentamiento, Debilita(1).",
+          "Cada 8s, se Concentra(3s). Si la Concentración tiene éxito, gana aleatoriamente Acelerar(2s), Protección(1) o Chakra(+1). En cada enfrentamiento, Debilita(1)."
+        ]
+      },
+      "S3_081": {
+        "name": "Temari",
+        "ability": "Danza de decapitación rápida",
+        "descriptions": [
+          "Al desplegarse, Se concentra(9s). Cada 3 segundos durante la Concentración, Debilita(1) y Empuja(2) a todos los rivales a medio y largo alcance.",
+          "Al desplegarse, Se concentra(9s). Cada 3 segundos durante la Concentración, Debilita(1) y Empuja(4) a todos los rivales a medio y largo alcance."
+        ]
+      },
+      "S3_082": {
+        "name": "Itachi Uchiha",
+        "ability": "Ejército de Tsukuyomi",
+        "descriptions": [
+          "Mientras esta carta esté activa, cada vez que Inmovilizas cartas rivales, Invoca un clon de esta carta en esa misma línea con Acelerar(4s) y pierde 1 Chakra. Los clones no pueden marcar puntos ni ganar Chakra.",
+          "Mientras esta carta esté activa, cada vez que Inmovilizas cartas rivales, Invoca un clon de esta carta en esa misma línea con Acelerar(6s) y pierde 1 Chakra. Los clones no pueden marcar puntos ni ganar Chakra."
+        ]
+      },
+      "S3_083": {
+        "name": "Itachi Uchiha",
+        "ability": "Escape de Amaterasu",
+        "descriptions": [
+          "Cada vez que una carta rival se acerca, la Quema(10), luego Cambia de línea y pierde 1 Chakra. Este efecto de Quemadura puede propagarse a otras cartas al tocarse e ignora Protección.",
+          "Cada vez que una carta rival se acerca, la Quema(15), luego Cambia de línea y pierde 1 Chakra. Este efecto de Quemadura puede propagarse a otras cartas al tocarse e ignora Protección."
+        ]
+      },
+      "S3_084": {
+        "name": "Jiraiya",
+        "ability": "Lanzallamas de aceite de sapo",
+        "descriptions": [
+          "Al desplegarse, Quema(3) a todas las cartas rivales y luego se Concentra(8s). Durante la Concentración, gana Chakra(+1) cada vez que aliados aplican Quemadura. Si la Concentración tiene éxito, Quema(4) a todas las cartas rivales.",
+          "Al desplegarse, Quema(3) a todas las cartas rivales y luego se Concentra(8s). Durante la Concentración, gana Chakra(+1) cada vez que aliados aplican Quemadura. Si la Concentración tiene éxito, Quema(5) a todas las cartas rivales."
+        ]
+      },
+      "S3_085": {
+        "name": "Gamabunta",
+        "ability": "Combo de aceite de sapo",
+        "descriptions": [
+          "Al desplegarse, Quema(3) a todos los rivales de línea. Si algún rival ya está bajo Quemadura, desencadena al instante la cantidad de Quemadura restante.",
+          "Al desplegarse, Quema(4) a todos los rivales de línea. Si algún rival ya está bajo Quemadura, desencadena al instante la cantidad de Quemadura restante."
+        ]
+      },
+      "S3_086": {
+        "name": "Kidomaru",
+        "ability": "Arco de araña",
+        "descriptions": [
+          "Al desplegarse, Se concentra(12s). Cada 4 segundos durante la Concentración, Debilita(2) e Inmoviliza(6s) al rival con más Chakra a largo alcance.",
+          "Al desplegarse, Se concentra(16s). Cada 4 segundos durante la Concentración, Debilita(2) e Inmoviliza(6s) al rival con más Chakra a largo alcance."
+        ]
+      },
+      "S3_087": {
+        "name": "Tayuya",
+        "ability": "Flauta demoníaca",
+        "descriptions": [
+          "Al desplegarse, Chakra(+1). Mientras esta carta esté activa, las Ralentizaciones aplicadas por aliados no expiran.",
+          "Al desplegarse, Chakra(+2). Mientras esta carta esté activa, las Ralentizaciones aplicadas por aliados no expiran."
+        ]
+      },
+      "S3_088": {
+        "name": "Kimimaro",
+        "ability": "Arma viviente",
+        "descriptions": [
+          "Protección(3). En cada enfrentamiento, Debilita(2). Cambia de línea al hacer que un rival se retire.",
+          "Protección(5). En cada enfrentamiento, Debilita(2). Cambia de línea al hacer que un rival se retire."
+        ]
+      },
+      "S3_089": {
+        "name": "Akahoshi",
+        "ability": "Dragón de la estrella",
+        "descriptions": [
+          "Al desplegarse, Empuja(2), Debilita(1) e Inmoviliza(4s) a todos los rivales de línea.",
+          "Al desplegarse, Empuja(2), Debilita(1) e Inmoviliza(8s) a todos los rivales de línea."
+        ]
+      },
+      "S3_090": {
+        "name": "Raiga Kurosuki",
+        "ability": "Tornado del dragón del trueno",
+        "descriptions": [
+          "Al desplegarse, Se concentra(8s). Si la Concentración tiene éxito, Debilita(3) y Empuja(2) a todos los rivales de línea a corto y medio alcance.",
+          "Al desplegarse, Se concentra(6s). Si la Concentración tiene éxito, Debilita(3) y Empuja(2) a todos los rivales de línea a corto y medio alcance."
+        ]
+      },
+      "S3_091": {
+        "name": "Sasuke Uchiha",
+        "ability": "Chidori negro",
+        "descriptions": [
+          "Acelerar(4s). Salta a la primera carta rival que se acerque, obtiene Chakra(+2) y la Debilita(3). Debilita(2) a todas las demás cartas cercanas. Ignora Protección.",
+          "Acelerar(5s). Salta a la primera carta rival que se acerque, obtiene Chakra(+2) y la Debilita(4). Debilita(2) a todas las demás cartas cercanas. Ignora Protección."
+        ]
+      },
+      "S3_092": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rasengan del zorro demoníaco",
+        "descriptions": [
+          "Acelerar(4s). Salta a la primera carta rival que se acerque, la Debilita(3) y la Empuja(2). Debilita(2) a todas las demás cartas cercanas. Elimina toda la Protección de la carta rival.",
+          "Acelerar(5s). Salta a la primera carta rival que se acerque, la Debilita(4) y la Empuja(2). Debilita(2) a todas las demás cartas cercanas. Elimina toda la Protección de la carta rival."
+        ]
+      },
+      "S3_093": {
+        "name": "Choji Akimichi",
+        "ability": "Furia de la mariposa",
+        "descriptions": [
+          "Protección(3). Cuando Protección se activa, Chakra(+2). Si la carta rival que activó Protección está cerca, salta sobre ella. Mientras Protección esté disponible, Debilita(2) y Empuja(1) en cada enfrentamiento.",
+          "Protección(3). Cuando Protección se activa, Chakra(+3). Si la carta rival que activó Protección está cerca, salta sobre ella. Mientras Protección esté disponible, Debilita(2) y Empuja(1) en cada enfrentamiento."
+        ]
+      },
+      "S3_094": {
+        "name": "Gaara",
+        "ability": "Tsunami de arena",
+        "descriptions": [
+          "Al desplegarse, Se concentra(6s). Cada 2 segundos durante la Concentración, Debilita(1) y Empuja(1) a todas las cartas rivales. Si tienen 2 de Chakra o menos, Debilita(2) en su lugar. Cuando esta carta hace que otra se retire, la Sella(5s).",
+          "Al desplegarse, Se concentra(8s). Cada 2 segundos durante la Concentración, Debilita(1) y Empuja(1) a todas las cartas rivales. Si tienen 3 de Chakra o menos, Debilita(3) en su lugar. Cuando esta carta hace que otra se retire, la Sella(5s)."
+        ]
+      },
+      "S3_095": {
+        "name": "Itachi Uchiha",
+        "ability": "Tsukuyomi",
+        "descriptions": [
+          "Al desplegarse, Inmoviliza(12s) a la carta rival más cercana, luego pierde 1 Chakra. Si la carta rival tiene más de 1 Chakra, pierde 1 Chakra por segundo. Cada vez que aliados Inmovilizan cartas rivales, vuelve a activar esta habilidad por cada rival afectado.",
+          "Al desplegarse, Inmoviliza(16s) a la carta rival más cercana, luego pierde 1 Chakra. Si la carta rival tiene más de 1 Chakra, pierde 1 Chakra por segundo. Cada vez que aliados Inmovilizan cartas rivales, vuelve a activar esta habilidad por cada rival afectado."
+        ]
+      },
+      "S3_096": {
+        "name": "Itachi Uchiha",
+        "ability": "Carnicería",
+        "descriptions": [
+          "Cada vez que una carta se despliega en la misma línea, la Debilita(1) e Inmoviliza(10s). Si tiene 3 de Chakra o menos, la Debilita(3) en su lugar. Luego Cambia de línea.",
+          "Cada vez que una carta se despliega en la misma línea, la Debilita(2) e Inmoviliza(10s). Si tiene 4 de Chakra o menos, la Debilita(4) en su lugar. Luego Cambia de línea."
+        ]
+      },
+      "S3_097": {
+        "name": "Tsunade",
+        "ability": "Regeneración mitótica",
+        "descriptions": [
+          "La primera vez que esta carta baja de su Chakra base, se Cura hasta el Chakra base y gana Chakra(+4). Durante los siguientes 10 segundos, ignora habilidades rivales y se Cura(4) después de cada enfrentamiento. Al retirarse, reduce permanentemente su Chakra base en 1.",
+          "La primera vez que esta carta baja de su Chakra base, se Cura hasta el Chakra base y gana Chakra(+5). Durante los siguientes 10 segundos, ignora habilidades rivales y se Cura(4) después de cada enfrentamiento. Al retirarse, reduce permanentemente su Chakra base en 1."
+        ]
+      },
+      "S3_098": {
+        "name": "Sakon & Ukon",
+        "ability": "Defensa sincronizada",
+        "descriptions": [
+          "Se despliega como Sakon y Ukon en líneas separadas con Protección(2). Cada vez que la Protección de un aliado se activa, ambas cartas ganan Chakra(+1).",
+          "Se despliega como Sakon y Ukon en líneas separadas con Protección(4). Cada vez que la Protección de un aliado se activa, ambas cartas ganan Chakra(+1)."
+        ]
+      },
+      "S3_099": {
+        "name": "Tayuya",
+        "ability": "Invocación de los Doki",
+        "descriptions": [
+          "Al desplegarse, Se concentra(8s). Si la Concentración tiene éxito, Invoca a un demonio Doki en cada línea. Cada vez que Invocas otras cartas, ganan Chakra(+1). Ignora todas las habilidades y enfrentamientos rivales mientras los demonios estén activos.",
+          "Al desplegarse, Se concentra(6s). Si la Concentración tiene éxito, Invoca a un demonio Doki en cada línea. Cada vez que Invocas otras cartas, ganan Chakra(+1). Ignora todas las habilidades y enfrentamientos rivales mientras los demonios estén activos."
+        ]
+      },
+      "S3_100": {
+        "name": "Kimimaro",
+        "ability": "Lealtad inquebrantable",
+        "descriptions": [
+          "Al desplegarse, gana Chakra(+6) y Acelerar(5s). Protección permanente mientras Ímpeto esté activo. En cada enfrentamiento, se Debilita(1) y Debilita(3) a la carta rival. Al retirarse, Debilita(2) a todas las cartas. No puede verse afectada por habilidades aliadas.",
+          "Al desplegarse, gana Chakra(+8) y Acelerar(6s). Protección permanente mientras Ímpeto esté activo. En cada enfrentamiento, se Debilita(1) y Debilita(3) a la carta rival. Al retirarse, Debilita(2) a todas las cartas. No puede verse afectada por habilidades aliadas."
+        ]
+      }
+    },
+    "ruleNotes": {
+      "S2_041": "{allies} aliados del personaje requerido; no se comprueba la composición del mazo.",
+      "S1_004": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S1_005": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S1_008": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S1_010": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S1_023": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S1_030": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S1_035": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S2_007": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S2_025": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S2_030": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S2_042": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S2_052": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S2_053": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S2_063": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S3_004": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S3_023": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S3_024": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S3_034": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S3_044": "Un enfrentamiento antes de 20s; el reinicio posterior a Chakra(1) se excluye del máximo. Los efectos sin repetición explícita se aplican una vez.",
+      "S3_047": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S3_059": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S3_068": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S3_072": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S3_074": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
+      "S1_003": "Una unidad nueva con el Chakra indicado.",
+      "S1_019": "{allies} objetivos/eventos del grupo indicado; condiciones favorables.",
+      "S1_046": "{allies} objetivos/eventos del grupo indicado; condiciones favorables.",
+      "S1_062": "{allies} objetivos/eventos del grupo indicado; condiciones favorables.",
+      "S1_073": "{allies} objetivos/eventos del grupo indicado; condiciones favorables.",
+      "S2_015": "{allies} objetivos/eventos del grupo indicado; condiciones favorables.",
+      "S2_022": "{allies} objetivos/eventos del grupo indicado; condiciones favorables.",
+      "S2_073": "{allies} objetivos/eventos del grupo indicado; condiciones favorables.",
+      "S2_083": "{allies} objetivos/eventos del grupo indicado; condiciones favorables.",
+      "S3_002": "{allies} objetivos/eventos del grupo indicado; condiciones favorables.",
+      "S1_020": "Se resta el daño a un aliado.",
+      "S1_021": "3 aliados.",
+      "S1_022": "3 aliados.",
+      "S1_024": "El número de aliados indicado para el nivel.",
+      "S1_033": "Un aumento: Akamaru o esta carta. Traer del mazo no duplica la potencia base.",
+      "S1_038": "El número de aliados indicado para el nivel.",
+      "S1_053": "{enemies} rivales afectados.",
+      "S1_069": "{enemies} rivales afectados.",
+      "S1_074": "{enemies} rivales afectados.",
+      "S1_079": "{enemies} rivales afectados.",
+      "S1_081": "{enemies} rivales afectados.",
+      "S2_008": "{enemies} rivales afectados.",
+      "S2_076": "{enemies} rivales en un enfrentamiento. Los efectos sin repetición explícita se aplican una vez.",
+      "S2_088": "{enemies} rivales afectados.",
+      "S3_017": "{enemies} rivales afectados.",
+      "S3_031": "{enemies} rivales en un enfrentamiento. Los efectos sin repetición explícita se aplican una vez.",
+      "S3_089": "{enemies} rivales afectados.",
+      "S3_090": "{enemies} rivales afectados.",
+      "S1_056": "Se usa la opción con aumento numérico. Traer a Hiruzen no suma su potencia de nuevo.",
+      "S1_060": "Carta traída del mazo: su potencia ya está incluida, por lo que no se cuenta una unidad nueva.",
+      "S1_071": "Número máximo indicado de clones, suponiendo energía suficiente.",
+      "S1_083": "Mejor opción condicional: {enemies} rivales y {allies} aliados, sin ganancia neta.",
+      "S2_002": "{enemies} rivales con más Chakra.",
+      "S2_016": "Tres unidades nuevas con Chakra(1); no se simula el reciclaje de la carta.",
+      "S2_018": "Un aliado por cada uno de los dos nombres; no se comprueban las identidades requeridas.",
+      "S2_019": "Un aliado por cada uno de los dos nombres; no se comprueban las identidades requeridas.",
+      "S2_020": "Un aliado por cada uno de los dos nombres; no se comprueban las identidades requeridas.",
+      "S2_032": "Aumento al Sapo traído; su potencia ya está incluida en el mazo.",
+      "S2_037": "No se indica el Chakra de los Anbu: la Invocación no se cuantifica.",
+      "S2_038": "Opción de aumento con Chakra bajo; la carta invocada del mazo no se cuenta dos veces.",
+      "S2_039": "Uno o dos rivales, según el nivel.",
+      "S2_040": "{enemies} rivales y {allies} aliados afectados al retirarse; sin ganancia neta.",
+      "S2_054": "Divide el Chakra rival por dos usando el Chakra configurado para el objetivo.",
+      "S2_058": "El control temporal de un rival no se convierte en potencia.",
+      "S2_064": "El control temporal de un rival no se convierte en potencia.",
+      "S2_062": "Uno o dos rivales, según el nivel.",
+      "S2_067": "Número explícito de objetivos; un despliegue y una retirada.",
+      "S2_070": "Un enfrentamiento; aumento para {allies} aliados una vez al retirarse. Los efectos sin repetición explícita se aplican una vez.",
+      "S2_071": "3 golpes en un enfrentamiento. Los efectos sin repetición explícita se aplican una vez.",
+      "S2_072": "{enemies} rivales y {allies} aliados: el daño aliado compensa el daño rival.",
+      "S2_080": "{enemies} rivales y {allies} aliados: el daño aliado compensa el daño rival.",
+      "S2_074": "{enemies} rivales cercanos en un enfrentamiento. Los efectos sin repetición explícita se aplican una vez.",
+      "S2_077": "Copia de una carta aliada, sin añadir potencia al total del mazo.",
+      "S2_086": "Se resta el daño a los dos aliados; traer del mazo no se cuenta dos veces y no se simulan sacrificios.",
+      "S2_089": "La Quemadura se cuenta como daño total igual a su valor.",
+      "S2_091": "Aumento una vez. El aumento base al retirarse se aplica a la siguiente vida y no se suma.",
+      "S2_097": "Dos eventos distintos, ambos contra {enemies} rivales; la Quemadura se cuenta como daño total.",
+      "S3_027": "Tonton nuevo y aumento para Tsunade; no se simulan la presencia ni la supervivencia de Tsunade.",
+      "S3_028": "Kuromaru nuevo y aumento para el siguiente Perro Ninja.",
+      "S3_036": "{allies} aliados reciben 1 de daño; esta carta gana 2 por cada uno.",
+      "S3_041": "Dos rivales.",
+      "S3_043": "Aumento para el siguiente Sasuke y una Cura posterior.",
+      "S3_051": "Aumento inicial y una Cura.",
+      "S3_060": "Se supone que los aliados configurados están en otras líneas y reciben su primer golpe: un aumento y una Cura por aliado.",
+      "S3_062": "Una Cura inicial y la primera Cura reactiva.",
+      "S3_073": "Aumento inicial y daño en un enfrentamiento. Los efectos sin repetición explícita se aplican una vez.",
+      "S3_085": "{enemies} rivales; la Quemadura existente no se cuenta sin un valor conocido.",
+      "S3_091": "Primer objetivo, aumento y daño a otros 5 rivales y {allies} aliados. La expresión «otras cartas» es ambigua.",
+      "S3_092": "El primer objetivo se afecta por separado; el daño a otras cartas lo excluye e incluye a todos los aliados configurados.",
+      "S3_039": "Conversión favorable de la Aceleración inicial restante: 2/3 Chakra en los niveles 1/2, máximo 3; sin aumentos externos simulados."
+    },
+    "calculation": {
+      "effectC": "aumento de Chakra",
+      "effectW": "Debilitamiento",
+      "effectH": "Cura",
+      "effectB": "Quemadura por objetivo",
+      "effectK": "Chakra invocado",
+      "amount": "{value} {effect}",
+      "burnTotal": "{value} Quemadura por objetivo, duración total limitada por el Chakra rival",
+      "copy": "{value} Chakra de la copia",
+      "restore": "{value} Cura de 1 Chakra hasta el Chakra base",
+      "rush": "{value} Chakra de la Aceleración restante (máximo 3)",
+      "enemies": {
+        "one": "{value} rival",
+        "other": "{value} rivales"
+      },
+      "otherEnemies": "{value} otros rivales, excluyendo el primer objetivo",
+      "allies": {
+        "one": "{value} aliado",
+        "other": "{value} aliados"
+      },
+      "first": "{value} primera activación",
+      "remaining": {
+        "one": "{value} activación posterior",
+        "other": "{value} activaciones posteriores"
+      },
+      "activations": {
+        "one": "{value} activación",
+        "other": "{value} activaciones"
+      },
+      "enemyChakra": "{value} Chakra rival",
+      "targets": {
+        "one": "{value} objetivo",
+        "other": "{value} objetivos"
+      },
+      "drain": "{value} Chakra retirado sin bajar de 1",
+      "removable": "{value} Chakra que se puede quitar",
+      "bestBranch": "mejor opción: {label}",
+      "unquantified": "Contribución numérica aún no cuantificada.",
+      "repeated": "Efecto aplicado durante {activations} activaciones.",
+      "once": "El efecto de enfrentamiento se cuenta una vez; solo se repiten los que indican cada enfrentamiento.",
+      "favourable": "Se presuponen condiciones favorables. No se simulan sinergias entre cartas.",
+      "tactical": "Efecto táctico sin aumento numérico de Chakra, daño ni Cura.",
+      "halving": "La división por dos usa el Chakra rival configurado; el redondeo exacto del juego sigue sin confirmarse.",
+      "burnNote": "Quemadura: objetivos afectados × mín(duración en segundos, Chakra rival). La propagación se limita a los objetivos rivales configurados; varias aplicaciones no cuentan dos veces los mismos puntos de Chakra.",
+      "allCards": "Efecto sobre todas las cartas: {enemies} rivales y {allies} aliados. El daño aliado, limitado por el Chakra aliado por aplicación, reduce la Potencia.",
+      "ebisu": "Los aumentos y penalizaciones usan el número configurado de aliados; no se simula la supervivencia de la carta."
+    },
+    "errors": {
+      "invalidJson": "El archivo no contiene un JSON de mazo válido.",
+      "invalidDeck": "Archivo de mazo no válido.",
+      "invalidCards": "Revisa las cartas, los duplicados y los niveles del archivo.",
+      "invalidOptions": "Opciones de cálculo no válidas.",
+      "invalidValues": "Valores de hipótesis no válidos.",
+      "invalidOverrides": "Ajustes individuales de carta no válidos.",
+      "missingCard": "Las hipótesis se refieren a una carta que no está en el mazo.",
+      "fileTooLarge": "El archivo es demasiado grande.",
+      "importFailed": "No se pudo importar el mazo.",
+      "invalidRule": "Regla no válida: {id}, nivel {level}, {factor}",
+      "invalidFactor": "Factor no válido: {factor}"
+    },
+    "normalizations": []
   }
 };
