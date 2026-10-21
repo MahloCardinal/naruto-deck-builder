@@ -7,7 +7,7 @@ const TRANSLATIONS = {
     "locale": "en-GB",
     "ui": {
       "pageTitle": "Naruto · Cards and decks",
-      "brand": "Naruto · Personal collection",
+      "brand": "Naruto · Deck builder",
       "heading": "Cards and decks",
       "catalogDescription": "3 sets · card effects · local images",
       "database": "Card database",
@@ -2604,7 +2604,7 @@ const TRANSLATIONS = {
     "locale": "it-IT",
     "ui": {
       "pageTitle": "Naruto · Carte e mazzi",
-      "brand": "Naruto · Archivio personale",
+      "brand": "Naruto · Creazione deck",
       "heading": "Carte e mazzi",
       "catalogDescription": "3 serie · testi italiani · immagini locali",
       "database": "Database carte",
