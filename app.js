@@ -49,7 +49,7 @@ const RANK = {Common:0, Rare:1, Epic:2, Legendary:3};
 const byIndex = new Map(CARDS.map(c => [c.index,c]));
 const defaults={...DEFAULT_SCENARIO};
 const F = id => $(mode+'-'+id);
-const settingIds = {enemyChakra:'s-enemy-chakra', enemies:'s-enemies', allyChakra:'s-ally-chakra', allies:'s-allies', fights:'s-fights'};
+const settingIds = {enemyChakra:'s-enemy-chakra', enemies:'s-enemies', allyChakra:'s-ally-chakra', allies:'s-allies', activations:'s-activations'};
 
 // Keyword patterns belong to each language catalog, rather than to the renderer.
 let termPatterns,termRegex;
@@ -119,13 +119,13 @@ function formatDescription(c,level) {
 }
 
 function acceptedInteger(input) {
-  return /^\d+$/.test(input.value) && Number(input.value) >= 1 && Number(input.value) <= 99;
+  return /^\d+$/.test(input.value) && Number(input.value) <= 99;
 }
 function commitInteger(input) {
   const before = input.value;
   if (before === '' && !input.required) return;
   const digits = before.replace(/\D/g,'');
-  input.value = String(Math.max(1,Math.min(99,Number(digits) || 1)));
+  input.value = String(Math.min(99,Number(digits) || 0));
   if (input.value !== before) input.dispatchEvent(new Event('input',{bubbles:true}));
 }
 document.addEventListener('beforeinput',event => {
@@ -148,7 +148,7 @@ function cleanScenario(value = {}) {
   const scenario = {};
   for (const key of Object.keys(defaults)) {
     const n = Number(value[key] ?? defaults[key]);
-    scenario[key] = Number.isFinite(n) ? Math.max(1, Math.min(99,Math.round(n))) : defaults[key];
+    scenario[key] = Number.isFinite(n) ? Math.max(0, Math.min(99,Math.round(n))) : defaults[key];
   }
   return scenario;
 }
@@ -324,7 +324,7 @@ function renderDialog() {
   $('dialog-body').innerHTML=`<div class="dialog-layout"><div class="dialog-art-column"><div class="dialog-visual"><img class="dialog-art" src="${imagePath(c)}" alt="${esc(text.name)}"><span class="orb cost" title="${t('ui.cost')}">${c.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${c.chakra}</span></div></div>
     <div class="dialog-content"><div class="dialog-effect"><div class="ability-heading"><h3 class="ability-title">${esc(text.ability)}</h3><div class="tags">${c.skill_types_original.map(key=>`<span class="tag">${effectHTML(effectLabel(key),key)}</span>`).join('')}</div></div><p class="ability">${formatDescription(c,level)}</p></div>
     <div class="dialog-toolbar${build?'':' read-only'}"><button class="toolbar-cell level-cell" id="dialog-level" type="button" title="${t('ui.changeLevelTitle',{level:level===1?2:1})}" role="switch" aria-checked="${level===2}" aria-label="${t('ui.changeLevelAction',{level,next:level===1?2:1})}"><span>${t('ui.changeLevel')}</span><span class="level-value"><b>${level}</b>${LEVEL_CYCLE_ICON}</span></button>${build?`<div class="dialog-stats" aria-label="${t('ui.powerQuality')}"><div class="toolbar-cell"><span>${t('ui.power')}</span><b id="dialog-max">${fmt(result.value)}</b></div><div class="toolbar-cell"><span>${t('ui.quality')}</span><b id="dialog-quality">${fmt(result.quality)}</b></div></div><button class="${selected?'strong-danger':'primary'}" id="dialog-add" ${!selected&&current.cards.length>=10?'disabled':''}>${t(selected?'ui.removeFromDeck':'ui.addToDeck')}</button>`:''}</div></div>
-    ${build?`<div class="dialog-workbench${keys.length?'':' calculation-only'}">${keys.length?`<section class="local-options"><div class="section-head"><h4>${t('ui.localAssumptions')}</h4><button class="small" id="reset-local">${t('ui.useStandard')}</button></div><p class="inline-note">${t('ui.localChanges')}</p><div class="local-grid">${keys.map(key=>`<div class="parameter"><label for="local-${key}">${formatTerms(t('ui.'+key))}</label><input id="local-${key}" data-local="${key}" type="text" inputmode="numeric" pattern="[0-9]*" data-integer min="1" max="99" required step="1" value="${scenario[key]}"></div>`).join('')}</div></section>`:''}<section id="dialog-calculation">${calculationHTML(c,level,result)}</section></div>`:''}</div>`;
+    ${build?`<div class="dialog-workbench${keys.length?'':' calculation-only'}">${keys.length?`<section class="local-options"><div class="section-head"><h4>${t('ui.localAssumptions')}</h4><button class="small" id="reset-local">${t('ui.useStandard')}</button></div><p class="inline-note">${t('ui.localChanges')}</p><div class="local-grid">${keys.map(key=>`<div class="parameter"><label for="local-${key}">${formatTerms(t('ui.'+key))}</label><input id="local-${key}" data-local="${key}" type="text" inputmode="numeric" pattern="[0-9]*" data-integer min="0" max="99" required step="1" value="${scenario[key]}"></div>`).join('')}</div></section>`:''}<section id="dialog-calculation">${calculationHTML(c,level,result)}</section></div>`:''}</div>`;
   $('dialog-level').onclick = () => {
     dialogLevel = level===1 ? 2 : 1;
     if (build) current.levels[c.index] = dialogLevel;

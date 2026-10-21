@@ -40,6 +40,7 @@ h4 { font-size:11px; font-weight:650; }
 .tab:hover:not(:disabled) { background:#f4d5aa; border-color:#dfb27b; }
 .tab[aria-selected=true] { background:#eebc7c; color:#513719; border-color:#ce9450; box-shadow:0 1px 3px #96612b20; }
 .panel { padding:12px; background:var(--paper); border:1px solid var(--line); border-radius:0; }
+.filters-panel,.scenario { border-width:2px; }
 .filters-panel { margin-bottom:12px; }
 .filter-fields { display:flex; flex-wrap:wrap; align-items:end; gap:8px; margin-top:10px; }
 .filter-fields > .field { flex:0 0 auto; }

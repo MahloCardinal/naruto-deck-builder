@@ -1,7 +1,7 @@
 'use strict';
 
 // Language-independent card data and calculation rules. Indices stay stable for deck files.
-const DEFAULT_SCENARIO = {"enemyChakra": 4, "enemies": 4, "allyChakra": 4, "allies": 4, "fights": 2};
+const DEFAULT_SCENARIO = {"enemyChakra": 4, "enemies": 4, "allyChakra": 4, "allies": 4, "activations": 2};
 const CARD_ART = {width:600,height:649};
 const CARDS = [
 {"card_key":"S1_001","season":1,"rarity":"Common","energy_cost":1,"chakra":1,"index":1,"skill_types_original":["Chakra"],"effect_values":[{"C":[1],"W":[],"H":[],"B":[],"K":[]},{"C":[2],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
@@ -356,15 +356,15 @@ const RULES = {
     "review": false
   },
   "S1_076": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S1_078": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S1_080": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S2_001": {
@@ -380,7 +380,7 @@ const RULES = {
     "review": false
   },
   "S2_009": {
-    "expr": "C0*A",
+    "expr": "C0*a1*N",
     "review": true
   },
   "S2_010": {
@@ -396,11 +396,11 @@ const RULES = {
     "review": false
   },
   "S2_031": {
-    "expr": "auto",
+    "expr": "C0*a1*N",
     "review": false
   },
   "S2_033": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S2_036": {
@@ -428,7 +428,7 @@ const RULES = {
     "review": false
   },
   "S2_055": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S2_056": {
@@ -436,11 +436,11 @@ const RULES = {
     "review": false
   },
   "S2_060": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S2_081": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S2_084": {
@@ -448,7 +448,7 @@ const RULES = {
     "review": false
   },
   "S2_090": {
-    "expr": "C0*a1",
+    "expr": "C0*a1*N",
     "review": false
   },
   "S2_100": {
@@ -456,23 +456,23 @@ const RULES = {
     "review": false
   },
   "S3_001": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S3_003": {
-    "expr": "W0*e1",
+    "expr": "W0*e1*N",
     "review": false
   },
   "S3_005": {
-    "expr": "W0*e1",
+    "expr": "W0*e1*N",
     "review": false
   },
   "S3_010": {
-    "expr": "C0*a1",
+    "expr": "C0*a1*N",
     "review": false
   },
   "S3_012": {
-    "expr": "W0*e1",
+    "expr": "W0*e1*N",
     "review": false
   },
   "S3_019": {
@@ -484,23 +484,23 @@ const RULES = {
     "review": false
   },
   "S3_032": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S3_033": {
-    "expr": "C0*a1",
+    "expr": "C0*a1*N",
     "review": false
   },
   "S3_037": {
-    "expr": "W0*e1",
+    "expr": "W0*e1*N",
     "review": false
   },
   "S3_045": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S3_046": {
-    "expr": "W0*e1",
+    "expr": "W0*e1*N",
     "review": false
   },
   "S3_049": {
@@ -516,19 +516,19 @@ const RULES = {
     "review": false
   },
   "S3_053": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S3_055": {
-    "expr": "W0",
+    "expr": "W0*E*N",
     "review": true
   },
   "S3_056": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S3_058": {
-    "expr": "W0*e1",
+    "expr": "W0*e1*N",
     "review": false
   },
   "S3_061": {
@@ -536,11 +536,11 @@ const RULES = {
     "review": false
   },
   "S3_063": {
-    "expr": "W0*e1",
+    "expr": "W0*e1*N",
     "review": false
   },
   "S3_076": {
-    "expr": "auto",
+    "expr": "C0*N",
     "review": false
   },
   "S3_087": {
@@ -652,7 +652,7 @@ const RULES = {
     "review": true
   },
   "S1_007": {
-    "expr": "C0*A",
+    "expr": "C0*a1*N",
     "review": true
   },
   "S1_019": {
@@ -664,7 +664,7 @@ const RULES = {
     "review": true
   },
   "S1_050": {
-    "expr": "C0*A",
+    "expr": "C0*a1*N",
     "review": true
   },
   "S1_062": {
@@ -672,7 +672,7 @@ const RULES = {
     "review": true
   },
   "S1_072": {
-    "expr": "C0*A",
+    "expr": "C0*a1*N",
     "review": true
   },
   "S1_073": {
@@ -688,7 +688,7 @@ const RULES = {
     "review": true
   },
   "S2_045": {
-    "expr": "C0*A",
+    "expr": "C0*a1*N",
     "review": true
   },
   "S2_073": {
@@ -786,7 +786,7 @@ const RULES = {
     "review": true
   },
   "S1_058": {
-    "expr": "C0*A-W0*A",
+    "expr": "C0*a1*N-W0*N",
     "review": true
   },
   "S1_060": {
@@ -795,13 +795,13 @@ const RULES = {
   },
   "S1_063": {
     "expr": [
-      "K0*3",
-      "K0*5"
+      "K0*3*N",
+      "K0*5*N"
     ],
     "review": true
   },
   "S1_067": {
-    "expr": "C0+C1",
+    "expr": "C0*first+C1*remaining",
     "review": true
   },
   "S1_071": {
@@ -812,15 +812,15 @@ const RULES = {
     "review": true
   },
   "S1_075": {
-    "expr": "W0*E",
+    "expr": "W0*E*N",
     "review": true
   },
   "S1_077": {
-    "expr": "K0*4+C0*4",
+    "expr": "K0*4+C0*N",
     "review": true
   },
   "S1_082": {
-    "expr": "C0+C1*E",
+    "expr": "C0*N+C1*E",
     "review": true
   },
   "S1_083": {
@@ -828,11 +828,11 @@ const RULES = {
     "review": true
   },
   "S1_084": {
-    "expr": "W0*e1*F",
+    "expr": "W0*e1*N",
     "review": true
   },
   "S1_085": {
-    "expr": "W0*E-W0*A+W1*e1",
+    "expr": "W0*E-W0*A+W1*e1*N",
     "review": true
   },
   "S2_002": {
@@ -856,7 +856,7 @@ const RULES = {
     "review": true
   },
   "S2_029": {
-    "expr": "K0*3",
+    "expr": "K0*2+K0*N",
     "review": true
   },
   "S2_032": {
@@ -887,7 +887,7 @@ const RULES = {
     "review": true
   },
   "S2_057": {
-    "expr": "W0*e1*F",
+    "expr": "W0*e1*N",
     "review": true
   },
   "S2_058": {
@@ -913,11 +913,11 @@ const RULES = {
     "review": true
   },
   "S2_068": {
-    "expr": "C0",
+    "expr": "C0*N",
     "review": true
   },
   "S2_069": {
-    "expr": "C0",
+    "expr": "C0*N",
     "review": true
   },
   "S2_070": {
@@ -941,15 +941,15 @@ const RULES = {
     "review": true
   },
   "S2_075": {
-    "expr": "W0*e1*F",
+    "expr": "W0*e1*N",
     "review": true
   },
   "S2_079": {
-    "expr": "W0*e1*F",
+    "expr": "W0*e1*N",
     "review": true
   },
   "S2_085": {
-    "expr": "W0*e1*F",
+    "expr": "W0*e1*N",
     "review": true
   },
   "S2_077": {
@@ -957,11 +957,11 @@ const RULES = {
     "review": true
   },
   "S2_078": {
-    "expr": "C0+C1",
+    "expr": "C0+C1*a1*N",
     "review": true
   },
   "S2_082": {
-    "expr": "W0*e1+C0",
+    "expr": "W0*e1*N+C0*remaining",
     "review": true
   },
   "S2_086": {
@@ -977,23 +977,23 @@ const RULES = {
     "review": true
   },
   "S2_092": {
-    "expr": "C0+C1*F",
+    "expr": "C0+C1*N",
     "review": false
   },
   "S2_093": {
-    "expr": "C0",
+    "expr": "C0*N",
     "review": true
   },
   "S2_094": {
-    "expr": "C0+W0*e1*F-W1*F",
+    "expr": "C0+W0*e1*N-W1*N",
     "review": true
   },
   "S2_095": {
-    "expr": "W0*e1*F",
+    "expr": "W0*e1*N",
     "review": true
   },
   "S2_096": {
-    "expr": "max(C0|W0*e1)",
+    "expr": "max(C0*N|W0*e1*N)",
     "review": true
   },
   "S2_097": {
@@ -1002,24 +1002,21 @@ const RULES = {
   },
   "S2_098": {
     "expr": [
-      "min12*e1",
-      "min15*e1"
+      "min12*e1*N",
+      "min15*e1*N"
     ],
     "review": true
   },
   "S2_099": {
-    "expr": "W0*E+W1*E",
+    "expr": "W0*E+W1*E*N",
     "review": true
   },
   "S3_018": {
-    "expr": [
-      "C0*a3*2",
-      "C0*a3*3"
-    ],
+    "expr": "C0*a3*N",
     "review": true
   },
   "S3_026": {
-    "expr": "C0+W0*e1",
+    "expr": "C0*N+W0*e1",
     "review": false
   },
   "S3_027": {
@@ -1031,14 +1028,11 @@ const RULES = {
     "review": true
   },
   "S3_029": {
-    "expr": "-W0*a1",
+    "expr": "-W0*A*N",
     "review": true
   },
   "S3_035": {
-    "expr": [
-      "C0*A*3",
-      "C0*A*4"
-    ],
+    "expr": "C0*A*N",
     "review": true
   },
   "S3_036": {
@@ -1046,7 +1040,7 @@ const RULES = {
     "review": true
   },
   "S3_040": {
-    "expr": "W0*e1*2",
+    "expr": "W0*e1*N",
     "review": true
   },
   "S3_041": {
@@ -1062,10 +1056,7 @@ const RULES = {
     "review": true
   },
   "S3_054": {
-    "expr": [
-      "3*e1",
-      "4*e1"
-    ],
+    "expr": "1*e1*N",
     "review": true
   },
   "S3_060": {
@@ -1077,29 +1068,23 @@ const RULES = {
     "review": true
   },
   "S3_065": {
-    "expr": "W0*e1+C0",
+    "expr": "W0*e1*N+C0*N",
     "review": true
   },
   "S3_066": {
-    "expr": "C0*F+W0*e1*F",
+    "expr": "C0*N+W0*e1*N",
     "review": false
   },
   "S3_067": {
-    "expr": [
-      "3*e1",
-      "4*e1"
-    ],
+    "expr": "1*e1*N",
     "review": true
   },
   "S3_069": {
-    "expr": [
-      "2*2*E-2*2*A",
-      "2*3*E-2*3*A"
-    ],
+    "expr": "2*E*N-2*A*N",
     "review": true
   },
   "S3_070": {
-    "expr": "W0*e1+C0-W1*a1",
+    "expr": "W0*e1*N+C0-W1*a1",
     "review": true
   },
   "S3_073": {
@@ -1107,35 +1092,35 @@ const RULES = {
     "review": false
   },
   "S3_075": {
-    "expr": "W0*e1*F+H0",
+    "expr": "W0*e1*N+H0",
     "review": true
   },
   "S3_077": {
-    "expr": "W0*e1",
+    "expr": "W0*e1*N",
     "review": true
   },
   "S3_079": {
-    "expr": "C0*a2+W0*e1*F",
+    "expr": "C0*a2+W0*e1*N",
     "review": true
   },
   "S3_080": {
-    "expr": "C0+W0*e1*F",
+    "expr": "C0*N+W0*e1*N",
     "review": true
   },
   "S3_081": {
-    "expr": "W0*E*3",
+    "expr": "W0*E*N",
     "review": true
   },
   "S3_082": {
-    "expr": "base-1",
+    "expr": "base*N-1*N",
     "review": true
   },
   "S3_083": {
-    "expr": "B0*burnAll-1",
+    "expr": "B0*burnAll*N-1*N",
     "review": true
   },
   "S3_084": {
-    "expr": "burnTotal*burnAll+C0",
+    "expr": "burnTotal*burnAll+C0*N",
     "review": true
   },
   "S3_085": {
@@ -1143,14 +1128,11 @@ const RULES = {
     "review": true
   },
   "S3_086": {
-    "expr": [
-      "W0*e1*3",
-      "W0*e1*4"
-    ],
+    "expr": "W0*e1*N",
     "review": true
   },
   "S3_088": {
-    "expr": "W0*e1*F",
+    "expr": "W0*e1*N",
     "review": false
   },
   "S3_091": {
@@ -1162,41 +1144,38 @@ const RULES = {
     "review": true
   },
   "S3_093": {
-    "expr": "C0+W0*e1*F",
+    "expr": "C0*N+W0*e1*N",
     "review": true
   },
   "S3_094": {
-    "expr": [
-      "W1*E*3",
-      "W1*E*4"
-    ],
+    "expr": "W1*E*N",
     "review": true
   },
   "S3_095": {
     "expr": [
-      "drain12*e1-1",
-      "drain16*e1-1"
+      "drain12*e1*N-1*N",
+      "drain16*e1*N-1*N"
     ],
     "review": true
   },
   "S3_096": {
-    "expr": "W1*e1",
+    "expr": "W1*e1*N",
     "review": true
   },
   "S3_097": {
-    "expr": "restoreBase+C0+H0*F",
+    "expr": "restoreBase+C0+H0*N",
     "review": true
   },
   "S3_098": {
-    "expr": "base+C0*2",
+    "expr": "base+C0*2*N",
     "review": true
   },
   "S3_099": {
-    "expr": "C0",
+    "expr": "C0*a1*N",
     "review": true
   },
   "S3_100": {
-    "expr": "C0+W1*e1*F-W0*F+W2*E-W2*A",
+    "expr": "C0+W1*e1*N-W0*N+W2*E-W2*A",
     "review": true
   },
   "S3_039": {

@@ -2,7 +2,8 @@
 
 // Formula tokens are language-independent. Translation is applied only to explanations.
 // E/A are configurable target groups; eN/aN cap an explicit maximum to available targets.
-// F is the number of encounters. Summons add Chakra without adding energy cost.
+// N is the total number of repeated effect activations. Initial effects stay separate.
+// Summons add Chakra without adding energy cost.
 function estimate(card, level, options = scenarioFor(card), dependencies = null) {
   const scenario = cleanScenario(options);
   const numbers = card.effect_values[level - 1];
@@ -21,7 +22,7 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
   }
   if (expression === 'auto' || expression === 'encounter') {
     const repeated = card.repeats[level - 1];
-    const times = expression === 'encounter' && repeated ? 'F' : '1';
+    const times = expression === 'encounter' && repeated ? 'N' : '1';
     if (expression === 'encounter') note = t(repeated ? 'calculation.repeated' : 'calculation.once', scenario);
     expression = ['C', 'W', 'H', 'B'].flatMap(key => numbers[key].map((_, index) =>
       `${key}${index}${key === 'W' ? '*e1' : ''}*${times}`
@@ -65,8 +66,10 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
         use('enemies'); value = Math.max(0, scenario.enemies - 1); label('otherEnemies', value);
       } else if (factor === 'A') {
         use('allies'); value = scenario.allies; label('allies', value);
-      } else if (factor === 'F') {
-        use('fights'); value = scenario.fights; label('fights', value);
+      } else if (factor === 'N' || factor === 'first' || factor === 'remaining') {
+        use('activations');
+        value = factor === 'first' ? Number(scenario.activations > 0) : factor === 'remaining' ? Math.max(0,scenario.activations - 1) : scenario.activations;
+        label(factor === 'N' ? 'activations' : factor,value);
       } else if (factor === 'Q') {
         use('enemyChakra'); value = scenario.enemyChakra; label('enemyChakra', value);
       } else if (factor === 'burnAll' || factor === 'burnOne') {
@@ -116,6 +119,7 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
   if (card.card_key === 'S3_083' || numbers.B.length) note = t('calculation.burnNote');
   if (['S1_083', 'S2_040', 'S2_072', 'S2_080', 'S3_069'].includes(card.card_key)) note = t('calculation.allCards', scenario);
   if (card.card_key === 'S1_058') note = t('calculation.ebisu');
+  if (/(?:^|[^\w])(?:N|first|remaining)(?:$|[^\w])/.test(expression)) note = '';
   return {value, quality: value / card.energy_cost, chakra, base: card.chakra, boosts, summoned, friendly,
     damage, burn, heal, parts: parts.filter(part => part.value !== 0), review, note, level, scenario};
 }
