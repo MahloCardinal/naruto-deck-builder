@@ -338,7 +338,12 @@ details[open] > .panel-summary::before { transform:rotate(90deg); }
 /* The language menu is independent of the two primary navigation tabs. */
 .language-control { display:flex; align-items:center; gap:7px; justify-self:end; }
 .language-control label { color:var(--muted); font-size:10px; }
-.language-control select { width:auto; min-width:82px; }
+.language-control #language-select { display:flex; align-items:center; gap:8px; min-height:31px; padding:5px 8px; font-weight:400; white-space:nowrap; }
+.language-flag { display:block; width:20px; height:15px; flex:none; object-fit:contain; }
+.language-arrow { margin-left:4px; color:var(--muted); font-size:10px; }
+#language-menu { position:fixed; inset:auto; margin:0; width:180px; max-width:calc(100vw - 20px); padding:4px; overflow:auto; border:1px solid #b9c5af; background:var(--paper); color:var(--ink); box-shadow:0 5px 18px #26392a26; }
+.language-option { display:flex; align-items:center; gap:9px; width:100%; border:0; padding:8px; text-align:left; font-weight:400; }
+.language-option[aria-selected=true] { background:#f9e7cf; color:#80582f; }
 @media(max-width:700px) {
   .top .tabs { order:3; }
   .language-control { margin-left:auto; }

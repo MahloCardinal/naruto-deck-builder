@@ -22,6 +22,61 @@ function t(key,values={}) {
   if (typeof text !== 'string') throw Error(`Missing translation: ${key}`);
   return text.replace(/\{(\w+)\}/g,(_,name) => values[name] ?? `{${name}}`);
 }
+function syncLanguageControl() {
+  const catalog=TRANSLATIONS[language];
+  $('language-name').textContent=catalog.name;
+  $('language-flag').src=`misc_images/flag-${catalog.flag}.svg`;
+  for (const option of $('language-menu').querySelectorAll('[data-language]')) {
+    const selected=option.dataset.language===language;
+    option.setAttribute('aria-selected',String(selected));
+    option.tabIndex=selected?0:-1;
+  }
+}
+function positionLanguageMenu() {
+  const button=$('language-select'),menu=$('language-menu'),rect=button.getBoundingClientRect();
+  const width=Math.min(Math.max(180,rect.width),innerWidth-20);
+  menu.style.width=width+'px';
+  menu.style.left=Math.max(10,Math.min(rect.right-width,innerWidth-width-10))+'px';
+  menu.style.top=(rect.bottom+6)+'px';
+  menu.style.maxHeight=Math.max(80,innerHeight-rect.bottom-16)+'px';
+}
+function mountLanguageMenu() {
+  const button=$('language-select'),menu=$('language-menu');
+  menu.innerHTML=Object.entries(TRANSLATIONS).map(([code,catalog])=>`<button class="language-option" data-language="${esc(code)}" role="option" type="button"><img alt="" class="language-flag" src="misc_images/flag-${esc(catalog.flag)}.svg" width="20" height="15"><span lang="${esc(code)}">${esc(catalog.name)}</span></button>`).join('');
+  menu.onbeforetoggle=event=>{if(event.newState==='open')positionLanguageMenu();};
+  menu.ontoggle=event=>{
+    const open=event.newState==='open';
+    button.setAttribute('aria-expanded',String(open));
+    if(open)menu.querySelector('[aria-selected=true]').focus();
+  };
+  menu.onclick=event=>{
+    const option=event.target.closest('[data-language]');
+    if(option){setLanguage(option.dataset.language);button.focus();}
+  };
+  menu.onkeydown=event=>{
+    const options=Array.from(menu.querySelectorAll('[data-language]'));
+    const currentIndex=options.indexOf(document.activeElement);
+    let next;
+    if(event.key==='ArrowDown')next=(currentIndex+1)%options.length;
+    else if(event.key==='ArrowUp')next=(currentIndex+options.length-1)%options.length;
+    else if(event.key==='Home')next=0;
+    else if(event.key==='End')next=options.length-1;
+    else if(event.key.length===1 && /\p{L}/u.test(event.key)) {
+      const offset=options.slice(currentIndex+1).concat(options.slice(0,currentIndex+1));
+      next=options.indexOf(offset.find(option=>option.textContent.toLocaleLowerCase().startsWith(event.key.toLocaleLowerCase())));
+    } else if(event.key==='Tab')menu.hidePopover();
+    if(next>=0){event.preventDefault();options[next].focus();}
+  };
+  button.onkeydown=event=>{
+    if(event.key==='ArrowDown'||event.key==='ArrowUp'){
+      event.preventDefault();menu.showPopover();
+      menu.querySelector('[aria-selected=true]').focus();
+    }
+  };
+  const reposition=()=>{if(menu.matches(':popover-open'))positionLanguageMenu();};
+  window.addEventListener('resize',reposition,{passive:true});
+  window.addEventListener('scroll',reposition,{capture:true,passive:true});
+}
 function fmt(value,maximumFractionDigits=2) {
   const key = language+':'+maximumFractionDigits;
   if (!numberFormatters.has(key)) numberFormatters.set(key,new Intl.NumberFormat(TRANSLATIONS[language].locale,{maximumFractionDigits}));
@@ -547,13 +602,14 @@ function applyLanguage() {
     button.title=t(descending?'ui.descending':'ui.ascending');
     button.setAttribute('aria-label',t(descending?'ui.descendingAction':'ui.ascendingAction'));
   }
-  $('language-select').value=language;
+  syncLanguageControl();
   sizeFilterControls();renderDeck();renderCatalog();
   if ($('card-dialog').open) renderDialog();
   if (confirmMessageKey) $('confirm-text').textContent=t(confirmMessageKey);
 }
 function setLanguage(code) {
   if (!Object.hasOwn(TRANSLATIONS,code)) return false;
+  if ($('language-menu').matches(':popover-open')) $('language-menu').hidePopover();
   closeFilterMenus();language=code;
   if (useDefaultDeckName) current.name=t('ui.defaultDeckName');
   clearTimeout(toastTimer);$('toast').classList.add('hidden');
@@ -652,8 +708,7 @@ function restoreSession() {
     return {warning:'ui.sessionInvalid'};
   }
 }
-$('language-select').innerHTML=Object.entries(TRANSLATIONS).map(([code,catalog])=>`<option value="${esc(code)}">${esc(catalog.name)}</option>`).join('');
-$('language-select').onchange=()=>setLanguage($('language-select').value);
+mountLanguageMenu();
 
 mountFilters('db'); mountFilters('builder');
 sizeFilterControls();

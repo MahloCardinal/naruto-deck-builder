@@ -6,7 +6,7 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="light" name="color-scheme"/>
 <title data-i18n="ui.pageTitle"></title>
-
+<link rel="icon" type="image/svg+xml" href="misc_images/naruto-icon.svg"/>
 
 <link href="styles.css" rel="stylesheet"/><script defer="" src="translations.js"></script><script defer="" src="cards.js"></script><script defer="" src="calculator.js"></script><script defer="" src="app.js"></script></head>
 <body>
@@ -24,7 +24,7 @@
 <button aria-controls="db-area" aria-selected="true" class="tab" data-i18n="ui.database" id="tab-db" role="tab"></button>
 <button aria-controls="builder-area" aria-selected="false" class="tab" data-i18n="ui.builder" id="tab-builder" role="tab"></button>
 </nav>
-<div class="language-control"><label data-i18n="ui.language" for="language-select"></label><select data-i18n-aria-label="ui.language" id="language-select"></select></div></header>
+<div class="language-control"><label data-i18n="ui.language" for="language-select" id="language-label"></label><button aria-labelledby="language-label language-name" aria-haspopup="listbox" aria-expanded="false" aria-controls="language-menu" id="language-select" popovertarget="language-menu" type="button"><img alt="" class="language-flag" id="language-flag" width="20" height="15"/><span id="language-name"></span><span aria-hidden="true" class="language-arrow">▾</span></button><div data-i18n-aria-label="ui.language" id="language-menu" popover="auto" role="listbox"></div></div></header>
 <section aria-labelledby="tab-db" class="area" id="db-area" role="tabpanel">
 <div id="db-filter-host"></div>
 <main class="workspace"><section class="catalog" data-i18n-aria-label="ui.databaseEffects"><div class="card-list database-list" id="db-card-list"></div></section></main>

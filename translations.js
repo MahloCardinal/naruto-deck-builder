@@ -291,8 +291,8 @@ const TRANSLATIONS = {
         "name": "TAZUNA",
         "ability": "Bridge Builder",
         "descriptions": [
-          "On deploy, pull 2 lane lane allies in Mid Range back to this card.",
-          "On deploy, pull 3 lane lane allies in Mid Range back to this card."
+          "On deploy, pull 2 lane allies in Mid Range back to this card.",
+          "On deploy, pull 3 lane allies in Mid Range back to this card."
         ]
       },
       "S1_018": {
@@ -2597,7 +2597,8 @@ const TRANSLATIONS = {
       "invalidRule": "Invalid rule: {id} level {level}, {factor}",
       "invalidFactor": "Invalid factor: {factor}"
     },
-    "normalizations": []
+    "normalizations": [],
+    "flag": "gb"
   },
   "it": {
     "name": "Italiano",
@@ -5211,7 +5212,8 @@ const TRANSLATIONS = {
         "recuperi",
         "cure"
       ]
-    ]
+    ],
+    "flag": "it"
   },
   "fr": {
     "name": "Français",
@@ -7808,11 +7810,12 @@ const TRANSLATIONS = {
       "invalidRule": "Règle invalide : {id}, niveau {level}, {factor}",
       "invalidFactor": "Facteur invalide : {factor}"
     },
-    "normalizations": []
+    "normalizations": [],
+    "flag": "fr"
   },
   "pt": {
-    "name": "Português (Brasil)",
-    "locale": "pt-BR",
+    "name": "Português",
+    "locale": "pt-PT",
     "ui": {
       "pageTitle": "Naruto · Cartas e decks",
       "brand": "Naruto · Criador de decks",
@@ -10405,7 +10408,8 @@ const TRANSLATIONS = {
       "invalidRule": "Regra inválida: {id}, nível {level}, {factor}",
       "invalidFactor": "Fator inválido: {factor}"
     },
-    "normalizations": []
+    "normalizations": [],
+    "flag": "pt"
   },
   "es": {
     "name": "Español",
@@ -13001,6 +13005,2605 @@ const TRANSLATIONS = {
       "importFailed": "No se pudo importar el mazo.",
       "invalidRule": "Regla no válida: {id}, nivel {level}, {factor}",
       "invalidFactor": "Factor no válido: {factor}"
+    },
+    "normalizations": [],
+    "flag": "es"
+  },
+  "de": {
+    "name": "Deutsch",
+    "locale": "de-DE",
+    "flag": "de",
+    "ui": {
+      "pageTitle": "Naruto · Karten und Decks",
+      "brand": "Naruto · Deckbuilder",
+      "heading": "Karten und Decks",
+      "catalogDescription": "3 Serien · Karteneffekte · lokale Bilder",
+      "database": "Kartendatenbank",
+      "builder": "Deck erstellen",
+      "sections": "Bereiche",
+      "language": "Sprache",
+      "filters": "Karten filtern",
+      "searchFilters": "Suche und Filter",
+      "textOrIndex": "Text oder Nummer",
+      "searchPlaceholder": "Suchen",
+      "rarity": "Seltenheit",
+      "season": "Serie",
+      "skillType": "Fähigkeitstyp",
+      "cost": "Kosten",
+      "chakra": "Chakra",
+      "minPower": "Min. Stärke",
+      "minimum": "min",
+      "cardLevel": "Kartenlevel",
+      "sort": "Sortieren",
+      "sortCards": "Karten sortieren",
+      "index": "Nummer",
+      "alphabetical": "Name",
+      "quality": "Qualität",
+      "power": "Stärke",
+      "resetFilters": "Filter löschen",
+      "allFeminine": "Alle",
+      "all": "Alle",
+      "none": "Ohne Typ",
+      "common": "Gewöhnlich",
+      "rare": "Selten",
+      "epic": "Episch",
+      "legendary": "Legendär",
+      "first": "Erste",
+      "second": "Zweite",
+      "third": "Dritte",
+      "ascending": "Aufsteigend",
+      "descending": "Absteigend",
+      "ascendingAction": "Aufsteigend. Zu absteigend wechseln",
+      "descendingAction": "Absteigend. Zu aufsteigend wechseln",
+      "selectedCount": "{count} ausgewählt",
+      "cardCount": "{count} Karten",
+      "noResults": "Keine Karten entsprechen den Filtern.",
+      "assumptions": "Berechnungsannahmen",
+      "enemyChakra": "Gegnerisches Chakra",
+      "enemies": "Gegnerische Ziele",
+      "allyChakra": "Verbündetes Chakra",
+      "allies": "Verbündete Ziele",
+      "activations": "Kartenaktivierungen",
+      "applyStandard": "Standard anwenden",
+      "calculationInfo": "Berechnungsinfos",
+      "standardApplied": "Standardwerte auf alle Karten dieser Sitzung angewendet.",
+      "standardPending": "Änderungen ausstehend: Die Karten verwenden noch die bisherigen Standardwerte.",
+      "deck": "Aktuelles Deck",
+      "defaultDeckName": "Deck 1",
+      "deckNameLabel": "Deckname:",
+      "deckNamePlaceholder": "Deckname",
+      "deckSlots": "Die zehn Deckplätze",
+      "deckCardsLevels": "Deckkarten und Level",
+      "averageCost": "Durchschnittskosten",
+      "averagePower": "Durchschnittsstärke",
+      "averageQuality": "Durchschnittsqualität",
+      "viewDeck": "Deckdetails anzeigen",
+      "import": "Importieren",
+      "export": "Exportieren",
+      "clearDeck": "Leeren",
+      "closeDeck": "Deck schließen",
+      "closeCard": "Kartendetails schließen",
+      "closeInfo": "Berechnungsinformationen schließen",
+      "distribution": "Kostenverteilung",
+      "curveCaption": "Anzahl der Karten pro Kostenwert.",
+      "databaseEffects": "Datenbank der Karteneffekte",
+      "builderCards": "Karten für das Deck",
+      "confirm": "Bestätigen",
+      "cancel": "Abbrechen",
+      "replaceDeck": "Das aktuelle Deck durch das importierte Deck ersetzen?",
+      "confirmClear": "Alle Karten aus dem Deck entfernen?",
+      "deckImported": "Deck importiert.",
+      "sessionUnavailable": "Automatisches Speichern der Sitzung ist nicht verfügbar. Exportiere dein Deck, um es zu behalten.",
+      "sessionInvalid": "Die gespeicherte Sitzung konnte nicht wiederhergestellt werden. Du kannst ein exportiertes Deck importieren.",
+      "addToDeck": "Zum Deck hinzufügen",
+      "removeFromDeck": "Aus dem Deck entfernen",
+      "addCard": "{name} zum Deck hinzufügen",
+      "removeCard": "{name} aus dem Deck entfernen",
+      "openCard": "{name} öffnen · {reference}",
+      "removeNamedCard": "{name} entfernen",
+      "emptySlot": "Platz {slot} leer",
+      "cardLevelTitle": "{name} · {reference} · Level {level}",
+      "levelShort": "Lv.{level}",
+      "changeLevel": "Level wechseln",
+      "changeLevelTitle": "Klicken, um zu Level {level} zu wechseln",
+      "changeLevelAction": "Level {level}. Zu Level {next} wechseln",
+      "powerQuality": "Stärke und Qualität",
+      "localAssumptions": "Annahmen für diese Karte",
+      "useStandard": "Standard verwenden",
+      "localChanges": "Änderungen gelten sofort und nur für diese Karte.",
+      "powerComposition": "Zusammensetzung der Stärke",
+      "contributions": "Berechnungsbeiträge",
+      "noContributions": "Kein zusätzlicher Zahlenbeitrag.",
+      "baseChakra": "Basis-Chakra",
+      "summonedChakra": "Beschworenes Chakra",
+      "chakraBoosts": "Chakra-Boni",
+      "friendlyDamage": "Schaden an sich / Verbündeten",
+      "enemyDamage": "Schaden an Gegnern",
+      "burn": "Brennen",
+      "heal": "Heilen",
+      "curveBar": "Kosten {cost}: {count} Karten",
+      "energyCost": "Energiekosten",
+      "costValue": "Kosten {value}",
+      "chakraValue": "Basis-Chakra {value}",
+      "info1": "Stärke = Basis-Chakra + Beschwörungen + Boni − Schaden an sich und Verbündeten + Schaden an Gegnern + Brennen + Heilung.",
+      "info2": "Qualität = Stärke / Kartenkosten.",
+      "info3": "Brennen = gegnerische Ziele × Dauer in Sekunden (oder gegnerisches Chakra, falls es geringer als die Dauer ist).",
+      "info4": "Effekte werden entsprechend der auf der Karte oder in den Berechnungsannahmen angegebenen Aktivierungszahl gezählt.",
+      "info5": "Bewegung, Wache und andere Modifikatoren fließen nicht in die Stärke der Karte ein.",
+      "info6": "Der Levelschalter im Filterbereich ändert die gesamte Liste, außer den Karten, die bereits im Deck sind. Exporte enthalten individuelle Level und Berechnungsannahmen."
+    },
+    "effects": {
+      "Cost": "Kosten",
+      "Chakra": "Chakra",
+      "Weaken": "Schwächen",
+      "Push": "Schieben",
+      "Pin": "Festnageln",
+      "Rush": "Ansturm",
+      "Slow": "Verlangsamen",
+      "Guard": "Wache",
+      "Seal": "Versiegeln",
+      "Switch": "Wechseln",
+      "Summon": "Beschwören",
+      "Teleport": "Teleportieren",
+      "Burn": "Brennen",
+      "Focus": "Fokus",
+      "Heal": "Heilen"
+    },
+    "terms": {
+      "Cost": "kosten",
+      "Chakra": "chakra",
+      "Weaken": "schwäch[\\p{L}]*|geschwäch[\\p{L}]*",
+      "Push": "schieb[\\p{L}]*",
+      "Pin": "festnagel[\\p{L}]*|festgenagel[\\p{L}]*",
+      "Rush": "ansturm",
+      "Slow": "verlangsam[\\p{L}]*",
+      "Guard": "wache",
+      "Seal": "versiegel[\\p{L}]*",
+      "Switch": "wechsel[\\p{L}]*",
+      "Summon": "beschw[öo][\\p{L}]*",
+      "Teleport": "teleport[\\p{L}]*",
+      "Burn": "brenn[\\p{L}]*",
+      "Focus": "fokus[\\p{L}]*",
+      "Heal": "heil[\\p{L}]*"
+    },
+    "cards": {
+      "S1_001": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Potenzial",
+        "descriptions": [
+          "Wenn diese Karte zum ersten Mal Chakra erhält, erhält sie zusätzlich Chakra(+1).",
+          "Wenn diese Karte zum ersten Mal Chakra erhält, erhält sie zusätzlich Chakra(+2)."
+        ]
+      },
+      "S1_002": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Lernen",
+        "descriptions": [
+          "Chakra(+2) nach 6 Sekunden.",
+          "Chakra(+3) nach 6 Sekunden."
+        ]
+      },
+      "S1_003": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Schattenklon-Jutsu",
+        "descriptions": [
+          "Erstelle 1 Klon auf einer anderen Spur mit Chakra(1).",
+          "Beschwöre 1 Klon auf einer anderen Spur mit Chakra(2)."
+        ]
+      },
+      "S1_004": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Schwur",
+        "descriptions": [
+          "Chakra(+1) nach einer erfolgreichen Begegnung.",
+          "Chakra(+2) nach einer erfolgreichen Begegnung."
+        ]
+      },
+      "S1_005": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Kunai-Beherrschung",
+        "descriptions": [
+          "Bei Begegnung die rivalisierende Karte Schwächen(2).",
+          "Bei Begegnung die rivalisierende Karte Schwächen(3)."
+        ]
+      },
+      "S1_006": {
+        "name": "SAKURA HARUNO",
+        "ability": "Kunai-Wurf",
+        "descriptions": [
+          "Bei Einsatz einen zufälligen Rivalen in weiter Distanz Schwächen(2). Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Einsatz einen zufälligen Rivalen in weiter Distanz Schwächen(3). Die Ziele befinden sich auf der eigenen Spur."
+        ]
+      },
+      "S1_007": {
+        "name": "SAKURA HARUNO",
+        "ability": "Chakra-Gleichgewicht",
+        "descriptions": [
+          "Wenn Spur-Verbündete eine Begegnung erfolgreich beenden, erhalten sie Chakra(+1), und diese Karte wird selbst Festnageln(3s).",
+          "Wenn Spur-Verbündete eine Begegnung erfolgreich beenden, erhalten sie Chakra(+1), und diese Karte wird selbst Festnageln(5s)."
+        ]
+      },
+      "S1_008": {
+        "name": "SAKURA HARUNO",
+        "ability": "Rundtritt",
+        "descriptions": [
+          "Bei Begegnung erhält die rivalisierende Karte Schieben(1) und Schwächen(1).",
+          "Bei Begegnung erhält die rivalisierende Karte Schieben(2) und Schwächen(1)."
+        ]
+      },
+      "S1_009": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(5s)",
+          "Ansturm(6s)"
+        ]
+      },
+      "S1_010": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Teamleiter",
+        "descriptions": [
+          "Bei Begegnung erhält ein Verbündeter in Kurzdistanz Chakra(+2). Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Begegnung erhält ein Spur-Rivalen in Kurzdistanz Chakra(+3)."
+        ]
+      },
+      "S1_011": {
+        "name": "IRUKA UMINO",
+        "ability": "Sensei",
+        "descriptions": [
+          "Chakra(+2) zum nächsten eingesetzten Verbündeten.",
+          "Chakra(+3) zum nächsten eingesetzten Verbündeten."
+        ]
+      },
+      "S1_012": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Bedrohlicher Auftritt",
+        "descriptions": [
+          "Auf Mitteldistanz einsetzen. Den Gegner mit dem höchsten Chakra auf der eigenen Spur Verlangsamen(4s) und seine Spur Wechseln.",
+          "Auf Mitteldistanz einsetzen. Den Gegner mit dem höchsten Chakra auf der eigenen Spur Verlangsamen(6s) und seine Spur Wechseln."
+        ]
+      },
+      "S1_013": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Aggression",
+        "descriptions": [
+          "Bei Einsatz Schwächen(3) für den nächstgelegenen Rivalen auf der Spur.",
+          "Bei Einsatz Schwächen(4) für den nächstgelegenen Rivalen auf der Spur."
+        ]
+      },
+      "S1_014": {
+        "name": "HAKU",
+        "ability": "Nadeln",
+        "descriptions": [
+          "Bei Einsatz Festnageln(6s) für den nächstgelegenen Spur-Rivalen.",
+          "Bei Einsatz Festnageln(7s) für den nächstgelegenen Spur-Rivalen."
+        ]
+      },
+      "S1_015": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Shurikenwurf",
+        "descriptions": [
+          "Bei Einsatz Schwächen(1) für einen zufälligen Rivalen in Kurzdistanz. Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Einsatz Schwächen(2) für einen zufälligen Rivalen in Kurzdistanz. Die Ziele befinden sich auf der eigenen Spur."
+        ]
+      },
+      "S1_016": {
+        "name": "EBISU",
+        "ability": "Schnelle Lektion",
+        "descriptions": [
+          "Bei Einsatz Chakra(+2) für den nächsten Verbündeten. Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Einsatz Chakra(+3) für den nächsten Verbündeten. Die Ziele befinden sich auf der eigenen Spur."
+        ]
+      },
+      "S1_017": {
+        "name": "TAZUNA",
+        "ability": "Brückenbauer",
+        "descriptions": [
+          "Bei Einsatz 2 Verbündete auf der eigenen Spur in Mitteldistanz zur Position dieser Karte zurückziehen.",
+          "Bei Einsatz 3 Verbündete auf der eigenen Spur in Mitteldistanz zur Position dieser Karte zurückziehen."
+        ]
+      },
+      "S1_018": {
+        "name": "INARI",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(2s)",
+          "Ansturm(3s)"
+        ]
+      },
+      "S1_019": {
+        "name": "KAIZA",
+        "ability": "Märtyrer",
+        "descriptions": [
+          "Beim Rückzug erhalten nur Verbündete auf der eigenen Spur Chakra(+1).",
+          "Beim Rückzug erhalten nur Verbündete auf der eigenen Spur Chakra(+2)."
+        ]
+      },
+      "S1_020": {
+        "name": "MIZUKI TOJI",
+        "ability": "Verborgene Absicht",
+        "descriptions": [
+          "Bei Einsatz, Schwächen(2) für einen zufälligen Spur-Verbündeten und Chakra(+3) verleiht dieser Karte.",
+          "Bei Einsatz, Schwächen(2) für einen zufälligen Spur-Verbündeten und Chakra(+4) verleiht dieser Karte."
+        ]
+      },
+      "S1_021": {
+        "name": "MIZUKI TOJI",
+        "ability": "Leichter Gegner",
+        "descriptions": [
+          "Bei Rückzug, Chakra(+1) für 3 zufällige Verbündete.",
+          "Bei Rückzug, Chakra(+2) für 3 zufällige Verbündete."
+        ]
+      },
+      "S1_022": {
+        "name": "MADAME SHIJIMI",
+        "ability": "Katzenrettung",
+        "descriptions": [
+          "Bei Einsatz, Chakra(+1) für 3 Spur-Verbündete in Kurzdistanz und sie Verlangsamen(3s).",
+          "Bei Einsatz, Chakra(+2) für 3 Spur-Verbündete in Kurzdistanz und sie Verlangsamen(3s)."
+        ]
+      },
+      "S1_023": {
+        "name": "GOZU",
+        "ability": "Hinterhalt",
+        "descriptions": [
+          "Bei Begegnung Schwächen(1) für rivalisierende Karte und sich hinter sie Teleportieren.",
+          "Bei Begegnung Schwächen(2) für rivalisierende Karte und sich hinter sie Teleportieren."
+        ]
+      },
+      "S1_024": {
+        "name": "TSUNAMI",
+        "ability": "Gastfreundschaft",
+        "descriptions": [
+          "Bei Einsatz: Chakra(+1) für zwei Spur-Verbündete.",
+          "Bei Einsatz: Chakra(+1) für drei Spur-Verbündete."
+        ]
+      },
+      "S1_025": {
+        "name": "WARAJI",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(3s)",
+          "Ansturm(4s)"
+        ]
+      },
+      "S1_026": {
+        "name": "ZORI",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(3s)",
+          "Ansturm(4s)"
+        ]
+      },
+      "S1_027": {
+        "name": "INO YAMANAKA",
+        "ability": "Charme",
+        "descriptions": [
+          "Bei Einsatz Chakra(+1) auf den nächsten Verbündeten in Kurzdistanz und schiebt ihn auf Mitteldistanz.",
+          "Bei Einsatz Chakra(+2) für den nächsten Verbündeten in Kurzdistanz und Schieben ihn in Mitteldistanz."
+        ]
+      },
+      "S1_028": {
+        "name": "SHIKAMARU NARA",
+        "ability": "Schattenlähmung-Jutsu",
+        "descriptions": [
+          "Bei Einsatz sich selbst und die nächstgelegene rivalisierende Karten Festnageln(10s). Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Einsatz sich selbst und die nächstgelegene rivalisierende Karten Festnageln(12s). Die Ziele befinden sich auf der eigenen Spur."
+        ]
+      },
+      "S1_029": {
+        "name": "CHOJI AKIMICHI",
+        "ability": "Stärke",
+        "descriptions": [
+          "Bei Begegnung die rivalisierenden Karte Schieben(1).",
+          "Bei Begegnung die rivalisierenden Karte Schieben(2)."
+        ]
+      },
+      "S1_030": {
+        "name": "ASUMA SARUTOBI",
+        "ability": "Nahkampfkönnen",
+        "descriptions": [
+          "Bei Begegnung Chakra(+3), wenn die rivalisierende Karte ein höheres Chakra hat.",
+          "Bei Begegnung Chakra(+4), wenn die rivalisierende Karte ein höheres Chakra hat."
+        ]
+      },
+      "S1_031": {
+        "name": "HINATA HYUGA",
+        "ability": "Schüchtern",
+        "descriptions": [
+          "Bei Einsatz die nächstgelegene Rivalenkarte in Kurzdistanz Schieben(2). Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Einsatz die nächstgelegene Rivalenkarte in Kurzdistanz Schieben(3). Die Ziele befinden sich auf der eigenen Spur."
+        ]
+      },
+      "S1_032": {
+        "name": "HINATA HYUGA",
+        "ability": "Sanfte Faust",
+        "descriptions": [
+          "Bei der ersten Begegnung nur die angetroffene gegnerische Karte Schieben(1), sofern sie höchstens 3 Chakra hat.",
+          "Bei der ersten Begegnung nur die angetroffene gegnerische Karte Schieben(2), sofern sie höchstens 3 Chakra hat."
+        ]
+      },
+      "S1_033": {
+        "name": "KIBA INUZUKA",
+        "ability": "Bester Freund",
+        "descriptions": [
+          "Beschwöre ein zufälliges Akamaru aus deinem Deck und gib ihm Chakra(+1). Falls kein Akamaru vorhanden ist, erhält stattdessen diese Karte Chakra(+1).",
+          "Beschwöre ein zufälliges Akamaru aus deinem Deck und gib ihm Chakra(+2). Falls kein Akamaru vorhanden ist, erhält stattdessen diese Karte Chakra(+2)."
+        ]
+      },
+      "S1_034": {
+        "name": "AKAMARU",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(6s)",
+          "Ansturm(7s)"
+        ]
+      },
+      "S1_035": {
+        "name": "SHINO ABURAME",
+        "ability": "Chakra-Insekten",
+        "descriptions": [
+          "Bei Begegnung Chakra(+2) auf diese Karte und Schwächen(1) auf die rivalisierende Karte.",
+          "Bei Begegnung Chakra(+2) auf diese Karte und Schwächen(2) auf die rivalisierende Karte."
+        ]
+      },
+      "S1_036": {
+        "name": "KURENAI YUHI",
+        "ability": "Finte",
+        "descriptions": [
+          "Bei Begegnung die angetroffene gegnerische Karte Schieben(2) und Festnageln(2s).",
+          "Bei Begegnung die angetroffene gegnerische Karte Schieben(2) und Festnageln(4s)."
+        ]
+      },
+      "S1_037": {
+        "name": "PAKKUN",
+        "ability": "Spitze Nase",
+        "descriptions": [
+          "Ignoriert alle rivalisierenden Fähigkeiten und Begegnungen bis zur Mitteldistanz. Auf dieser Spur eingesetzte Verbündete erhalten Ansturm(+2s), solange diese Karte aktiv ist.",
+          "Ignoriert alle gegnerischen Fähigkeiten und Begegnungen, bis Mitteldistanz erreicht ist. Verbündete erhalten Ansturm(+3s), wenn sie auf dieser Spur eingesetzt werden, während diese Karte aktiv ist."
+        ]
+      },
+      "S1_038": {
+        "name": "AYAME",
+        "ability": "Frische Mahlzeiten",
+        "descriptions": [
+          "Bei Einsatz Chakra(+2) für 2 Spur-Verbündete in Mitteldistanz.",
+          "Bei Einsatz Chakra(+2) für 3 Spur-Verbündete in Mitteldistanz."
+        ]
+      },
+      "S1_039": {
+        "name": "MOEGI KAZAMATSURI",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(2s)",
+          "Ansturm(3s)"
+        ]
+      },
+      "S1_040": {
+        "name": "UDON ISE",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(2s)",
+          "Ansturm(3s)"
+        ]
+      },
+      "S1_041": {
+        "name": "NINJA TROOPS",
+        "ability": "Vorreiter",
+        "descriptions": [
+          "Ansturm(2s). Beim Rückzug Chakra(+3) an den zuletzt eingesetzten Verbündeten.",
+          "Ansturm(3s). Beim Rückzug Chakra(+3) an den zuletzt eingesetzten Verbündeten."
+        ]
+      },
+      "S1_042": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Wehrlos",
+        "descriptions": [
+          "Bei Rückzug die rivalisierende Karte Schwächen(3).",
+          "Bei Rückzug die rivalisierende Karte Schwächen(4)."
+        ]
+      },
+      "S1_043": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Spaßvogel",
+        "descriptions": [
+          "Bei Einsatz alle Karten auf der Spur Verlangsamen(10s).",
+          "Bei Einsatz alle Karten auf der Spur Verlangsamen(12s)."
+        ]
+      },
+      "S1_044": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Sexy Jutsu",
+        "descriptions": [
+          "Bei Einsatz eine rivalisierende Karte in Mitteldistanz Festnageln(4s). Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Einsatz eine Spur-Rivalen in Mitteldistanz Festnageln(5s)."
+        ]
+      },
+      "S1_045": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Einsamkeit",
+        "descriptions": [
+          "Bei Einsatz Chakra(+3) und Verlangsamen(6s) falls keine Spur-Verbündeten da sind.",
+          "Bei Einsatz Chakra(+4) und Verlangsamen(6s) falls keine Spur-Verbündeten da sind."
+        ]
+      },
+      "S1_046": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Abschluss",
+        "descriptions": [
+          "Diese Karte erhält Chakra(+1) für jeden Verbündeten auf der eigenen Spur in Kurzdistanz.",
+          "Diese Karte erhält Chakra(+2) für jeden Verbündeten auf der eigenen Spur in Kurzdistanz."
+        ]
+      },
+      "S1_047": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Verwandlungs-Jutsu",
+        "descriptions": [
+          "Bei Einsatz als andere Karte aus deinem Deck, mit Kosten bis zu 3, tarnen. Verwandelt sich bei Begegnung oder Schwächen wieder ins Original zurück.",
+          "Bei Einsatz als andere Karte aus deinem Deck, mit Kosten bis zu 4, tarnen. Verwandelt sich bei Begegnung oder Schwächen wieder ins Original zurück."
+        ]
+      },
+      "S1_048": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Listig",
+        "descriptions": [
+          "Bei Begegnung rivalisierende Karte Festnageln(4s) und hinter sie Teleportieren.",
+          "Bei Begegnung rivalisierende Karte Festnageln(6s) und hinter sie Teleportieren."
+        ]
+      },
+      "S1_049": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Vorsprung",
+        "descriptions": [
+          "Der nächste Verbündete wird auf Mitteldistanz eingesetzt. Einen zufälligen Gegner auf der eigenen Spur in Mitteldistanz Festnageln(4s) und seine Spur Wechseln.",
+          "Der nächste Verbündete wird auf Mitteldistanz eingesetzt. Einen zufälligen Gegner auf der eigenen Spur in Mitteldistanz Festnageln(8s) und seine Spur Wechseln."
+        ]
+      },
+      "S1_050": {
+        "name": "HIRUZEN SARUTOBI",
+        "ability": "Teleskoptechnik",
+        "descriptions": [
+          "Wenn Verbündete Ansturm erhalten, wende Chakra(+1) und Ansturm(+1s) auf sie an.",
+          "Wenn Verbündete Ansturm erhalten, wende Chakra(+1) und Ansturm(+2s) auf sie an."
+        ]
+      },
+      "S1_051": {
+        "name": "IRUKA UMINO",
+        "ability": "Spaßvogel",
+        "descriptions": [
+          "Zufällig die Spur alle 8 Sekunden Wechseln.",
+          "Zufällig die Spur alle 6 Sekunden Wechseln."
+        ]
+      },
+      "S1_052": {
+        "name": "IRUKA UMINO",
+        "ability": "Opfern",
+        "descriptions": [
+          "Auf Mitteldistanz einsetzen und Chakra(+1) auf den nächsten Verbündeten. Die Ziele befinden sich auf der eigenen Spur.",
+          "Auf Mittelistanz einsetzen und Chakra(+2) auf den nächsten Verbündeten. Die Ziele befinden sich auf der eigenen Spur."
+        ]
+      },
+      "S1_053": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Im Nebel verborgen",
+        "descriptions": [
+          "Bei Einsatz alle Gegner auf der eigenen Spur in Kurzdistanz Festnageln(6s) und Schwächen(1).",
+          "Bei Einsatz alle Gegner auf der eigenen Spur in Kurzdistanz Festnageln(6s) und Schwächen(2)."
+        ]
+      },
+      "S1_054": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Gebrochen",
+        "descriptions": [
+          "Gewinnt beim ersten Mal Chakra(+3), wenn sich ein Spur-Verbündeter zurückzieht.",
+          "Gewinnt beim ersten Mal Chakra(+4), wenn sich ein Spur-Verbündeter zurückzieht."
+        ]
+      },
+      "S1_055": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Imperfekte Sexy Jutsu",
+        "descriptions": [
+          "Bei Einsatz besteht eine 50%ige Chance, dass man eine rivalisierende Karte in Mitteldistanz Festnageln(6s) kann. Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Einsatz besteht eine 50%ige Chance, dass man eine Spur-Rivalen in Mitteldistanz Festnageln(8s) kann."
+        ]
+      },
+      "S1_056": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Vermächtnis",
+        "descriptions": [
+          "Beim Einsatz besteht eine 50%ige Chance, einen zufälligen Hiruzen aus deinem Deck zu Beschwören, andernfalls Chakra(+2).",
+          "Beim Einsatz besteht eine 50%ige Chance, einen zufälligen Hiruzen aus deinem Deck zu Beschwören, andernfalls Chakra(+3)."
+        ]
+      },
+      "S1_057": {
+        "name": "KONOHAMARU SARUTOBI",
+        "ability": "Sexy Jutsu",
+        "descriptions": [
+          "Bei Einsatz eine rivalisierende Karte in Mitteldistanz Festnageln(4s). Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Einsatz eine Spur-Rivalen in Mitteldistanz Festnageln(5s)."
+        ]
+      },
+      "S1_058": {
+        "name": "EBISU",
+        "ability": "Schwierige Lektionen",
+        "descriptions": [
+          "Alle eingesetzten Verbündeten erhalten Chakra(+2), aber Schwächen(1) diese Karte jedes Mal.",
+          "Alle eingesetzten Verbündeten erhalten Chakra(+3), aber Schwächen(1) diese Karte jedes Mal."
+        ]
+      },
+      "S1_059": {
+        "name": "INARI",
+        "ability": "Handeln",
+        "descriptions": [
+          "Bei Einsatz die nächste rivalisierende Karte in weiter Distanz Schwächen(1) und Verlangsamen(6s). Die Ziele befinden sich auf der eigenen Spur.",
+          "Bei Einsatz den nächstgelegenen Spur-Rivalen in weiter Distanz Schwächen(1) und Verlangsamen(8s)."
+        ]
+      },
+      "S1_060": {
+        "name": "GATO",
+        "ability": "Verbrecherboss",
+        "descriptions": [
+          "Bei Einsatz Fokus(6s). Wenn der Fokus gelingt, Beschwöre eine zufällige Karte mit maximalen Kosten von 3 aus deinem Deck.",
+          "Bei Einsatz Fokus(4s). Wenn der Fokus gelingt, Beschwöre eine zufällige Karte mit maximalen Kosten von 3 aus deinem Deck."
+        ]
+      },
+      "S1_061": {
+        "name": "NINJA HOUNDS",
+        "ability": "Reißzahn-Jagd",
+        "descriptions": [
+          "Bei Einsatz sich selbst und den Spur-Rivalen mit dem höchsten Chakra Festnageln(6s).",
+          "Bei Einsatz sich selbst und den Spur-Rivalen mit dem höchsten Chakra Festnageln(8s)."
+        ]
+      },
+      "S1_062": {
+        "name": "TEUCHI",
+        "ability": "Der Weg des Ramen",
+        "descriptions": [
+          "Chakra(+1) für Verbündete in seiner Spur nach 8 Sekunden.",
+          "Chakra(+2) für Verbündete in seiner Spur nach 8 Sekunden."
+        ]
+      },
+      "S1_063": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Bestimmung",
+        "descriptions": [
+          "Wenn sich der verbündete Iruka gerade zurückziehen will, wird er an den Anfang der Spur zurückgezogen und 3 Klone mit Chakra(1) auf alle Spuren verteilt erschaffen.",
+          "Wenn ein verbündeter Iruka sich zurückziehen will, wird er an den Anfang der Spur zurückgezogen und Beschwöre 5 Klone mit Chakra(1), verteilt auf alle Spuren."
+        ]
+      },
+      "S1_064": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Selbstdarstellung",
+        "descriptions": [
+          "Chakra(+5) nach 10 Sekunden.",
+          "Chakra(+6) nach 10 Sekunden."
+        ]
+      },
+      "S1_065": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Sexy Jutsu der Massen",
+        "descriptions": [
+          "Bei Begegnung rivalisierende Karte Festnageln(6s), teleportiere dich hinter sie und Ansturm(2s).",
+          "Bei Begegnung rivalisierende Karte Festnageln(8s), teleportiere dich hinter sie und Ansturm(4s)."
+        ]
+      },
+      "S1_066": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Vorhersage",
+        "descriptions": [
+          "Kann bei Begegnungen mit rivalisierenden Karten mit 2 Chakra oder weniger nicht geschwächt werden.",
+          "Kann bei Begegnungen mit rivalisierenden Karten mit 3 Chakra oder weniger nicht geschwächt werden."
+        ]
+      },
+      "S1_067": {
+        "name": "SAKURA HARUNO",
+        "ability": "Inneres Feuer",
+        "descriptions": [
+          "Beim ersten Einsatz eines Gegners auf der eigenen Spur erhält diese Karte Chakra(+3). Danach erhält sie Chakra(+1), wenn ein Gegner auf dieser Spur eingesetzt wird oder dorthin Wechselt.",
+          "Beim ersten Einsatz eines Gegners auf der eigenen Spur erhält diese Karte Chakra(+3). Danach erhält sie Chakra(+2), wenn ein Gegner auf dieser Spur eingesetzt wird oder dorthin Wechselt."
+        ]
+      },
+      "S1_068": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Tausendjähriger Tod",
+        "descriptions": [
+          "Spring auf die erste rivalisierende Karte, die sich in Reichweite begibt, sie erhält Schwächen(1) und Schieben(3).",
+          "Spring auf die erste rivalisierende Karte, die sich in Reichweite begibt, sie erhält Schwächen(1) und Schieben(4)."
+        ]
+      },
+      "S1_069": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Riesenwirbel-Jutsu",
+        "descriptions": [
+          "Bei Einsatz erhalten alle Spur-Rivalen Schieben(3) und Schwächen(2).",
+          "Bei Einsatz erhalten alle Spur-Rivalen Schieben(3) und Schwächen(3)."
+        ]
+      },
+      "S1_070": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Raikiri",
+        "descriptions": [
+          "Spring auf die erste rivalisierende Karte, die sich in Reichweite begibt, sie erhält Schwächen(3). Ignoriert Wache.",
+          "Spring auf die erste rivalisierende Karte, die sich in Reichweite begibt, sie erhält Schwächen(4). Ignoriert Wache."
+        ]
+      },
+      "S1_071": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Klon-Täuschung",
+        "descriptions": [
+          "Verwende die verbleibende Energie, und Beschwöre bis zu 5 Klone mit Chakra(2), die als das Original getarnt sind.",
+          "Verwende die verbleibende Energie, und Beschwöre bis zu 6 Klone mit Chakra(2), die als das Original getarnt sind."
+        ]
+      },
+      "S1_072": {
+        "name": "IRUKA UMINO",
+        "ability": "Zanken",
+        "descriptions": [
+          "Während diese Karte aktiv ist, Chakra(+1) und Festnageln(2s) für Verbündete mit 2 Chakra beim Einsatz.",
+          "Während diese Karte aktiv ist, Chakra(+2) und Festnageln(2s) für Verbündete mit 2 Chakra, wenn sie eingesetzt werden."
+        ]
+      },
+      "S1_073": {
+        "name": "HIRUZEN SARUTOBI",
+        "ability": "Wille des Feuers",
+        "descriptions": [
+          "Chakra[+1] für alle Verbündeten nach 10 Sekunden.",
+          "Nach 10 Sekunden: Chakra(+2) für alle Verbündeten."
+        ]
+      },
+      "S1_074": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Wasserdrache-Jutsu",
+        "descriptions": [
+          "Bei Einsatz alle Spur-Rivalen in Kurz- und Mitteldistanz Schwächen(1) und Schieben(1).",
+          "Bei Einsatz Schwächen(1) und Schieben(3) für alle Spur-Rivalen in Kurz- und Mitteldistanz."
+        ]
+      },
+      "S1_075": {
+        "name": "HAKU",
+        "ability": "Eiskristallspiegel",
+        "descriptions": [
+          "Bei Begegnung nahe Gegner auf der eigenen Spur Festnageln(2s) und Schwächen(1), dann selbst die Spur Wechseln. Diese Fähigkeit wird bei jedem Chakra-Gewinn wieder aktiviert.",
+          "Bei Begegnung nahe Gegner auf der eigenen Spur Festnageln(4s) und Schwächen(1), dann selbst die Spur Wechseln. Diese Fähigkeit wird bei jedem Chakra-Gewinn wieder aktiviert."
+        ]
+      },
+      "S1_076": {
+        "name": "GAMABUNTA",
+        "ability": "Krötenunterstützung",
+        "descriptions": [
+          "Chakra(+1) immer wenn Verbündete Schieben Rivalen.",
+          "Chakra(+2) immer wenn Verbündete Schieben Rivalen."
+        ]
+      },
+      "S1_077": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Multi-Schattenklon",
+        "descriptions": [
+          "Erstelle auf den anderen Spuren 2 Klone mit Chakra(2) und Ansturm(4s), dann nach 10 Sekunden 2 neue Klone. Chakra(+1) wenn sich diese Klone zurückziehen.",
+          "Beschwöre auf den anderen Spuren 2 Klone mit Chakra(2) und Ansturm(6s), und dann nach 10 s 2 neue Klone. Chakra(+1), wann immer diese Klone sich zurückziehen."
+        ]
+      },
+      "S1_078": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Kyubis Wut",
+        "descriptions": [
+          "Immer wenn sich Verbündete zurückziehen, Chakra(+1) und Ansturm(1s).",
+          "Immer wenn sich Verbündete zurückziehen, Chakra(+2) und Ansturm(1s)."
+        ]
+      },
+      "S1_079": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Wütender Schlag",
+        "descriptions": [
+          "Auf Mitteldistanz einsetzen, alle Spur-Rivalen Schwächen(2) und Schieben(1).",
+          "Auf Mitteldistanz einsetzen, alle Spur-Rivalen Schwächen(2) und Schieben(3)."
+        ]
+      },
+      "S1_080": {
+        "name": "NARUTO UZUMAKI",
+        "ability": "Entschlossenheit",
+        "descriptions": [
+          "Chakra(+2) alle 8 Sekunden.",
+          "Chakra(+2) alle 6 Sekunden."
+        ]
+      },
+      "S1_081": {
+        "name": "SASUKE UCHIHA",
+        "ability": "Feuerball-Jutsu",
+        "descriptions": [
+          "Bei Einsatz erhalten alle Rivalen in Mitteldistanz Schwächen(2).",
+          "Bei Einsatz erhalten alle Rivalen in Mitteldistanz Schwächen(3)."
+        ]
+      },
+      "S1_082": {
+        "name": "KAKASHI HATAKE",
+        "ability": "Schlachtplan",
+        "descriptions": [
+          "Solange diese Karte aktiv ist, erhält sie Chakra(+1), wenn Verbündete Rivalen schwächen. Verbündete erhalten Chakra(+1) für jede betroffene Karte, wenn sie zum ersten Mal Rivalen schwächen.",
+          "Solange diese Karte aktiv ist, erhält sie Chakra(+2), wenn Verbündete Rivalen Schwächen. Verbündete erhalten Chakra(+1) für jede betroffene Karte, wenn sie zum ersten Mal Rivalen Schwächen."
+        ]
+      },
+      "S1_083": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Dämon",
+        "descriptions": [
+          "Bei Einsatz werden alle Karten um Schwächen(1). Haben sie 3 oder weniger Chakra, werden stattdessen alle Karten um Schwächen(3).",
+          "Bei Einsatz werden alle Karten um Schwächen(1). Haben sie 4 oder weniger Chakra, werden stattdessen alle Karten um Schwächen(4)."
+        ]
+      },
+      "S1_084": {
+        "name": "ZABUZA MOMOCHI",
+        "ability": "Rücksichtsloser Angriff",
+        "descriptions": [
+          "Bei jeder Begegnung rivalisierende Karten mit 4 oder weniger Chakra Schwächen(2) und auf eine andere Spur schieben. Permanenter Ansturm.",
+          "Bei jeder Begegnung rivalisierende Karten mit 4 oder weniger Chakra Schwächen(3) und Spur Wechseln. Permanenter Ansturm."
+        ]
+      },
+      "S1_085": {
+        "name": "KYUBI",
+        "ability": "Naturkatastrophe",
+        "descriptions": [
+          "Auf Mitteldistanz einsetzen und alle Karten Schieben(1) und Schwächen(3). Solange diese Karte aktiv ist, neu eingesetzte Karten Schwächen(1). Dauerhaft Verlangsamt.",
+          "Auf Mitteldistanz einsetzen und alle Karten Schieben(1) und Schwächen(4). Solange diese Karte aktiv ist, neu eingesetzte Karten Schwächen(1). Dauerhaft Verlangsamt."
+        ]
+      },
+      "S2_001": {
+        "name": "Naruto Uzumaki",
+        "ability": "Chakra-Training",
+        "descriptions": [
+          "Bei Einsatz besteht eine 50%ige Chance, Chakra(+3).",
+          "Bei Einsatz besteht eine 50%ige Chance, Chakra(+4)."
+        ]
+      },
+      "S2_002": {
+        "name": "Naruto Uzumaki",
+        "ability": "Herausforderer",
+        "descriptions": [
+          "Bei Einsatz Festnageln(1s) und Chakra(+2) für jeden Spur-Rivalen mit höherem Chakra.",
+          "Bei Einsatz Festnageln(2s) und Chakra(+2) für jeden Spur-Rivalen mit höherem Chakra."
+        ]
+      },
+      "S2_003": {
+        "name": "Sasuke Uchiha",
+        "ability": "Barriere des Löwen",
+        "descriptions": [
+          "Spring auf die erste rivalisierende Karte, die sich in Reichweite begibt, sie erhält Schwächen(2).",
+          "Spring auf die erste rivalisierende Karte, die sich in Reichweite begibt, sie erhält Schwächen(3)."
+        ]
+      },
+      "S2_004": {
+        "name": "Sakura Haruno",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(2s)",
+          "Ansturm(3s)"
+        ]
+      },
+      "S2_005": {
+        "name": "Rock Lee",
+        "ability": "Beschützer",
+        "descriptions": [
+          "Ansturm(+3s), wann immer ein Rivale auf dieser Spur eingesetzt wird.",
+          "Ansturm(+4s), wann immer ein Rivale auf dieser Spur eingesetzt wird."
+        ]
+      },
+      "S2_006": {
+        "name": "Rock Lee",
+        "ability": "Liebesbombe",
+        "descriptions": [
+          "Chakra(+1) für den nächsten eingesetzten Verbündeten. Während diese Karte aktiv ist, die Spur dieses Verbündeten alle 8 Sekunden Wechseln.",
+          "Chakra(+2) für den nächsten eingesetzten Verbündeten. Während diese Karte aktiv ist, die Spur dieses Verbündeten alle 8 Sekunden Wechseln."
+        ]
+      },
+      "S2_007": {
+        "name": "Neji Hyuga",
+        "ability": "Sanfte Faust",
+        "descriptions": [
+          "Bei der Begegnung Schwächen(2) und Schieben(1).",
+          "Bei der Begegnung Schwächen(2) und Schieben(2)."
+        ]
+      },
+      "S2_008": {
+        "name": "Tenten",
+        "ability": "Steigende Zwillingsdrachen",
+        "descriptions": [
+          "Bei Einsatz alle Rivalen in weiter Distanz Schwächen(1)und Verlangsamen(6s).",
+          "Bei Einsatz alle Rivalen in weiter Distanz Schwächen(1) und Verlangsamen(8s)."
+        ]
+      },
+      "S2_009": {
+        "name": "Gai Maito",
+        "ability": "Macht der Jugend",
+        "descriptions": [
+          "Während diese Karte aktiv ist, Chakra(+2) für Rock Lee-Karten, wenn sie eingesetzt werden.",
+          "Während diese Karte aktiv ist, Chakra(+3) für Rock Lee-Karten, wenn sie eingesetzt werden."
+        ]
+      },
+      "S2_010": {
+        "name": "Gaara",
+        "ability": "Gefährlich",
+        "descriptions": [
+          "Einsatz auf Mitteldistanz, Chakra(+3), wenn es eine rivalisierende Karte in Mitteldistanz gibt.",
+          "Einsatz auf Mitteldistanz, Chakra(+4), wenn es eine rivalisierende Karte in Mitteldistanz gibt."
+        ]
+      },
+      "S2_011": {
+        "name": "Kankuro",
+        "ability": "Dreist",
+        "descriptions": [
+          "Chakra(+3) für den nächsten eingesetzten Gaara.",
+          "Chakra(+4) für den nächsten eingesetzten Gaara."
+        ]
+      },
+      "S2_012": {
+        "name": "Temari",
+        "ability": "Vorsichtig",
+        "descriptions": [
+          "Wache(1) und Verlangsamen(6s) für den nächsten eingesetzten verbündeten Gaara.",
+          "Wache(1) und Verlangsamen(10s) für den nächsten eingesetzten verbündeten Gaara."
+        ]
+      },
+      "S2_013": {
+        "name": "Baki",
+        "ability": "Robust",
+        "descriptions": [
+          "Ansturm(3s) und Wache(1).",
+          "Ansturm(4s) und Wache(1)."
+        ]
+      },
+      "S2_014": {
+        "name": "Ino Yamanaka",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(2s)",
+          "Ansturm(3s)"
+        ]
+      },
+      "S2_015": {
+        "name": "Kabuto Yakushi",
+        "ability": "Erläuterung",
+        "descriptions": [
+          "Bei Einsatz erhalten alle Verbündeten in Kurzdistanz zufällig Chakra(+1) oder Festnageln(4s).",
+          "Bei Einsatz erhalten alle Verbündeten in Kurzdistanz zufällig Chakra(+2) oder Festnageln(4s)."
+        ]
+      },
+      "S2_016": {
+        "name": "Student Trio",
+        "ability": "Team Konohamaru",
+        "descriptions": [
+          "Beim Rückzug erneuter Einsatz als Konohamaru, Moegi und Udon mit Ansturm(3s) und Chakra(1) auf jeder Spur.",
+          "Beim Rückzug erneuter Einsatz als Konohamaru, Moegi und Udon mit Ansturm(4s) und Chakra(1) auf jeder Spur."
+        ]
+      },
+      "S2_017": {
+        "name": "Ibiki Morino",
+        "ability": "Strenge Regeln",
+        "descriptions": [
+          "Bei Einsatz Schieben(2)- oder Festnageln(4s). alle Spur-Rivalen.",
+          "Bei Einsatz Schieben(3)- oder Festnageln(5s). alle Spur-Rivalen."
+        ]
+      },
+      "S2_018": {
+        "name": "Choza Akimichi",
+        "ability": "Alte Freunde",
+        "descriptions": [
+          "Während diese Karte aktiv ist, Chakra(+1) auf verbündete Shikaku- und Inoichi-Karten.",
+          "Während diese Karte aktiv ist, Chakra(+2) auf verbündete Shikaku- und Inoichi-Karten."
+        ]
+      },
+      "S2_019": {
+        "name": "Inoichi Yamanaka",
+        "ability": "Alte Freunde",
+        "descriptions": [
+          "Während diese Karte aktiv ist, Chakra(+1) auf verbündete Choza- und Shikaku-Karten.",
+          "Während diese Karte aktiv ist, Chakra(+2) auf verbündete Choza- und Shikaku-Karten."
+        ]
+      },
+      "S2_020": {
+        "name": "Shikaku Nara",
+        "ability": "Alte Freunde",
+        "descriptions": [
+          "Während diese Karte aktiv ist, Chakra(+1) auf verbündete Inoichi- und Choza-Karten.",
+          "Während diese Karte aktiv ist, Chakra(+2) auf verbündete Inoichi- und Choza-Karten."
+        ]
+      },
+      "S2_021": {
+        "name": "Hanabi Hyuga",
+        "ability": "Wunder",
+        "descriptions": [
+          "Ansturm(2s). Bei Begegnung Schieben(2).",
+          "Ansturm(3s). Bei Begegnung Schieben(3)."
+        ]
+      },
+      "S2_022": {
+        "name": "Hiashi Hyuga",
+        "ability": "Hyuga-Anführer",
+        "descriptions": [
+          "Solange diese Karte aktiv ist, erhalten verbündete Hyuga-Karten Chakra(+2) und Schieben(1). Schieben erhöht keinen bereits vorhandenen Wert.",
+          "Solange diese Karte aktiv ist, erhalten verbündete Hyuga-Karten Chakra(+3) und Schieben(1). Schieben erhöht keinen bereits vorhandenen Wert."
+        ]
+      },
+      "S2_023": {
+        "name": "Hizashi Hyuga",
+        "ability": "Das Opfer des Bruders",
+        "descriptions": [
+          "Ansturm(2s). Wenn ein verbündeter Hiashi sich zurückziehen würde, wird er an den Spuranfang zurückgezogen. Diese Karte zieht sich stattdessen zurück.",
+          "Ansturm(3s). Wenn ein verbündeter Hiashi sich zurückziehen würde, wird er an den Spuranfang zurückgezogen. Diese Karte zieht sich stattdessen zurück."
+        ]
+      },
+      "S2_024": {
+        "name": "Zaku Abumi",
+        "ability": "Schneidende Schallwellen",
+        "descriptions": [
+          "Bei Einsatz zwei rivalisierende Karten in Mitteldistanz Schieben(2) und Spur Wechseln.",
+          "Bei Einsatz Schieben(2) und Wechsel der Spur bei drei rivalisierenden Karten in Mitteldistanz."
+        ]
+      },
+      "S2_025": {
+        "name": "Dosu Kinuta",
+        "ability": "Resonierende Echo-Übung",
+        "descriptions": [
+          "Bei der Begegnung Schwächen(2) auf die rivalisierende Karte. Wenn der Rivale sich nicht zurückzieht, Festnageln(4s), dann SpurWechseln.",
+          "Bei der Begegnung Schwächen(2) auf die rivalisierende Karte. Wenn der Rivale sich nicht zurückzieht, Festnageln(5s), dann SpurWechseln."
+        ]
+      },
+      "S2_026": {
+        "name": "Kin Tsuchi",
+        "ability": "Glockennadeln",
+        "descriptions": [
+          "Bei Bereitstellung Schwächen(1) und Festnageln(2s) auf nächste rivalisierende Karte.",
+          "Bei Bereitstellung Schwächen(2) und Festnageln(2s) auf nächste rivalisierende Karte."
+        ]
+      },
+      "S2_027": {
+        "name": "Izumo Kamizuki",
+        "ability": "Sabotage",
+        "descriptions": [
+          "Bei Einsatz Festnageln(2s) auf zwei zufällige Spur-Verbündete.",
+          "Bei Einsatz Festnageln(2s) auf drei zufällige Spur-Verbündete."
+        ]
+      },
+      "S2_028": {
+        "name": "Kotetsu Hagane",
+        "ability": "Fehlleitung",
+        "descriptions": [
+          "Bei Einsatz 2 zufällige Verbündete Verlangsamen(4s) und Spur Wechseln.",
+          "Bei Einsatz Verlangsamen(4s) und Wechsel der Spur bei drei zufälligen Verbündeten."
+        ]
+      },
+      "S2_029": {
+        "name": "Oboro",
+        "ability": "Nebelklon",
+        "descriptions": [
+          "Bei Einsatz 2 Klone mit Chakra(1) erstellen. Wenn sich Klone zurückziehen, besteht 50% Chance, einen weiteren Klon auf derselben Spur zu erstellen.",
+          "Bei Einsatz Beschwöre 2 Klone mit Chakra(2). Wenn sich Klone zurückziehen, besteht 50% Chance, einen weiteren Klon auf derselben Spur zu erstellen."
+        ]
+      },
+      "S2_030": {
+        "name": "Yoroi Akado",
+        "ability": "Chakra-Absorption",
+        "descriptions": [
+          "Bei Begegnung, Chakra(+1) auf diese Karte und Schwächen(1) auf rivalisierende Karte. Deaktiviert auch jede aktive Fähigkeit.",
+          "Bei Begegnung, Chakra(+2) auf diese Karte und Schwächen(1) auf rivalisierende Karte. Deaktiviert auch jede aktive Fähigkeit."
+        ]
+      },
+      "S2_031": {
+        "name": "Ningame",
+        "ability": "Mäßigkeit",
+        "descriptions": [
+          "Wann immer Spur-Verbündete Ansturm erhalten, wird es stattdessen in Chakra(+1) umgewandelt.",
+          "Wann immer Spur-Verbündete Ansturm erhalten, wird es stattdessen in Chakra(+2) umgewandelt."
+        ]
+      },
+      "S2_032": {
+        "name": "Gama",
+        "ability": "Krötenrolle",
+        "descriptions": [
+          "Bei Einsatz Beschwören einer zufälligen Kröte von deinem Deck und Chakra(+1).",
+          "Bei Einsatz Beschwören einer zufälligen Kröte von deinem Deck und Chakra(+2)."
+        ]
+      },
+      "S2_033": {
+        "name": "Gamakichi",
+        "ability": "Großmaul",
+        "descriptions": [
+          "Verbündete Kröten wenden Schieben(1) bei Begegnung an, während diese Karte aktiv ist. Chakra(+1), wenn eine Kröte einen Rivalen schiebt.",
+          "Verbündete Kröten wenden Schieben(2) bei Begegnung an, während diese Karte aktiv ist. Chakra(+1), wann immer eine Kröte einen Rivalen schiebt."
+        ]
+      },
+      "S2_034": {
+        "name": "Giant Snake",
+        "ability": "Schlittern",
+        "descriptions": [
+          "Auf Mitteldistanz einsetzen und zwei beliebige andere Karten in Mitteldistanz die Spur Wechseln lassen.",
+          "Wird in Mitteldistanz eingesetzt und Wechsel der Spur bei 3 anderen Karten in Mitteldistanz."
+        ]
+      },
+      "S2_035": {
+        "name": "Raido Namiashi",
+        "ability": "Leibwächter",
+        "descriptions": [
+          "Ansturm(2s). Wenn ein verbündeter Hiruzen sich zurückziehen würde, wird er an den Spuranfang zurückgezogen. Diese Karte zieht sich stattdessen zurück.",
+          "Ansturm(3s). Wenn ein verbündeter Hiruzen sich zurückziehen würde, wird er an den Spuranfang zurückgezogen. Diese Karte zieht sich stattdessen zurück."
+        ]
+      },
+      "S2_036": {
+        "name": "Homura Mitokado",
+        "ability": "Beruhigung",
+        "descriptions": [
+          "Der nächste eingesetzte Verbündete erhält Wache(1) und Chakra(+1).",
+          "Der nächste eingesetzte Verbündete erhält Wache(1) und Chakra(+2)."
+        ]
+      },
+      "S2_037": {
+        "name": "Koharu Utatane",
+        "ability": "Sicherheit",
+        "descriptions": [
+          "Setze nach 10 Sekunden Anbu Black Ops ein.",
+          "Setze nach 8 Sekunden Anbu Black Ops ein."
+        ]
+      },
+      "S2_038": {
+        "name": "Genma Shiranui",
+        "ability": "Aufseher",
+        "descriptions": [
+          "Bei Einsatz Fokus(6s). Wenn der Fokus gelingt, Beschwöre eine zufällige Karte mit Kosten bis zu 4 aus deinem Deck. Falls sie 3 oder weniger Chakra hat, erhält sie Chakra(+2).",
+          "Bei Einsatz Fokus(4s). Wenn der Fokus gelingt, Beschwöre eine zufällige Karte mit maximalen Kosten von 4 aus deinem Deck. Hat sie 3 oder weniger Chakra, gewähre ihr Chakra(+2)."
+        ]
+      },
+      "S2_039": {
+        "name": "Genma Shiranui",
+        "ability": "Alarm",
+        "descriptions": [
+          "Bei Einsatz, Schwächen(3) bei einem Spur-Rivalen in Mitteldistanz.",
+          "Bei Einsatz, Schwächen(3) bei zwei Spur-Rivalen in Mitteldistanz."
+        ]
+      },
+      "S2_040": {
+        "name": "Yashamaru",
+        "ability": "Widerwillige Pflicht",
+        "descriptions": [
+          "Bei Rückzug Schwächen(3) auf alle Karten in der Nähe.",
+          "Bei Rückzug Schwächen(4) auf alle Karten in der Nähe."
+        ]
+      },
+      "S2_041": {
+        "name": "Karura",
+        "ability": "Mutterliebe",
+        "descriptions": [
+          "Bei Einsatz Chakra(+2) und Verlangsamen(3s) auf verbündete Gaara-Karten.",
+          "Bei Einsatz Chakra(+2) und Verlangsamen(5s) auf verbündete Gaara-Karten."
+        ]
+      },
+      "S2_042": {
+        "name": "Yugao Uzuki",
+        "ability": "Rachsüchtiger Eid",
+        "descriptions": [
+          "Ansturm(3s). Wache(1). Bei Begegnung Schwächen(2).",
+          "Ansturm(4s). Wache(1). Bei Begegnung Schwächen(2)."
+        ]
+      },
+      "S2_043": {
+        "name": "Hana Inuzuka",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(4s)",
+          "Ansturm(5s)"
+        ]
+      },
+      "S2_044": {
+        "name": "Tsume Inuzuka",
+        "ability": "Führe die Ladung",
+        "descriptions": [
+          "Ansturm(4s). Der nächste eingesetzte Verbündete erhält Ansturm(+3s) und Chakra(+1).",
+          "Ansturm(4s). Der nächste eingesetzte Verbündete erhält Ansturm(+3s) und Chakra(+2)."
+        ]
+      },
+      "S2_045": {
+        "name": "Shibi Aburame",
+        "ability": "Rechtzeitige Hilfe",
+        "descriptions": [
+          "Ansturm(5s). Chakra(+1) auf Verbündete, wenn sie sie erreichen.",
+          "Ansturm(6s). Chakra(+1) auf Verbündete, wenn sie sie erreichen."
+        ]
+      },
+      "S2_046": {
+        "name": "Jirobo",
+        "ability": "Süden",
+        "descriptions": [
+          "Nächster eingesetzter Orochimaru erhält Chakra(+3).",
+          "Nächster eingesetzter Orochimaru erhält Chakra(+4)."
+        ]
+      },
+      "S2_047": {
+        "name": "Kidomaru",
+        "ability": "Ost",
+        "descriptions": [
+          "Nächster eingesetzter Orochimaru erhält Ansturm(+4s).",
+          "Nächster eingesetzter Orochimaru erhält Ansturm(+5s)."
+        ]
+      },
+      "S2_048": {
+        "name": "Sakon",
+        "ability": "Westen",
+        "descriptions": [
+          "Nächster eingesetzter Orochimaru wendet Schwächen(3) auf die nächste rivalisierende Karte an.",
+          "Nächster eingesetzter Orochimaru wendet Schwächen(4) auf die nächste rivalisierende Karte an."
+        ]
+      },
+      "S2_049": {
+        "name": "Tayuya",
+        "ability": "Norden",
+        "descriptions": [
+          "Der nächste eingesetzte Orochimaru erhält Wache(1).",
+          "Der nächste eingesetzte Orochimaru erhält Wache(2)."
+        ]
+      },
+      "S2_050": {
+        "name": "Anbu",
+        "ability": "Black Ops",
+        "descriptions": [
+          "Bei Einsatz, erhalte zufällig Chakra(+2) oder Ansturm(4s).",
+          "Bei Einsatz, erhalte zufällig Chakra(+3) oder Ansturm(5s)."
+        ]
+      },
+      "S2_051": {
+        "name": "Naruto Uzumaki",
+        "ability": "Unterbrecher des Schicksals",
+        "descriptions": [
+          "Wache(2). Wenn Wache auslöst, Ansturm(2s) neu starten, ohne die Restdauer zu addieren. Wenn Ansturm endet, selbst die Spur Wechseln.",
+          "Wache(3). Wenn Wache auslöst, Ansturm(2s) neu starten, ohne die Restdauer zu addieren. Wenn Ansturm endet, selbst die Spur Wechseln."
+        ]
+      },
+      "S2_052": {
+        "name": "Sakura Haruno",
+        "ability": "Standhaft",
+        "descriptions": [
+          "Bei Begegnung, Schwächen(1) der rivalisierenden Karte und Wache(1).",
+          "Bei Begegnung, Schwächen(1) der rivalisierenden Karte und Wache(2)."
+        ]
+      },
+      "S2_053": {
+        "name": "Rock Lee",
+        "ability": "Laub-Wirbelwind",
+        "descriptions": [
+          "Bei Begegnung erhält die rivalisierende Karte Schieben(1) und Schwächen(2).",
+          "Bei Begegnung erhält die rivalisierende Karte Schieben(2) und Schwächen(2)."
+        ]
+      },
+      "S2_054": {
+        "name": "Neji Hyuga",
+        "ability": "Byakugan",
+        "descriptions": [
+          "Bei Einsatz, das Chakra der nächsten rivalisierenden Karte auf die Hälfte reduzieren und Ansturm(2s) erhalten.",
+          "Bei Einsatz, das Chakra der nächsten rivalisierenden Karte auf die Hälfte reduzieren und Ansturm(4s) erhalten."
+        ]
+      },
+      "S2_055": {
+        "name": "Neji Hyuga",
+        "ability": "Last des Schicksals",
+        "descriptions": [
+          "Immer wenn diese Karte Chakra erhält, Chakra(+1) erhalten. Kann insgesamt nicht mehr als 10 Chakra haben.",
+          "Immer wenn diese Karte Chakra erhält, Chakra(+2) erhalten. Kann insgesamt nicht mehr als 10 Chakra haben."
+        ]
+      },
+      "S2_056": {
+        "name": "Gai Maito",
+        "ability": "Verweis",
+        "descriptions": [
+          "Einsatz auf Mitteldistanz, Chakra(+2) und Festnageln(2s) des nächsten Spur-Verbündeten.",
+          "Einsatz auf Mitteldistanz, Chakra(+2) und Festnageln(6s) des nächsten Spur-Verbündeten."
+        ]
+      },
+      "S2_057": {
+        "name": "Choji Akimichi",
+        "ability": "Menschlicher Felsbrocken",
+        "descriptions": [
+          "Ansturm(3s). Bei jeder Begegnung Schieben(2) und Schwächen(1), wenn Ansturm aktiv ist.",
+          "Ansturm(4s). Bei jeder Begegnung Schieben(2) und Schwächen(1), wenn Ansturm aktiv ist."
+        ]
+      },
+      "S2_058": {
+        "name": "Ino Yamanaka",
+        "ability": "Gedankenübertragung",
+        "descriptions": [
+          "Bei Einsatz Fokus(8s) und übernimm die Kontrolle über den Spur-Rivalen in Mitteldistanz mit dem höchsten Chakra. Nach Ende des Fokus geht die Kontrolle über die Karte an deinen Rivalen zurück.",
+          "Bei Einsatz Fokus(12s) und die Kontrolle über den Spur-Rivalen in Mitteldistanz mit dem höchsten Chakra übernehmen. Endet der Fokus, gib die Kontrolle über die Karte an deinen Rivalen zurück."
+        ]
+      },
+      "S2_059": {
+        "name": "Hinata Hyuga",
+        "ability": "Ablenken",
+        "descriptions": [
+          "Bei Begegnung, Schieben(1) und Spur der rivalisierenden Karte wechseln.",
+          "Bei Begegnung, Schieben(2) und Spur der rivalisierenden Karte Wechseln."
+        ]
+      },
+      "S2_060": {
+        "name": "Gaara",
+        "ability": "Sandschild",
+        "descriptions": [
+          "Wache(2). Wenn Wache aktiviert wird, Chakra(+1).",
+          "Wache(3). Wenn Wache aktiviert wird, Chakra(+1)."
+        ]
+      },
+      "S2_061": {
+        "name": "Temari",
+        "ability": "Riesiger Ventilator",
+        "descriptions": [
+          "Wache(2). Bei Einsatz und wenn Wache aktiviert wird, Schieben(2) bei allen Spur-Rivalen.",
+          "Wache(3). Bei Einsatz und wenn Wache aktiviert wird, Schieben(3) für alle Spur-Rivalen."
+        ]
+      },
+      "S2_062": {
+        "name": "Anko Mitarashi",
+        "ability": "Auffallende Schattenschlangen",
+        "descriptions": [
+          "Bei Einsatz Schwächen(2) und Festnageln(4s) einer Spur-Rivalen in Mitteldistanz.",
+          "Bei Einsatz Schwächen(2) und Festnageln(4s) zwei Spur-Rivalen in Mitteldistanz."
+        ]
+      },
+      "S2_063": {
+        "name": "Choza Akimichi",
+        "ability": "Körperausdehnung",
+        "descriptions": [
+          "Bei Begegnung erhält die rivalisierende Karte Schieben(3) und Schwächen(2).",
+          "Bei Begegnung erhält die rivalisierende Karte Schieben(3) und Schwächen(3)."
+        ]
+      },
+      "S2_064": {
+        "name": "Inoichi Yamanaka",
+        "ability": "Zerstörung des Geistes",
+        "descriptions": [
+          "Bei Einsatz Fokus(10s) und übernimm die Kontrolle über den nächsten Spur-Rivalen in Mitteldistanz, Verlangsamt(10s) ihn und deaktiviert dauerhaft alle aktiven Fähigkeiten. Nach Ende des Fokus geht die Kontrolle über die Karte an deinen Rivalen zurück.",
+          "Bei Einsatz Fokus(14s) und die Kontrolle über den nächsten Spur-Rivalen in Mitteldistanz übernehmen, ihn Verlangsamen(10s) und alle aktiven Fähigkeiten des Gegners dauerhaft deaktivieren. Endet der Fokus, gib die Kontrolle über die Karte an deinen Rivalen zurück."
+        ]
+      },
+      "S2_065": {
+        "name": "Shikaku Nara",
+        "ability": "Schattenlähmung",
+        "descriptions": [
+          "Bei Einsatz Festnageln(10s) sich selbst und zwei Spur-Rivalen in weiter Distanz.",
+          "Bei Einsatz Festnageln(12s) bei sich selbst und zwei Spur-Rivalen in weiter Distanz."
+        ]
+      },
+      "S2_066": {
+        "name": "Jiraiya",
+        "ability": "Pervy-Salbei",
+        "descriptions": [
+          "Alle 10 Sekunden zufälliger Wechsel der Spur.",
+          "Alle 8 Sekunden zufälliger Wechsel der Spur."
+        ]
+      },
+      "S2_067": {
+        "name": "Orochimaru",
+        "ability": "Machenschaften",
+        "descriptions": [
+          "Bem Einsatz und beim Zurückziehen Schwächen(1) auf bis zu 4 beliebige Karten.",
+          "Bem Einsatz und beim Zurückziehen Schwächen(1) auf bis zu 6 beliebige Karten."
+        ]
+      },
+      "S2_068": {
+        "name": "Hashirama Senju",
+        "ability": "Edo-Reanimation",
+        "descriptions": [
+          "Wenn unter dem Basis-Chakra, Chakra(+1) alle 4 Sekunden bis das Basis-Chakra wieder erreicht wird.",
+          "Wenn unter dem Basis-Chakra, Chakra(+1) alle 3 Sekunden bis das Basis-Chakra wieder erreicht wird."
+        ]
+      },
+      "S2_069": {
+        "name": "Tobirama Senju",
+        "ability": "Edo-Reanimation",
+        "descriptions": [
+          "Wenn unter dem Basis-Chakra, Chakra(+1) alle 4 Sekunden bis das Basis-Chakra wieder erreicht wird.",
+          "Wenn unter dem Basis-Chakra, Chakra(+1) alle 3 Sekunden bis das Basis-Chakra wieder erreicht wird."
+        ]
+      },
+      "S2_070": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Der Dritte",
+        "descriptions": [
+          "Bei Begegnung, Chakra(+2). Beim Zurückziehen Chakra(+2) für alle Verbündeten.",
+          "Bei Begegnung, Chakra(+3). Beim Zurückziehen Chakra(+2) für alle Verbündeten."
+        ]
+      },
+      "S2_071": {
+        "name": "Hayate Gekko",
+        "ability": "Halbmondtanz",
+        "descriptions": [
+          "Bei Begegnung dreimal Schwächen(1). Wenn der Rivale sich nicht zurückzieht, auch Schieben(2).",
+          "Bei Begegnung dreimal Schwächen(1). Wenn der Rivale sich nicht zurückzieht, auch Schieben(3)."
+        ]
+      },
+      "S2_072": {
+        "name": "Ibiki Morino",
+        "ability": "Verhör",
+        "descriptions": [
+          "Bei Einsatz Schwächen(1) und Verlangsamen(4s) aller Karten.",
+          "Bei Einsatz Schwächen(1) und Verlangsamen(6s) aller Karten."
+        ]
+      },
+      "S2_073": {
+        "name": "Gamahiro",
+        "ability": "Gewicht",
+        "descriptions": [
+          "Bei Einsatz Chakra(+2) für jede verbündete Kröte. Dauerhaft Verlangsamt.",
+          "Bei Einsatz Chakra(+3) für jede verbündete Kröte. Dauerhaft Verlangsamt."
+        ]
+      },
+      "S2_074": {
+        "name": "Sasuke Uchiha",
+        "ability": "Chidori",
+        "descriptions": [
+          "Bei Begegnung durch Rivalen in der Nähe springen, Schwächen(2) bei jedem von ihnen. Ignoriert Wache.",
+          "Bei Begegnung durch Rivalen in der Nähe springen, Schwächen(3) bei jedem von ihnen. Ignoriert Wache."
+        ]
+      },
+      "S2_075": {
+        "name": "Rock Lee",
+        "ability": "Schwerelos",
+        "descriptions": [
+          "Ansturm(3s). Bei jeder Begegnung, wenn die rivalisierende Karte ein höheres Chakra hat, Schieben(1) und Schwächen(2), dann SpurWechseln.",
+          "Ansturm(3s). Bei jeder Begegnung, wenn die rivalisierende Karte ein höheres Chakra hat, Schieben(2) und Schwächen(2), dann SpurWechseln."
+        ]
+      },
+      "S2_076": {
+        "name": "Neji Hyuga",
+        "ability": "Rotation",
+        "descriptions": [
+          "Bei Begegnung, Schieben(2) und Schwächen(3) bei allen rivalisierenden Karten in der Nähe.",
+          "Bei Begegnung, Schieben(4) und Schwächen(3) bei allen rivalisierenden Karten in der Nähe."
+        ]
+      },
+      "S2_077": {
+        "name": "Kiba Inuzuka",
+        "ability": "Mann-Biest-Klon",
+        "descriptions": [
+          "Der nächste eingesetzte Akamaru wird zu einer vollständigen Kopie dieser Karte mit Ansturm(4s).",
+          "Der nächste eingesetzte Akamaru wird zu einer vollständigen Kopie dieser Karte mit Ansturm(5s)."
+        ]
+      },
+      "S2_078": {
+        "name": "Shikamaru Nara",
+        "ability": "Shogi-Meister",
+        "descriptions": [
+          "Bei Einsatz selbst Festnageln(10s) und Chakra(+3) erhalten. Während diese Karte aktiv ist, erhalten andere verbündete Karten Chakra(+3), wenn du sie Festnagelst oder sie sich Fokussieren.",
+          "Bei Einsatz sich selbst Festnageln(12s) und Chakra(+4) erhalten. Während diese Karte aktiv ist, erhalten andere verbündete Karten Chakra(+3), sooft du sie Festnagelst oder sie Fokus erhalten."
+        ]
+      },
+      "S2_079": {
+        "name": "Asuma Sarutobi",
+        "ability": "Chakra-Klingen",
+        "descriptions": [
+          "Bei jeder Begegnung, Schwächen(1). Wenn diese Karte bewirkt, dass sich ein Rivale zurückzieht, Ansturm(+1s).",
+          "Bei jeder Begegnung, Schwächen(2). Wenn diese Karte bewirkt, dass sich ein Rivale zurückzieht, Ansturm(+1s)."
+        ]
+      },
+      "S2_080": {
+        "name": "Gaara",
+        "ability": "Instabil",
+        "descriptions": [
+          "Bei Einsatz Schwächen(2) und Verlangsamen(6s) auf alle Karten auf der Spur.",
+          "Bei Einsatz Schwächen(2) und Verlangsamen(8s) auf alle Karten auf der Spur."
+        ]
+      },
+      "S2_081": {
+        "name": "Gaara",
+        "ability": "Blutdurst",
+        "descriptions": [
+          "Chakra(+1), wenn verbündete Karten andere Karten Schwächen.",
+          "Chakra(+2), wenn verbündete Karten andere Karten Schwächen."
+        ]
+      },
+      "S2_082": {
+        "name": "Kankuro",
+        "ability": "Marionettenangriff",
+        "descriptions": [
+          "Die erste nahe gegnerische Karte Schwächen(3) und Verlangsamen(2s). Zieht sie sich nicht zurück, ihre Spur Wechseln. Wenn ein anderer Verbündeter einen Gegner zum Spurwechsel bringt, erhält diese Karte Chakra(+1) und aktiviert diese Fähigkeit erneut.",
+          "Die erste nahe gegnerische Karte Schwächen(3) und Verlangsamen(5s). Zieht sie sich nicht zurück, ihre Spur Wechseln. Wenn ein anderer Verbündeter einen Gegner zum Spurwechsel bringt, erhält diese Karte Chakra(+1) und aktiviert diese Fähigkeit erneut."
+        ]
+      },
+      "S2_083": {
+        "name": "Jiraya",
+        "ability": "Krötensalbei",
+        "descriptions": [
+          "Chakra(+3) für verbündete Kröten, während diese Karte aktiv ist.",
+          "Chakra(+4) für verbündete Kröten, während diese Karte aktiv ist."
+        ]
+      },
+      "S2_084": {
+        "name": "Orochimaru",
+        "ability": "Verrat",
+        "descriptions": [
+          "Ignoriere alle rivalisierenden Fähigkeiten und Begegnungen. In mittlerer Distanz Chakra(+2) und du wirst verwundbar.",
+          "Ignoriere alle rivalisierenden Fähigkeiten und Begegnungen. In mittlerer Distanz Chakra(+3) und du wirst verwundbar."
+        ]
+      },
+      "S2_085": {
+        "name": "Orochimaru",
+        "ability": "Kusanagi",
+        "descriptions": [
+          "Bei jeder Begegnung Schwächen(2). Bei jedem Wechsel einer rivalisierenden Karte auf eine andere Spur, Wechsel auf dieselbe Spur und Wache(1).",
+          "Bei jeder Begegnung Schwächen(3). Bei jedem Wechsel der Spur von rivalisierende Karten, Wechsel auf dieselbe Spur und Wache(1)."
+        ]
+      },
+      "S2_086": {
+        "name": "Orochimaru",
+        "ability": "Edo Tensei",
+        "descriptions": [
+          "Bei Einsatz, Schwächen(2) von zwei Verbündeten mit dem niedrigsten Chakra. Für jeden Rückzug Beschwören von Edo Hashirama und Tobirama von deinem Deck, was ihnen Ansturm(3s) gewährt.",
+          "Bei Einsatz, Schwächen(2) von zwei Verbündeten mit dem niedrigsten Chakra. Für jeden Rückzug Beschwören von Edo Hashirama und Tobirama von deinem Deck, was ihnen Ansturm(5s) gewährt."
+        ]
+      },
+      "S2_087": {
+        "name": "Hashirama Senju",
+        "ability": "Tiefwald-Entstehung",
+        "descriptions": [
+          "Bei Einsatz, Festnageln(12s), für alle rivalisierenden Karten.",
+          "Bei Einsatz, Festnageln(14s), für alle rivalisierenden Karten."
+        ]
+      },
+      "S2_088": {
+        "name": "Tobirama Senju",
+        "ability": "Wasserstoßwelle",
+        "descriptions": [
+          "Bei Einsatz Schwächen(2) und Verlangsamen(4s) für alle rivalisierenden Karten.",
+          "Bei Einsatz Schwächen(2) und Verlangsamen(8s) für alle rivalisierenden Karten."
+        ]
+      },
+      "S2_089": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Feuerdrachenbomben",
+        "descriptions": [
+          "Bei Einsatz Schwächen(3) und Brennen(4) auf die nächste rivalisierende Karte.",
+          "Bei Einsatz Schwächen(3) und Brennen(5) für die nächste rivalisierende Karte."
+        ]
+      },
+      "S2_090": {
+        "name": "Enma",
+        "ability": "Affenkönig",
+        "descriptions": [
+          "Chakra(+1) für Verbündete, bei Spur-Wechsel.",
+          "Chakra(+2) für Verbündete, bei Spur-Wechsel."
+        ]
+      },
+      "S2_091": {
+        "name": "Naruto Uzumaki",
+        "ability": "Wille zum Schutz",
+        "descriptions": [
+          "Wenn diese Karte zum ersten Mal unter das Basis-Chakra fällt, Chakra(+4) und Ansturm(3s). Bei Rückzug erhöht sich das Basis-Chakra dauerhaft um 2.",
+          "Wenn diese Karte zum ersten Mal unter das Basis-Chakra fällt, Chakra(+5) und Ansturm(3s). Bei Rückzug erhöht sich das Basis-Chakra dauerhaft um 2."
+        ]
+      },
+      "S2_092": {
+        "name": "Sasuke Uchiha",
+        "ability": "Fluchmarkierung",
+        "descriptions": [
+          "Bei Einsatz Chakra(+3). Nach jeder Begegnung Chakra(+2).",
+          "Bei Einsatz Chakra(+4). Nach jeder Begegnung Chakra(+2)."
+        ]
+      },
+      "S2_093": {
+        "name": "Sakura Haruno",
+        "ability": "Unnachgiebig",
+        "descriptions": [
+          "Permanente Wache. Jedes Mal, wenn Wache aktiviert wird, Chakra(+1) und Wechsel der Spur.",
+          "Permanente Wache. Jedes Mal, wenn Wache aktiviert wird, Chakra(+2) und Wechsel der Spur."
+        ]
+      },
+      "S2_094": {
+        "name": "Rock Lee",
+        "ability": "Fünftes Tor",
+        "descriptions": [
+          "Bei Einsatz Fokus(5s). Wenn der Fokus gelingt, erhalte Chakra(+7) und aktiviere den Rest dieser Fähigkeit. Springe zur ersten gegnerischen Karte in deiner Nähe. Bei jeder Begegnung, Schwäche(2) gegnerische Karte und Schwäche(1) dich selbst.",
+          "Bei Einsatz Fokus(3s). Wenn der Fokus gelingt, erhalte Chakra(+7) und aktiviere den Rest dieser Fähigkeit. Springe zur ersten gegnerischen Karte in deiner Nähe. Bei jeder Begegnung, Schwäche(2) gegnerische Karte und Schwäche(1) dich selbst."
+        ]
+      },
+      "S2_095": {
+        "name": "Neji Hyuga",
+        "ability": "Vierundsechzig Palmen",
+        "descriptions": [
+          "Bei jeder Begegnung Schieben(1) und Schwächen(1). Wenn diese Karte bewirkt, dass sich ein Rivale zurückzieht, reduziert sie auch ihr Basis Chakra dauerhaft um 2.",
+          "Bei jeder Begegnung Schieben(1) und Schwächen(2). Wenn diese Karte bewirkt, dass sich ein Rivale zurückzieht, reduziert sie auch ihr Basis Chakra dauerhaft um 2."
+        ]
+      },
+      "S2_096": {
+        "name": "Gaara",
+        "ability": "Sandfreisetzung",
+        "descriptions": [
+          "Wache(1). Wenn eine rivalisierende Karte in der Nähe ist, Festnageln(8s) und erhalte Chakra(+2). Ist der Rivale bereits festgenagelt, stattdessen Schwächen(3) und erhalte Wache(1).",
+          "Wache(2). Immer wenn sich eine rivalisierende Karte nähert, Festnageln(8s) sie und erhalte Chakra(+2). Ist der Rivale bereits festgenagelt, stattdessen Schwächen(3) und erhalte Wache(1)."
+        ]
+      },
+      "S2_097": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Elementarmeister",
+        "descriptions": [
+          "Bei Einsatz Schwächen(1) und Verlangsamen(8s) für alle Spur-Rivalen. Erhält die Karte zum ersten Mal Chakra, Schwächen(2) und Brennen(3) für alle Spur-Rivalen.",
+          "Bei Einsatz Schwächen(1) und Verlangsamen(12s) für alle Spur-Rivalen. Erhält die Karte zum ersten Mal Chakra, Schwächen(2) und Brennen(4) für alle Spur-Rivalen."
+        ]
+      },
+      "S2_098": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Reaper-Todessiegel",
+        "descriptions": [
+          "Bei Einsatz Fokus(4s). Wenn der Fokus gelingt, aktiviere den Rest dieser Fähigkeit. Wenn eine gegnerische Karte mit gleichem oder höherem Chakra in der Nähe ist, entferne bis zu 12 Chakra und deaktiviere ihre aktive Fähigkeit. Zieht sich das Ziel zurück, Versiegeln(15s). Beim Abziehen, Versiegeln(15s) sich selbst. Zieht sich nach dem Versiegeln von 3 Karten sofort zurück.",
+          "Bei Einsatz Fokus(4s). Wenn der Fokus gelingt, aktiviere den Rest dieser Fähigkeit. Nähert sich eine rivalisierende Karte mit gleich viel oder mehr Chakra, entferne bis zu 15 Chakra von ihr und deaktiviere jede aktive Fähigkeit. Zieht sich das Ziel zurück, Versiegeln(15s). Beim eigenen Rückzug, Versiegeln(15s) sich selbst. Zieht sich sofort zurück, nachdem 3 Karten versiegelt wurden."
+        ]
+      },
+      "S2_099": {
+        "name": "Ichibi",
+        "ability": "Luftgeschosse",
+        "descriptions": [
+          "Beim Einsatz Schwächen(2) für alle Spur-Rivalen in weiter Distanz. Alle 10 Sekunden Fokus(2s). Wenn der Fokus gelingt, Schwächen(2) für alle Spur-Rivalen in weiter Distanz.",
+          "Beim Einsatz Schwächen(3) für alle Spur-Rivalen in weiter Distanz. Alle 10 Sekunden Fokus(2s). Wenn der Fokus gelingt, Schwächen(3) für alle Spur-Rivalen in weiter Distanz."
+        ]
+      },
+      "S2_100": {
+        "name": "Kyubi",
+        "ability": "Verknüpftes Schicksal",
+        "descriptions": [
+          "Chakra(+7) für den nächsten eingesetzten Verbündeten. Karten sind verlinkt, wenn sich eine zurückzieht, dann auch die andere.",
+          "Chakra(+8) für den nächsten eingesetzten Verbündeten. Karten sind verlinkt, wenn sich eine zurückzieht, dann auch die andere."
+        ]
+      },
+      "S3_001": {
+        "name": "Naruto Uzumaki",
+        "ability": "Geteilter Traum",
+        "descriptions": [
+          "Immer wenn sich eine andere Karte mit Geteilter Traum zurückzieht, erhält diese Karte Chakra(+1).",
+          "Immer wenn sich eine andere Karte mit Geteilter Traum zurückzieht, erhält diese Karte Chakra(+2)."
+        ]
+      },
+      "S3_002": {
+        "name": "Sasuke Uchiha",
+        "ability": "Feuerballtraining",
+        "descriptions": [
+          "Ansturm(1s). Bei Einsatz Chakra(+1) für jede von Brennen betroffene gegnerische Karte.",
+          "Ansturm(2s). Bei Einsatz Chakra(+1) für jede von Brennen betroffene gegnerische Karte."
+        ]
+      },
+      "S3_003": {
+        "name": "Choji Akimichi",
+        "ability": "Teilweise Körpervergrößerung",
+        "descriptions": [
+          "Wenn sich eine gegnerische Karte nähert, Schwächen(1) und Schieben(2).",
+          "Wenn sich eine gegnerische Karte nähert, Schwächen(1) und Schieben(4)."
+        ]
+      },
+      "S3_004": {
+        "name": "Kankuro",
+        "ability": "Puppenwechsel",
+        "descriptions": [
+          "Bei Begegnung Teleportieren hinter die gegnerische Karte, Schwächen(2) und Festnageln(5s).",
+          "Bei Begegnung Teleportieren hinter die gegnerische Karte, Schwächen(2) und Festnageln(8s)."
+        ]
+      },
+      "S3_005": {
+        "name": "Kankuro",
+        "ability": "Eiserne Jungfrau",
+        "descriptions": [
+          "Wenn sich eine gegnerische Karte nähert, zieht sie zu dieser Karte und deaktiviert ihre Fähigkeit, dann Schwächen(2).",
+          "Wenn sich eine gegnerische Karte nähert, zieht sie zu dieser Karte und deaktiviert ihre Fähigkeit, dann Schwächen(3)."
+        ]
+      },
+      "S3_006": {
+        "name": "Neji Hyuga",
+        "ability": "Gezielte Verteidigung",
+        "descriptions": [
+          "Wache(2). Wenn Wache auslöst, 50% Chance, sich selbst zu Festnageln(6s).",
+          "Wache(3). Wenn Wache auslöst, 50% Chance, sich selbst zu Festnageln(6s)."
+        ]
+      },
+      "S3_007": {
+        "name": "Shikamaru Nara",
+        "ability": "Faulpelz",
+        "descriptions": [
+          "Ansturm(2s)",
+          "Ansturm(3s)"
+        ]
+      },
+      "S3_008": {
+        "name": "Jiraiya",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(4s)",
+          "Ansturm(5s)"
+        ]
+      },
+      "S3_009": {
+        "name": "Jiraiya",
+        "ability": "Krötenmaulfalle",
+        "descriptions": [
+          "Bei Einsatz Festnageln(6s) alle Karten auf der Spur.",
+          "Bei Einsatz Festnageln(10s) alle Karten auf der Spur."
+        ]
+      },
+      "S3_010": {
+        "name": "Jiraiya",
+        "ability": "Fortgeschrittenes Training",
+        "descriptions": [
+          "Immer wenn du einen Spur-Verbündeten mit 3 oder weniger Chakra einsetzt, gewähre ihm Fokus(8s). Wenn dieser Fokus gelingt, erhält die verbündete Karte Chakra(+3).",
+          "Immer wenn du einen Spur-Verbündeten mit 3 oder weniger Chakra einsetzt, gewähre ihm Fokus(8s). Wenn dieser Fokus gelingt, erhält die verbündete Karte Chakra(+4)."
+        ]
+      },
+      "S3_011": {
+        "name": "Orochimaru",
+        "ability": "Auf der Hut",
+        "descriptions": [
+          "Wache(1)",
+          "Wache(2)"
+        ]
+      },
+      "S3_012": {
+        "name": "Orochimaru",
+        "ability": "Schwer zu fassen",
+        "descriptions": [
+          "Ansturm(3s). Wenn sich eine gegnerische Karte nähert, sie Schwächen(1) und die Spur Wechseln.",
+          "Ansturm(5s). Wenn sich eine gegnerische Karte nähert, sie Schwächen(1) und die Spur Wechseln."
+        ]
+      },
+      "S3_013": {
+        "name": "Tsunade",
+        "ability": "Ansturm",
+        "descriptions": [
+          "Ansturm(3s)",
+          "Ansturm(4s)"
+        ]
+      },
+      "S3_014": {
+        "name": "Tsunade",
+        "ability": "Kraftvoller Fingerschnipp",
+        "descriptions": [
+          "Wache(1). Wenn sich eine gegnerische Karte nähert, spring auf sie und Schieben(2).",
+          "Wache(1). Wenn sich eine gegnerische Karte nähert, spring auf sie und Schieben(4)."
+        ]
+      },
+      "S3_015": {
+        "name": "Tsunade",
+        "ability": "Erfahren",
+        "descriptions": [
+          "Ansturm(3s). Bei Begegnung Schieben(1).",
+          "Ansturm(4s). Bei Begegnung Schieben(1)."
+        ]
+      },
+      "S3_016": {
+        "name": "Manda",
+        "ability": "Kolossale Schlange",
+        "descriptions": [
+          "Ansturm(4s) und Wache(1). Wenn Wache auslöst, die Spur Wechseln.",
+          "Ansturm(4s) und Wache(2). Wenn Wache auslöst, die Spur Wechseln."
+        ]
+      },
+      "S3_017": {
+        "name": "Katsuyu",
+        "ability": "Säureschuss",
+        "descriptions": [
+          "Bei Einsatz alle Rivalen in Mitteldistanz Schwächen(2) und Verlangsamen(6s).",
+          "Bei Einsatz alle Rivalen in Mitteldistanz Schwächen(3) und Verlangsamen(6s)."
+        ]
+      },
+      "S3_018": {
+        "name": "Hiruzen Sarutobi",
+        "ability": "Glöckchenprüfung",
+        "descriptions": [
+          "Verlangsamen(6s) die nächsten drei eingesetzten Verbündeten und gewährt ihnen alle 3 Sekunden Chakra(+1), solange sie von dieser Verlangsamung betroffen sind.",
+          "Verlangsamen(9s) die nächsten drei eingesetzten Verbündeten und gewährt ihnen alle 3 Sekunden Chakra(+1), solange sie von dieser Verlangsamung betroffen sind."
+        ]
+      },
+      "S3_019": {
+        "name": "Itachi Uchiha",
+        "ability": "Großer Bruder",
+        "descriptions": [
+          "Der nächste eingesetzte Sasuke erhält Chakra(+2) und Ansturm(4s), wenn er auf derselben Spur eingesetzt wird, oder Wache(2) und Verlangsamen(10s), wenn er auf einer anderen Spur eingesetzt wird.",
+          "Der nächste eingesetzte Sasuke erhält Chakra(+2) und Ansturm(5s), wenn er auf derselben Spur eingesetzt wird, oder Wache(2) und Verlangsamen(12s), wenn er auf einer anderen Spur eingesetzt wird."
+        ]
+      },
+      "S3_020": {
+        "name": "Jirobo",
+        "ability": "Befreiung des Fluchmals",
+        "descriptions": [
+          "Wache(1). Bei Begegnung Schieben(1).",
+          "Wache(2). Bei Begegnung Schieben(1)."
+        ]
+      },
+      "S3_021": {
+        "name": "Kidomaru",
+        "ability": "Befreiung des Fluchmals",
+        "descriptions": [
+          "Wache(1) und Ansturm(2s).",
+          "Wache(1) und Ansturm(4s)."
+        ]
+      },
+      "S3_022": {
+        "name": "Kidomaru",
+        "ability": "Spinnenregen",
+        "descriptions": [
+          "Bei Einsatz zufällig alle gegnerischen Karten Festnageln(4s) oder Verlangsamen(6s).",
+          "Bei Einsatz zufällig alle gegnerischen Karten Festnageln(6s) oder Verlangsamen(8s)."
+        ]
+      },
+      "S3_023": {
+        "name": "Kimimaro",
+        "ability": "Knochenkontrolle",
+        "descriptions": [
+          "Ansturm(2s). Bei Begegnung Schwächen(3).",
+          "Ansturm(4s). Bei Begegnung Schwächen(3)."
+        ]
+      },
+      "S3_024": {
+        "name": "Sakon & Ukon",
+        "ability": "Befreiung des Fluchmals",
+        "descriptions": [
+          "Wache(1). Bei Begegnung Schwächen(1).",
+          "Wache(1). Bei Begegnung Schwächen(2)."
+        ]
+      },
+      "S3_025": {
+        "name": "Tayuya",
+        "ability": "Befreiung des Fluchmals",
+        "descriptions": [
+          "Wache(1) und Ansturm(2s).",
+          "Wache(1) und Ansturm(4s)."
+        ]
+      },
+      "S3_026": {
+        "name": "Kimimaro",
+        "ability": "Befreiung des Fluchmals",
+        "descriptions": [
+          "Wache(1). Wenn sich eine gegnerische Karte nähert, sich selbst Festnageln(2s) und Chakra(+1). Bei Begegnung Schwächen(1).",
+          "Wache(2). Wenn sich eine gegnerische Karte nähert, sich selbst Festnageln(2s) und Chakra(+1). Bei Begegnung Schwächen(1)."
+        ]
+      },
+      "S3_027": {
+        "name": "Shizune",
+        "ability": "Treues Schweinchen",
+        "descriptions": [
+          "Bei Einsatz Beschwöre Tonton mit Chakra(1) und Ansturm(5s) auf derselben Spur wie die verbündete Tsunade. Erreicht sie eine verbündete Tsunade-Karte, gewähre ihr Chakra(+3) und ziehe dich dann zurück.",
+          "Bei Einsatz Beschwöre Tonton mit Chakra(1) und Ansturm(5s) auf derselben Spur wie die verbündete Tsunade. Erreicht sie eine verbündete Tsunade-Karte, gewähre ihr Chakra(+4) und ziehe dich dann zurück."
+        ]
+      },
+      "S3_028": {
+        "name": "Tsume Inuzuka",
+        "ability": "Herrin der Hunde",
+        "descriptions": [
+          "Bei Einsatz Beschwöre Kuromaru mit Chakra(3) auf einer anderen Spur. Der nächste eingesetzte Ninjahund erhält Chakra(+2).",
+          "Bei Einsatz Beschwöre Kuromaru mit Chakra(3) auf einer anderen Spur. Der nächste eingesetzte Ninjahund erhält Chakra(+3)."
+        ]
+      },
+      "S3_029": {
+        "name": "Akahoshi",
+        "ability": "Täuschendes Training",
+        "descriptions": [
+          "Immer wenn sich verbündete Karten fokussieren, gewähre ihnen Fokus(+4s). Schwächen(1) verbündete Karten alle 4 Sekunden während des Fokus.",
+          "Immer wenn sich verbündete Karten fokussieren, gewähre ihnen Fokus(+6s). Schwächen(1) verbündete Karten alle 4 Sekunden während des Fokus."
+        ]
+      },
+      "S3_030": {
+        "name": "Amachi",
+        "ability": "Wasserkanonenkugel",
+        "descriptions": [
+          "Ansturm(2s). Bei Einsatz die nächste gegnerische Karte in Mitteldistanz Schwächen(1).",
+          "Ansturm(3s). Bei Einsatz die nächste gegnerische Karte in Mitteldistanz Schwächen(2)."
+        ]
+      },
+      "S3_031": {
+        "name": "Aoi Rokusho",
+        "ability": "Nadelregen",
+        "descriptions": [
+          "Bei Begegnung alle nahen Spur-Rivalen Schwächen(1) und Verlangsamen(3s).",
+          "Bei Begegnung alle nahen Spur-Rivalen Schwächen(1) und Verlangsamen(5s)."
+        ]
+      },
+      "S3_032": {
+        "name": "Dan Kato",
+        "ability": "Geteilter Traum",
+        "descriptions": [
+          "Immer wenn sich eine andere Karte mit Geteilter Traum zurückzieht, erhält diese Karte Chakra(+1).",
+          "Immer wenn sich eine andere Karte mit Geteilter Traum zurückzieht, erhält diese Karte Chakra(+2)."
+        ]
+      },
+      "S3_033": {
+        "name": "Fugaku Uchiha",
+        "ability": "Anführer der Uchiha",
+        "descriptions": [
+          "Beim Einsatz verbündeter Uchiha-Karten erhalten diese Wache(+1) und Verlangsamen(6s), wenn sie 3 oder weniger Chakra haben, andernfalls erhalten sie Chakra(+2) und Festnageln(4s).",
+          "Beim Einsatz verbündeter Uchiha-Karten erhalten diese Wache(+2) und Verlangsamen(6s), wenn sie 3 oder weniger Chakra haben, andernfalls erhalten sie Chakra(+3) und Festnageln(4s)."
+        ]
+      },
+      "S3_034": {
+        "name": "Fūjin",
+        "ability": "Legendäre Stärke",
+        "descriptions": [
+          "Wache(1). Bei Begegnung Schwächen(1) und Schieben(3).",
+          "Wache(2). Bei Begegnung Schwächen(1) und Schieben(3)."
+        ]
+      },
+      "S3_035": {
+        "name": "Gamatatsu",
+        "ability": "Vom Essen motiviert",
+        "descriptions": [
+          "Bei Einsatz Fokussieren(12s). Alle 4 Sekunden während des Fokus 1 Energie ausgeben, falls verfügbar, um anderen verbündeten Kröten Chakra(+2) zu gewähren.",
+          "Bei Einsatz Fokussieren(16s). Alle 4 Sekunden während des Fokus 1 Energie ausgeben, falls verfügbar, um anderen verbündeten Kröten Chakra(+2) zu gewähren."
+        ]
+      },
+      "S3_036": {
+        "name": "Hanzaki",
+        "ability": "Raubplan",
+        "descriptions": [
+          "Ansturm(2s). Bei Einsatz alle Spur-Verbündeten Schwächen(1) und für jeden betroffenen Verbündeten Chakra(+2) erhalten.",
+          "Ansturm(3s). Bei Einsatz alle Spur-Verbündeten Schwächen(1) und für jeden betroffenen Verbündeten Chakra(+2) erhalten."
+        ]
+      },
+      "S3_037": {
+        "name": "Hanzaki",
+        "ability": "Zanbato-Ausfall",
+        "descriptions": [
+          "Wache(1). Wenn sich eine gegnerische Karte nähert, spring auf sie und Schwächen(1) oder Schieben(1).",
+          "Wache(2). Wenn sich eine gegnerische Karte nähert, spring auf sie und Schwächen(1) oder Schieben(1)."
+        ]
+      },
+      "S3_038": {
+        "name": "Idate Morino",
+        "ability": "Läufer",
+        "descriptions": [
+          "Ansturm(4s). Bei Begegnung die Spur Wechseln.",
+          "Ansturm(5s). Bei Begegnung die Spur Wechseln."
+        ]
+      },
+      "S3_039": {
+        "name": "Jirocho Wasabi",
+        "ability": "Aufrichtiger Glaube",
+        "descriptions": [
+          "Der nächste auf einer anderen Spur eingesetzte Verbündete erhält Ansturm(2s) und Wache(1). Erreicht er die Mitteldistanz, wird sein verbleibender Ansturm in bis zu 3 Chakra umgewandelt.",
+          "Der nächste auf einer anderen Spur eingesetzte Verbündete erhält Ansturm(3s) und Wache(1). Erreicht er die Mitteldistanz, wird sein verbleibender Ansturm in bis zu 3 Chakra umgewandelt."
+        ]
+      },
+      "S3_040": {
+        "name": "Arashi",
+        "ability": "Fesselndes Mandala",
+        "descriptions": [
+          "Bei Einsatz den Spur-Rivalen mit dem höchsten Chakra Schieben(2) und Festnageln(8s). Solange dieses Festnageln wirkt, die gegnerische Karte alle 4s Schwächen(1).",
+          "Bei Einsatz den Spur-Rivalen mit dem höchsten Chakra Schieben(4) und Festnageln(8s). Solange dieses Festnageln wirkt, die gegnerische Karte alle 4s Schwächen(1)."
+        ]
+      },
+      "S3_041": {
+        "name": "Kagerō",
+        "ability": "Kagero-Ninjakunst",
+        "descriptions": [
+          "Bei Einsatz zwei Spur-Rivalen in Mitteldistanz Schwächen(3), dann sich selbst und zwei Spur-Verbündete in Kurzdistanz die Spur Wechseln.",
+          "Bei Einsatz zwei Spur-Rivalen in Mitteldistanz Schwächen(4), dann sich selbst und zwei Spur-Verbündete in Kurzdistanz die Spur Wechseln."
+        ]
+      },
+      "S3_042": {
+        "name": "Kyuroku Wagarashi",
+        "ability": "Ehrlos",
+        "descriptions": [
+          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(4s). Beim Zurückziehen die Spur Wechseln und alle Spur-Verbündeten Verlangsamen(3s).",
+          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(5s). Beim Zurückziehen die Spur Wechseln und alle Spur-Verbündeten Verlangsamen(3s)."
+        ]
+      },
+      "S3_043": {
+        "name": "Mikoto Uchiha",
+        "ability": "Beruhigung",
+        "descriptions": [
+          "Der nächste eingesetzte Sasuke erhält Chakra(+1). Wenn eine verbündete Sasuke-Karte zum ersten Mal unter ihr Basis-Chakra fällt, sie Heilen(1).",
+          "Der nächste eingesetzte Sasuke erhält Chakra(+1). Wenn eine verbündete Sasuke-Karte zum ersten Mal unter ihr Basis-Chakra fällt, sie Heilen(2)."
+        ]
+      },
+      "S3_044": {
+        "name": "Mizuki",
+        "ability": "Tierisches Fluchmal",
+        "descriptions": [
+          "Bei Begegnung Schwächen(4). Nach 20 Sekunden das eigene Chakra auf Chakra(1) setzen und diese Fähigkeit deaktivieren.",
+          "Bei Begegnung Schwächen(5). Nach 20 Sekunden das eigene Chakra auf Chakra(1) setzen und diese Fähigkeit deaktivieren."
+        ]
+      },
+      "S3_045": {
+        "name": "Nawaki",
+        "ability": "Geteilter Traum",
+        "descriptions": [
+          "Immer wenn sich eine andere Karte mit Geteilter Traum zurückzieht, erhält diese Karte Chakra(+1).",
+          "Immer wenn sich eine andere Karte mit Geteilter Traum zurückzieht, erhält diese Karte Chakra(+2)."
+        ]
+      },
+      "S3_046": {
+        "name": "Raiga Kurosuki",
+        "ability": "Donnerschwerter",
+        "descriptions": [
+          "Wenn sich eine gegnerische Karte nähert, sie Schwächen(1) und ihre Spur Wechseln.",
+          "Wenn sich eine gegnerische Karte nähert, sie Schwächen(2) und ihre Spur Wechseln."
+        ]
+      },
+      "S3_047": {
+        "name": "Raijin",
+        "ability": "Legendäre Stärke",
+        "descriptions": [
+          "Wache(1). Bei Begegnung Schwächen(1) und Schieben(3).",
+          "Wache(2). Bei Begegnung Schwächen(1) und Schieben(3)."
+        ]
+      },
+      "S3_048": {
+        "name": "Sumaru",
+        "ability": "Ortskenntnis",
+        "descriptions": [
+          "Bei Einsatz erhalten zwei Verbündete in Kurzdistanz Ansturm(3s).",
+          "Bei Einsatz erhalten drei Verbündete in Kurzdistanz Ansturm(3s)."
+        ]
+      },
+      "S3_049": {
+        "name": "Yoshino Nara",
+        "ability": "Strenge",
+        "descriptions": [
+          "Der nächste eingesetzte Shikamaru erhält Chakra(+1) und Verlangsamen(8s).",
+          "Der nächste eingesetzte Shikamaru erhält Chakra(+1) und Verlangsamen(12s)."
+        ]
+      },
+      "S3_050": {
+        "name": "Uchiha Trio",
+        "ability": "Verdacht",
+        "descriptions": [
+          "Ansturm(4s). In Mitteldistanz Chakra(+2).",
+          "Ansturm(6s). In Mitteldistanz Chakra(+2)."
+        ]
+      },
+      "S3_051": {
+        "name": "Naruto Uzumaki",
+        "ability": "Mantel des Dämonenfuchses",
+        "descriptions": [
+          "Ansturm(3s). Bei Einsatz Chakra(+2). Wenn diese Karte zum ersten Mal unter ihr Basis-Chakra fällt, Heilen(2).",
+          "Ansturm(5s). Bei Einsatz Chakra(+2). Wenn diese Karte zum ersten Mal unter ihr Basis-Chakra fällt, Heilen(2)."
+        ]
+      },
+      "S3_052": {
+        "name": "Sasuke Uchiha",
+        "ability": "Befreiung des Fluchmals",
+        "descriptions": [
+          "Wenn diese Karte zum ersten Mal Chakra erhält, zusätzlich Chakra(+2) erhalten.",
+          "Wenn diese Karte zum ersten Mal Chakra erhält, zusätzlich Chakra(+4) erhalten."
+        ]
+      },
+      "S3_053": {
+        "name": "Kankuro",
+        "ability": "Taktische Überlegenheit",
+        "descriptions": [
+          "Immer wenn sich Verbündete hinter Rivalen teleportieren, Chakra(+2) erhalten.",
+          "Immer wenn sich Verbündete hinter Rivalen teleportieren, Chakra(+3) erhalten."
+        ]
+      },
+      "S3_054": {
+        "name": "Shikamaru Nara",
+        "ability": "Schattenwürgen",
+        "descriptions": [
+          "Nähert sich eine gegnerische Karte, sie und diese Karte Festnageln(6s). Solange dieses Festnageln wirkt, verliert der Gegner alle 2 Sekunden 1 Chakra.",
+          "Nähert sich eine gegnerische Karte, sie und diese Karte Festnageln(8s). Solange dieses Festnageln wirkt, verliert der Gegner alle 2 Sekunden 1 Chakra."
+        ]
+      },
+      "S3_055": {
+        "name": "Akamaru",
+        "ability": "Markierung",
+        "descriptions": [
+          "Bei Einsatz alle Spur-Rivalen Verlangsamen(8s). Solange diese Verlangsamung aktiv ist, Schwächen(+1) auf verbündete Schwächen-Fähigkeiten, die auf betroffene Rivalen angewendet werden.",
+          "Bei Einsatz alle Spur-Rivalen Verlangsamen(12s). Solange diese Verlangsamung aktiv ist, Schwächen(+1) auf verbündete Schwächen-Fähigkeiten, die auf betroffene Rivalen angewendet werden."
+        ]
+      },
+      "S3_056": {
+        "name": "Itachi Uchiha",
+        "ability": "Gelassenheit",
+        "descriptions": [
+          "Erhält Chakra(+1) und Festnageln(2s) sich selbst, sooft eine Karte Fokus erhält.",
+          "Erhält Chakra(+2) und Festnageln(4s) sich selbst, sooft eine Karte Fokus erhält."
+        ]
+      },
+      "S3_057": {
+        "name": "Jiraiya",
+        "ability": "Erfahren",
+        "descriptions": [
+          "Ansturm(3s). Bei Begegnung die Spur Wechseln.",
+          "Ansturm(4s). Bei Begegnung die Spur Wechseln."
+        ]
+      },
+      "S3_058": {
+        "name": "Jiraiya",
+        "ability": "Nadel-Jizo",
+        "descriptions": [
+          "Wache(2). Wenn Wache auslöst, den auslösenden Rivalen Schwächen(2). Ignoriert Wache.",
+          "Wache(3). Wenn Wache auslöst, den auslösenden Rivalen Schwächen(2). Ignoriert Wache."
+        ]
+      },
+      "S3_059": {
+        "name": "Orochimaru",
+        "ability": "Erfahren",
+        "descriptions": [
+          "Ansturm(3s). Bei Begegnung Schwächen(1).",
+          "Ansturm(4s). Bei Begegnung Schwächen(1)."
+        ]
+      },
+      "S3_060": {
+        "name": "Tsunade",
+        "ability": "Die Fünfte",
+        "descriptions": [
+          "Bei Einsatz erhalten alle Verbündeten auf anderen Spuren Chakra(+1). Solange diese Karte aktiv ist, jeden Verbündeten Heilen(2), wenn er zum ersten Mal Geschwächt wird.",
+          "Bei Einsatz erhalten alle Verbündeten auf anderen Spuren Chakra(+2). Solange diese Karte aktiv ist, jeden Verbündeten Heilen(2), wenn er zum ersten Mal Geschwächt wird."
+        ]
+      },
+      "S3_061": {
+        "name": "Tsunade",
+        "ability": "Legendäres leichtes Ziel",
+        "descriptions": [
+          "Bei Einsatz 10% Chance auf Chakra(+6). Andernfalls Ansturm(3s).",
+          "Bei Einsatz 10% Chance auf Chakra(+7). Andernfalls Ansturm(4s)."
+        ]
+      },
+      "S3_062": {
+        "name": "Tsunade",
+        "ability": "Verzweifelte Heilung",
+        "descriptions": [
+          "Bei Einsatz den nächsten Spur-Verbündeten Heilen(2). Wenn ein Spur-Verbündeter zum ersten Mal aus beliebiger Quelle Chakra verliert, ihn Heilen(2).",
+          "Bei Einsatz den nächsten Spur-Verbündeten Heilen(3). Wenn ein Spur-Verbündeter zum ersten Mal aus beliebiger Quelle Chakra verliert, ihn Heilen(3)."
+        ]
+      },
+      "S3_063": {
+        "name": "Gamabunta",
+        "ability": "Kröten-Kenjutsu",
+        "descriptions": [
+          "Wenn sich eine gegnerische Karte nähert, spring auf sie und Schwächen(2). Erhält beim ersten Chakra-Gewinn Ansturm(+3s).",
+          "Wenn sich eine gegnerische Karte nähert, spring auf sie und Schwächen(3). Erhält beim ersten Chakra-Gewinn Ansturm(+4s)."
+        ]
+      },
+      "S3_064": {
+        "name": "Kabuto Yakuchi",
+        "ability": "Chakra-Skalpell",
+        "descriptions": [
+          "Ansturm(2s). Bei Begegnung Teleportieren hinter die gegnerische Karte und sie dauerhaft Festnageln.",
+          "Ansturm(3s). Bei Begegnung Teleportieren hinter die gegnerische Karte und sie dauerhaft Festnageln."
+        ]
+      },
+      "S3_065": {
+        "name": "Kisame Hoshigaki",
+        "ability": "Samehada-Wache",
+        "descriptions": [
+          "Wache(3). Wenn Wache auslöst, den auslösenden Rivalen Schwächen(1) und Chakra(+1) erhalten.",
+          "Wache(4). Wenn Wache auslöst, den auslösenden Rivalen Schwächen(1) und Chakra(+1) erhalten."
+        ]
+      },
+      "S3_066": {
+        "name": "Jirobo",
+        "ability": "Chakra-Entzug",
+        "descriptions": [
+          "Bei jeder Begegnung Chakra(+1) für diese Karte und die gegnerische Karte Schwächen(1).",
+          "Bei jeder Begegnung Chakra(+1) für diese Karte und die gegnerische Karte Schwächen(2)."
+        ]
+      },
+      "S3_067": {
+        "name": "Sakon & Ukon",
+        "ability": "Verfluchte Verschmelzung",
+        "descriptions": [
+          "Bei Begegnung Teleportieren hinter die gegnerische Karte, dann sie und diese Karte Festnageln(6s). Der Rivale verliert alle 2 Sekunden 1 Chakra, solange dieses Festnageln wirkt.",
+          "Bei Begegnung Teleportieren hinter die gegnerische Karte, dann sie und diese Karte Festnageln(8s). Der Rivale verliert alle 2 Sekunden 1 Chakra, solange dieses Festnageln wirkt."
+        ]
+      },
+      "S3_068": {
+        "name": "Kurenai Yuhi",
+        "ability": "Genjutsu-Finte",
+        "descriptions": [
+          "Bei Begegnung Teleportieren hinter die gegnerische Karte, sie Schwächen(2) und Verlangsamen(4s).",
+          "Bei Begegnung Teleportieren hinter die gegnerische Karte, sie Schwächen(2) und Verlangsamen(8s)."
+        ]
+      },
+      "S3_069": {
+        "name": "Shizune",
+        "ability": "Giftnebel",
+        "descriptions": [
+          "Bei Einsatz alle Karten in Mitteldistanz Verlangsamen(8s) und ihre Fähigkeiten deaktivieren. Sie verlieren alle 4 Sekunden 2 Chakra, solange diese Verlangsamung wirkt.",
+          "Bei Einsatz alle Karten in Mitteldistanz Verlangsamen(12s) und ihre Fähigkeiten deaktivieren. Sie verlieren alle 4 Sekunden 2 Chakra, solange diese Verlangsamung wirkt."
+        ]
+      },
+      "S3_070": {
+        "name": "Akahoshi",
+        "ability": "Skrupellos",
+        "descriptions": [
+          "Wache(1). Wenn Wache auslöst, den auslösenden Rivalen Schwächen(2). Wenn diese Karte zum ersten Mal Chakra verliert, einen zufälligen Verbündeten Schwächen(2) und Chakra(+2) sowie Wache(+1) erhalten.",
+          "Wache(1). Wenn Wache auslöst, den auslösenden Rivalen Schwächen(2). Wenn diese Karte zum ersten Mal Chakra verliert, einen zufälligen Verbündeten Schwächen(2) und Chakra(+3) sowie Wache(+1) erhalten."
+        ]
+      },
+      "S3_071": {
+        "name": "Amachi",
+        "ability": "Seeungeheuer",
+        "descriptions": [
+          "Bei Einsatz sich selbst Festnageln(6s). Solange festgenagelt, alle 3 Sekunden alle Spur-Rivalen Festnageln(3s) oder Verlangsamen(6s).",
+          "Bei Einsatz sich selbst Festnageln(9s). Solange festgenagelt, alle 3 Sekunden alle Spur-Rivalen Festnageln(3s) oder Verlangsamen(6s)."
+        ]
+      },
+      "S3_072": {
+        "name": "Aoi Rokusho",
+        "ability": "Raijin-Schwert",
+        "descriptions": [
+          "Wache(2). Bei Begegnung die gegnerische Karte Schwächen(1) und Festnageln(2s). Ignoriert Wache.",
+          "Wache(2). Bei Begegnung die gegnerische Karte Schwächen(2) und Festnageln(4s). Ignoriert Wache."
+        ]
+      },
+      "S3_073": {
+        "name": "Sumaru",
+        "ability": "Sternen-Chakra",
+        "descriptions": [
+          "Bei Einsatz Chakra(+1) und die Spur Wechseln, wenn Spur-Verbündete vorhanden sind. Bei Begegnung die gegnerische Karte Schwächen(2).",
+          "Bei Einsatz Chakra(+1) und die Spur Wechseln, wenn Spur-Verbündete vorhanden sind. Bei Begegnung die gegnerische Karte Schwächen(3)."
+        ]
+      },
+      "S3_074": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rasengan",
+        "descriptions": [
+          "Bei Begegnung Schwächen(2) und Schieben(4). Entfernt alle Wache von der rivalisierenden Karte.",
+          "Bei Begegnung Schwächen(3) und Schieben(5). Entfernt alle Wache von der rivalisierenden Karte."
+        ]
+      },
+      "S3_075": {
+        "name": "Naruto Uzumaki",
+        "ability": "Einschwänzige Form",
+        "descriptions": [
+          "Bei jeder Begegnung Schwächen(1). Wenn diese Karte zum ersten Mal unter ihr Basis-Chakra fällt, sich selbst Heilen(3).",
+          "Bei jeder Begegnung Schwächen(1). Wenn diese Karte zum ersten Mal unter ihr Basis-Chakra fällt, sich selbst Heilen(4)."
+        ]
+      },
+      "S3_076": {
+        "name": "Sasuke Uchiha",
+        "ability": "Weiterentwickelte Vorhersage",
+        "descriptions": [
+          "Wache(3). Wenn Wache auslöst, Chakra(+1). Kann bei Begegnungen mit gegnerischen Karten mit 3 oder weniger Chakra nicht geschwächt werden.",
+          "Wache(3). Wenn Wache auslöst, Chakra(+2). Kann bei Begegnungen mit gegnerischen Karten mit 3 oder weniger Chakra nicht geschwächt werden."
+        ]
+      },
+      "S3_077": {
+        "name": "Sasuke Uchiha",
+        "ability": "Geflügelte Verteidigung",
+        "descriptions": [
+          "Wache(2). Bei Begegnung Schwächen(2). Wenn Wache auslöst, Ansturm(2s) erhalten und diese Fähigkeit wieder aktivieren.",
+          "Wache(2). Bei Begegnung Schwächen(2). Wenn Wache auslöst, Ansturm(4s) erhalten und diese Fähigkeit wieder aktivieren."
+        ]
+      },
+      "S3_078": {
+        "name": "Gaara",
+        "ability": "Shukakus Schild",
+        "descriptions": [
+          "Wache(3). Solange diese Karte aktiv ist, ignorieren die Spur-Verbündeten hinter ihr gegnerische Fähigkeitseffekte, verbrauchen aber die Wache dieser Karte.",
+          "Wache(4). Solange diese Karte aktiv ist, ignorieren die Spur-Verbündeten hinter ihr gegnerische Fähigkeitseffekte, verbrauchen aber die Wache dieser Karte."
+        ]
+      },
+      "S3_079": {
+        "name": "Kiba Inuzuka",
+        "ability": "Verwandlungskombo",
+        "descriptions": [
+          "Bei Einsatz die verbündeten Akamaru und Kiba zurückziehen und ihr Chakra auf diese Karte übertragen, dabei je Rückzug zusätzlich Chakra(+1) erhalten. Bei jeder Begegnung Schwächen(1).",
+          "Bei Einsatz die verbündeten Akamaru und Kiba zurückziehen und ihr Chakra auf diese Karte übertragen, dabei je Rückzug zusätzlich Chakra(+2) erhalten. Bei jeder Begegnung Schwächen(1)."
+        ]
+      },
+      "S3_080": {
+        "name": "Rock Lee",
+        "ability": "Trunkene Faust",
+        "descriptions": [
+          "Alle 10s Fokussieren(3s). Wenn der Fokus gelingt, zufällig Ansturm(2s), Wache(1) oder Chakra(+1) erhalten. Bei jeder Begegnung Schwächen(1).",
+          "Alle 8s Fokussieren(3s). Wenn der Fokus gelingt, zufällig Ansturm(2s), Wache(1) oder Chakra(+1) erhalten. Bei jeder Begegnung Schwächen(1)."
+        ]
+      },
+      "S3_081": {
+        "name": "Temari",
+        "ability": "Schneller Enthauptungstanz",
+        "descriptions": [
+          "Bei Einsatz Fokussieren(9s). Alle 3 Sekunden während des Fokus alle Rivalen in Mittel- und Weitdistanz Schwächen(1) und Schieben(2).",
+          "Bei Einsatz Fokussieren(9s). Alle 3 Sekunden während des Fokus alle Rivalen in Mittel- und Weitdistanz Schwächen(1) und Schieben(4)."
+        ]
+      },
+      "S3_082": {
+        "name": "Itachi Uchiha",
+        "ability": "Tsukuyomi-Armee",
+        "descriptions": [
+          "Solange diese Karte aktiv ist, Beschwöre bei jedem Festnageln gegnerischer Karten einen Klon dieser Karte auf eben dieser Spur mit Ansturm(4s) und verliere 1 Chakra. Klone können keine Basistreffer erzielen oder Chakra erhalten.",
+          "Solange diese Karte aktiv ist, Beschwöre bei jedem Festnageln gegnerischer Karten einen Klon dieser Karte auf eben dieser Spur mit Ansturm(6s) und verliere 1 Chakra. Klone können keine Basistreffer erzielen oder Chakra erhalten."
+        ]
+      },
+      "S3_083": {
+        "name": "Itachi Uchiha",
+        "ability": "Flucht aus Amaterasu",
+        "descriptions": [
+          "Wenn sich eine gegnerische Karte nähert, sie Brennen(10), dann die Spur Wechseln und 1 Chakra verlieren. Dieser Brenn-Effekt kann sich bei Berührung auf andere Karten ausbreiten und ignoriert Wache.",
+          "Wenn sich eine gegnerische Karte nähert, sie Brennen(15), dann die Spur Wechseln und 1 Chakra verlieren. Dieser Brenn-Effekt kann sich bei Berührung auf andere Karten ausbreiten und ignoriert Wache."
+        ]
+      },
+      "S3_084": {
+        "name": "Jiraiya",
+        "ability": "Krötenöl-Flammenwerfer",
+        "descriptions": [
+          "Bei Einsatz alle gegnerischen Karten Brennen(3), dann Fokussieren(8s). Während des Fokus Chakra(+1) erhalten, sooft Verbündete Brennen anwenden. Wenn der Fokus gelingt, alle gegnerischen Karten Brennen(4).",
+          "Bei Einsatz alle gegnerischen Karten Brennen(3), dann Fokussieren(8s). Während des Fokus Chakra(+1) erhalten, sooft Verbündete Brennen anwenden. Wenn der Fokus gelingt, alle gegnerischen Karten Brennen(5)."
+        ]
+      },
+      "S3_085": {
+        "name": "Gamabunta",
+        "ability": "Krötenöl-Kombo",
+        "descriptions": [
+          "Bei Einsatz alle Spur-Rivalen Brennen(3). Sind Rivalen bereits von Brennen betroffen, wird die verbleibende Brennen-Menge sofort ausgelöst.",
+          "Bei Einsatz alle Spur-Rivalen Brennen(4). Sind Rivalen bereits von Brennen betroffen, wird die verbleibende Brennen-Menge sofort ausgelöst."
+        ]
+      },
+      "S3_086": {
+        "name": "Kidomaru",
+        "ability": "Spinnenbogen",
+        "descriptions": [
+          "Bei Einsatz Fokussieren(12s). Alle 4 Sekunden während des Fokus den Rivalen mit dem höchsten Chakra in Weitdistanz Schwächen(2) und Festnageln(6s).",
+          "Bei Einsatz Fokussieren(16s). Alle 4 Sekunden während des Fokus den Rivalen mit dem höchsten Chakra in Weitdistanz Schwächen(2) und Festnageln(6s)."
+        ]
+      },
+      "S3_087": {
+        "name": "Tayuya",
+        "ability": "Dämonische Flöte",
+        "descriptions": [
+          "Bei Einsatz Chakra(+1). Solange diese Karte aktiv ist, laufen von Verbündeten angewendete Verlangsamungen nicht ab.",
+          "Bei Einsatz Chakra(+2). Solange diese Karte aktiv ist, laufen von Verbündeten angewendete Verlangsamungen nicht ab."
+        ]
+      },
+      "S3_088": {
+        "name": "Kimimaro",
+        "ability": "Lebende Waffe",
+        "descriptions": [
+          "Wache(3). Bei jeder Begegnung Schwächen(2). Die Spur Wechseln, wenn ein Rivale zum Rückzug gezwungen wird.",
+          "Wache(5). Bei jeder Begegnung Schwächen(2). Die Spur Wechseln, wenn ein Rivale zum Rückzug gezwungen wird."
+        ]
+      },
+      "S3_089": {
+        "name": "Akahoshi",
+        "ability": "Sternendrache",
+        "descriptions": [
+          "Bei Einsatz alle Spur-Rivalen Schieben(2), Schwächen(1) und Festnageln(4s).",
+          "Bei Einsatz alle Spur-Rivalen Schieben(2), Schwächen(1) und Festnageln(8s)."
+        ]
+      },
+      "S3_090": {
+        "name": "Raiga Kurosuki",
+        "ability": "Donnerdrachen-Tornado",
+        "descriptions": [
+          "Bei Einsatz Fokussieren(8s). Wenn der Fokus gelingt, alle Spur-Rivalen in Kurz- und Mitteldistanz Schwächen(3) und Schieben(2).",
+          "Bei Einsatz Fokussieren(6s). Wenn der Fokus gelingt, alle Spur-Rivalen in Kurz- und Mitteldistanz Schwächen(3) und Schieben(2)."
+        ]
+      },
+      "S3_091": {
+        "name": "Sasuke Uchiha",
+        "ability": "Schwarzes Chidori",
+        "descriptions": [
+          "Ansturm(4s). Springe zur ersten gegnerischen Karte in deiner Nähe, erhalte Chakra(+2) und Schwäche(3) sie. Schwäche(2) alle anderen Karten in der Nähe. Ignoriert Wache.",
+          "Ansturm(5s). Springe zur ersten gegnerischen Karte in deiner Nähe, erhalte Chakra(+2) und Schwäche(4) sie. Schwäche(2) alle anderen Karten in der Nähe. Ignoriert Wache."
+        ]
+      },
+      "S3_092": {
+        "name": "Naruto Uzumaki",
+        "ability": "Rasengan des Dämonenfuchses",
+        "descriptions": [
+          "Ansturm(4s). Springe zur ersten gegnerischen Karte in deiner Nähe, Schwäche(3) und Schiebe(2) sie. Schwäche(2) alle anderen Karten in der Nähe. Entfernt alle Wache der gegnerischen Karte.",
+          "Ansturm(5s). Springe zur ersten gegnerischen Karte in deiner Nähe, Schwäche(4) und Schiebe(2) sie. Schwäche(2) alle anderen Karten in der Nähe. Entfernt alle Wache der gegnerischen Karte."
+        ]
+      },
+      "S3_093": {
+        "name": "Choji Akimichi",
+        "ability": "Schmetterlingswut",
+        "descriptions": [
+          "Wache(3). Wenn Wache auslöst, Chakra(+2). Ist die auslösende gegnerische Karte in der Nähe, spring auf sie. Solange Wache verfügbar ist, bei jeder Begegnung Schwächen(2) und Schieben(1).",
+          "Wache(3). Wenn Wache auslöst, Chakra(+3). Ist die auslösende gegnerische Karte in der Nähe, spring auf sie. Solange Wache verfügbar ist, bei jeder Begegnung Schwächen(2) und Schieben(1)."
+        ]
+      },
+      "S3_094": {
+        "name": "Gaara",
+        "ability": "Sandtsunami",
+        "descriptions": [
+          "Bei Einsatz Fokussieren(6s). Alle 2 Sekunden während des Fokus alle gegnerischen Karten Schwächen(1) und Schieben(1). Haben sie 2 oder weniger Chakra, stattdessen Schwächen(2). Zwingt diese Karte eine andere zum Rückzug, sie Versiegeln(5s).",
+          "Bei Einsatz Fokussieren(8s). Alle 2 Sekunden während des Fokus alle gegnerischen Karten Schwächen(1) und Schieben(1). Haben sie 3 oder weniger Chakra, stattdessen Schwächen(3). Zwingt diese Karte eine andere zum Rückzug, sie Versiegeln(5s)."
+        ]
+      },
+      "S3_095": {
+        "name": "Itachi Uchiha",
+        "ability": "Tsukuyomi",
+        "descriptions": [
+          "Bei Einsatz die nächste gegnerische Karte Festnageln(12s), dann 1 Chakra verlieren. Hat die gegnerische Karte mehr als 1 Chakra, verliert sie pro Sekunde 1 Chakra. Sooft Verbündete gegnerische Karten festnageln, wird diese Fähigkeit für jeden betroffenen Rivalen erneut ausgelöst.",
+          "Bei Einsatz die nächste gegnerische Karte Festnageln(16s), dann 1 Chakra verlieren. Hat die gegnerische Karte mehr als 1 Chakra, verliert sie pro Sekunde 1 Chakra. Sooft Verbündete gegnerische Karten festnageln, wird diese Fähigkeit für jeden betroffenen Rivalen erneut ausgelöst."
+        ]
+      },
+      "S3_096": {
+        "name": "Itachi Uchiha",
+        "ability": "Blutbad",
+        "descriptions": [
+          "Wenn eine Karte auf derselben Spur eingesetzt wird, sie Schwächen(1) und Festnageln(10s). Hat sie 3 oder weniger Chakra, stattdessen Schwächen(3). Danach die Spur Wechseln.",
+          "Wenn eine Karte auf derselben Spur eingesetzt wird, sie Schwächen(2) und Festnageln(10s). Hat sie 4 oder weniger Chakra, stattdessen Schwächen(4). Danach die Spur Wechseln."
+        ]
+      },
+      "S3_097": {
+        "name": "Tsunade",
+        "ability": "Mitotische Regeneration",
+        "descriptions": [
+          "Wenn diese Karte zum ersten Mal unter ihr Basis-Chakra fällt, sich bis zum Basis-Chakra Heilen und Chakra(+4) erhalten. In den nächsten 10 Sekunden gegnerische Fähigkeiten ignorieren und nach jeder Begegnung Heilen(4). Beim Rückzug das Basis-Chakra dauerhaft um 1 senken.",
+          "Wenn diese Karte zum ersten Mal unter ihr Basis-Chakra fällt, sich bis zum Basis-Chakra Heilen und Chakra(+5) erhalten. In den nächsten 10 Sekunden gegnerische Fähigkeiten ignorieren und nach jeder Begegnung Heilen(4). Beim Rückzug das Basis-Chakra dauerhaft um 1 senken."
+        ]
+      },
+      "S3_098": {
+        "name": "Sakon & Ukon",
+        "ability": "Synchronisierte Verteidigung",
+        "descriptions": [
+          "Wird als Sakon und Ukon auf getrennten Spuren mit Wache(2) eingesetzt. Sooft die Wache eines Verbündeten auslöst, erhalten beide Karten Chakra(+1).",
+          "Wird als Sakon und Ukon auf getrennten Spuren mit Wache(4) eingesetzt. Sooft die Wache eines Verbündeten auslöst, erhalten beide Karten Chakra(+1)."
+        ]
+      },
+      "S3_099": {
+        "name": "Tayuya",
+        "ability": "Doki-Beschwörung",
+        "descriptions": [
+          "Bei Einsatz Fokussieren(8s). Wenn der Fokus gelingt, auf jeder Spur einen Doki-Dämon Beschwören. Sooft du andere Karten Beschwörest, erhalten sie Chakra(+1). Ignoriert alle gegnerischen Fähigkeiten und Begegnungen, solange die Dämonen aktiv sind.",
+          "Bei Einsatz Fokussieren(6s). Wenn der Fokus gelingt, auf jeder Spur einen Doki-Dämon Beschwören. Sooft du andere Karten Beschwörest, erhalten sie Chakra(+1). Ignoriert alle gegnerischen Fähigkeiten und Begegnungen, solange die Dämonen aktiv sind."
+        ]
+      },
+      "S3_100": {
+        "name": "Kimimaro",
+        "ability": "Unerschütterliche Treue",
+        "descriptions": [
+          "Bei Einsatz Chakra(+6) und Ansturm(5s) erhalten. Dauerhafte Wache, solange Ansturm aktiv ist. Bei jeder Begegnung sich Schwächen(1) und die gegnerische Karte Schwächen(3). Beim Zurückziehen alle Karten Schwächen(2). Kann nicht von verbündeten Fähigkeiten beeinflusst werden.",
+          "Bei Einsatz Chakra(+8) und Ansturm(6s) erhalten. Dauerhafte Wache, solange Ansturm aktiv ist. Bei jeder Begegnung sich Schwächen(1) und die gegnerische Karte Schwächen(3). Beim Zurückziehen alle Karten Schwächen(2). Kann nicht von verbündeten Fähigkeiten beeinflusst werden."
+        ]
+      }
+    },
+    "ruleNotes": {
+      "S2_041": "{allies} Verbündete des erforderlichen Charakters; die Deckzusammensetzung wird nicht geprüft.",
+      "S1_004": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S1_005": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S1_008": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S1_010": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S1_023": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S1_030": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S1_035": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S2_007": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S2_025": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S2_030": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S2_042": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S2_052": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S2_053": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S2_063": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S3_004": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S3_023": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S3_024": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S3_034": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S3_044": "Eine Begegnung vor 20s; das spätere Zurücksetzen auf Chakra(1) zählt nicht zum Spitzenwert. Effekte ohne ausdrückliche Wiederholung gelten einmal.",
+      "S3_047": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S3_059": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S3_068": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S3_072": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S3_074": "Begegnungseffekte über {activations} Begegnungen angewendet.",
+      "S1_003": "Eine neue Einheit mit dem angegebenen Chakra.",
+      "S1_019": "{allies} Ziele/Ereignisse der angegebenen Gruppe; günstige Bedingungen.",
+      "S1_046": "{allies} Ziele/Ereignisse der angegebenen Gruppe; günstige Bedingungen.",
+      "S1_062": "{allies} Ziele/Ereignisse der angegebenen Gruppe; günstige Bedingungen.",
+      "S1_073": "{allies} Ziele/Ereignisse der angegebenen Gruppe; günstige Bedingungen.",
+      "S2_015": "{allies} Ziele/Ereignisse der angegebenen Gruppe; günstige Bedingungen.",
+      "S2_022": "{allies} Ziele/Ereignisse der angegebenen Gruppe; günstige Bedingungen.",
+      "S2_073": "{allies} Ziele/Ereignisse der angegebenen Gruppe; günstige Bedingungen.",
+      "S2_083": "{allies} Ziele/Ereignisse der angegebenen Gruppe; günstige Bedingungen.",
+      "S3_002": "{allies} Ziele/Ereignisse der angegebenen Gruppe; günstige Bedingungen.",
+      "S1_020": "Schaden an einem Verbündeten wird abgezogen.",
+      "S1_021": "3 Verbündete.",
+      "S1_022": "3 Verbündete.",
+      "S1_024": "Die für das Level angegebene Anzahl Verbündeter.",
+      "S1_033": "Ein Bonus: Akamaru oder diese Karte. Das Holen aus dem Deck verdoppelt die Basisstärke nicht.",
+      "S1_038": "Die für das Level angegebene Anzahl Verbündeter.",
+      "S1_053": "{enemies} getroffene Gegner.",
+      "S1_069": "{enemies} getroffene Gegner.",
+      "S1_074": "{enemies} getroffene Gegner.",
+      "S1_079": "{enemies} getroffene Gegner.",
+      "S1_081": "{enemies} getroffene Gegner.",
+      "S2_008": "{enemies} getroffene Gegner.",
+      "S2_076": "{enemies} Gegner in einer Begegnung. Effekte ohne ausdrückliche Wiederholung gelten einmal.",
+      "S2_088": "{enemies} getroffene Gegner.",
+      "S3_017": "{enemies} getroffene Gegner.",
+      "S3_031": "{enemies} Gegner in einer Begegnung. Effekte ohne ausdrückliche Wiederholung gelten einmal.",
+      "S3_089": "{enemies} getroffene Gegner.",
+      "S3_090": "{enemies} getroffene Gegner.",
+      "S1_056": "Die Option mit Zahlenbonus wird verwendet. Das Holen von Hiruzen addiert seine Stärke nicht erneut.",
+      "S1_060": "Aus dem Deck geholte Karte: Ihre Stärke ist bereits enthalten, daher zählt keine neue Einheit.",
+      "S1_071": "Maximal angegebene Klonzahl bei angenommener ausreichender Energie.",
+      "S1_083": "Beste bedingte Option: {enemies} Gegner und {allies} Verbündete, ohne Nettogewinn.",
+      "S2_002": "{enemies} Gegner mit höherem Chakra.",
+      "S2_016": "Drei neue Einheiten mit Chakra(1); das Wiederverwenden der Karte wird nicht simuliert.",
+      "S2_018": "Ein Verbündeter für jeden der beiden Namen; erforderliche Identitäten werden nicht geprüft.",
+      "S2_019": "Ein Verbündeter für jeden der beiden Namen; erforderliche Identitäten werden nicht geprüft.",
+      "S2_020": "Ein Verbündeter für jeden der beiden Namen; erforderliche Identitäten werden nicht geprüft.",
+      "S2_032": "Bonus für die geholte Kröte; ihre Stärke ist bereits im Deck enthalten.",
+      "S2_037": "Für Anbu ist kein Chakra angegeben: Die Beschwörung wird nicht beziffert.",
+      "S2_038": "Bonusoption bei geringem Chakra; die aus dem Deck beschworene Karte wird nicht doppelt gezählt.",
+      "S2_039": "Je nach Level ein oder zwei Gegner.",
+      "S2_040": "{enemies} Gegner und {allies} Verbündete beim Rückzug getroffen; kein Nettogewinn.",
+      "S2_054": "Halbiert gegnerisches Chakra anhand des für das Ziel eingestellten Chakra-Werts.",
+      "S2_058": "Vorübergehende Kontrolle über einen Gegner wird nicht in Stärke umgerechnet.",
+      "S2_064": "Vorübergehende Kontrolle über einen Gegner wird nicht in Stärke umgerechnet.",
+      "S2_062": "Je nach Level ein oder zwei Gegner.",
+      "S2_067": "Ausdrückliche Zielzahl; ein Einsatz und ein Rückzug.",
+      "S2_070": "Eine Begegnung; Bonus für {allies} Verbündete einmal beim Rückzug. Effekte ohne ausdrückliche Wiederholung gelten einmal.",
+      "S2_071": "3 Treffer in einer Begegnung. Effekte ohne ausdrückliche Wiederholung gelten einmal.",
+      "S2_072": "{enemies} Gegner und {allies} Verbündete: Verbündetenschaden gleicht Gegnerschaden aus.",
+      "S2_080": "{enemies} Gegner und {allies} Verbündete: Verbündetenschaden gleicht Gegnerschaden aus.",
+      "S2_074": "{enemies} nahe Gegner in einer Begegnung. Effekte ohne ausdrückliche Wiederholung gelten einmal.",
+      "S2_077": "Kopie einer verbündeten Karte ohne zusätzliche Stärke für die Decksumme.",
+      "S2_086": "Schaden an beiden Verbündeten wird abgezogen; das Holen aus dem Deck wird nicht doppelt gezählt und Opfer werden nicht simuliert.",
+      "S2_089": "Brennen wird als Gesamtschaden in Höhe seines Werts behandelt.",
+      "S2_091": "Einmaliger Bonus. Der Basisanstieg beim Rückzug gilt für das nächste Leben und wird nicht addiert.",
+      "S2_097": "Zwei getrennte Ereignisse, beide gegen {enemies} Gegner; Brennen zählt als Gesamtschaden.",
+      "S3_027": "Neue Tonton und Bonus für Tsunade; Tsunades Anwesenheit und Überleben werden nicht simuliert.",
+      "S3_028": "Neuer Kuromaru und Bonus für den nächsten Ninjahund.",
+      "S3_036": "{allies} Verbündete erleiden 1 Schaden; diese Karte erhält für jeden 2.",
+      "S3_041": "Zwei Gegner.",
+      "S3_043": "Bonus für den nächsten Sasuke und eine spätere Heilung.",
+      "S3_051": "Anfangsbonus und eine Heilung.",
+      "S3_060": "Die eingestellten Verbündeten stehen annahmegemäß auf anderen Spuren und werden erstmals getroffen: ein Bonus und eine Heilung pro Verbündetem.",
+      "S3_062": "Eine anfängliche Heilung und die erste reaktive Heilung.",
+      "S3_073": "Anfangsbonus und Schaden in einer Begegnung. Effekte ohne ausdrückliche Wiederholung gelten einmal.",
+      "S3_085": "{enemies} Gegner; vorhandenes Brennen wird ohne bekannten Wert nicht gezählt.",
+      "S3_091": "Erstes Ziel, Bonus und Schaden an 5 weiteren Gegnern und {allies} Verbündeten. Die Formulierung „andere Karten“ ist mehrdeutig.",
+      "S3_092": "Das erste Ziel wird getrennt getroffen; Schaden an anderen Karten schließt es aus und umfasst alle eingestellten Verbündeten.",
+      "S3_039": "Günstige Umwandlung des verbleibenden anfänglichen Ansturms: 2/3 Chakra auf Level 1/2, maximal 3; kein externer Bonus simuliert."
+    },
+    "calculation": {
+      "effectC": "Chakra-Bonus",
+      "effectW": "Schwächen",
+      "effectH": "Heilen",
+      "effectB": "Brennen pro Ziel",
+      "effectK": "beschworenes Chakra",
+      "amount": "{value} {effect}",
+      "burnTotal": "{value} Brennen pro Ziel, Gesamtdauer durch gegnerisches Chakra begrenzt",
+      "copy": "{value} Chakra der Kopie",
+      "restore": "{value} Heilung von 1 Chakra bis zum Basis-Chakra",
+      "rush": "{value} Chakra aus verbleibendem Ansturm (maximal 3)",
+      "enemies": {
+        "one": "{value} Gegner",
+        "other": "{value} Gegner"
+      },
+      "otherEnemies": "{value} weitere Gegner, ohne das erste Ziel",
+      "allies": {
+        "one": "{value} Verbündeter",
+        "other": "{value} Verbündete"
+      },
+      "first": "{value} erste Aktivierung",
+      "remaining": {
+        "one": "{value} weitere Aktivierung",
+        "other": "{value} weitere Aktivierungen"
+      },
+      "activations": {
+        "one": "{value} Aktivierung",
+        "other": "{value} Aktivierungen"
+      },
+      "enemyChakra": "{value} gegnerisches Chakra",
+      "targets": {
+        "one": "{value} Ziel",
+        "other": "{value} Ziele"
+      },
+      "drain": "{value} entferntes Chakra, ohne unter 1 zu fallen",
+      "removable": "{value} entfernbares Chakra",
+      "bestBranch": "beste Option: {label}",
+      "unquantified": "Der Zahlenbeitrag wurde noch nicht berechnet.",
+      "repeated": "Effekt über {activations} Aktivierungen angewendet.",
+      "once": "Begegnungseffekt einmal gezählt; nur ausdrücklich bei jeder Begegnung geltende Effekte werden wiederholt.",
+      "favourable": "Günstige Bedingungen werden angenommen. Synergien mit anderen Karten werden nicht simuliert.",
+      "tactical": "Taktischer Effekt ohne zahlenmäßigen Chakra-Bonus, Schaden oder Heilung.",
+      "halving": "Die Halbierung verwendet das eingestellte gegnerische Chakra; die genaue Rundung im Spiel ist noch nicht bestätigt.",
+      "burnNote": "Brennen: betroffene Ziele × min(Dauer in Sekunden, gegnerisches Chakra). Die Ausbreitung ist auf die eingestellten gegnerischen Ziele begrenzt; mehrere Anwendungen zählen dieselben Chakra-Punkte nicht doppelt.",
+      "allCards": "Effekt auf alle Karten: {enemies} Gegner und {allies} Verbündete. Verbündetenschaden ist pro Anwendung durch das verbündete Chakra begrenzt und verringert die Stärke.",
+      "ebisu": "Bonus und Abzüge verwenden die eingestellte Zahl der Verbündeten; das Überleben der Karte wird nicht simuliert."
+    },
+    "errors": {
+      "invalidJson": "Die Datei enthält kein gültiges Deck-JSON.",
+      "invalidDeck": "Ungültige Deckdatei.",
+      "invalidCards": "Prüfe Karten, Duplikate und Level in der Datei.",
+      "invalidOptions": "Ungültige Berechnungsoptionen.",
+      "invalidValues": "Ungültige Annahmewerte.",
+      "invalidOverrides": "Ungültige individuelle Karteneinstellungen.",
+      "missingCard": "Die Annahmen beziehen sich auf eine Karte außerhalb des Decks.",
+      "fileTooLarge": "Die Datei ist zu groß.",
+      "importFailed": "Das Deck konnte nicht importiert werden.",
+      "invalidRule": "Ungültige Regel: {id}, Level {level}, {factor}",
+      "invalidFactor": "Ungültiger Faktor: {factor}"
     },
     "normalizations": []
   }
