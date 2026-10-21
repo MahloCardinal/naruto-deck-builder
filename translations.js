@@ -1,6 +1,6 @@
 'use strict';
 
-// Add a complete language catalog here; the language selector is populated automatically.
+// Add a complete language catalog here, the language selector is populated automatically.
 const TRANSLATIONS = {
   "en": {
     "name": "English",
