@@ -129,7 +129,7 @@ const TRANSLATIONS = {
       "closeDeckInfo": "Close deck information",
       "deckPowerDescription": "Average power is the mean of the Power values of the cards in the deck.",
       "deckQualityDescription": "Average quality is the mean of the Quality values of the individual cards in the deck.",
-      "exportInfo": "Exports include individual levels and calculation assumptions."
+      "exportInfo": "Exports include the levels and calculation assumptions specific to each card."
     },
     "effects": {
       "Cost": "Cost",
@@ -2734,7 +2734,7 @@ const TRANSLATIONS = {
       "closeDeckInfo": "Chiudi informazioni del mazzo",
       "deckPowerDescription": "La potenza media è la media delle potenze delle carte del mazzo.",
       "deckQualityDescription": "La qualità media è la media delle qualità delle singole carte del mazzo.",
-      "exportInfo": "L'export include livelli e ipotesi di calcolo individuali."
+      "exportInfo": "L'export include livelli e ipotesi di calcolo specifici di ogni carta."
     },
     "effects": {
       "Cost": "Costo",
@@ -5356,7 +5356,7 @@ const TRANSLATIONS = {
       "closeDeckInfo": "Fermer les informations du deck",
       "deckPowerDescription": "La puissance moyenne est la moyenne des puissances des cartes du deck.",
       "deckQualityDescription": "La qualité moyenne est la moyenne des qualités de chaque carte du deck.",
-      "exportInfo": "Les exports incluent les niveaux individuels et les hypothèses de calcul."
+      "exportInfo": "L'export inclut les niveaux et les hypothèses de calcul propres à chaque carte."
     },
     "effects": {
       "Cost": "Coût",
@@ -7961,7 +7961,7 @@ const TRANSLATIONS = {
       "closeDeckInfo": "Fechar informações do deck",
       "deckPowerDescription": "O poder médio é a média dos poderes das cartas do deck.",
       "deckQualityDescription": "A qualidade média é a média das qualidades de cada carta do deck.",
-      "exportInfo": "As exportações incluem níveis individuais e hipóteses de cálculo."
+      "exportInfo": "A exportação inclui os níveis e as hipóteses de cálculo específicos de cada carta."
     },
     "effects": {
       "Cost": "Custo",
@@ -10566,7 +10566,7 @@ const TRANSLATIONS = {
       "closeDeckInfo": "Cerrar información del mazo",
       "deckPowerDescription": "La potencia media es la media de las potencias de las cartas del mazo.",
       "deckQualityDescription": "La calidad media es la media de las calidades de cada carta del mazo.",
-      "exportInfo": "Las exportaciones incluyen niveles individuales e hipótesis de cálculo."
+      "exportInfo": "La exportación incluye los niveles y las hipótesis de cálculo específicos de cada carta."
     },
     "effects": {
       "Cost": "Coste",
@@ -13172,7 +13172,7 @@ const TRANSLATIONS = {
       "closeDeckInfo": "Deckinformationen schließen",
       "deckPowerDescription": "Die Durchschnittsstärke ist der Mittelwert der Stärke aller Karten im Deck.",
       "deckQualityDescription": "Die Durchschnittsqualität ist der Mittelwert der Qualität der einzelnen Karten im Deck.",
-      "exportInfo": "Exporte enthalten individuelle Level und Berechnungsannahmen."
+      "exportInfo": "Der Export enthält die für jede Karte festgelegten Level und Berechnungsannahmen."
     },
     "effects": {
       "Cost": "Kosten",

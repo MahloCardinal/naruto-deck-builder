@@ -297,8 +297,10 @@ dialog button { border-radius:0; }
 .info-button:hover:not(:disabled) { border-color:var(--green); }
 .deck-strip { display:grid; grid-template-columns:minmax(0,1fr); gap:10px; align-self:start; max-height:none; overflow:visible; }
 .deck-preview-title { font-size:14px; }
-.deck-preview-actions { display:flex; align-items:center; justify-content:space-evenly; gap:6px; }
+.deck-preview-actions { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:8px; }
 .deck-preview-actions button { min-height:31px; padding:6px 9px; font-size:11px; }
+.deck-preview-actions #view-deck { grid-column:2; }
+.deck-preview-actions #deck-info-button { grid-column:3; justify-self:start; display:grid; place-items:center; width:24px; height:24px; min-height:24px; padding:0; border-radius:50%; font-size:14px; line-height:1; }
 .deck-strip .deck-grid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:5px; margin:0; }
 .deck-strip .metric b { font-size:19px; }
 .deck-strip .metric > span { overflow-wrap:anywhere; }
