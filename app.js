@@ -34,7 +34,7 @@ function syncLanguageControl() {
 }
 function positionLanguageMenu() {
   const button=$('language-select'),menu=$('language-menu'),rect=button.getBoundingClientRect();
-  const width=Math.min(Math.max(180,rect.width),innerWidth-20);
+  const width=Math.min(rect.width,innerWidth-20);
   menu.style.width=width+'px';
   menu.style.left=Math.max(10,Math.min(rect.right-width,innerWidth-width-10))+'px';
   menu.style.top=(rect.bottom+6)+'px';
@@ -74,7 +74,7 @@ function mountLanguageMenu() {
     }
   };
   const reposition=()=>{if(menu.matches(':popover-open'))positionLanguageMenu();};
-  window.addEventListener('resize',reposition,{passive:true});
+  window.addEventListener('resize',()=>{sizeHeaderControls();reposition();},{passive:true});
   window.addEventListener('scroll',reposition,{capture:true,passive:true});
 }
 function fmt(value,maximumFractionDigits=2) {
@@ -300,17 +300,16 @@ function renderCatalog() {
   $(mode+'-card-list').innerHTML = cards.length ? cards.map(cardHTML).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
   scheduleSessionSave();
 }
-function deckSlotsHTML(cards,showLevel=false) {
+function deckSlotsHTML(cards,showDetails=false) {
   return Array.from({length:10},(_,slot) => {
     const card=cards[slot];
     if (!card) return `<li class="deck-slot empty" aria-label="${t('ui.emptySlot',{slot:slot+1})}">${slot+1}</li>`;
     const name=cardText(card).name,level=deckLevel(card);
-    return `<li class="deck-slot"><button class="deck-open" data-deck-open="${card.index}" title="${esc(t('ui.cardLevelTitle',{name,level,reference:cardReference(card)}))}"><img src="${imagePath(card)}" alt="${esc(name)}"></button>${showLevel?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`:''}<button class="remove" data-remove="${card.index}" aria-label="${esc(t('ui.removeNamedCard',{name}))}">×</button></li>`;
+    return `<li class="deck-slot"><button class="deck-open" data-deck-open="${card.index}" title="${esc(t('ui.cardLevelTitle',{name,level,reference:cardReference(card)}))}"><img src="${imagePath(card)}" alt="${esc(name)}">${showDetails?`<span class="orb cost" title="${t('ui.cost')}">${card.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${card.chakra}</span>`:''}</button>${showDetails?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`:`<button class="remove" data-remove="${card.index}" aria-label="${esc(t('ui.removeNamedCard',{name}))}">×</button>`}</li>`;
   }).join('');
 }
 function renderDeck() {
   const cards = current.cards.map(i => byIndex.get(i)), n = cards.length;
-  $('deck-count').textContent = `${n}/10`;
   if (document.activeElement !== $('deck-name')) $('deck-name').value = current.name;
   $('deck-grid').innerHTML = deckSlotsHTML(cards);
   $('deck-dialog-grid').innerHTML = deckSlotsHTML(cards,true);
@@ -324,8 +323,9 @@ function renderDeck() {
     $(prefix+'avg-quality').textContent = n ? fmt(totals.quality/n) : '—';
   }
   const counts = Array.from({length:9},(_,i) => cards.filter(c => Math.min(c.energy_cost,9) === i+1).length), peak = Math.max(1,...counts);
-  $('curve').innerHTML = counts.map((num,i) => `<div class="bar-slot" title="${t('ui.curveBar',{cost:i+1,count:num})}"><span>${num || ''}</span><div class="bar" style="height:${num/peak*29}px"></div><small>${i+1}${i === 8 ? '+' : ''}</small></div>`).join('');
-  $('clear-deck').disabled = n === 0;
+  const curveHTML=counts.map((num,i) => `<div class="bar-slot" title="${t('ui.curveBar',{cost:i+1,count:num})}"><span>${num || ''}</span><div class="bar" style="height:${num/peak*29}px"></div><small>${i+1}${i === 8 ? '+' : ''}</small></div>`).join('');
+  for (const id of ['curve','preview-curve']) $(id).innerHTML=curveHTML;
+  for (const button of document.querySelectorAll('[data-deck-action="clear"]')) button.disabled=n===0;
 }
 
 function changed() { renderDeck(); renderCatalog(); }
@@ -507,6 +507,22 @@ function repositionFilterMenus() {
 window.addEventListener('resize',repositionFilterMenus,{passive:true});
 window.addEventListener('scroll',repositionFilterMenus,{capture:true,passive:true});
 
+function sizeHeaderControls() {
+  const context=document.createElement('canvas').getContext('2d');
+  const measure=(text,style)=>{
+    context.font=`${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    return context.measureText(text).width+Math.max(0,text.length-1)*(parseFloat(style.letterSpacing)||0);
+  };
+  const frame=style=>['paddingLeft','paddingRight','borderLeftWidth','borderRightWidth'].reduce((sum,key)=>sum+(parseFloat(style[key])||0),0);
+  for (const [id,key] of [['tab-db','database'],['tab-builder','builder']]) {
+    const button=$(id),style=getComputedStyle(button);
+    button.style.width=Math.ceil(Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.ui[key],style)))+frame(style)+1)+'px';
+  }
+  const button=$('language-select'),style=getComputedStyle(button),arrow=$('language-select').querySelector('.language-arrow');
+  const names=Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.name,style)));
+  const spacing=2*(parseFloat(style.columnGap)||0)+(parseFloat(getComputedStyle(arrow).marginLeft)||0);
+  button.style.width=Math.ceil(names+$('language-flag').getBoundingClientRect().width+arrow.getBoundingClientRect().width+spacing+frame(style)+1)+'px';
+}
 function sizeFilterControls() {
   // Reserve enough room for every possible selection count in the active language.
   const context=document.createElement('canvas').getContext('2d');
@@ -603,7 +619,7 @@ function applyLanguage() {
     button.setAttribute('aria-label',t(descending?'ui.descendingAction':'ui.ascendingAction'));
   }
   syncLanguageControl();
-  sizeFilterControls();renderDeck();renderCatalog();
+  sizeHeaderControls();sizeFilterControls();renderDeck();renderCatalog();
   if ($('card-dialog').open) renderDialog();
   if (confirmMessageKey) $('confirm-text').textContent=t(confirmMessageKey);
 }
@@ -733,8 +749,12 @@ $('deck-name').oninput = () => {
   current.name = input.value.slice(0,15);
   if (input.value !== current.name) input.value = current.name;
 };
-$('export-deck').onclick = exportDeck;
-$('import-deck').onclick = () => $('import-file').click();
+const deckActions={
+  export:exportDeck,
+  import:()=>$('import-file').click(),
+  clear:()=>ask('ui.confirmClear',()=>{current.cards=[];current.levels={};changed();})
+};
+for (const button of document.querySelectorAll('[data-deck-action]')) button.onclick=deckActions[button.dataset.deckAction];
 $('import-file').onchange = async () => {
   const file = $('import-file').files[0]; if (!file) return;
   try {
@@ -745,10 +765,11 @@ $('import-file').onchange = async () => {
   } catch (error) { toast(error.message || t('errors.importFailed'),true); }
   $('import-file').value = '';
 };
-$('clear-deck').onclick = () => ask('ui.confirmClear',() => { current.cards = []; current.levels = {}; changed(); });
 $('close-dialog').onclick = () => $('card-dialog').close();
 $('calculation-info-button').onclick = () => $('calculation-info-dialog').showModal();
 $('close-calculation-info').onclick = () => $('calculation-info-dialog').close();
+$('deck-info-button').onclick = () => $('deck-info-dialog').showModal();
+$('close-deck-info').onclick = () => $('deck-info-dialog').close();
 $('confirm-no').onclick = () => { confirmAction = null; $('confirm-dialog').close(); };
 $('confirm-yes').onclick = () => { const action = confirmAction; confirmAction = null; $('confirm-dialog').close(); action?.(); };
 $('confirm-dialog').oncancel = () => { confirmAction = null; };
@@ -764,6 +785,7 @@ for (const [key,selector] of Object.entries(panelSelectors)) {
   if (typeof restoredSession.panels?.[key] === 'boolean') document.querySelector(selector).open = restoredSession.panels[key];
 }
 syncScenario(); applyLanguage(); setMode(mode);
+document.fonts.ready.then(sizeHeaderControls);
 for (const [key,id] of Object.entries(settingIds)) {
   const draft = restoredSession.standardDraft?.[key];
   if (typeof draft === 'string' && /^\d{0,3}$/.test(draft)) $(id).value = draft;

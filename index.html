@@ -39,13 +39,15 @@
 <div class="parameter"><label data-i18n="ui.allyChakra" data-i18n-rich="" for="s-ally-chakra"></label><input data-integer="" id="s-ally-chakra" inputmode="numeric" max="99" min="0" pattern="[0-9]*" required="" step="1" type="text" value="4"/></div>
 <div class="parameter"><label data-i18n="ui.allies" data-i18n-rich="" for="s-allies"></label><input data-integer="" id="s-allies" inputmode="numeric" max="99" min="0" pattern="[0-9]*" required="" type="text" value="4"/></div>
 <div class="parameter"><label data-i18n="ui.activations" data-i18n-rich="" for="s-activations"></label><input data-integer="" id="s-activations" inputmode="numeric" max="99" min="0" pattern="[0-9]*" required="" type="text" value="2"/></div>
-<div class="scenario-actions"><button class="primary" data-i18n="ui.applyStandard" id="apply-standard"></button><button aria-controls="calculation-info-dialog" aria-haspopup="dialog" data-i18n="ui.calculationInfo" id="calculation-info-button"></button></div>
+<div class="scenario-actions"><button class="primary" data-i18n="ui.applyStandard" id="apply-standard"></button><button aria-controls="calculation-info-dialog" aria-haspopup="dialog" class="info-button" data-i18n="ui.calculationInfo" id="calculation-info-button"></button></div>
 </div>
 <div class="scenario-footer"><p class="inline-note" id="standard-status" role="status"></p></div>
 </details>
 <main class="workspace builder" id="workspace"><section class="catalog" data-i18n-aria-label="ui.builderCards"><div class="card-list" id="builder-card-list"></div></section>
 <section class="deck-strip panel" data-i18n-aria-label="ui.deck" id="deck-panel">
+<h2 class="deck-preview-title" data-i18n="ui.deckBuilding"></h2>
 <ol class="deck-grid" data-i18n-aria-label="ui.deckSlots" id="deck-grid"></ol>
+<figure class="cost-curve deck-preview-curve"><div aria-describedby="preview-curve-caption" class="curve" data-i18n-aria-label="ui.distribution" id="preview-curve" role="img"></div><figcaption data-i18n="ui.curveCaption" data-i18n-rich="" id="preview-curve-caption"></figcaption></figure>
 <div class="metrics">
 <div class="metric">
 <b id="avg-cost">—</b>
@@ -60,7 +62,9 @@
 <span data-i18n="ui.averageQuality" data-i18n-rich=""></span>
 </div>
 </div>
-<div class="deck-preview-actions"><button aria-controls="deck-dialog" aria-haspopup="dialog" class="primary" data-i18n="ui.viewDeck" id="view-deck"></button><button data-i18n="ui.import" id="import-deck"></button><input accept=".json,application/json" hidden="" id="import-file" type="file"/></div>
+<div class="deck-preview-actions"><button aria-controls="deck-dialog" aria-haspopup="dialog" class="primary" data-i18n="ui.viewDeck" id="view-deck"></button><button aria-controls="deck-info-dialog" aria-haspopup="dialog" class="info-button" data-i18n="ui.info" id="deck-info-button"></button></div>
+<div class="deck-file-actions"><button class="primary" data-deck-action="export" data-i18n="ui.export"></button><button data-deck-action="import" data-i18n="ui.import"></button><button class="danger strong-danger" data-deck-action="clear" data-i18n="ui.clearDeck"></button></div>
+<input accept=".json,application/json" hidden="" id="import-file" type="file"/>
 </section>
 </main>
 </section>
@@ -83,7 +87,7 @@
 </details>
 </template>
 <dialog aria-labelledby="deck-dialog-title" class="deck-dialog" id="deck-dialog">
-<div class="dialog-head"><h2 data-i18n="ui.deck" id="deck-dialog-title"></h2><div class="deck-dialog-status"><span class="count" id="deck-count">0/10</span><button class="dialog-close" data-i18n-aria-label="ui.closeDeck" id="close-deck-dialog">✕</button></div></div>
+<div class="dialog-head"><h2 data-i18n="ui.deckBuilding" id="deck-dialog-title"></h2><button class="dialog-close" data-i18n-aria-label="ui.closeDeck" id="close-deck-dialog">✕</button></div>
 <div class="deck-name-field"><label data-i18n="ui.deckNameLabel" data-i18n-rich="" for="deck-name"></label><input class="deck-name" data-i18n-placeholder="ui.deckNamePlaceholder" id="deck-name" maxlength="15"/></div>
 <ol class="deck-grid" data-i18n-aria-label="ui.deckCardsLevels" id="deck-dialog-grid"></ol>
 <div class="deck-summary-row">
@@ -103,9 +107,10 @@
 </div>
 </div>
 </div>
-<div class="deck-buttons">
-<button class="primary" data-i18n="ui.export" id="export-deck"></button>
-<button class="danger strong-danger" data-i18n="ui.clearDeck" id="clear-deck"></button>
+<div class="deck-file-actions">
+<button class="primary" data-deck-action="export" data-i18n="ui.export"></button>
+<button data-deck-action="import" data-i18n="ui.import"></button>
+<button class="danger strong-danger" data-deck-action="clear" data-i18n="ui.clearDeck"></button>
 </div>
 </dialog>
 <dialog aria-labelledby="dialog-title" id="card-dialog">
@@ -128,6 +133,14 @@
 <li data-i18n="ui.info4" data-i18n-rich=""></li>
 <li data-i18n="ui.info5" data-i18n-rich=""></li>
 <li data-i18n="ui.info6" data-i18n-rich=""></li>
+</ul>
+</dialog>
+<dialog aria-labelledby="deck-info-title" class="calculation-info" id="deck-info-dialog">
+<div class="dialog-head"><h2 data-i18n="ui.deckInfo" id="deck-info-title"></h2><button class="dialog-close" data-i18n-aria-label="ui.closeDeckInfo" id="close-deck-info">✕</button></div>
+<ul>
+<li><p data-i18n="ui.deckPowerDescription"></p><p data-i18n="ui.info1" data-i18n-rich=""></p></li>
+<li><p data-i18n="ui.deckQualityDescription"></p><p data-i18n="ui.info2" data-i18n-rich=""></p></li>
+<li data-i18n="ui.exportInfo"></li>
 </ul>
 </dialog>
 <dialog aria-labelledby="confirm-title" id="confirm-dialog" style="max-width:336px">
