@@ -300,7 +300,7 @@ dialog::backdrop { background:#26362770; backdrop-filter:blur(2px); }
   .toolbox-tab { position:relative; display:flex; align-items:center; gap:8px; width:100%; min-height:36px; padding:7px 8px; border:0; border-left:2px solid transparent; text-align:left; font-size:12px; }
   .toolbox-tab[aria-selected=true] { background:#edf2e6; border-left-color:var(--orange); }
   .toolbox-icon { display:block; width:18px; height:18px; flex:none; }
-  .toolbox-body { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; overscroll-behavior-y:contain; scrollbar-width:thin; align-content:start; }
+  .toolbox-body { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; overscroll-behavior-y:contain; scrollbar-width:thin; align-content:start; padding-left:4px; }
   .toolbox.is-collapsed { padding:8px 4px; }
   .toolbox.is-collapsed .toolbox-toggle { justify-self:start; justify-content:center; padding:9px 3px; }
   .toolbox.is-collapsed .toolbox-tab { justify-content:center; padding:9px 3px; }
