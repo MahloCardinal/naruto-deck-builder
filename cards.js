@@ -805,11 +805,9 @@ const RULES = {
     "review": true
   },
   "S1_071": {
-    "expr": [
-      "K0*5",
-      "K0*6"
-    ],
-    "review": true
+    "expr": "K0*N",
+    "costPerActivation": 1,
+    "review": false
   },
   "S1_075": {
     "expr": "W0*E*N",

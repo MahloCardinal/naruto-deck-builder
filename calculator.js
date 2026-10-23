@@ -3,7 +3,7 @@
 // Formula tokens are language-independent. Translation is applied only to explanations.
 // E/A are configurable target groups; eN/aN cap an explicit maximum to available targets.
 // N is the total number of repeated effect activations. Initial effects stay separate.
-// Summons add Chakra without adding energy cost.
+// Summons add Chakra; additional activation costs are declared separately in the rules.
 function estimate(card, level, options = scenarioFor(card), dependencies = null) {
   const scenario = cleanScenario(options);
   const numbers = card.effect_values[level - 1];
@@ -112,6 +112,9 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
   const damage = sum('damage'), burn = sum('burn'), heal = sum('heal');
   const chakra = card.chakra + boosts + summoned - friendly;
   const value = chakra + damage + burn + heal;
+  const costPerActivation = rule?.costPerActivation ?? 0;
+  if (costPerActivation) dependencies?.add('activations');
+  const cost = card.energy_cost + costPerActivation * scenario.activations;
 
   if (card.conditional[level - 1]) { review = true; if (!note) note = t('calculation.favourable'); }
   if (!rule && !note) note = t('calculation.tactical');
@@ -120,6 +123,6 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
   if (['S1_083', 'S2_040', 'S2_072', 'S2_080', 'S3_069'].includes(card.card_key)) note = t('calculation.allCards', scenario);
   if (card.card_key === 'S1_058') note = t('calculation.ebisu');
   if (/(?:^|[^\w])(?:N|first|remaining)(?:$|[^\w])/.test(expression)) note = '';
-  return {value, quality: value / card.energy_cost, chakra, base: card.chakra, boosts, summoned, friendly,
+  return {value, cost, quality: value / cost, chakra, base: card.chakra, boosts, summoned, friendly,
     damage, burn, heal, parts: parts.filter(part => part.value !== 0), review, note, level, scenario};
 }

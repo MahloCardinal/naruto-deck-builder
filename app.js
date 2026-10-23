@@ -5,7 +5,21 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;',
 // New sessions start in English; refreshes restore the current tab's language.
 let language = 'en';
 const SESSION_KEY = 'naruto-ninja-cards.session';
-const panelSelectors = {dbFilters:'#db-filter-host details',builderFilters:'#builder-filter-host details',assumptions:'#scenario-panel'};
+const toolbarPanels = {
+  db: [{key:'filters',label:'filters',id:'db-filter-host'}],
+  builder: [
+    {key:'filters',label:'filters',id:'builder-filter-host'},
+    {key:'assumptions',label:'assumptions',id:'scenario-panel'},
+    {key:'deck',label:'deckBuilding',id:'deck-panel'}
+  ]
+};
+const toolbarState = {db:{active:'filters',open:true},builder:{active:'filters',open:true}};
+const toolbarIcons = {
+  filters:'<path d="M3 5h18l-7 8v6l-4 2v-8z"/>',
+  assumptions:'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M7 7h10M8 11h1m6 0h1m-8 4h1m6 0h1m-8 3h1m6 0h1"/>',
+  deck:'<path d="M8 3h12v15M4 7h12v14H4z"/>'
+};
+const deckOrder = {sort:'cost',direction:'asc'};
 let sessionReady = false, sessionTimer, lastSessionText = '', sessionWarning = false;
 const numberFormatters = new Map();
 const pluralRules = new Map();
@@ -42,7 +56,7 @@ function positionLanguageMenu() {
 }
 function mountLanguageMenu() {
   const button=$('language-select'),menu=$('language-menu');
-  menu.innerHTML=Object.entries(TRANSLATIONS).map(([code,catalog])=>`<button class="language-option" data-language="${esc(code)}" role="option" type="button"><img alt="" class="language-flag" src="misc_images/flag-${esc(catalog.flag)}.svg" width="20" height="15"><span lang="${esc(code)}">${esc(catalog.name)}</span></button>`).join('');
+  menu.innerHTML=Object.entries(TRANSLATIONS).sort(([,a],[,b])=>a.name.localeCompare(b.name,'en',{sensitivity:'base'})).map(([code,catalog])=>`<button class="language-option" data-language="${esc(code)}" role="option" type="button"><img alt="" class="language-flag" src="misc_images/flag-${esc(catalog.flag)}.svg" width="20" height="15"><span lang="${esc(code)}">${esc(catalog.name)}</span></button>`).join('');
   menu.onbeforetoggle=event=>{if(event.newState==='open')positionLanguageMenu();};
   menu.ontoggle=event=>{
     const open=event.newState==='open';
@@ -254,6 +268,14 @@ function cardHTML(c) {
     </div></article>`;
 }
 const filterIds = ['f-level','f-text','f-estimate'];
+function updateFilterCount(area) {
+  const groups=Object.keys(filterDefinitions).filter(id=>$(area+'-'+id+'-menu').querySelector('input:checked')).length;
+  const count=groups+Number($(area+'-f-text').value.trim()!=='')+Number(!!$(area+'-f-estimate') && $(area+'-f-estimate').value!=='');
+  const badge=$(area+'-toolbox-tab-filters').querySelector('.filter-count');
+  badge.textContent=count?` (${fmt(count,0)})`:'';
+  badge.hidden=count===0;
+  badge.parentElement.title=t('ui.filters')+badge.textContent;
+}
 function filteredCards() {
   const query = F('f-text').value.trim().toLowerCase();
   const words = query.replace(/\bs(\d+)\s*(?:[#_-]\s*|\s+)(\d+)\b/g,'s$1#$2').split(/\s+/).filter(Boolean);
@@ -298,6 +320,7 @@ function renderCatalog() {
     return direction*(d || a.index-b.index);
   });
   $(mode+'-card-list').innerHTML = cards.length ? cards.map(cardHTML).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
+  updateFilterCount(mode);
   scheduleSessionSave();
 }
 function deckSlotsHTML(cards,showDetails=false) {
@@ -309,12 +332,20 @@ function deckSlotsHTML(cards,showDetails=false) {
   }).join('');
 }
 function renderDeck() {
-  const cards = current.cards.map(i => byIndex.get(i)), n = cards.length;
+  const field=deckOrder.sort==='chakra'?'chakra':'energy_cost',direction=deckOrder.direction==='desc'?-1:1;
+  const cards = current.cards.map(i => byIndex.get(i)).sort((a,b)=>direction*(a[field]-b[field] || a.index-b.index)), n = cards.length;
+  $('deck-sort').value=deckOrder.sort;
+  const orderButton=$('deck-sort-direction'),descending=deckOrder.direction==='desc';
+  orderButton.textContent=descending?'↓':'↑';
+  orderButton.dataset.direction=deckOrder.direction;
+  orderButton.title=t(descending?'ui.descending':'ui.ascending');
+  orderButton.setAttribute('aria-label',t(descending?'ui.descendingAction':'ui.ascendingAction'));
   if (document.activeElement !== $('deck-name')) $('deck-name').value = current.name;
   $('deck-grid').innerHTML = deckSlotsHTML(cards);
   $('deck-dialog-grid').innerHTML = deckSlotsHTML(cards,true);
   const totals = cards.reduce((a,c) => {
     const e = computed(c,deckLevel(c));
+    // Deck cost statistics always use printed costs; power and quality include effects.
     return {cost:a.cost+c.energy_cost,power:a.power+e.value,quality:a.quality+e.quality};
   },{cost:0,power:0,quality:0});
   for (const prefix of ['', 'deck-dialog-']) {
@@ -322,9 +353,10 @@ function renderDeck() {
     $(prefix+'avg-max').textContent = n ? fmt(totals.power/n) : '—';
     $(prefix+'avg-quality').textContent = n ? fmt(totals.quality/n) : '—';
   }
-  const counts = Array.from({length:9},(_,i) => cards.filter(c => Math.min(c.energy_cost,9) === i+1).length), peak = Math.max(1,...counts);
+  const costs = cards.map(c => c.energy_cost);
+  const counts = Array.from({length:9},(_,i) => costs.filter(cost => Math.min(cost,9) === i+1).length), peak = Math.max(1,...counts);
   const curveHTML=counts.map((num,i) => `<div class="bar-slot" title="${t('ui.curveBar',{cost:i+1,count:num})}"><span>${num || ''}</span><div class="bar" style="height:${num/peak*29}px"></div><small>${i+1}${i === 8 ? '+' : ''}</small></div>`).join('');
-  for (const id of ['curve','preview-curve']) $(id).innerHTML=curveHTML;
+  $('curve').innerHTML=curveHTML;
   for (const button of document.querySelectorAll('[data-deck-action="clear"]')) button.disabled=n===0;
 }
 
@@ -355,13 +387,79 @@ function setMode(next) {
   renderCatalog();
   if (build) renderDeck();
 }
+function renderToolbar(area) {
+  const state=toolbarState[area],toggle=$(area+'-toolbox-toggle');
+  const desktop=matchMedia('(min-width:701px)').matches;
+  const sidebarKey=state.open?'ui.collapseSidebar':'ui.expandSidebar';
+  toggle.setAttribute('aria-expanded',String(state.open));
+  toggle.setAttribute('aria-label',t(desktop?sidebarKey:state.open?'ui.collapseToolbar':'ui.expandToolbar'));
+  toggle.querySelector('.sidebar-toggle-label').textContent=t(sidebarKey);
+  toggle.title=toggle.getAttribute('aria-label');
+  $(area+'-toolbox').classList.toggle('is-collapsed',!state.open);
+  $(area+'-toolbox-body').hidden=!state.open;
+  $(area+'-toolbox-body').inert=!state.open;
+  for (const panel of toolbarPanels[area]) {
+    const selected=panel.key===state.active,tab=$(area+'-toolbox-tab-'+panel.key);
+    tab.setAttribute('aria-selected',String(selected));
+    tab.tabIndex=selected?0:-1;
+    tab.title=t('ui.'+panel.label);
+    $(panel.id).hidden=!selected && desktop;
+    $(panel.id).classList.toggle('is-inactive',!selected);
+    $(panel.id).setAttribute('aria-hidden',String(!selected));
+    $(panel.id).inert=!selected;
+  }
+  updateFilterCount(area);
+}
+function selectToolbarPanel(area,key,toggleCurrent=false) {
+  closeFilterMenus();
+  const state=toolbarState[area];
+  const open=toggleCurrent && state.active===key ? !state.open : true;
+  toolbarState[area]={active:key,open};
+  renderToolbar(area);
+  scheduleSessionSave();
+}
+function mountToolbars() {
+  for (const [area,panels] of Object.entries(toolbarPanels)) {
+    const header=document.createElement('div');
+    header.className='toolbox-header';
+    header.innerHTML=`<button class="toolbox-toggle" id="${area}-toolbox-toggle" type="button" aria-controls="${area}-toolbox-body"><span class="toolbox-toggle-icon" aria-hidden="true"><span class="toolbox-chevron"></span></span><span class="sidebar-toggle-label"></span></button><div class="toolbox-tabs" role="tablist" data-i18n-aria-label="ui.toolbarModes">${panels.map(panel=>`<button class="toolbox-tab" id="${area}-toolbox-tab-${panel.key}" type="button" role="tab" aria-controls="${panel.id}" data-panel="${panel.key}"><svg class="toolbox-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${toolbarIcons[panel.key]}</svg><span class="toolbox-label" data-i18n="ui.${panel.label}"></span>${panel.key==='filters'?'<span class="filter-count" hidden></span>':''}</button>`).join('')}</div>`;
+    $(area+'-toolbox').prepend(header);
+    for (const panel of panels) $(panel.id).setAttribute('aria-labelledby',area+'-toolbox-tab-'+panel.key);
+    $(area+'-toolbox-toggle').onclick=()=>{
+      closeFilterMenus();
+      toolbarState[area].open=!toolbarState[area].open;
+      renderToolbar(area);
+      scheduleSessionSave();
+    };
+    const tabs=header.querySelector('.toolbox-tabs');
+    const desktop=matchMedia('(min-width:701px)');
+    const syncOrientation=()=>tabs.setAttribute('aria-orientation',desktop.matches?'vertical':'horizontal');
+    syncOrientation();desktop.addEventListener('change',()=>{syncOrientation();renderToolbar(area);});
+    tabs.onclick=event=>{
+      const tab=event.target.closest('[data-panel]');
+      if (tab) selectToolbarPanel(area,tab.dataset.panel,!desktop.matches);
+    };
+    tabs.onkeydown=event=>{
+      const index=panels.findIndex(panel=>panel.key===toolbarState[area].active);
+      let next;
+      if (event.key==='ArrowRight' || desktop.matches && event.key==='ArrowDown') next=(index+1)%panels.length;
+      else if (event.key==='ArrowLeft' || desktop.matches && event.key==='ArrowUp') next=(index+panels.length-1)%panels.length;
+      else if (event.key==='Home') next=0;
+      else if (event.key==='End') next=panels.length-1;
+      else return;
+      event.preventDefault();
+      selectToolbarPanel(area,panels[next].key);
+      $(area+'-toolbox-tab-'+panels[next].key).focus();
+    };
+  }
+}
 function openCard(index,level) {
   dialogCard = byIndex.get(index); dialogLevel = level || levelOf(dialogCard);
   renderDialog(); $('card-dialog').showModal();
 }
 function calculationHTML(c,level,result=estimate(c,level)) {
   const ledger=[['baseChakra',c.chakra],['summonedChakra',result.summoned],['chakraBoosts',result.boosts],['friendlyDamage',-result.friendly],['enemyDamage',result.damage],['burn',result.burn],['heal',result.heal]];
-  return `<div class="calculation-summary"><h4>${t('ui.powerComposition')}</h4><div class="ledger">${ledger.filter((row,index)=>row[1]!==0||index===0).map(([key,value])=>`<div class="ledger-row ${value<0?'negative':''}"><span>${formatTerms(t('ui.'+key))}</span><b>${fmt(value)}</b></div>`).join('')}</div></div>
+  return `<div class="calculation-summary"><h4>${t('ui.powerComposition')}</h4><div class="ledger">${result.cost!==c.energy_cost?`<div class="ledger-row"><span>${formatTerms(t('ui.cost'))}</span><b>${fmt(result.cost)}</b></div>`:''}${ledger.filter((row,index)=>row[1]!==0||index===0).map(([key,value])=>`<div class="ledger-row ${value<0?'negative':''}"><span>${formatTerms(t('ui.'+key))}</span><b>${fmt(value)}</b></div>`).join('')}</div></div>
     <div class="contributions"><h4>${t('ui.contributions')}</h4>${result.parts.map(part=>`<div class="contribution-row"><span>${formatTerms(part.label)}</span><span class="contribution-equals">=</span><b>${part.value>=0?'+':'−'}${fmt(Math.abs(part.value))}</b></div>`).join('')||`<p>${t('ui.noContributions')}</p>`}</div>
     ${result.note?`<p class="notice">${formatTerms(result.note)}</p>`:''}`;
 }
@@ -537,7 +635,7 @@ function sizeFilterControls() {
     const spacing=['paddingLeft','paddingRight','borderLeftWidth','borderRightWidth','columnGap'].reduce((sum,key)=>sum+(parseFloat(style[key])||0),0);
     button.closest('.field').style.minWidth=Math.ceil(textWidth+arrowWidth+spacing+2)+'px';
   }
-  for (const select of document.querySelectorAll('.filters-panel select')) {
+  for (const select of document.querySelectorAll('.filters-panel select,#deck-sort')) {
     const probe=select.cloneNode(true);
     probe.removeAttribute('id'); probe.removeAttribute('class');
     Object.assign(probe.style,{position:'fixed',left:'-9999px',visibility:'hidden',width:'auto',maxWidth:'none',fieldSizing:'fixed',font:getComputedStyle(select).font,fontWeight:'400'});
@@ -619,6 +717,7 @@ function applyLanguage() {
     button.setAttribute('aria-label',t(descending?'ui.descendingAction':'ui.ascendingAction'));
   }
   syncLanguageControl();
+  for (const area of Object.keys(toolbarPanels)) renderToolbar(area);
   sizeHeaderControls();sizeFilterControls();renderDeck();renderCatalog();
   if ($('card-dialog').open) renderDialog();
   if (confirmMessageKey) $('confirm-text').textContent=t(confirmMessageKey);
@@ -671,7 +770,7 @@ function saveSession() {
   try {
     const text = JSON.stringify({
       language,mode,useDefaultDeckName,defaults,deck:current,
-      panels:Object.fromEntries(Object.entries(panelSelectors).map(([key,selector]) => [key,document.querySelector(selector).open])),
+      toolbars:toolbarState,deckOrder,
       filters:{db:captureFilters('db'),builder:captureFilters('builder')},
       standardDraft:Object.fromEntries(Object.entries(settingIds).map(([key,id]) => [key,$(id).value])),
       standardStatus:$('standard-status').dataset.i18n || ''
@@ -726,6 +825,7 @@ function restoreSession() {
 }
 mountLanguageMenu();
 
+mountToolbars();
 mountFilters('db'); mountFilters('builder');
 sizeFilterControls();
 for (const id of Object.values(settingIds)) $(id).addEventListener('input',() => {
@@ -742,6 +842,8 @@ for (const id of ['deck-grid','deck-dialog-grid']) $(id).onclick = event => {
   else if (open) { const c = byIndex.get(Number(open.dataset.deckOpen)); openCard(c.index,deckLevel(c)); }
 };
 $('view-deck').onclick = () => { renderDeck(); $('deck-dialog').showModal(); };
+$('deck-sort').onchange = () => { deckOrder.sort=$('deck-sort').value;renderDeck();scheduleSessionSave(); };
+$('deck-sort-direction').onclick = () => { deckOrder.direction=deckOrder.direction==='asc'?'desc':'asc';renderDeck();scheduleSessionSave(); };
 $('close-deck-dialog').onclick = () => $('deck-dialog').close();
 $('deck-name').oninput = () => {
   const input = $('deck-name');
@@ -768,7 +870,7 @@ $('import-file').onchange = async () => {
 $('close-dialog').onclick = () => $('card-dialog').close();
 $('calculation-info-button').onclick = () => $('calculation-info-dialog').showModal();
 $('close-calculation-info').onclick = () => $('calculation-info-dialog').close();
-$('deck-info-button').onclick = () => $('deck-info-dialog').showModal();
+for (const button of document.querySelectorAll('[data-deck-info]')) button.onclick = () => $('deck-info-dialog').showModal();
 $('close-deck-info').onclick = () => $('deck-info-dialog').close();
 $('confirm-no').onclick = () => { confirmAction = null; $('confirm-dialog').close(); };
 $('confirm-yes').onclick = () => { const action = confirmAction; confirmAction = null; $('confirm-dialog').close(); action?.(); };
@@ -781,8 +883,10 @@ for (const dialog of document.querySelectorAll('dialog')) {
 }
 
 const restoredSession = restoreSession();
-for (const [key,selector] of Object.entries(panelSelectors)) {
-  if (typeof restoredSession.panels?.[key] === 'boolean') document.querySelector(selector).open = restoredSession.panels[key];
+if (['cost','chakra'].includes(restoredSession.deckOrder?.sort) && ['asc','desc'].includes(restoredSession.deckOrder?.direction)) Object.assign(deckOrder,restoredSession.deckOrder);
+for (const [area,panels] of Object.entries(toolbarPanels)) {
+  const saved=restoredSession.toolbars?.[area];
+  if (saved && panels.some(panel=>panel.key===saved.active) && typeof saved.open==='boolean') toolbarState[area]={active:saved.active,open:saved.open};
 }
 syncScenario(); applyLanguage(); setMode(mode);
 document.fonts.ready.then(sizeHeaderControls);
@@ -792,7 +896,6 @@ for (const [key,id] of Object.entries(settingIds)) {
 }
 if (['ui.standardApplied','ui.standardPending'].includes(restoredSession.standardStatus)) setStandardStatus(restoredSession.standardStatus);
 sessionReady = true;
-for (const selector of Object.values(panelSelectors)) document.querySelector(selector).addEventListener('toggle',scheduleSessionSave);
 document.addEventListener('input',scheduleSessionSave);
 document.addEventListener('change',scheduleSessionSave);
 window.addEventListener('pagehide',saveSession);

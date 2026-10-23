@@ -26,13 +26,18 @@
 </nav>
 <div class="language-control"><label data-i18n="ui.language" for="language-select" id="language-label"></label><button aria-labelledby="language-label language-name" aria-haspopup="listbox" aria-expanded="false" aria-controls="language-menu" id="language-select" popovertarget="language-menu" type="button"><img alt="" class="language-flag" id="language-flag" width="20" height="15"/><span id="language-name"></span><span aria-hidden="true" class="language-arrow">▾</span></button><div data-i18n-aria-label="ui.language" id="language-menu" popover="auto" role="listbox"></div></div></header>
 <section aria-labelledby="tab-db" class="area" id="db-area" role="tabpanel">
-<div id="db-filter-host"></div>
+<section class="toolbox panel" id="db-toolbox">
+<div class="toolbox-body" id="db-toolbox-body">
+<div class="filters-panel toolbox-pane" data-i18n-aria-label="ui.searchFilters" id="db-filter-host" role="tabpanel"></div>
+</div>
+</section>
 <main class="workspace"><section class="catalog" data-i18n-aria-label="ui.databaseEffects"><div class="card-list database-list" id="db-card-list"></div></section></main>
 </section>
 <section aria-labelledby="tab-builder" class="area hidden" id="builder-area" role="tabpanel">
-<div id="builder-filter-host"></div>
-<details aria-labelledby="scenario-title" class="scenario panel" id="scenario-panel" open="">
-<summary class="panel-summary"><h2 data-i18n="ui.assumptions" id="scenario-title"></h2></summary>
+<section class="toolbox panel" id="builder-toolbox">
+<div class="toolbox-body" id="builder-toolbox-body">
+<div class="filters-panel toolbox-pane" data-i18n-aria-label="ui.searchFilters" id="builder-filter-host" role="tabpanel"></div>
+<section class="scenario toolbox-pane" hidden="" id="scenario-panel" role="tabpanel">
 <div class="scenario-fields">
 <div class="parameter"><label data-i18n="ui.enemyChakra" data-i18n-rich="" for="s-enemy-chakra"></label><input data-integer="" id="s-enemy-chakra" inputmode="numeric" max="99" min="0" pattern="[0-9]*" required="" step="1" type="text" value="4"/></div>
 <div class="parameter"><label data-i18n="ui.enemies" data-i18n-rich="" for="s-enemies"></label><input data-integer="" id="s-enemies" inputmode="numeric" max="99" min="0" pattern="[0-9]*" required="" type="text" value="4"/></div>
@@ -42,36 +47,34 @@
 <div class="scenario-actions"><button class="primary" data-i18n="ui.applyStandard" id="apply-standard"></button><button aria-controls="calculation-info-dialog" aria-haspopup="dialog" class="info-button" data-i18n="ui.calculationInfo" id="calculation-info-button"></button></div>
 </div>
 <div class="scenario-footer"><p class="inline-note" id="standard-status" role="status"></p></div>
-</details>
-<main class="workspace builder" id="workspace"><section class="catalog" data-i18n-aria-label="ui.builderCards"><div class="card-list" id="builder-card-list"></div></section>
-<section class="deck-strip panel" data-i18n-aria-label="ui.deck" id="deck-panel">
+</section>
+<section class="deck-strip toolbox-pane" hidden="" id="deck-panel" role="tabpanel">
 <h2 class="deck-preview-title" data-i18n="ui.deckBuilding"></h2>
 <ol class="deck-grid" data-i18n-aria-label="ui.deckSlots" id="deck-grid"></ol>
-<figure class="cost-curve deck-preview-curve"><div aria-describedby="preview-curve-caption" class="curve" data-i18n-aria-label="ui.distribution" id="preview-curve" role="img"></div><figcaption data-i18n="ui.curveCaption" data-i18n-rich="" id="preview-curve-caption"></figcaption></figure>
 <div class="metrics">
 <div class="metric">
 <b id="avg-cost">—</b>
-<span data-i18n="ui.averageCost" data-i18n-rich=""></span>
+<span data-i18n="ui.averageCost"></span>
 </div>
 <div class="metric">
 <b id="avg-max">—</b>
-<span data-i18n="ui.averagePower" data-i18n-rich=""></span>
+<span data-i18n="ui.averagePower"></span>
 </div>
 <div class="metric highlight">
 <b id="avg-quality">—</b>
-<span data-i18n="ui.averageQuality" data-i18n-rich=""></span>
+<span data-i18n="ui.averageQuality"></span>
 </div>
+<button aria-controls="deck-info-dialog" aria-haspopup="dialog" class="info-button deck-help-button" data-deck-info="" data-i18n-aria-label="ui.deckInfo" data-i18n-title="ui.deckInfo" id="deck-info-button"><span aria-hidden="true">?</span></button>
 </div>
-<div class="deck-preview-actions"><button aria-controls="deck-dialog" aria-haspopup="dialog" class="primary" data-i18n="ui.viewDeck" id="view-deck"></button><button aria-controls="deck-info-dialog" aria-haspopup="dialog" class="info-button" data-i18n-aria-label="ui.deckInfo" data-i18n-title="ui.deckInfo" id="deck-info-button"><span aria-hidden="true">?</span></button></div>
-<div class="deck-file-actions"><button class="primary" data-deck-action="export" data-i18n="ui.export"></button><button data-deck-action="import" data-i18n="ui.import"></button><button class="danger strong-danger" data-deck-action="clear" data-i18n="ui.clearDeck"></button></div>
+<div class="deck-file-actions deck-preview-buttons"><button aria-controls="deck-dialog" aria-haspopup="dialog" class="primary" id="view-deck"><span class="deck-details-full" data-i18n="ui.viewDeck"></span><span class="deck-details-short" data-i18n="ui.details"></span></button><button data-deck-action="import" data-i18n="ui.import"></button><button class="danger strong-danger" data-deck-action="clear" data-i18n="ui.clearDeck"></button></div>
 <input accept=".json,application/json" hidden="" id="import-file" type="file"/>
 </section>
-</main>
+</div>
+</section>
+<main class="workspace builder" id="workspace"><section class="catalog" data-i18n-aria-label="ui.builderCards"><div class="card-list" id="builder-card-list"></div></section></main>
 </section>
 </div>
 <template id="filters-template">
-<details class="filters-panel panel" data-i18n-aria-label="ui.searchFilters" open="">
-<summary class="panel-summary"><h2 data-i18n="ui.filters"></h2></summary>
 <div class="filter-fields">
 <div class="field text-search"><label data-i18n="ui.textOrIndex" data-i18n-rich="" for="f-text"></label><input autocomplete="off" data-i18n-placeholder="ui.searchPlaceholder" id="f-text" type="search"/></div>
 <div class="field filter-rarity"><label data-i18n="ui.rarity" data-i18n-rich="" for="f-rarity"></label><button aria-expanded="false" class="multi-filter" data-multi-filter="" id="f-rarity" type="button"><span class="filter-value"></span><span aria-hidden="true" class="filter-arrow">▾</span></button><div class="filter-menu" data-i18n-aria-label="ui.rarity" id="f-rarity-menu" popover="auto" role="group"></div></div>
@@ -84,7 +87,6 @@
 <div class="sort-tools"><div class="field"><label data-i18n="ui.sort" data-i18n-rich="" for="sort"></label><select data-i18n-aria-label="ui.sortCards" id="sort"><option data-i18n="ui.index" value="index"></option><option data-i18n="ui.alphabetical" value="name"></option><option data-i18n="ui.cost" value="cost"></option><option data-i18n="ui.chakra" value="chakra"></option><option class="builder-only" data-i18n="ui.quality" value="quality"></option><option data-i18n="ui.rarity" value="rarity"></option></select></div><button class="sort-direction" data-direction="asc" data-i18n-aria-label="ui.ascendingAction" data-i18n-title="ui.ascending" id="sort-direction">↑</button></div>
 <button class="small reset-filters" data-i18n="ui.resetFilters" id="reset"></button>
 </div>
-</details>
 </template>
 <dialog aria-labelledby="deck-dialog-title" class="deck-dialog" id="deck-dialog">
 <div class="dialog-head"><h2 data-i18n="ui.deckBuilding" id="deck-dialog-title"></h2><button class="dialog-close" data-i18n-aria-label="ui.closeDeck" id="close-deck-dialog">✕</button></div>
@@ -95,22 +97,22 @@
 <div class="metrics deck-averages">
 <div class="metric">
 <b id="deck-dialog-avg-cost">—</b>
-<span data-i18n="ui.averageCost" data-i18n-rich=""></span>
+<span data-i18n="ui.averageCost"></span>
 </div>
 <div class="metric">
 <b id="deck-dialog-avg-max">—</b>
-<span data-i18n="ui.averagePower" data-i18n-rich=""></span>
+<span data-i18n="ui.averagePower"></span>
 </div>
 <div class="metric highlight">
 <b id="deck-dialog-avg-quality">—</b>
-<span data-i18n="ui.averageQuality" data-i18n-rich=""></span>
+<span data-i18n="ui.averageQuality"></span>
+</div>
+<button aria-controls="deck-info-dialog" aria-haspopup="dialog" class="info-button deck-help-button" data-deck-info="" data-i18n-aria-label="ui.deckInfo" data-i18n-title="ui.deckInfo" id="deck-dialog-info-button"><span aria-hidden="true">?</span></button>
 </div>
 </div>
-</div>
-<div class="deck-file-actions">
+<div class="deck-dialog-toolbar">
+<div class="deck-sort-tools"><label data-i18n="ui.sortBy" for="deck-sort"></label><div class="sort-tools"><select data-i18n-aria-label="ui.sortCards" id="deck-sort"><option data-i18n="ui.cost" value="cost"></option><option data-i18n="ui.chakra" value="chakra"></option></select><button class="sort-direction" data-direction="asc" data-i18n-aria-label="ui.ascendingAction" data-i18n-title="ui.ascending" id="deck-sort-direction" type="button">↑</button></div></div>
 <button class="primary" data-deck-action="export" data-i18n="ui.export"></button>
-<button data-deck-action="import" data-i18n="ui.import"></button>
-<button class="danger strong-danger" data-deck-action="clear" data-i18n="ui.clearDeck"></button>
 </div>
 </dialog>
 <dialog aria-labelledby="dialog-title" id="card-dialog">
