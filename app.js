@@ -5,15 +5,18 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;',
 // New sessions start in English; refreshes restore the current tab's language.
 let language = 'en';
 const SESSION_KEY = 'naruto-ninja-cards.session';
+const sections = {db:'database',builder:'builder',synergies:'synergies'};
+const sectionIds = Object.keys(sections);
 const toolbarPanels = {
   db: [{key:'filters',label:'filters',id:'db-filter-host'}],
   builder: [
     {key:'filters',label:'filters',id:'builder-filter-host'},
     {key:'assumptions',label:'assumptions',id:'scenario-panel'},
     {key:'deck',label:'deckBuilding',id:'deck-panel'}
-  ]
+  ],
+  synergies: [{key:'filters',label:'filters',id:'synergies-filter-host'}]
 };
-const toolbarState = {db:{active:'filters',open:true},builder:{active:'filters',open:true}};
+const toolbarState = Object.fromEntries(sectionIds.map(area=>[area,{active:'filters',open:true}]));
 const toolbarIcons = {
   filters:'<path d="M3 5h18l-7 8v6l-4 2v-8z"/>',
   assumptions:'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M7 7h10M8 11h1m6 0h1m-8 4h1m6 0h1m-8 3h1m6 0h1"/>',
@@ -118,6 +121,7 @@ function setStandardStatus(key) {
 const LEVEL_CYCLE_ICON = `<svg class="cycle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 0 1 15.36-6.36L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.36 6.36L3 16M8 16H3v5"/></svg>`;
 const RANK = {Common:0, Rare:1, Epic:2, Legendary:3};
 const byIndex = new Map(CARDS.map(c => [c.index,c]));
+const synergiesByIndex = new Map(SYNERGIES.map(entry=>[entry.index,entry]));
 const defaults={...DEFAULT_SCENARIO};
 const F = id => $(mode+'-'+id);
 const settingIds = {enemies:'s-enemies', enemyChakra:'s-enemy-chakra', allies:'s-allies', allyChakra:'s-ally-chakra', activations:'s-activations'};
@@ -228,7 +232,7 @@ let current = emptyDeck();
 let useDefaultDeckName = true;
 let mode = 'db', dialogCard = null, dialogLevel = 1, confirmAction = null, confirmMessageKey = null, toastTimer;
 const deckLevel = c => current.levels[c.index] ?? Number($('builder-f-level').value);
-const levelOf = c => mode === 'builder' ? deckLevel(c) : Number($('db-f-level').value);
+const levelOf = c => mode === 'builder' ? deckLevel(c) : mode === 'synergies' ? 1 : Number(F('f-level').value);
 const description = (c,level) => normalizeText(cardText(c).descriptions[level-1]);
 const scenarioFor = c => ({...(current.cardOptions[c.index] || current.scenario)});
 function applyWrittenStandard() {
@@ -255,14 +259,14 @@ function syncScenario() {
 }
 
 function cardHTML(c) {
-  const level=levelOf(c),build=mode==='builder',result=build?computed(c,level):null,selected=build&&current.cards.includes(c.index),text=cardText(c);
+  const level=levelOf(c),build=mode==='builder',synergy=mode==='synergies',result=build?computed(c,level):null,selected=build&&current.cards.includes(c.index),text=cardText(c);
   return `<article class="game-card${selected?' selected':''}" data-index="${c.index}">
-    <button class="card-main" data-open="${c.index}" title="${cardReference(c)}" aria-label="${esc(t('ui.openCard',{name:text.name,reference:cardReference(c)}))}">
+    <button class="card-main" data-open="${c.index}" title="${esc(synergy?text.ability:cardReference(c))}" aria-label="${esc(synergy?text.name:t('ui.openCard',{name:text.name,reference:cardReference(c)}))}">
       <img src="${imagePath(c)}" alt="${esc(text.name)}" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}">
       <span class="orb cost" title="${t('ui.energyCost')}" aria-label="${t('ui.costValue',{value:c.energy_cost})}">${c.energy_cost}</span>
       <span class="orb chakra" title="${t('ui.baseChakra')}" aria-label="${t('ui.chakraValue',{value:c.chakra})}">${c.chakra}</span>
     </button>
-    <div class="card-info"><div class="card-heading"><strong class="card-title">${esc(text.name)}</strong><span class="card-level">${t('ui.levelShort',{level})}</span></div>
+    <div class="card-info"><div class="card-heading"><strong class="card-title">${esc(text.name)}</strong>${synergy?'':`<span class="card-level">${t('ui.levelShort',{level})}</span>`}</div>
       <div class="card-text" data-open="${c.index}"><strong>${esc(text.ability)}</strong><p class="ability">${formatDescription(c,level)}</p></div>
       ${build?`<div class="card-metrics"><span><b>${fmt(result.value)}</b><small>${t('ui.power')}</small></span><span><b>${fmt(result.quality,1)}</b><small>${t('ui.quality')}</small></span><button class="card-toggle ${selected?'is-selected':'primary'}" data-toggle="${c.index}" aria-label="${esc(t(selected?'ui.removeCard':'ui.addCard',{name:text.name}))}" title="${t(selected?'ui.removeFromDeck':'ui.addToDeck')}" aria-pressed="${selected}" ${!selected&&current.cards.length>=10?'disabled':''}>${selected?'−':'+'}</button></div>`:''}
     </div></article>`;
@@ -307,8 +311,8 @@ function filteredCards() {
   });
 }
 function renderCatalog() {
-  const cards = filteredCards(), sort = F('sort').value, direction = F('sort-direction').dataset.direction === 'desc' ? -1 : 1;
-  cards.sort((a,b) => {
+  const cards = filteredCards().filter(c=>mode!=='synergies' || synergiesByIndex.has(c.index)), sort = F('sort').value, direction = F('sort-direction').dataset.direction === 'desc' ? -1 : 1;
+  const compareCards = (a,b) => {
     let d = 0;
     switch (sort) {
       case 'name': d = cardText(a).name.localeCompare(cardText(b).name,TRANSLATIONS[language].locale); break;
@@ -318,10 +322,40 @@ function renderCatalog() {
       case 'rarity': d = RANK[a.rarity]-RANK[b.rarity];
     }
     return direction*(d || a.index-b.index);
-  });
-  $(mode+'-card-list').innerHTML = cards.length ? cards.map(cardHTML).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
+  };
+  cards.sort(compareCards);
+  $(mode+'-card-list').innerHTML = cards.length ? cards.map(mode==='synergies'?card=>synergyRowHTML(card,compareCards):cardHTML).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
+  if (mode==='synergies') scheduleSynergyLayout();
   updateFilterCount(mode);
   scheduleSessionSave();
+}
+function synergyRowHTML(card,compareCards) {
+  const entry=synergiesByIndex.get(card.index);
+  const partners=entry.partners.map(index=>byIndex.get(index)).filter(Boolean).sort(compareCards);
+  return `<article class="synergy-row" data-synergy="${card.index}">
+    <div class="synergy-source database-list">${cardHTML(card)}</div>
+    <div class="synergy-group"><ul class="synergy-partners" tabindex="0" aria-label="${esc(t('ui.synergyPartners',{name:cardText(card).name}))}">${partners.map(partner=>`<li><button class="synergy-partner" data-open="${partner.index}" title="${esc(cardText(partner).ability)}" aria-label="${esc(cardText(partner).name)}"><span class="synergy-art"><img src="${imagePath(partner)}" alt="" loading="lazy" width="${CARD_ART.width}" height="${CARD_ART.height}"><span class="orb cost" title="${t('ui.cost')}">${partner.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${partner.chakra}</span></span><strong>${esc(cardText(partner).name)}</strong><span class="synergy-ability">${esc(cardText(partner).ability)}</span></button></li>`).join('')}</ul></div>
+  </article>`;
+}
+let synergyLayoutFrame;
+function scheduleSynergyLayout() {
+  cancelAnimationFrame(synergyLayoutFrame);
+  synergyLayoutFrame=requestAnimationFrame(()=>{
+    if (mode!=='synergies') return;
+    // Measure before writing so each row keeps its natural content height.
+    const sizes=[...$('synergies-card-list').querySelectorAll('.synergy-row')].map(row=>{
+      const items=row.querySelector('.synergy-partners').children;
+      let firstTop,lastTop,bottom=0,rows=0;
+      for (const item of items) {
+        const top=item.offsetTop;
+        if (top!==lastTop) { if (++rows>2) break;lastTop=top; }
+        firstTop??=top;
+        bottom=Math.max(bottom,top+item.offsetHeight);
+      }
+      return [row,Math.ceil(bottom-(firstTop??0))];
+    });
+    for (const [row,height] of sizes) row.style.setProperty('--synergy-visible-height',height+'px');
+  });
 }
 function deckSlotsHTML(cards,showDetails=false) {
   return Array.from({length:10},(_,slot) => {
@@ -379,13 +413,14 @@ function toggleCard(index) {
 function setMode(next) {
   closeFilterMenus();
   mode = next;
-  const build = mode === 'builder';
-  $('db-area').classList.toggle('hidden',build);
-  $('builder-area').classList.toggle('hidden',!build);
-  $('tab-db').setAttribute('aria-selected',String(!build));
-  $('tab-builder').setAttribute('aria-selected',String(build));
+  for (const area of sectionIds) {
+    const selected=area===mode;
+    $(area+'-area').classList.toggle('hidden',!selected);
+    $('tab-'+area).setAttribute('aria-selected',String(selected));
+    $('tab-'+area).tabIndex=selected?0:-1;
+  }
   renderCatalog();
-  if (build) renderDeck();
+  if (mode==='builder') renderDeck();
 }
 function renderToolbar(area) {
   const state=toolbarState[area],toggle=$(area+'-toolbox-toggle');
@@ -488,8 +523,8 @@ function renderDialog() {
     ${build?`<div class="dialog-workbench${keys.length?'':' calculation-only'}">${keys.length?`<section class="local-options"><div class="section-head"><h4>${t('ui.localAssumptions')}</h4><button class="small" id="reset-local">${t('ui.useStandard')}</button></div><p class="inline-note">${t('ui.localChanges')}</p><div class="local-grid">${keys.map(key=>`<div class="parameter"><label for="local-${key}">${formatTerms(t('ui.'+key))}</label><input id="local-${key}" data-local="${key}" type="text" inputmode="numeric" pattern="[0-9]*" data-integer min="0" max="99" required step="1" value="${scenario[key]}"></div>`).join('')}</div></section>`:''}<section id="dialog-calculation">${calculationHTML(c,level,result)}</section></div>`:''}</div>`;
   $('dialog-level').onclick = () => {
     dialogLevel = level===1 ? 2 : 1;
-    if (build) current.levels[c.index] = dialogLevel;
-    changed(); renderDialog(); $('dialog-level').focus();
+    if (build) { current.levels[c.index] = dialogLevel;changed(); }
+    renderDialog(); $('dialog-level').focus();
   };
   for (const input of document.querySelectorAll('[data-local]')) {
     input.oninput = () => {
@@ -585,6 +620,7 @@ function closeFilterMenus() {
 }
 function mountMultiFilter(area,id,config) {
   const button = $(area+'-'+id), menu = $(area+'-'+id+'-menu');
+  button.dataset.filterKey=id;
   button.setAttribute('popovertarget',menu.id);
   button.setAttribute('aria-controls',menu.id);
   menu.classList.toggle('numeric-filter-menu',!!config.numeric);
@@ -612,8 +648,8 @@ function sizeHeaderControls() {
     return context.measureText(text).width+Math.max(0,text.length-1)*(parseFloat(style.letterSpacing)||0);
   };
   const frame=style=>['paddingLeft','paddingRight','borderLeftWidth','borderRightWidth'].reduce((sum,key)=>sum+(parseFloat(style[key])||0),0);
-  for (const [id,key] of [['tab-db','database'],['tab-builder','builder']]) {
-    const button=$(id),style=getComputedStyle(button);
+  for (const [area,key] of Object.entries(sections)) {
+    const button=$('tab-'+area),style=getComputedStyle(button);
     button.style.width=Math.ceil(Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.ui[key],style)))+frame(style)+1)+'px';
   }
   const button=$('language-select'),style=getComputedStyle(button),arrow=$('language-select').querySelector('.language-arrow');
@@ -625,7 +661,7 @@ function sizeFilterControls() {
   // Reserve enough room for every possible selection count in the active language.
   const context=document.createElement('canvas').getContext('2d');
   for (const button of document.querySelectorAll('[data-multi-filter]')) {
-    const config=filterDefinitions[button.id.replace(/^(?:db|builder)-/,'')];
+    const config=filterDefinitions[button.dataset.filterKey];
     const style=getComputedStyle(button),arrow=getComputedStyle(button.querySelector('.filter-arrow'));
     context.font=`${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
     let textWidth=0;
@@ -676,12 +712,13 @@ function applyBuilderLevel(level) {
 }
 function mountFilters(area) {
   const fragment = $('filters-template').content.cloneNode(true);
-  fragment.querySelectorAll(area === 'db' ? '.builder-only' : '.db-only').forEach(el => el.remove());
+  fragment.querySelectorAll(area === 'builder' ? '.db-only' : '.builder-only').forEach(el => el.remove());
+  if (area==='synergies') fragment.querySelector('.level-field').remove();
   for (const el of fragment.querySelectorAll('[id]')) el.id = area+'-'+el.id;
   for (const el of fragment.querySelectorAll('label[for]')) el.htmlFor = area+'-'+el.htmlFor;
   $(area+'-filter-host').append(fragment);
   translateStatic($(area+'-filter-host'));
-  setFilterLevel($(area+'-f-level'),1);
+  if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),1);
   for (const [id,config] of Object.entries(filterDefinitions)) mountMultiFilter(area,id,config);
   $(area+'-filter-host').querySelectorAll('input:not(.filter-option),select,[data-level-toggle]').forEach(el => el.addEventListener(el.matches('[data-level-toggle]') ? 'click' : el.type === 'search' || el.hasAttribute('data-integer') ? 'input' : 'change',() => {
     if (el.matches('[data-level-toggle]')) {
@@ -726,9 +763,9 @@ function applyLanguage() {
   document.documentElement.lang=language;
   buildTermPatterns();translateStatic();
   filterDefinitions=createFilterDefinitions();
-  for (const area of ['db','builder']) {
+  for (const area of sectionIds) {
     for (const [id,config] of Object.entries(filterDefinitions)) mountMultiFilter(area,id,config);
-    setFilterLevel($(area+'-f-level'),Number($(area+'-f-level').value));
+    if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),Number($(area+'-f-level').value));
     const button=$(area+'-sort-direction'),descending=button.dataset.direction==='desc';
     button.title=t(descending?'ui.descending':'ui.ascending');
     button.setAttribute('aria-label',t(descending?'ui.descendingAction':'ui.ascendingAction'));
@@ -752,7 +789,7 @@ function setLanguage(code) {
 function captureFilters(area) {
   return {
     text:$(area+'-f-text').value,
-    level:Number($(area+'-f-level').value),
+    ...($(area+'-f-level')?{level:Number($(area+'-f-level').value)}:{}),
     minimumPower:$(area+'-f-estimate')?.value ?? '',
     sort:$(area+'-sort').value,
     direction:$(area+'-sort-direction').dataset.direction,
@@ -762,7 +799,7 @@ function captureFilters(area) {
 }
 function restoreFilters(area,filter = {}) {
   $(area+'-f-text').value = typeof filter.text === 'string' ? filter.text : '';
-  setFilterLevel($(area+'-f-level'),filter.level === 2 ? 2 : 1);
+  if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),filter.level === 2 ? 2 : 1);
   const minimum = $(area+'-f-estimate');
   if (minimum) minimum.value = typeof filter.minimumPower === 'string' && /^\d{0,3}$/.test(filter.minimumPower) ? filter.minimumPower : '';
   const sort = $(area+'-sort');
@@ -788,7 +825,7 @@ function saveSession() {
     const text = JSON.stringify({
       language,mode,useDefaultDeckName,defaults,deck:current,
       toolbars:toolbarState,deckOrder,
-      filters:{db:captureFilters('db'),builder:captureFilters('builder')},
+      filters:Object.fromEntries(sectionIds.map(area=>[area,captureFilters(area)])),
       standardDraft:Object.fromEntries(Object.entries(settingIds).map(([key,id]) => [key,$(id).value])),
       standardStatus:$('standard-status').dataset.i18n || ''
     });
@@ -810,7 +847,7 @@ function restoreSession() {
   try {
     if (text.length > 1000000) throw Error('Session too large');
     const saved = JSON.parse(text);
-    if (!saved || !Object.hasOwn(TRANSLATIONS,saved.language) || !['db','builder'].includes(saved.mode) || typeof saved.useDefaultDeckName !== 'boolean') throw Error('Invalid session');
+    if (!saved || !Object.hasOwn(TRANSLATIONS,saved.language) || !sectionIds.includes(saved.mode) || typeof saved.useDefaultDeckName !== 'boolean') throw Error('Invalid session');
     const nextDefaults = parseScenarioOptions(saved.defaults), deck = saved.deck;
     if (!deck || !Array.isArray(deck.cards) || !deck.levels || !deck.cardOptions || Array.isArray(deck.levels) || Array.isArray(deck.cardOptions)) throw Error('Invalid session deck');
     const levels = {}, cardOptions = {};
@@ -833,7 +870,7 @@ function restoreSession() {
     language = saved.language; mode = saved.mode; useDefaultDeckName = saved.useDefaultDeckName;
     Object.assign(defaults,nextDefaults); current = next;
     if (useDefaultDeckName) current.name = t('ui.defaultDeckName');
-    for (const area of ['db','builder']) restoreFilters(area,saved.filters?.[area] || {});
+    for (const area of sectionIds) restoreFilters(area,saved.filters?.[area] || {});
     return saved;
   } catch {
     try { sessionStorage.removeItem(SESSION_KEY); } catch { /* The app also works without browser storage. */ }
@@ -843,15 +880,22 @@ function restoreSession() {
 mountLanguageMenu();
 
 mountToolbars();
-mountFilters('db'); mountFilters('builder');
+for (const area of sectionIds) mountFilters(area);
 sizeFilterControls();
 for (const id of Object.values(settingIds)) $(id).addEventListener('input',() => {
   setStandardStatus('ui.standardPending');
 });
 $('apply-standard').onclick = applyWrittenStandard;
-$('tab-db').onclick = () => setMode('db'); $('tab-builder').onclick = () => setMode('builder');
+for (const area of sectionIds) $('tab-'+area).onclick = () => setMode(area);
 document.querySelector('.tabs').onkeydown = event => {
-  if (['ArrowLeft','ArrowRight'].includes(event.key)) { event.preventDefault(); setMode(mode === 'db' ? 'builder' : 'db'); $(mode === 'db' ? 'tab-db' : 'tab-builder').focus(); }
+  const index=sectionIds.indexOf(mode);
+  let next;
+  if (event.key==='ArrowRight') next=(index+1)%sectionIds.length;
+  else if (event.key==='ArrowLeft') next=(index+sectionIds.length-1)%sectionIds.length;
+  else if (event.key==='Home') next=0;
+  else if (event.key==='End') next=sectionIds.length-1;
+  else return;
+  event.preventDefault();setMode(sectionIds[next]);$('tab-'+mode).focus();
 };
 for (const id of ['deck-grid','deck-dialog-grid']) $(id).onclick = event => {
   const remove = event.target.closest('[data-remove]'), open = event.target.closest('[data-deck-open]');
@@ -906,7 +950,12 @@ for (const [area,panels] of Object.entries(toolbarPanels)) {
   if (saved && panels.some(panel=>panel.key===saved.active) && typeof saved.open==='boolean') toolbarState[area]={active:saved.active,open:saved.open};
 }
 syncScenario(); applyLanguage(); setMode(mode);
-document.fonts.ready.then(()=>{sizeHeaderControls();sizeAssumptionBoxes();});
+let synergyListWidth;
+new ResizeObserver(([entry])=>{
+  const width=entry.contentRect.width;
+  if (width!==synergyListWidth) { synergyListWidth=width;scheduleSynergyLayout(); }
+}).observe($('synergies-card-list'));
+document.fonts.ready.then(()=>{sizeHeaderControls();sizeAssumptionBoxes();scheduleSynergyLayout();});
 for (const [key,id] of Object.entries(settingIds)) {
   const draft = restoredSession.standardDraft?.[key];
   if (typeof draft === 'string' && /^\d{0,3}$/.test(draft)) $(id).value = draft;

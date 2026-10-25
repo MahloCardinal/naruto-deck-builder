@@ -8,7 +8,7 @@
 <title data-i18n="ui.pageTitle"></title>
 <link rel="icon" type="image/svg+xml" href="misc_images/naruto-icon.svg"/>
 
-<link href="styles.css" rel="stylesheet"/><script defer="" src="translations.js"></script><script defer="" src="cards.js"></script><script defer="" src="calculator.js"></script><script defer="" src="app.js"></script></head>
+<link href="styles.css" rel="stylesheet"/><script defer="" src="translations.js"></script><script defer="" src="cards.js"></script><script defer="" src="synergies.js"></script><script defer="" src="calculator.js"></script><script defer="" src="app.js"></script></head>
 <body>
 <div class="shell">
 <header class="top">
@@ -23,6 +23,7 @@
 <nav class="tabs" data-i18n-aria-label="ui.sections" role="tablist">
 <button aria-controls="db-area" aria-selected="true" class="tab" data-i18n="ui.database" id="tab-db" role="tab"></button>
 <button aria-controls="builder-area" aria-selected="false" class="tab" data-i18n="ui.builder" id="tab-builder" role="tab"></button>
+<button aria-controls="synergies-area" aria-selected="false" class="tab" data-i18n="ui.synergies" id="tab-synergies" role="tab"></button>
 </nav>
 <div class="language-control"><label data-i18n="ui.language" for="language-select" id="language-label"></label><button aria-labelledby="language-label language-name" aria-haspopup="listbox" aria-expanded="false" aria-controls="language-menu" id="language-select" popovertarget="language-menu" type="button"><img alt="" class="language-flag" id="language-flag" width="20" height="15"/><span id="language-name"></span><span aria-hidden="true" class="language-arrow">▾</span></button><div data-i18n-aria-label="ui.language" id="language-menu" popover="auto" role="listbox"></div></div></header>
 <section aria-labelledby="tab-db" class="area" id="db-area" role="tabpanel">
@@ -73,6 +74,14 @@
 </section>
 <main class="workspace builder" id="workspace"><section class="catalog" data-i18n-aria-label="ui.builderCards"><div class="card-list" id="builder-card-list"></div></section></main>
 </section>
+<section aria-labelledby="tab-synergies" class="area hidden" id="synergies-area" role="tabpanel">
+<section class="toolbox panel" id="synergies-toolbox">
+<div class="toolbox-body" id="synergies-toolbox-body">
+<div class="filters-panel toolbox-pane" data-i18n-aria-label="ui.searchFilters" id="synergies-filter-host" role="tabpanel"></div>
+</div>
+</section>
+<main class="workspace"><section class="catalog" data-i18n-aria-label="ui.synergies"><div class="synergy-list" id="synergies-card-list"></div></section></main>
+</section>
 </div>
 <template id="filters-template">
 <div class="filter-fields">
@@ -83,7 +92,7 @@
 <div class="field filter-cost"><label data-i18n="ui.cost" data-i18n-rich="" for="f-cost"></label><button aria-expanded="false" class="multi-filter" data-multi-filter="" id="f-cost" type="button"><span class="filter-value"></span><span aria-hidden="true" class="filter-arrow">▾</span></button><div class="filter-menu" data-i18n-aria-label="ui.cost" id="f-cost-menu" popover="auto" role="group"></div></div>
 <div class="field filter-chakra"><label data-i18n="ui.chakra" data-i18n-rich="" for="f-chakra"></label><button aria-expanded="false" class="multi-filter" data-multi-filter="" id="f-chakra" type="button"><span class="filter-value"></span><span aria-hidden="true" class="filter-arrow">▾</span></button><div class="filter-menu" data-i18n-aria-label="ui.chakra" id="f-chakra-menu" popover="auto" role="group"></div></div>
 <div class="field builder-only"><label data-i18n="ui.minPower" data-i18n-rich="" for="f-estimate"></label><input data-i18n-placeholder="ui.minimum" data-integer="" id="f-estimate" inputmode="numeric" max="99" min="0" pattern="[0-9]*" type="text"/></div>
-<div class="field"><label data-i18n="ui.cardLevel" data-i18n-rich="" for="f-level"></label><button aria-checked="false" class="level-filter" data-level-toggle="" id="f-level" role="switch" type="button" value="1">1</button></div>
+<div class="field level-field"><label data-i18n="ui.cardLevel" data-i18n-rich="" for="f-level"></label><button aria-checked="false" class="level-filter" data-level-toggle="" id="f-level" role="switch" type="button" value="1">1</button></div>
 <div class="sort-tools"><div class="field"><label data-i18n="ui.sort" data-i18n-rich="" for="sort"></label><select data-i18n-aria-label="ui.sortCards" id="sort"><option data-i18n="ui.index" value="index"></option><option data-i18n="ui.alphabetical" value="name"></option><option data-i18n="ui.cost" value="cost"></option><option data-i18n="ui.chakra" value="chakra"></option><option class="builder-only" data-i18n="ui.quality" value="quality"></option><option data-i18n="ui.rarity" value="rarity"></option></select></div><button class="sort-direction" data-direction="asc" data-i18n-aria-label="ui.ascendingAction" data-i18n-title="ui.ascending" id="sort-direction">↑</button></div>
 <button class="small reset-filters" data-i18n="ui.resetFilters" id="reset"></button>
 </div>

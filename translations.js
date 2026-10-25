@@ -6,6 +6,8 @@ const TRANSLATIONS = {
     "name": "English",
     "locale": "en-GB",
     "ui": {
+      "synergies": "Synergies",
+      "synergyPartners": "Cards that synergize with {name}",
       "details": "Details",
       "collapseSidebar": "Collapse sidebar",
       "expandSidebar": "Expand sidebar",
@@ -2617,6 +2619,8 @@ const TRANSLATIONS = {
     "name": "Italiano",
     "locale": "it-IT",
     "ui": {
+      "synergies": "Sinergie",
+      "synergyPartners": "Carte in sinergia con {name}",
       "details": "Dettagli",
       "collapseSidebar": "Riduci barra laterale",
       "expandSidebar": "Espandi barra laterale",
@@ -5245,6 +5249,8 @@ const TRANSLATIONS = {
     "name": "Français",
     "locale": "fr-FR",
     "ui": {
+      "synergies": "Synergies",
+      "synergyPartners": "Cartes en synergie avec {name}",
       "details": "Détails",
       "collapseSidebar": "Réduire la barre latérale",
       "expandSidebar": "Déployer la barre latérale",
@@ -7856,6 +7862,8 @@ const TRANSLATIONS = {
     "name": "Português",
     "locale": "pt-PT",
     "ui": {
+      "synergies": "Sinergias",
+      "synergyPartners": "Cartas com sinergia com {name}",
       "details": "Detalhes",
       "collapseSidebar": "Recolher barra lateral",
       "expandSidebar": "Expandir barra lateral",
@@ -10467,6 +10475,8 @@ const TRANSLATIONS = {
     "name": "Español",
     "locale": "es-ES",
     "ui": {
+      "synergies": "Sinergias",
+      "synergyPartners": "Cartas con sinergia con {name}",
       "details": "Detalles",
       "collapseSidebar": "Contraer barra lateral",
       "expandSidebar": "Expandir barra lateral",
@@ -13079,6 +13089,8 @@ const TRANSLATIONS = {
     "locale": "de-DE",
     "flag": "de",
     "ui": {
+      "synergies": "Synergien",
+      "synergyPartners": "Karten mit Synergie zu {name}",
       "details": "Details",
       "collapseSidebar": "Seitenleiste einklappen",
       "expandSidebar": "Seitenleiste ausklappen",
