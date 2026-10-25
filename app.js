@@ -26,8 +26,10 @@ const deckOrder = {sort:'cost',direction:'asc'};
 let sessionReady = false, sessionTimer, lastSessionText = '', sessionWarning = false;
 const numberFormatters = new Map();
 const pluralRules = new Map();
+let viewportUpdateFrame = null, scrollUpdateFrame = null;
 function getTranslation(key,code=language) {
-  const read = catalog => key.split('.').reduce((value,part) => value?.[part],catalog);
+  const parts=key.split('.');
+  const read = catalog => parts.reduce((value,part) => value?.[part],catalog);
   return read(TRANSLATIONS[code]) ?? read(TRANSLATIONS.en);
 }
 function t(key,values={}) {
@@ -90,16 +92,22 @@ function mountLanguageMenu() {
       menu.querySelector('[aria-selected=true]').focus();
     }
   };
-  const reposition=()=>{if(menu.matches(':popover-open'))positionLanguageMenu();};
-  window.addEventListener('resize',()=>{sizeHeaderControls();reposition();},{passive:true});
-  window.addEventListener('scroll',reposition,{capture:true,passive:true});
 }
 function fmt(value,maximumFractionDigits=2) {
   const key = language+':'+maximumFractionDigits;
   if (!numberFormatters.has(key)) numberFormatters.set(key,new Intl.NumberFormat(TRANSLATIONS[language].locale,{maximumFractionDigits}));
   return numberFormatters.get(key).format(value);
 }
-const cardText = card => getTranslation('cards.'+card.card_key);
+const cardTextCache = new WeakMap();
+function cardText(card) {
+  let cached=cardTextCache.get(card);
+  if (!cached || cached.language!==language) {
+    const text=getTranslation('cards.'+card.card_key);
+    cached={language,text:{...text,name:text.name.toLocaleUpperCase(TRANSLATIONS[language].locale)}};
+    cardTextCache.set(card,cached);
+  }
+  return cached.text;
+}
 const cardNumber = card => Number(card.card_key.split('_')[1]);
 const cardReference = card => `S${card.season} #${String(cardNumber(card)).padStart(3,'0')}`;
 const imagePath = card => `card_images/${card.card_key}.webp`;
@@ -121,7 +129,20 @@ function setStandardStatus(key) {
 const LEVEL_CYCLE_ICON = `<svg class="cycle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 0 1 15.36-6.36L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.36 6.36L3 16M8 16H3v5"/></svg>`;
 const RANK = {Common:0, Rare:1, Epic:2, Legendary:3};
 const byIndex = new Map(CARDS.map(c => [c.index,c]));
-const synergiesByIndex = new Map(SYNERGIES.map(entry=>[entry.index,entry]));
+// Sources share a row only when their complete partner lists are identical.
+const synergyGroupByIndex = (()=>{
+  const groups=new Map(),indices=new Map();
+  for (const entry of SYNERGIES) {
+    const key=entry.partners.join(',');
+    if (!groups.has(key)) groups.set(key,{key:entry.index,partners:entry.partners.map(index=>byIndex.get(index))});
+    indices.set(entry.index,groups.get(key));
+  }
+  return indices;
+})();
+const SYNERGY_BATCH_SIZE = 12;
+const synergySourceSelections = new Map();
+let synergyResults = [], synergyResultByKey = new Map(), synergyLoaded = 0, synergyComparator;
+let synergySourceHeightCache = new WeakMap();
 const defaults={...DEFAULT_SCENARIO};
 const F = id => $(mode+'-'+id);
 const settingIds = {enemies:'s-enemies', enemyChakra:'s-enemy-chakra', allies:'s-allies', allyChakra:'s-ally-chakra', activations:'s-activations'};
@@ -151,9 +172,9 @@ function formatTerms(text) {
 buildTermPatterns();
 const descriptionDifferenceCache = new WeakMap();
 function descriptionDifferences(c) {
-  const texts = [1,2].map(level => normalizeText(cardText(c).descriptions[level-1]));
   const cached = descriptionDifferenceCache.get(c);
-  if (cached && cached.language===language && cached.texts.every((text,i) => text===texts[i])) return cached;
+  if (cached && cached.language===language) return cached;
+  const texts = [1,2].map(level => normalizeText(cardText(c).descriptions[level-1]));
   // A keyword plus its parameter is atomic, so Chakra(+N) is underlined as a whole.
   const tokenRegex = new RegExp(`(?:${termRegex.source})|\\p{L}[\\p{L}\\p{M}]*|\\d+(?:[.,]\\d+)?|[^\\s]`,'giu');
   const tokens = texts.map(text => Array.from(text.matchAll(tokenRegex),m => ({text:m[0],start:m.index,end:m.index+m[0].length,key:m[0].toLocaleLowerCase(TRANSLATIONS[language].locale)})));
@@ -311,7 +332,7 @@ function filteredCards() {
   });
 }
 function renderCatalog() {
-  const cards = filteredCards().filter(c=>mode!=='synergies' || synergiesByIndex.has(c.index)), sort = F('sort').value, direction = F('sort-direction').dataset.direction === 'desc' ? -1 : 1;
+  const cards = filteredCards().filter(c=>mode!=='synergies' || synergyGroupByIndex.has(c.index)), sort = F('sort').value, direction = F('sort-direction').dataset.direction === 'desc' ? -1 : 1;
   const compareCards = (a,b) => {
     let d = 0;
     switch (sort) {
@@ -324,26 +345,135 @@ function renderCatalog() {
     return direction*(d || a.index-b.index);
   };
   cards.sort(compareCards);
-  $(mode+'-card-list').innerHTML = cards.length ? cards.map(mode==='synergies'?card=>synergyRowHTML(card,compareCards):cardHTML).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
-  if (mode==='synergies') scheduleSynergyLayout();
+  if (mode==='synergies') renderSynergies(cards,compareCards);
+  else $(mode+'-card-list').innerHTML = cards.length ? cards.map(cardHTML).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
   updateFilterCount(mode);
   scheduleSessionSave();
 }
-function synergyRowHTML(card,compareCards) {
-  const entry=synergiesByIndex.get(card.index);
-  const partners=entry.partners.map(index=>byIndex.get(index)).filter(Boolean).sort(compareCards);
-  return `<article class="synergy-row" data-synergy="${card.index}">
-    <div class="synergy-source database-list">${cardHTML(card)}</div>
-    <div class="synergy-group"><ul class="synergy-partners" tabindex="0" aria-label="${esc(t('ui.synergyPartners',{name:cardText(card).name}))}">${partners.map(partner=>`<li><button class="synergy-partner" data-open="${partner.index}" title="${esc(cardText(partner).ability)}" aria-label="${esc(cardText(partner).name)}"><span class="synergy-art"><img src="${imagePath(partner)}" alt="" loading="lazy" width="${CARD_ART.width}" height="${CARD_ART.height}"><span class="orb cost" title="${t('ui.cost')}">${partner.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${partner.chakra}</span></span><strong>${esc(cardText(partner).name)}</strong><span class="synergy-ability">${esc(cardText(partner).ability)}</span></button></li>`).join('')}</ul></div>
+function renderSynergies(cards,compareCards) {
+  synergyLoader.disconnect();
+  const groups=new Map();
+  for (const card of cards) {
+    const group=synergyGroupByIndex.get(card.index);
+    if (!groups.has(group.key)) groups.set(group.key,{key:group.key,partners:group.partners,sources:[]});
+    groups.get(group.key).sources.push(card);
+  }
+  synergyResultByKey=groups;synergyResults=[...groups.values()];synergyLoaded=0;synergyComparator=compareCards;
+  const list=$('synergies-card-list');
+  list.innerHTML=cards.length?'':`<div class="empty-results">${t('ui.noResults')}</div>`;
+  list.closest('.catalog').scrollTop=0;
+  appendSynergies();
+}
+function appendSynergies() {
+  const list=$('synergies-card-list'),batch=synergyResults.slice(synergyLoaded,synergyLoaded+SYNERGY_BATCH_SIZE);
+  list.insertAdjacentHTML('beforeend',batch.map(synergyRowHTML).join(''));
+  synergyLoaded+=batch.length;
+  const more=$('synergies-more');
+  more.hidden=synergyLoaded>=synergyResults.length;
+  synergyLoader.disconnect();
+  if (!more.hidden) synergyLoader.observe(more);
+  scheduleSynergyLayout();
+}
+function synergyRowHTML(group) {
+  const card=group.sources.find(card=>card.index===synergySourceSelections.get(group.key))??group.sources[0];
+  const partners=[...group.partners].sort(synergyComparator);
+  const menuId='synergy-sources-'+group.key;
+  const sourceSelector=group.sources.length>1?`<button class="synergy-source-select" data-synergy-source-toggle popovertarget="${menuId}" aria-controls="${menuId}" aria-haspopup="listbox" aria-expanded="false" aria-label="${esc(t('ui.synergySources'))}" title="${esc(cardText(card).name+' — '+cardText(card).ability)}"><span class="synergy-source-label">${esc(cardText(card).name)} — ${esc(cardText(card).ability)}</span><span class="filter-arrow" aria-hidden="true">▾</span></button><div class="synergy-source-menu" id="${menuId}" popover="auto" role="listbox" aria-label="${esc(t('ui.synergySources'))}">${group.sources.map(source=>`<button class="synergy-source-option" type="button" role="option" data-synergy-source="${source.index}" aria-selected="${source===card}" tabindex="${source===card?0:-1}"><strong>${esc(cardText(source).name)}</strong> — ${esc(cardText(source).ability)}</button>`).join('')}</div>`:'';
+  return `<article class="synergy-row" data-synergy="${card.index}" data-synergy-group="${group.key}">
+    <div class="synergy-source">${sourceSelector}<div class="synergy-source-card database-list">${cardHTML(card)}</div></div>
+    <div class="synergy-group"><ul class="synergy-partners${partners.length<6?' is-compact':''}" tabindex="0" aria-label="${esc(t('ui.synergyPartners',{name:cardText(card).name}))}">${partners.map(partner=>`<li><button class="synergy-partner" data-open="${partner.index}" title="${esc(cardText(partner).ability)}" aria-label="${esc(cardText(partner).name)}"><span class="synergy-art"><img src="${imagePath(partner)}" alt="" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}"><span class="orb cost" title="${t('ui.cost')}">${partner.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${partner.chakra}</span></span><strong>${esc(cardText(partner).name)}</strong><span class="synergy-ability">${esc(cardText(partner).ability)}</span></button></li>`).join('')}</ul></div>
   </article>`;
+}
+const synergyLoader=new IntersectionObserver(entries=>{
+  if (mode==='synergies' && !$('synergies-more').hidden && entries.some(entry=>entry.isIntersecting)) appendSynergies();
+},{rootMargin:'350px 0px'});
+$('load-more-synergies').onclick=appendSynergies;
+$('synergies-card-list').addEventListener('click',event=>{
+  const option=event.target.closest('[data-synergy-source]');
+  if (!option) return;
+  const card=byIndex.get(Number(option.dataset.synergySource)),row=option.closest('.synergy-row'),menu=option.closest('.synergy-source-menu'),button=row.querySelector('[data-synergy-source-toggle]');
+  synergySourceSelections.set(Number(row.dataset.synergyGroup),card.index);
+  row.dataset.synergy=card.index;
+  const label=cardText(card).name+' — '+cardText(card).ability;
+  button.querySelector('.synergy-source-label').textContent=label;button.title=label;
+  for (const item of menu.children) {
+    const selected=item===option;
+    item.setAttribute('aria-selected',String(selected));item.tabIndex=selected?0:-1;
+  }
+  row.querySelector('.synergy-source-card').innerHTML=cardHTML(card);
+  row.querySelector('.synergy-partners').setAttribute('aria-label',t('ui.synergyPartners',{name:cardText(card).name}));
+  menu.hidePopover();button.focus({preventScroll:true});
+});
+$('synergies-card-list').addEventListener('beforetoggle',event=>{
+  if (event.target.matches('.synergy-source-menu') && event.newState==='open') positionSynergySourceMenu(event.target);
+},true);
+$('synergies-card-list').addEventListener('toggle',event=>{
+  const menu=event.target;
+  if (!menu.matches('.synergy-source-menu')) return;
+  const open=event.newState==='open';
+  menu.closest('.synergy-source').querySelector('[data-synergy-source-toggle]').setAttribute('aria-expanded',String(open));
+  if (open) menu.querySelector('[aria-selected=true]').focus({preventScroll:true});
+},true);
+$('synergies-card-list').addEventListener('keydown',event=>{
+  const toggle=event.target.closest('[data-synergy-source-toggle]'),menu=event.target.closest('.synergy-source-menu');
+  if (toggle && ['ArrowDown','ArrowUp'].includes(event.key)) { event.preventDefault();$(toggle.getAttribute('aria-controls')).showPopover();return; }
+  if (!menu) return;
+  const options=[...menu.children],index=options.indexOf(document.activeElement);
+  let next;
+  if (event.key==='ArrowDown') next=(index+1)%options.length;
+  else if (event.key==='ArrowUp') next=(index+options.length-1)%options.length;
+  else if (event.key==='Home') next=0;
+  else if (event.key==='End') next=options.length-1;
+  else if (event.key==='Tab') { menu.hidePopover();return; }
+  else if (event.key==='Escape') { menu.hidePopover();menu.closest('.synergy-source').querySelector('[data-synergy-source-toggle]').focus({preventScroll:true});return; }
+  else return;
+  event.preventDefault();options[next].focus({preventScroll:true});
+});
+function positionSynergySourceMenu(menu) {
+  const button=menu.closest('.synergy-source').querySelector('[data-synergy-source-toggle]'),probe=createMenuProbe(menu);
+  const width=Math.min(Math.max(button.getBoundingClientRect().width,Math.ceil(probe.getBoundingClientRect().width)),innerWidth-20);
+  probe.remove();positionPopover(button,menu,width);
+}
+function measureSynergySourceHeights(rows) {
+  const container=document.createElement('div'),measurements=[];
+  container.style.cssText='position:fixed;left:-10000px;top:0;visibility:hidden;pointer-events:none;';
+  for (const row of rows) {
+    const group=synergyResultByKey.get(Number(row.dataset.synergyGroup)),width=row.querySelector('.game-card').getBoundingClientRect().width,cached=synergySourceHeightCache.get(group);
+    if (cached && cached.width===width && cached.language===language) continue;
+    const probes=group.sources.map(card=>{
+      const probe=document.createElement('div'),info=row.querySelector('.card-info').cloneNode(true),text=cardText(card);
+      probe.className='synergy-source';probe.style.width=width+'px';
+      info.querySelector('.card-title').textContent=text.name;
+      info.querySelector('.card-text > strong').textContent=text.ability;
+      info.querySelector('.ability').innerHTML=formatDescription(card,1);
+      probe.append(info);container.append(probe);return info;
+    });
+    measurements.push({group,width,probes,artHeight:row.querySelector('.card-main').getBoundingClientRect().height});
+  }
+  if (measurements.length) {
+    document.body.append(container);
+    for (const {group,width,probes,artHeight} of measurements) synergySourceHeightCache.set(group,{width,language,height:Math.ceil(artHeight+Math.max(...probes.map(info=>info.getBoundingClientRect().height)))});
+    container.remove();
+  }
 }
 let synergyLayoutFrame;
 function scheduleSynergyLayout() {
   cancelAnimationFrame(synergyLayoutFrame);
   synergyLayoutFrame=requestAnimationFrame(()=>{
     if (mode!=='synergies') return;
+    const rows=[...$('synergies-card-list').querySelectorAll('.synergy-row')];
+    measureSynergySourceHeights(rows);
+    // Small groups retain the same starting inset and gaps as a six-card group.
+    const spacing=rows.map(row=>{
+      const list=row.querySelector('.synergy-partners');
+      if (!list.classList.contains('is-compact')) return null;
+      const style=getComputedStyle(list),width=parseFloat(style.getPropertyValue('--synergy-card-width')),gap=parseFloat(style.getPropertyValue('--synergy-min-gap'));
+      const columns=Math.max(1,Math.min(6,Math.floor((list.clientWidth-gap)/(width+gap))));
+      return [row,Math.max(gap,(list.clientWidth-columns*width)/(columns+1))];
+    }).filter(Boolean);
+    for (const [row,gap] of spacing) row.style.setProperty('--synergy-spacing',gap+'px');
     // Measure before writing so each row keeps its natural content height.
-    const sizes=[...$('synergies-card-list').querySelectorAll('.synergy-row')].map(row=>{
+    const sizes=rows.map(row=>{
       const items=row.querySelector('.synergy-partners').children;
       let firstTop,lastTop,bottom=0,rows=0;
       for (const item of items) {
@@ -352,9 +482,16 @@ function scheduleSynergyLayout() {
         firstTop??=top;
         bottom=Math.max(bottom,top+item.offsetHeight);
       }
-      return [row,Math.ceil(bottom-(firstTop??0))];
+      const toggle=row.querySelector('.synergy-source-select');
+      const sourceHeader=toggle?toggle.offsetHeight+parseFloat(getComputedStyle(row.querySelector('.synergy-source')).rowGap):0;
+      const height=Math.ceil(bottom-(firstTop??0));
+      const natural=synergySourceHeightCache.get(synergyResultByKey.get(Number(row.dataset.synergyGroup))).height;
+      return [row,height,Math.max(natural,height-sourceHeader)];
     });
-    for (const [row,height] of sizes) row.style.setProperty('--synergy-visible-height',height+'px');
+    for (const [row,height,sourceHeight] of sizes) {
+      row.style.setProperty('--synergy-visible-height',height+'px');
+      row.style.setProperty('--synergy-source-min-height',sourceHeight+'px');
+    }
   });
 }
 function deckSlotsHTML(cards,showDetails=false) {
@@ -369,11 +506,7 @@ function renderDeck() {
   const field=deckOrder.sort==='chakra'?'chakra':'energy_cost',direction=deckOrder.direction==='desc'?-1:1;
   const cards = current.cards.map(i => byIndex.get(i)).sort((a,b)=>direction*(a[field]-b[field] || a.index-b.index)), n = cards.length;
   $('deck-sort').value=deckOrder.sort;
-  const orderButton=$('deck-sort-direction'),descending=deckOrder.direction==='desc';
-  orderButton.textContent=descending?'↓':'↑';
-  orderButton.dataset.direction=deckOrder.direction;
-  orderButton.title=t(descending?'ui.descending':'ui.ascending');
-  orderButton.setAttribute('aria-label',t(descending?'ui.descendingAction':'ui.ascendingAction'));
+  setSortDirection($('deck-sort-direction'),deckOrder.direction);
   if (document.activeElement !== $('deck-name')) $('deck-name').value = current.name;
   $('deck-grid').innerHTML = deckSlotsHTML(cards);
   $('deck-dialog-grid').innerHTML = deckSlotsHTML(cards,true);
@@ -413,15 +546,28 @@ function toggleCard(index) {
 function setMode(next) {
   closeFilterMenus();
   mode = next;
+  syncSections();
+  renderCatalog();
+  if (mode==='builder') renderDeck();
+  scheduleBackToTop();
+}
+function syncSections() {
   for (const area of sectionIds) {
     const selected=area===mode;
     $(area+'-area').classList.toggle('hidden',!selected);
     $('tab-'+area).setAttribute('aria-selected',String(selected));
     $('tab-'+area).tabIndex=selected?0:-1;
   }
-  renderCatalog();
-  if (mode==='builder') renderDeck();
 }
+let backToTopFrame;
+function updateBackToTop() {
+  $('back-to-top').hidden=!matchMedia('(max-width:700px)').matches || $(mode+'-toolbox').getBoundingClientRect().bottom>0;
+}
+function scheduleBackToTop() {
+  cancelAnimationFrame(backToTopFrame);
+  backToTopFrame=requestAnimationFrame(updateBackToTop);
+}
+$('back-to-top').onclick=()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
 function renderToolbar(area) {
   const state=toolbarState[area],toggle=$(area+'-toolbox-toggle');
   const desktop=matchMedia('(min-width:701px)').matches;
@@ -444,6 +590,7 @@ function renderToolbar(area) {
     $(panel.id).inert=!selected;
   }
   updateFilterCount(area);
+  scheduleBackToTop();
 }
 function selectToolbarPanel(area,key,toggleCurrent=false) {
   closeFilterMenus();
@@ -590,7 +737,7 @@ function createFilterDefinitions() {
     'f-rarity':{label:t('ui.rarity'),all:t('ui.allFeminine'),options:labels([['Common','common'],['Rare','rare'],['Epic','epic'],['Legendary','legendary']])},
     'f-season':{label:t('ui.season'),all:t('ui.allFeminine'),options:labels([['1','first'],['2','second'],['3','third']])},
     'f-skill':{label:t('ui.skillType'),all:t('ui.all'),options:[{value:'none',label:t('ui.none')},...Array.from(new Set(CARDS.flatMap(card=>card.skill_types_original))).sort((a,b)=>effectLabel(a).localeCompare(effectLabel(b),TRANSLATIONS[language].locale)).map(key=>({value:key,label:effectLabel(key),html:effectHTML(effectLabel(key),key)}))]},
-    ...Object.fromEntries([['f-cost','cost','energy_cost'],['f-chakra','chakra','chakra']].map(([id,key,field])=>[id,{label:t('ui.'+key),all:t('ui.all'),numeric:true,options:Array.from(new Set(CARDS.map(card=>card[field]))).sort((a,b)=>a-b).map(value=>({value:String(value),label:String(value)}))}]))
+    ...Object.fromEntries([['f-cost','cost','energy_cost'],['f-chakra','chakra','chakra']].map(([id,key,field])=>[id,{label:t('ui.'+key),all:t('ui.all'),options:Array.from(new Set(CARDS.map(card=>card[field]))).sort((a,b)=>a-b).map(value=>({value:String(value),label:String(value)}))}]))
   };
 }
 let filterDefinitions=createFilterDefinitions();
@@ -606,14 +753,39 @@ function updateMultiFilter(button,config) {
   button.title = config.label+': '+names;
   button.setAttribute('aria-label',button.title);
 }
-function positionFilterMenu(button,menu) {
-  const r=button.getBoundingClientRect(),width=Math.min(menu.classList.contains('numeric-filter-menu')?112:210,innerWidth-20);
+function createMenuProbe(menu) {
+  const probe=menu.cloneNode(true);
+  probe.removeAttribute('id');probe.removeAttribute('popover');
+  probe.style.cssText='position:fixed;left:-10000px;top:0;display:block;visibility:hidden;width:max-content;max-width:none;max-height:none;';
+  document.body.append(probe);
+  return probe;
+}
+function measureFilterMenu(menu) {
+  // Reserve the full title, action, labels and scrollbar before the menu opens.
+  const probe=createMenuProbe(menu);
+  const action=probe.querySelector('[data-filter-clear]').getBoundingClientRect().width;
+  probe.style.setProperty('--filter-action-width',action+'px');
+  menu.style.setProperty('--filter-action-width',action+'px');
+  const style=getComputedStyle(probe),border=parseFloat(style.borderLeftWidth)+parseFloat(style.borderRightWidth),padding=parseFloat(style.paddingLeft)+parseFloat(style.paddingRight);
+  const gutter=probe.offsetWidth-probe.clientWidth-border;
+  const content=Math.max(...[...probe.children].map(row=>{
+    const rowStyle=getComputedStyle(row);
+    return row.firstElementChild.getBoundingClientRect().width+action+parseFloat(rowStyle.columnGap)+parseFloat(rowStyle.paddingLeft)+parseFloat(rowStyle.paddingRight);
+  }));
+  probe.remove();
+  return Math.ceil(content+padding+border+gutter+1);
+}
+function positionPopover(button,menu,width) {
+  const r=button.getBoundingClientRect();
   const below = innerHeight-r.bottom-10, above = r.top-10, upward = below < 160 && above > below;
   menu.style.width = width+'px';
   menu.style.left = Math.max(10,Math.min(r.left,innerWidth-width-10))+'px';
   menu.style.top = upward ? 'auto' : r.bottom+4+'px';
   menu.style.bottom = upward ? innerHeight-r.top+4+'px' : 'auto';
   menu.style.maxHeight = Math.min(320,Math.max(80,upward ? above : below))+'px';
+}
+function positionFilterMenu(button,menu) {
+  positionPopover(button,menu,Math.min(button.getBoundingClientRect().width,innerWidth-20));
 }
 function closeFilterMenus() {
   for (const menu of document.querySelectorAll('.filter-menu:popover-open')) menu.hidePopover();
@@ -623,7 +795,6 @@ function mountMultiFilter(area,id,config) {
   button.dataset.filterKey=id;
   button.setAttribute('popovertarget',menu.id);
   button.setAttribute('aria-controls',menu.id);
-  menu.classList.toggle('numeric-filter-menu',!!config.numeric);
   const selected=new Set(Array.from(menu.querySelectorAll('input:checked'),input=>input.value));
   menu.innerHTML = `<div class="filter-menu-head"><strong>${formatTerms(config.label)}</strong><button type="button" data-filter-clear>${config.all}</button></div>`+config.options.map(option => `<label class="filter-option-row"><span>${option.html || esc(option.label)}</span><input class="filter-option" type="checkbox" value="${esc(option.value)}" aria-label="${esc(option.label)}" ${selected.has(option.value)?'checked':''}></label>`).join('');
   menu.onbeforetoggle=event=>{if(event.newState==='open')positionFilterMenu(button,menu);};
@@ -635,11 +806,23 @@ function mountMultiFilter(area,id,config) {
   };
   updateMultiFilter(button,config);
 }
-function repositionFilterMenus() {
+function repositionMenus() {
+  if ($('language-menu').matches(':popover-open')) positionLanguageMenu();
   for (const menu of document.querySelectorAll('.filter-menu:popover-open')) positionFilterMenu($(menu.id.replace(/-menu$/,'')),menu);
+  for (const menu of document.querySelectorAll('.synergy-source-menu:popover-open')) positionSynergySourceMenu(menu);
 }
-window.addEventListener('resize',repositionFilterMenus,{passive:true});
-window.addEventListener('scroll',repositionFilterMenus,{capture:true,passive:true});
+function refreshViewportLayout() {
+  sizeHeaderControls();sizeFilterControls();sizeAssumptionBoxes();
+  repositionMenus();scheduleSynergyLayout();updateBackToTop();
+}
+function scheduleViewportUpdate() {
+  if (viewportUpdateFrame!==null) return;
+  viewportUpdateFrame=requestAnimationFrame(()=>{viewportUpdateFrame=null;refreshViewportLayout();});
+}
+function scheduleScrollUpdate() {
+  if (scrollUpdateFrame!==null) return;
+  scrollUpdateFrame=requestAnimationFrame(()=>{scrollUpdateFrame=null;repositionMenus();updateBackToTop();});
+}
 
 function sizeHeaderControls() {
   const context=document.createElement('canvas').getContext('2d');
@@ -650,7 +833,7 @@ function sizeHeaderControls() {
   const frame=style=>['paddingLeft','paddingRight','borderLeftWidth','borderRightWidth'].reduce((sum,key)=>sum+(parseFloat(style[key])||0),0);
   for (const [area,key] of Object.entries(sections)) {
     const button=$('tab-'+area),style=getComputedStyle(button);
-    button.style.width=Math.ceil(Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.ui[key],style)))+frame(style)+1)+'px';
+    button.style.setProperty('--tab-width',Math.ceil(Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.ui[key],style)))+frame(style)+1)+'px');
   }
   const button=$('language-select'),style=getComputedStyle(button),arrow=$('language-select').querySelector('.language-arrow');
   const names=Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.name,style)));
@@ -669,7 +852,10 @@ function sizeFilterControls() {
     context.font=`${arrow.fontWeight} ${arrow.fontSize} ${arrow.fontFamily}`;
     const arrowWidth=context.measureText('▾').width;
     const spacing=['paddingLeft','paddingRight','borderLeftWidth','borderRightWidth','columnGap'].reduce((sum,key)=>sum+(parseFloat(style[key])||0),0);
-    button.closest('.field').style.minWidth=Math.ceil(textWidth+arrowWidth+spacing+2)+'px';
+    const menu=$(button.getAttribute('aria-controls')),width=Math.min(innerWidth-20,Math.max(measureFilterMenu(menu),Math.ceil(textWidth+arrowWidth+spacing+2)));
+    const field=button.closest('.field');
+    field.style.width=width+'px';field.style.minWidth=width+'px';
+    menu.style.width=width+'px';
   }
   for (const select of document.querySelectorAll('.filters-panel select,#deck-sort')) {
     const probe=select.cloneNode(true);
@@ -710,9 +896,16 @@ function applyBuilderLevel(level) {
   for (const index of Object.keys(current.levels)) if (!selected.has(Number(index))) delete current.levels[index];
   setFilterLevel($('builder-f-level'),level);
 }
+function setSortDirection(button,direction) {
+  const descending=direction==='desc';
+  button.dataset.direction=descending?'desc':'asc';
+  button.textContent=descending?'↓':'↑';
+  button.title=t(descending?'ui.descending':'ui.ascending');
+  button.setAttribute('aria-label',t(descending?'ui.descendingAction':'ui.ascendingAction'));
+}
 function mountFilters(area) {
   const fragment = $('filters-template').content.cloneNode(true);
-  fragment.querySelectorAll(area === 'builder' ? '.db-only' : '.builder-only').forEach(el => el.remove());
+  if (area!=='builder') fragment.querySelectorAll('.builder-only').forEach(el => el.remove());
   if (area==='synergies') fragment.querySelector('.level-field').remove();
   for (const el of fragment.querySelectorAll('[id]')) el.id = area+'-'+el.id;
   for (const el of fragment.querySelectorAll('label[for]')) el.htmlFor = area+'-'+el.htmlFor;
@@ -729,11 +922,8 @@ function mountFilters(area) {
     renderCatalog();
   }));
   $(area+'-sort-direction').onclick = () => {
-    const button = $(area+'-sort-direction'), descending = button.dataset.direction !== 'desc';
-    button.dataset.direction = descending ? 'desc' : 'asc';
-    button.textContent = descending ? '↓' : '↑';
-    button.setAttribute('aria-label',t(descending?'ui.descendingAction':'ui.ascendingAction'));
-    button.title = t(descending?'ui.descending':'ui.ascending');
+    const button = $(area+'-sort-direction');
+    setSortDirection(button,button.dataset.direction==='desc'?'asc':'desc');
     renderCatalog();
   };
   $(area+'-reset').onclick = () => {
@@ -743,7 +933,7 @@ function mountFilters(area) {
       else el.value = '';
     }
     $(area+'-sort').value = 'index';
-    const direction = $(area+'-sort-direction'); direction.dataset.direction = 'asc'; direction.textContent = '↑'; direction.title=t('ui.ascending'); direction.setAttribute('aria-label',t('ui.ascendingAction'));
+    setSortDirection($(area+'-sort-direction'),'asc');
     for (const [id,config] of Object.entries(filterDefinitions)) {
       for (const input of $(area+'-'+id+'-menu').querySelectorAll('input')) input.checked = false;
       updateMultiFilter($(area+'-'+id),config);
@@ -766,9 +956,8 @@ function applyLanguage() {
   for (const area of sectionIds) {
     for (const [id,config] of Object.entries(filterDefinitions)) mountMultiFilter(area,id,config);
     if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),Number($(area+'-f-level').value));
-    const button=$(area+'-sort-direction'),descending=button.dataset.direction==='desc';
-    button.title=t(descending?'ui.descending':'ui.ascending');
-    button.setAttribute('aria-label',t(descending?'ui.descendingAction':'ui.ascendingAction'));
+    const button=$(area+'-sort-direction');
+    setSortDirection(button,button.dataset.direction);
   }
   syncLanguageControl();
   for (const area of Object.keys(toolbarPanels)) renderToolbar(area);
@@ -804,9 +993,7 @@ function restoreFilters(area,filter = {}) {
   if (minimum) minimum.value = typeof filter.minimumPower === 'string' && /^\d{0,3}$/.test(filter.minimumPower) ? filter.minimumPower : '';
   const sort = $(area+'-sort');
   sort.value = Array.from(sort.options).some(option => option.value === filter.sort) ? filter.sort : 'index';
-  const direction = $(area+'-sort-direction'), descending = filter.direction === 'desc';
-  direction.dataset.direction = descending ? 'desc' : 'asc';
-  direction.textContent = descending ? '↓' : '↑';
+  setSortDirection($(area+'-sort-direction'),filter.direction);
   for (const [id,config] of Object.entries(filterDefinitions)) {
     const selected = new Set(Array.isArray(filter.selected?.[id]) ? filter.selected[id] : []);
     for (const input of $(area+'-'+id+'-menu').querySelectorAll('input')) input.checked = selected.has(input.value);
@@ -881,7 +1068,6 @@ mountLanguageMenu();
 
 mountToolbars();
 for (const area of sectionIds) mountFilters(area);
-sizeFilterControls();
 for (const id of Object.values(settingIds)) $(id).addEventListener('input',() => {
   setStandardStatus('ui.standardPending');
 });
@@ -949,13 +1135,16 @@ for (const [area,panels] of Object.entries(toolbarPanels)) {
   const saved=restoredSession.toolbars?.[area];
   if (saved && panels.some(panel=>panel.key===saved.active) && typeof saved.open==='boolean') toolbarState[area]={active:saved.active,open:saved.open};
 }
-syncScenario(); applyLanguage(); setMode(mode);
+syncSections();syncScenario();applyLanguage();
 let synergyListWidth;
 new ResizeObserver(([entry])=>{
   const width=entry.contentRect.width;
   if (width!==synergyListWidth) { synergyListWidth=width;scheduleSynergyLayout(); }
 }).observe($('synergies-card-list'));
-document.fonts.ready.then(()=>{sizeHeaderControls();sizeAssumptionBoxes();scheduleSynergyLayout();});
+window.addEventListener('resize',scheduleViewportUpdate,{passive:true});
+window.addEventListener('scroll',scheduleScrollUpdate,{capture:true,passive:true});
+window.addEventListener('pageshow',scheduleScrollUpdate);
+document.fonts.ready.then(()=>{synergySourceHeightCache=new WeakMap();refreshViewportLayout();});
 for (const [key,id] of Object.entries(settingIds)) {
   const draft = restoredSession.standardDraft?.[key];
   if (typeof draft === 'string' && /^\d{0,3}$/.test(draft)) $(id).value = draft;

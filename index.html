@@ -8,7 +8,13 @@
 <title data-i18n="ui.pageTitle"></title>
 <link rel="icon" type="image/svg+xml" href="misc_images/naruto-icon.svg"/>
 
-<link href="styles.css" rel="stylesheet"/><script defer="" src="translations.js"></script><script defer="" src="cards.js"></script><script defer="" src="synergies.js"></script><script defer="" src="calculator.js"></script><script defer="" src="app.js"></script></head>
+<link href="styles.css" rel="stylesheet"/>
+<script defer src="translations.js"></script>
+<script defer src="cards.js"></script>
+<script defer src="synergies.js"></script>
+<script defer src="calculator.js"></script>
+<script defer src="app.js"></script>
+</head>
 <body>
 <div class="shell">
 <header class="top">
@@ -80,7 +86,7 @@
 <div class="filters-panel toolbox-pane" data-i18n-aria-label="ui.searchFilters" id="synergies-filter-host" role="tabpanel"></div>
 </div>
 </section>
-<main class="workspace"><section class="catalog" data-i18n-aria-label="ui.synergies"><div class="synergy-list" id="synergies-card-list"></div></section></main>
+<main class="workspace"><section class="catalog" data-i18n-aria-label="ui.synergies"><div class="synergy-list" id="synergies-card-list"></div><div class="synergy-more" hidden="" id="synergies-more"><button aria-controls="synergies-card-list" data-i18n="ui.loadMore" id="load-more-synergies" type="button"></button></div></section></main>
 </section>
 </div>
 <template id="filters-template">
@@ -163,11 +169,8 @@
 <button class="primary" data-i18n="ui.confirm" id="confirm-yes"></button>
 </div>
 </dialog>
+<button class="back-to-top" data-i18n="ui.backToTop" hidden="" id="back-to-top" type="button"></button>
 <div aria-live="polite" class="toast hidden" id="toast" role="status">
 </div>
-
-
-
-
 </body>
 </html>
