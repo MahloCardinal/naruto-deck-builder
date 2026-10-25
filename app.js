@@ -120,7 +120,7 @@ const RANK = {Common:0, Rare:1, Epic:2, Legendary:3};
 const byIndex = new Map(CARDS.map(c => [c.index,c]));
 const defaults={...DEFAULT_SCENARIO};
 const F = id => $(mode+'-'+id);
-const settingIds = {enemyChakra:'s-enemy-chakra', enemies:'s-enemies', allyChakra:'s-ally-chakra', allies:'s-allies', activations:'s-activations'};
+const settingIds = {enemies:'s-enemies', enemyChakra:'s-enemy-chakra', allies:'s-allies', allyChakra:'s-ally-chakra', activations:'s-activations'};
 
 // Keyword patterns belong to each language catalog, rather than to the renderer.
 let termPatterns,termRegex;
@@ -473,7 +473,7 @@ function refreshDialogCalculation() {
 function relevantSettings(c,level) {
   const used = new Set();
   estimate(c,level,scenarioFor(c),used);
-  return Object.keys(defaults).filter(key => used.has(key));
+  return Object.keys(settingIds).filter(key => used.has(key));
 }
 function renderDialog() {
   const c = dialogCard, level = dialogLevel, build = mode === 'builder';
@@ -644,6 +644,23 @@ function sizeFilterControls() {
     probe.remove();
   }
 }
+function sizeAssumptionBoxes() {
+  const probe=document.createElement('div');
+  probe.className='parameter';
+  Object.assign(probe.style,{position:'fixed',left:'-9999px',visibility:'hidden',display:'block',width:'max-content'});
+  for (const key of Object.keys(settingIds)) {
+    const label=document.createElement('label');
+    label.innerHTML=formatTerms(t('ui.'+key));
+    Object.assign(label.style,{display:'block',width:'max-content'});
+    probe.append(label);
+  }
+  document.body.append(probe);
+  const longest=probe.getBoundingClientRect().width;
+  const labelStyle=getComputedStyle(document.querySelector('.scenario-fields .parameter label'));
+  const padding=(parseFloat(labelStyle.paddingLeft)||0)+(parseFloat(labelStyle.paddingRight)||0);
+  document.documentElement.style.setProperty('--assumption-box-width',(longest+padding)+'px');
+  probe.remove();
+}
 function setFilterLevel(button,level) {
   button.value = String(level);
   button.innerHTML = `<span>${level}</span>${LEVEL_CYCLE_ICON}`;
@@ -718,7 +735,7 @@ function applyLanguage() {
   }
   syncLanguageControl();
   for (const area of Object.keys(toolbarPanels)) renderToolbar(area);
-  sizeHeaderControls();sizeFilterControls();renderDeck();renderCatalog();
+  sizeHeaderControls();sizeFilterControls();sizeAssumptionBoxes();renderDeck();renderCatalog();
   if ($('card-dialog').open) renderDialog();
   if (confirmMessageKey) $('confirm-text').textContent=t(confirmMessageKey);
 }
@@ -889,7 +906,7 @@ for (const [area,panels] of Object.entries(toolbarPanels)) {
   if (saved && panels.some(panel=>panel.key===saved.active) && typeof saved.open==='boolean') toolbarState[area]={active:saved.active,open:saved.open};
 }
 syncScenario(); applyLanguage(); setMode(mode);
-document.fonts.ready.then(sizeHeaderControls);
+document.fonts.ready.then(()=>{sizeHeaderControls();sizeAssumptionBoxes();});
 for (const [key,id] of Object.entries(settingIds)) {
   const draft = restoredSession.standardDraft?.[key];
   if (typeof draft === 'string' && /^\d{0,3}$/.test(draft)) $(id).value = draft;
