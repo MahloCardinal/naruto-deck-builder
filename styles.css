@@ -93,8 +93,8 @@ h4 { font-size:11px; font-weight:650; }
 #standard-status:empty { display:none; }
 .workspace { display:grid; grid-template-columns:minmax(0,1fr); align-items:start; gap:14px; }
 .catalog { min-width:0; }
-.card-list { display:grid; grid-template-columns:repeat(auto-fill,var(--card-width)); gap:11px; align-items:start; justify-content:space-between; }
-.game-card { min-width:0; height:363px; display:flex; flex-direction:column; background:var(--paper); border-radius:0; outline:1px solid #d5dbcd; overflow:hidden; box-shadow:0 2px 5px #26392a08; }
+.card-list { display:grid; grid-template-columns:repeat(auto-fill,var(--card-width)); gap:11px; align-items:stretch; justify-content:space-between; }
+.game-card { min-width:0; display:flex; flex-direction:column; background:var(--paper); border-radius:0; outline:1px solid #d5dbcd; overflow:hidden; box-shadow:0 2px 5px #26392a08; }
 .game-card:hover { outline-color:#9fb092; }
 .game-card.selected { outline:2px solid var(--green); }
 .card-main { position:relative; flex:none; display:block; width:100%; aspect-ratio:var(--art-ratio); border:0; padding:0; border-radius:0; background:#e6eadf; line-height:0; }
@@ -104,15 +104,15 @@ h4 { font-size:11px; font-weight:650; }
 .card-main .orb { top:calc(max(17px,var(--frame-top)) + 4px); }
 .orb.cost { left:var(--frame-left); transform:translate(-50%,-50%); background:#f39a2f; color:#472906; }
 .orb.chakra { right:var(--frame-right); transform:translate(50%,-50%); background:#4da2ff; color:white; text-shadow:0 1px 2px #143e6c; }
-.card-info { padding:8px; flex:1; min-height:0; display:grid; grid-template-rows:25px minmax(0,1fr) 38px; gap:4px; }
-.database-list .card-info { grid-template-rows:25px minmax(0,1fr); }
+.card-info { padding:8px; flex:1; min-height:0; display:grid; grid-template-rows:auto minmax(0,1fr) auto; gap:4px; }
+.database-list .card-info { grid-template-rows:auto minmax(0,1fr); }
 .card-heading { display:flex; align-items:start; justify-content:space-between; gap:4px; }
 .card-title { font-size:11px; font-weight:700; line-height:1.25; }
 .card-level,.slot-level,.back-to-top { border:2px solid var(--level-orange); color:var(--level-orange); background:var(--level-background); }
 .card-level,.slot-level { font-size:10px; font-weight:700; line-height:1.2; white-space:nowrap; padding:1px 4px; border-radius:0; }
 .back-to-top { display:none; position:fixed; right:calc(14px + env(safe-area-inset-right)); bottom:calc(14px + env(safe-area-inset-bottom)); z-index:20; min-height:36px; padding:8px 16px; border-radius:999px; font-size:12px; font-weight:650; box-shadow:0 3px 12px #b46c3226; }
 .back-to-top:hover:not(:disabled) { border-color:var(--level-orange); color:var(--level-orange); background:#ffe4c0; }
-.card-text { font-size:10px; line-height:1.5; overflow:auto; scrollbar-width:thin; cursor:pointer; }
+.card-text { font-size:10px; line-height:1.5; cursor:pointer; }
 .card-text > strong { display:block; margin-bottom:4px; font-size:10px; color:#40543f; }
 .ability { color:#53634f; }
 .card-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; align-items:center; border-top:1px solid #e5e9dd; padding-top:5px; text-align:center; }
@@ -237,7 +237,6 @@ dialog::backdrop { background:#26362770; backdrop-filter:blur(2px); }
 .effect-Burn { --effect-color: #FF7A1A; }
 .effect-Focus { --effect-color: #1A8A9E; }
 .effect-Heal { --effect-color: #4DA2FF; }
-.database-list .game-card { height:335px; }
 .filters-panel select[id$="-sort"],.filters-panel select[id$="-sort"] option,#deck-sort,#deck-sort option { color:#000; font-weight:400; }
 .filters-panel select[id$="-sort"],#deck-sort { appearance:none; padding-right:28px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23273b32' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-size:10px 6px; background-position:right 10px top calc(50%); }
 
@@ -372,7 +371,7 @@ dialog button { border-radius:0; }
 .synergy-source-option { display:block; width:100%; padding:7px 10px; border:0; font-size:10px; font-weight:400; text-align:left; overflow-wrap:anywhere; }
 .synergy-source-option strong { font-weight:400; }
 .synergy-source-option[aria-selected=true] { background:#f9e7cf; }
-.synergy-source .game-card { height:auto; min-height:var(--synergy-source-min-height,0px); }
+.synergy-source .game-card { min-height:var(--synergy-source-min-height,0px); }
 .synergy-source .card-info { flex:none; grid-template-rows:auto auto; gap:0; }
 .synergy-partners { --synergy-card-width:108px; --synergy-gap:8px; display:grid; grid-template-columns:repeat(auto-fit,var(--synergy-card-width)); grid-auto-rows:max-content; align-content:start; justify-content:start; gap:var(--synergy-gap); max-height:var(--synergy-visible-height,352px); margin:0; padding:0 var(--synergy-gap); list-style:none; overflow-x:hidden; overflow-y:auto; scrollbar-width:thin; scrollbar-gutter:stable; }
 .synergy-more { padding:16px 0; text-align:center; overflow-anchor:none; }
