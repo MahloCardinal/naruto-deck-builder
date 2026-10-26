@@ -21,17 +21,15 @@
 <div class="brand">
 <div aria-hidden="true" class="brand-mark">忍</div>
 <div>
-<div class="eyebrow" data-i18n="ui.brand"></div>
 <h1 data-i18n="ui.heading"></h1>
-<p class="subtitle" data-i18n="ui.cardCount" id="catalog-subtitle"></p>
 </div>
 </div>
 <nav class="tabs" data-i18n-aria-label="ui.sections" role="tablist">
-<button aria-controls="db-area" aria-selected="true" class="tab" data-i18n="ui.database" id="tab-db" role="tab"></button>
-<button aria-controls="builder-area" aria-selected="false" class="tab" data-i18n="ui.builder" id="tab-builder" role="tab"></button>
-<button aria-controls="synergies-area" aria-selected="false" class="tab" data-i18n="ui.synergies" id="tab-synergies" role="tab"></button>
+<button aria-controls="db-area" aria-selected="true" class="tab" id="tab-db" role="tab"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h13v16H4zM8 8h5M8 12h5M20 7v14H7"/></svg><span class="nav-full" data-i18n="ui.database"></span><span class="nav-short" data-i18n="ui.navDatabase"></span></button>
+<button aria-controls="builder-area" aria-selected="false" class="tab" id="tab-builder" role="tab"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 3h12v15M4 7h12v14H4zM7 14h6M10 11v6"/></svg><span class="nav-full" data-i18n="ui.builder"></span><span class="nav-short" data-i18n="ui.navBuilder"></span></button>
+<button aria-controls="synergies-area" aria-selected="false" class="tab" id="tab-synergies" role="tab"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 3h6v6H3zM15 15h6v6h-6zM15 3h6v6h-6zM6 9v9h9M9 6h6M18 9v6"/></svg><span class="nav-full" data-i18n="ui.synergies"></span><span class="nav-short" data-i18n="ui.navSynergies"></span></button>
 </nav>
-<div class="language-control"><label data-i18n="ui.language" for="language-select" id="language-label"></label><button aria-labelledby="language-label language-name" aria-haspopup="listbox" aria-expanded="false" aria-controls="language-menu" id="language-select" popovertarget="language-menu" type="button"><img alt="" class="language-flag" id="language-flag" width="20" height="15"/><span id="language-name"></span><span aria-hidden="true" class="language-arrow">▾</span></button><div data-i18n-aria-label="ui.language" id="language-menu" popover="auto" role="listbox"></div></div></header>
+<div class="language-control"><label data-i18n="ui.language" for="language-select" id="language-label"></label><button aria-labelledby="language-label language-name" aria-haspopup="listbox" aria-expanded="false" aria-controls="language-menu" id="language-select" popovertarget="language-menu" type="button"><img alt="" class="language-flag" id="language-flag" width="20" height="15"/><span id="language-name"></span><span aria-hidden="true" id="language-code"></span><span aria-hidden="true" class="language-arrow">▾</span></button><div data-i18n-aria-label="ui.language" id="language-menu" popover="auto" role="listbox"></div></div></header>
 <section aria-labelledby="tab-db" class="area" id="db-area" role="tabpanel">
 <section class="toolbox panel" id="db-toolbox">
 <div class="toolbox-body" id="db-toolbox-body">
@@ -89,6 +87,12 @@
 <main class="workspace"><section class="catalog" data-i18n-aria-label="ui.synergies"><div class="synergy-list" id="synergies-card-list"></div><div class="synergy-more" hidden="" id="synergies-more"><button aria-controls="synergies-card-list" data-i18n="ui.loadMore" id="load-more-synergies" type="button"></button></div></section></main>
 </section>
 </div>
+<button class="mobile-deck-shortcut primary" id="mobile-deck-button" type="button" aria-haspopup="dialog" aria-controls="mobile-tools-dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 3h12v15M4 7h12v14H4z"/></svg><span data-i18n="ui.quickDeck"></span><b id="mobile-deck-count">0/10</b></button>
+<dialog aria-labelledby="mobile-tools-title" id="mobile-tools-dialog">
+<div class="mobile-tools-head"><h2 id="mobile-tools-title"></h2><button class="dialog-close" data-i18n-aria-label="ui.closeTools" id="mobile-tools-close" type="button">✕</button></div>
+<div id="mobile-tools-host"></div>
+<div class="mobile-tools-footer"><button class="primary" data-i18n="ui.showResults" id="mobile-tools-done" type="button"></button></div>
+</dialog>
 <template id="filters-template">
 <div class="filter-fields">
 <div class="field text-search"><label data-i18n="ui.textOrIndex" data-i18n-rich="" for="f-text"></label><input autocomplete="off" data-i18n-placeholder="ui.searchPlaceholder" id="f-text" type="search"/></div>

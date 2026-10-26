@@ -17,6 +17,10 @@ const toolbarPanels = {
   synergies: [{key:'filters',label:'filters',id:'synergies-filter-host'}]
 };
 const toolbarState = Object.fromEntries(sectionIds.map(area=>[area,{active:'filters',open:true}]));
+const mobileViewport = matchMedia('(max-width:700px)');
+const catalogScroll = Object.fromEntries(sectionIds.map(area=>[area,{mobile:0,desktop:0}]));
+let mobileToolsArea = null;
+let scrollRestoreFrame = null;
 const toolbarIcons = {
   filters:'<path d="M3 5h18l-7 8v6l-4 2v-8z"/>',
   assumptions:'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M7 7h10M8 11h1m6 0h1m-8 4h1m6 0h1m-8 3h1m6 0h1"/>',
@@ -27,6 +31,7 @@ let sessionReady = false, sessionTimer, lastSessionText = '', sessionWarning = f
 const numberFormatters = new Map();
 const pluralRules = new Map();
 let viewportUpdateFrame = null, scrollUpdateFrame = null;
+let lastMobileScrollAt = -Infinity;
 function getTranslation(key,code=language) {
   const parts=key.split('.');
   const read = catalog => parts.reduce((value,part) => value?.[part],catalog);
@@ -44,6 +49,7 @@ function t(key,values={}) {
 function syncLanguageControl() {
   const catalog=TRANSLATIONS[language];
   $('language-name').textContent=catalog.name;
+  $('language-code').textContent=language.toUpperCase();
   $('language-flag').src=`misc_images/flag-${catalog.flag}.svg`;
   for (const option of $('language-menu').querySelectorAll('[data-language]')) {
     const selected=option.dataset.language===language;
@@ -53,7 +59,7 @@ function syncLanguageControl() {
 }
 function positionLanguageMenu() {
   const button=$('language-select'),menu=$('language-menu'),rect=button.getBoundingClientRect();
-  const width=Math.min(rect.width,innerWidth-20);
+  const width=Math.min(Math.max(rect.width,180),innerWidth-20);
   menu.style.width=width+'px';
   menu.style.left=Math.max(10,Math.min(rect.right-width,innerWidth-width-10))+'px';
   menu.style.top=(rect.bottom+6)+'px';
@@ -286,10 +292,11 @@ function cardHTML(c) {
       <img src="${imagePath(c)}" alt="${esc(text.name)}" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}">
       <span class="orb cost" title="${t('ui.energyCost')}" aria-label="${t('ui.costValue',{value:c.energy_cost})}">${c.energy_cost}</span>
       <span class="orb chakra" title="${t('ui.baseChakra')}" aria-label="${t('ui.chakraValue',{value:c.chakra})}">${c.chakra}</span>
+      ${synergy?'':`<span class="card-level">${t('ui.levelShort',{level})}</span>`}
     </button>
-    <div class="card-info"><div class="card-heading"><strong class="card-title">${esc(text.name)}</strong>${synergy?'':`<span class="card-level">${t('ui.levelShort',{level})}</span>`}</div>
+    <div class="card-info"><strong class="card-title">${esc(text.name)}</strong>
       <div class="card-text" data-open="${c.index}"><strong>${esc(text.ability)}</strong><p class="ability">${formatDescription(c,level)}</p></div>
-      ${build?`<div class="card-metrics"><span><b>${fmt(result.value)}</b><small>${t('ui.power')}</small></span><span><b>${fmt(result.quality,1)}</b><small>${t('ui.quality')}</small></span><button class="card-toggle ${selected?'is-selected':'primary'}" data-toggle="${c.index}" aria-label="${esc(t(selected?'ui.removeCard':'ui.addCard',{name:text.name}))}" title="${t(selected?'ui.removeFromDeck':'ui.addToDeck')}" aria-pressed="${selected}" ${!selected&&current.cards.length>=10?'disabled':''}>${selected?'−':'+'}</button></div>`:''}
+      ${build?`<div class="card-metrics"><span><b>${fmt(result.value)}</b><small>${t('ui.power')}</small></span><span><b>${fmt(result.quality,1)}</b><small>${t('ui.quality')}</small></span><button class="card-toggle ${selected?'is-selected':'primary'}" data-toggle="${c.index}" aria-label="${esc(t(selected?'ui.removeCard':'ui.addCard',{name:text.name}))}" title="${t(selected?'ui.removeFromDeck':'ui.addToDeck')}" aria-pressed="${selected}" ${!selected&&current.cards.length>=10?'disabled':''}><svg class="card-toggle-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h12${selected?'':'M10 4v12'}"/></svg></button></div>`:''}
     </div></article>`;
 }
 const filterIds = ['f-level','f-text','f-estimate'];
@@ -300,6 +307,8 @@ function updateFilterCount(area) {
   badge.textContent=count?` (${fmt(count,0)})`:'';
   badge.hidden=count===0;
   badge.parentElement.title=t('ui.filters')+badge.textContent;
+  const quickBadge=$(area+'-quick-filter-count');
+  if (quickBadge) { quickBadge.textContent=badge.textContent;quickBadge.hidden=badge.hidden; }
 }
 function filteredCards() {
   const query = F('f-text').value.trim().toLowerCase();
@@ -496,6 +505,7 @@ function deckSlotsHTML(cards,showDetails=false) {
 function renderDeck() {
   const field=deckOrder.sort==='chakra'?'chakra':'energy_cost',direction=deckOrder.direction==='desc'?-1:1;
   const cards = current.cards.map(i => byIndex.get(i)).sort((a,b)=>direction*(a[field]-b[field] || a.index-b.index)), n = cards.length;
+  $('mobile-deck-count').textContent=n+'/10';
   $('deck-sort').value=deckOrder.sort;
   setSortDirection($('deck-sort-direction'),deckOrder.direction);
   if (document.activeElement !== $('deck-name')) $('deck-name').value = current.name;
@@ -535,14 +545,19 @@ function toggleCard(index) {
   if (current.cards.includes(index)) removeCard(index); else addCard(index);
 }
 function setMode(next) {
+  if (next===mode) return;
+  rememberCatalogScroll();
+  closeMobileTools();
   closeFilterMenus();
   mode = next;
   syncSections();
   renderCatalog();
   if (mode==='builder') renderDeck();
+  restoreCatalogScroll();
   scheduleBackToTop();
 }
 function syncSections() {
+  document.body.dataset.mode=mode;
   for (const area of sectionIds) {
     const selected=area===mode;
     $(area+'-area').classList.toggle('hidden',!selected);
@@ -552,7 +567,7 @@ function syncSections() {
 }
 let backToTopFrame;
 function updateBackToTop() {
-  $('back-to-top').hidden=!matchMedia('(max-width:700px)').matches || $(mode+'-toolbox').getBoundingClientRect().bottom>0;
+  $('back-to-top').hidden=!mobileViewport.matches || window.scrollY<400;
 }
 function scheduleBackToTop() {
   cancelAnimationFrame(backToTopFrame);
@@ -563,6 +578,7 @@ function renderToolbar(area) {
   const state=toolbarState[area],toggle=$(area+'-toolbox-toggle');
   const desktop=matchMedia('(min-width:701px)').matches;
   const sidebarKey=state.open?'ui.collapseSidebar':'ui.expandSidebar';
+  $(area+'-toolbox').querySelector('.toolbox-tabs').setAttribute('aria-orientation',desktop && !state.open?'vertical':'horizontal');
   toggle.setAttribute('aria-expanded',String(state.open));
   toggle.setAttribute('aria-label',t(desktop?sidebarKey:state.open?'ui.collapseToolbar':'ui.expandToolbar'));
   toggle.querySelector('.sidebar-toggle-label').textContent=t(sidebarKey);
@@ -575,27 +591,27 @@ function renderToolbar(area) {
     tab.setAttribute('aria-selected',String(selected));
     tab.tabIndex=selected?0:-1;
     tab.title=t('ui.'+panel.label);
-    $(panel.id).hidden=!selected && desktop;
-    $(panel.id).classList.toggle('is-inactive',!selected);
+    $(panel.id).hidden=!selected;
     $(panel.id).setAttribute('aria-hidden',String(!selected));
     $(panel.id).inert=!selected;
   }
   updateFilterCount(area);
   scheduleBackToTop();
 }
-function selectToolbarPanel(area,key,toggleCurrent=false) {
+function selectToolbarPanel(area,key) {
   closeFilterMenus();
   const state=toolbarState[area];
-  const open=toggleCurrent && state.active===key ? !state.open : true;
-  toolbarState[area]={active:key,open};
+  toolbarState[area]={active:key,open:true};
   renderToolbar(area);
+  if (mobileToolsArea) $('mobile-tools-host').scrollTop=0;
   scheduleSessionSave();
 }
 function mountToolbars() {
   for (const [area,panels] of Object.entries(toolbarPanels)) {
     const header=document.createElement('div');
     header.className='toolbox-header';
-    header.innerHTML=`<button class="toolbox-toggle" id="${area}-toolbox-toggle" type="button" aria-controls="${area}-toolbox-body"><span class="toolbox-toggle-icon" aria-hidden="true"><span class="toolbox-chevron"></span></span><span class="sidebar-toggle-label"></span></button><div class="toolbox-tabs" role="tablist" data-i18n-aria-label="ui.toolbarModes">${panels.map(panel=>`<button class="toolbox-tab" id="${area}-toolbox-tab-${panel.key}" type="button" role="tab" aria-controls="${panel.id}" data-panel="${panel.key}"><svg class="toolbox-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${toolbarIcons[panel.key]}</svg><span class="toolbox-label" data-i18n="ui.${panel.label}"></span>${panel.key==='filters'?'<span class="filter-count" hidden></span>':''}</button>`).join('')}</div>`;
+    const shortLabels={filters:'quickFilters',assumptions:'quickAssumptions',deck:'quickDeck'};
+    header.innerHTML=`<button class="toolbox-toggle" id="${area}-toolbox-toggle" type="button" aria-controls="${area}-toolbox-body"><span class="toolbox-toggle-icon" aria-hidden="true"><span class="toolbox-chevron"></span></span><span class="sidebar-toggle-label"></span></button><div class="toolbox-tabs" role="tablist" data-i18n-aria-label="ui.toolbarModes">${panels.map(panel=>`<button class="toolbox-tab" id="${area}-toolbox-tab-${panel.key}" type="button" role="tab" aria-controls="${panel.id}" data-panel="${panel.key}"><svg class="toolbox-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${toolbarIcons[panel.key]}</svg><span class="toolbox-label" data-i18n="ui.${shortLabels[panel.key]}"></span>${panel.key==='filters'?'<span class="filter-count" hidden></span>':''}</button>`).join('')}</div>`;
     $(area+'-toolbox').prepend(header);
     for (const panel of panels) $(panel.id).setAttribute('aria-labelledby',area+'-toolbox-tab-'+panel.key);
     $(area+'-toolbox-toggle').onclick=()=>{
@@ -606,25 +622,153 @@ function mountToolbars() {
     };
     const tabs=header.querySelector('.toolbox-tabs');
     const desktop=matchMedia('(min-width:701px)');
-    const syncOrientation=()=>tabs.setAttribute('aria-orientation',desktop.matches?'vertical':'horizontal');
-    syncOrientation();desktop.addEventListener('change',()=>{syncOrientation();renderToolbar(area);});
     tabs.onclick=event=>{
       const tab=event.target.closest('[data-panel]');
-      if (tab) selectToolbarPanel(area,tab.dataset.panel,!desktop.matches);
+      if (tab) selectToolbarPanel(area,tab.dataset.panel);
     };
     tabs.onkeydown=event=>{
-      const index=panels.findIndex(panel=>panel.key===toolbarState[area].active);
+      const available=mobileToolsArea===area && $('mobile-tools-dialog').dataset.kind==='deck' ? [panels.find(panel=>panel.key==='deck'),panels.find(panel=>panel.key==='assumptions')] : panels;
+      const index=available.findIndex(panel=>panel.key===toolbarState[area].active);
       let next;
-      if (event.key==='ArrowRight' || desktop.matches && event.key==='ArrowDown') next=(index+1)%panels.length;
-      else if (event.key==='ArrowLeft' || desktop.matches && event.key==='ArrowUp') next=(index+panels.length-1)%panels.length;
+      if (event.key==='ArrowRight' || desktop.matches && event.key==='ArrowDown') next=(index+1)%available.length;
+      else if (event.key==='ArrowLeft' || desktop.matches && event.key==='ArrowUp') next=(index+available.length-1)%available.length;
       else if (event.key==='Home') next=0;
-      else if (event.key==='End') next=panels.length-1;
+      else if (event.key==='End') next=available.length-1;
       else return;
       event.preventDefault();
-      selectToolbarPanel(area,panels[next].key);
-      $(area+'-toolbox-tab-'+panels[next].key).focus();
+      selectToolbarPanel(area,available[next].key);
+      $(area+'-toolbox-tab-'+available[next].key).focus();
     };
   }
+}
+// The mobile sheet hosts the actual controls, so filters and deck settings have one source of truth.
+function mountMobileNavigation() {
+  for (const area of sectionIds) {
+    const bar=document.createElement('div');
+    bar.className='mobile-browse-bar';bar.id=area+'-browse-bar';
+    bar.innerHTML=`<div class="mobile-search-host"></div><button class="mobile-filter-button" type="button" aria-haspopup="dialog" aria-controls="mobile-tools-dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">${toolbarIcons.filters}</svg><span data-i18n="ui.quickFilters"></span><span class="filter-count" id="${area}-quick-filter-count" hidden></span></button>`;
+    bar.querySelector('button').onclick=()=>openMobileTools('filters');
+    $(area+'-area').prepend(bar);
+  }
+  $('mobile-deck-button').onclick=()=>openMobileTools('deck');
+  $('mobile-tools-close').onclick=closeMobileTools;
+  $('mobile-tools-done').onclick=closeMobileTools;
+  $('mobile-tools-dialog').addEventListener('close',restoreMobileToolbox);
+  mobileViewport.addEventListener('change',()=>{
+    closeMobileTools();syncMobileSearch();
+    for (const area of sectionIds) renderToolbar(area);
+    restoreCatalogScroll();scheduleViewportUpdate();
+  });
+  syncMobileSearch();
+}
+function mountMobileTapActivation() {
+  const selector='button,[data-open],[data-deck-open]';
+  let gesture=null,handled=null;
+  const action=target=>target instanceof Element?target.closest(selector):null;
+  const key=target=>target.id || ['toggle','open','deckOpen'].filter(name=>name in target.dataset).map(name=>name+':'+target.dataset[name]).join('|');
+  const stopScroll=target=>{
+    for (let element=target; element; element=element.parentElement) {
+      if (/(auto|scroll)/.test(getComputedStyle(element).overflowY)) element.scrollTo({left:element.scrollLeft,top:element.scrollTop,behavior:'instant'});
+    }
+    window.scrollTo({left:window.scrollX,top:window.scrollY,behavior:'instant'});
+  };
+  document.addEventListener('touchstart',event=>{
+    gesture=null;handled=null;
+    if (!mobileViewport.matches || event.touches.length!==1 || performance.now()-lastMobileScrollAt>200) return;
+    const target=action(event.target);
+    if (!target || target.matches(':disabled')) return;
+    const touch=event.touches[0];
+    gesture={target,id:touch.identifier,x:touch.clientX,y:touch.clientY,time:performance.now(),moved:false};
+    stopScroll(target);
+  },{capture:true,passive:true});
+  document.addEventListener('touchmove',event=>{
+    if (!gesture) return;
+    const touch=Array.from(event.touches).find(touch=>touch.identifier===gesture.id);
+    if (!touch || Math.hypot(touch.clientX-gesture.x,touch.clientY-gesture.y)>8) gesture.moved=true;
+  },{capture:true,passive:true});
+  document.addEventListener('touchcancel',()=>{gesture=null;},{capture:true,passive:true});
+  document.addEventListener('touchend',event=>{
+    const tap=gesture;gesture=null;
+    if (!tap || tap.moved || event.touches.length || performance.now()-tap.time>400 || !tap.target.isConnected) return;
+    const touch=Array.from(event.changedTouches).find(touch=>touch.identifier===tap.id);
+    if (!touch || Math.hypot(touch.clientX-tap.x,touch.clientY-tap.y)>8 || !tap.target.contains(document.elementFromPoint(touch.clientX,touch.clientY))) return;
+    // A tap that stops momentum must also activate its target; drags retain native scrolling.
+    if (event.cancelable) event.preventDefault();
+    handled={target:tap.target,key:key(tap.target),time:performance.now()};
+    tap.target.click();
+  },{capture:true,passive:false});
+  document.addEventListener('click',event=>{
+    if (!event.isTrusted || !event.detail || (event.pointerType && event.pointerType!=='touch') || !handled || performance.now()-handled.time>450) return;
+    const target=action(event.target);
+    // Some browsers still send a compatibility click after the touch was handled.
+    if (target && (target===handled.target || (handled.key && key(target)===handled.key))) {
+      event.preventDefault();event.stopImmediatePropagation();handled=null;
+    }
+  },true);
+}
+function syncMobileSearch() {
+  for (const area of sectionIds) {
+    const field=$(area+'-f-text').closest('.text-search');
+    const host=mobileViewport.matches?$(area+'-browse-bar').querySelector('.mobile-search-host'):$(area+'-filter-host').querySelector('.filter-fields');
+    if (field.parentElement!==host) host.prepend(field);
+    const input=$(area+'-f-text');
+    input.dataset.i18nPlaceholder=mobileViewport.matches?'ui.searchCards':'ui.searchPlaceholder';
+    input.placeholder=t(input.dataset.i18nPlaceholder);
+  }
+}
+function openMobileTools(kind) {
+  if (!mobileViewport.matches) return;
+  closeFilterMenus();
+  const dialog=$('mobile-tools-dialog');
+  mobileToolsArea=mode;
+  dialog.dataset.kind=kind;
+  $('mobile-tools-host').append($(mode+'-toolbox'));
+  toolbarState[mode]={active:kind==='filters'?'filters':'deck',open:true};
+  renderToolbar(mode);syncMobileToolsLabels();
+  document.body.classList.add('mobile-tools-open');
+  dialog.showModal();
+  $('mobile-tools-close').focus({preventScroll:true});
+  sizeFilterControls();
+}
+function syncMobileToolsLabels() {
+  if (!mobileToolsArea) return;
+  const filters=$('mobile-tools-dialog').dataset.kind==='filters';
+  $('mobile-tools-title').textContent=t(filters?'ui.quickFilters':'ui.deckBuilding');
+  $('mobile-tools-done').dataset.i18n=filters?'ui.showResults':'ui.backToCards';
+  $('mobile-tools-done').textContent=t($('mobile-tools-done').dataset.i18n);
+}
+function restoreMobileToolbox() {
+  if (!mobileToolsArea) return;
+  const area=mobileToolsArea;
+  $(area+'-area').insertBefore($(area+'-toolbox'),$(area+'-area').querySelector('.workspace'));
+  mobileToolsArea=null;
+  document.body.classList.remove('mobile-tools-open');
+  scheduleSessionSave();
+}
+function closeMobileTools() {
+  closeFilterMenus();
+  if ($('mobile-tools-dialog').open) $('mobile-tools-dialog').close();
+  restoreMobileToolbox();
+}
+function rememberCatalogScroll() {
+  if (scrollRestoreFrame!==null) return;
+  catalogScroll[mode][mobileViewport.matches?'mobile':'desktop']=mobileViewport.matches?window.scrollY:$(mode+'-area').querySelector('.catalog').scrollTop;
+}
+function restoreCatalogScroll() {
+  cancelAnimationFrame(scrollRestoreFrame);
+  const area=mode,mobile=mobileViewport.matches,top=catalogScroll[area][mobile?'mobile':'desktop'];
+  const restore=()=>{
+    scrollRestoreFrame=null;
+    if (area!==mode) return;
+    if (area==='synergies' && synergyLoaded<synergyResults.length) {
+      const catalog=$(area+'-area').querySelector('.catalog');
+      const available=mobile?document.documentElement.scrollHeight-innerHeight:catalog.scrollHeight-catalog.clientHeight;
+      if (top>available) { appendSynergies();scrollRestoreFrame=requestAnimationFrame(restore);return; }
+    }
+    if (mobile) window.scrollTo({top,behavior:'instant'});
+    else $(area+'-area').querySelector('.catalog').scrollTop=top;
+  };
+  scrollRestoreFrame=requestAnimationFrame(restore);
 }
 function openCard(index,level) {
   dialogCard = byIndex.get(index); dialogLevel = level || levelOf(dialogCard);
@@ -811,6 +955,8 @@ function scheduleViewportUpdate() {
   viewportUpdateFrame=requestAnimationFrame(()=>{viewportUpdateFrame=null;refreshViewportLayout();});
 }
 function scheduleScrollUpdate() {
+  if (mobileViewport.matches) lastMobileScrollAt=performance.now();
+  scheduleSessionSave();
   if (scrollUpdateFrame!==null) return;
   scrollUpdateFrame=requestAnimationFrame(()=>{scrollUpdateFrame=null;repositionMenus();updateBackToTop();});
 }
@@ -824,12 +970,19 @@ function sizeHeaderControls() {
   const frame=style=>['paddingLeft','paddingRight','borderLeftWidth','borderRightWidth'].reduce((sum,key)=>sum+(parseFloat(style[key])||0),0);
   for (const [area,key] of Object.entries(sections)) {
     const button=$('tab-'+area),style=getComputedStyle(button);
-    button.style.setProperty('--tab-width',Math.ceil(Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.ui[key],style)))+frame(style)+1)+'px');
+    const label=innerWidth<=1100?'nav'+(area==='db'?'Database':area==='builder'?'Builder':'Synergies'):key;
+    const icon=button.querySelector('.nav-icon').getBoundingClientRect().width;
+    button.style.setProperty('--tab-width',Math.ceil(Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.ui[label],style)))+frame(style)+icon+8)+'px');
   }
   const button=$('language-select'),style=getComputedStyle(button),arrow=$('language-select').querySelector('.language-arrow');
   const names=Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.name,style)));
   const spacing=2*(parseFloat(style.columnGap)||0)+(parseFloat(getComputedStyle(arrow).marginLeft)||0);
-  button.style.width=Math.ceil(names+$('language-flag').getBoundingClientRect().width+arrow.getBoundingClientRect().width+spacing+frame(style)+1)+'px';
+  button.style.width=mobileViewport.matches?'auto':Math.ceil(names+$('language-flag').getBoundingClientRect().width+arrow.getBoundingClientRect().width+spacing+frame(style)+1)+'px';
+  const title=document.querySelector('.brand h1');
+  title.style.fontSize='';
+  const titleStyle=getComputedStyle(title),fontSize=parseFloat(titleStyle.fontSize);
+  const titleWidth=measure(title.textContent,titleStyle),available=title.parentElement.clientWidth;
+  if (titleWidth>available) title.style.fontSize=Math.max(12,fontSize*available/titleWidth)+'px';
 }
 function sizeFilterControls() {
   // Reserve enough room for every possible selection count in the active language.
@@ -951,6 +1104,7 @@ function applyLanguage() {
     setSortDirection(button,button.dataset.direction);
   }
   syncLanguageControl();
+  syncMobileSearch();syncMobileToolsLabels();
   for (const area of Object.keys(toolbarPanels)) renderToolbar(area);
   sizeHeaderControls();sizeFilterControls();sizeAssumptionBoxes();renderDeck();renderCatalog();
   if ($('card-dialog').open) renderDialog();
@@ -1000,9 +1154,10 @@ function saveSession() {
   clearTimeout(sessionTimer);
   if (!sessionReady) return;
   try {
+    rememberCatalogScroll();
     const text = JSON.stringify({
       language,mode,useDefaultDeckName,defaults,deck:current,
-      toolbars:toolbarState,deckOrder,
+      toolbars:toolbarState,deckOrder,scroll:catalogScroll,
       filters:Object.fromEntries(sectionIds.map(area=>[area,captureFilters(area)])),
       standardDraft:Object.fromEntries(Object.entries(settingIds).map(([key,id]) => [key,$(id).value])),
       standardStatus:$('standard-status').dataset.i18n || ''
@@ -1049,6 +1204,10 @@ function restoreSession() {
     Object.assign(defaults,nextDefaults); current = next;
     if (useDefaultDeckName) current.name = t('ui.defaultDeckName');
     for (const area of sectionIds) restoreFilters(area,saved.filters?.[area] || {});
+    for (const area of sectionIds) for (const viewport of ['mobile','desktop']) {
+      const top=saved.scroll?.[area]?.[viewport];
+      if (Number.isFinite(top) && top>=0) catalogScroll[area][viewport]=top;
+    }
     return saved;
   } catch {
     try { sessionStorage.removeItem(SESSION_KEY); } catch { /* The app also works without browser storage. */ }
@@ -1059,6 +1218,8 @@ mountLanguageMenu();
 
 mountToolbars();
 for (const area of sectionIds) mountFilters(area);
+mountMobileNavigation();
+mountMobileTapActivation();
 for (const id of Object.values(settingIds)) $(id).addEventListener('input',() => {
   setStandardStatus('ui.standardPending');
 });
@@ -1146,6 +1307,7 @@ document.addEventListener('input',scheduleSessionSave);
 document.addEventListener('change',scheduleSessionSave);
 window.addEventListener('pagehide',saveSession);
 document.addEventListener('visibilitychange',() => { if (document.visibilityState === 'hidden') saveSession(); });
-saveSession();
+restoreCatalogScroll();
+requestAnimationFrame(saveSession);
 if (restoredSession.warning) notifyStorageFailure(restoredSession.warning);
 window.NarutoApp = {cards:CARDS,estimate,computed,deckLevel,defaults,exportDeck,parseDeck,getCurrent:() => structuredClone(current),setLanguage,getLanguage:()=>language};
