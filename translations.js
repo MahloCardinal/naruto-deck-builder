@@ -267,8 +267,8 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Menacing Entry",
         "descriptions": [
-          "Deploy to Mid Range, Slow(4s) and Switch the rival with the highest Chakra on this card's lane.",
-          "Deploy to Mid Range, Slow(6s) and Switch the rival with the highest Chakra on this card's lane."
+          "Deploys directly to Mid Range. Slows(4s) the rival with the highest Chakra on this card's lane and makes that rival Switch lanes.",
+          "Deploys directly to Mid Range. Slows(6s) the rival with the highest Chakra on this card's lane and makes that rival Switch lanes."
         ]
       },
       "S1_013": {
@@ -587,8 +587,8 @@ const TRANSLATIONS = {
         "name": "IRUKA UMINO",
         "ability": "Sacrifice",
         "descriptions": [
-          "Deploy to Mid Range and Chakra(+1) to closest lane ally.",
-          "Deploy to Mid Range and Chakra(+2) to the closest lane ally."
+          "Deploys directly to Mid Range and grants Chakra(+1) to the closest lane ally.",
+          "Deploys directly to Mid Range and grants Chakra(+2) to the closest lane ally."
         ]
       },
       "S1_053": {
@@ -803,8 +803,8 @@ const TRANSLATIONS = {
         "name": "NARUTO UZUMAKI",
         "ability": "Furious Punch",
         "descriptions": [
-          "Deploy to Mid Range, Weaken(2) and Push(1) all lane rivals.",
-          "Deploy to Mid Range, Weaken(2) and Push(3) all lane rivals."
+          "Deploys directly to Mid Range. Weakens(2) and Pushes(1) all lane rivals.",
+          "Deploys directly to Mid Range. Weakens(2) and Pushes(3) all lane rivals."
         ]
       },
       "S1_080": {
@@ -843,16 +843,16 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Reckless Charge",
         "descriptions": [
-          "On each encounter, Weaken(2) rival cards with 4 or less Chakra and push them on another lane. Permanent Rush.",
-          "On each encounter, Weaken(3) rival cards with 4 or less Chakra and lane Switch them. Permanent Rush."
+          "On each encounter, Weaken(2) rival cards with 4 or less Chakra and make them Switch lanes. Permanent Rush.",
+          "On each encounter, Weaken(3) rival cards with 4 or less Chakra and make them Switch lanes. Permanent Rush."
         ]
       },
       "S1_085": {
         "name": "KYUBI",
         "ability": "Natural Disaster",
         "descriptions": [
-          "Deploy to Mid Range, Push(1) and Weaken(3) all cards. While active, Weaken(1) newly deployed cards. Permanently Slow.",
-          "Deploy to Mid Range, Push(1) and Weaken(4) all cards. While active, Weaken(1) newly deployed cards. Permanently Slow."
+          "Deploys directly to Mid Range. Pushes(1) and Weakens(3) all cards. While active, Weakens(1) newly deployed cards. Permanently Slowed.",
+          "Deploys directly to Mid Range. Pushes(1) and Weakens(4) all cards. While active, Weakens(1) newly deployed cards. Permanently Slowed."
         ]
       },
       "S2_001": {
@@ -867,8 +867,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Challenger",
         "descriptions": [
-          "On deploy, Pin(1s) and Chakra(+2) for each lane rival with higher Chakra.",
-          "On deploy, Pin(2s) and Chakra(+2) per lane rival with higher Chakra."
+          "On deploy, Pin(1s) and gain Chakra(+2) for each lane rival with higher Chakra.",
+          "On deploy, Pin(2s) and gain Chakra(+2) for each lane rival with higher Chakra."
         ]
       },
       "S2_003": {
@@ -931,8 +931,8 @@ const TRANSLATIONS = {
         "name": "Gaara",
         "ability": "Dangerous",
         "descriptions": [
-          "Deploy to Mid Range, Chakra(+3) if there is a rival card in Mid Range.",
-          "Deploy to Mid Range, Chakra(+4) if there is a rival card in Mid Range."
+          "Deploys directly to Mid Range. Gains Chakra(+3) if there is a rival card in Mid Range.",
+          "Deploys directly to Mid Range. Gains Chakra(+4) if there is a rival card in Mid Range."
         ]
       },
       "S2_011": {
@@ -1123,8 +1123,8 @@ const TRANSLATIONS = {
         "name": "Giant Snake",
         "ability": "Slither",
         "descriptions": [
-          "Deploy to Mid Range and lane Switch any two other cards present in Mid Range.",
-          "Deploy to Mid Range and lane Switch any 3 other cards present in Mid Range."
+          "Deploys directly to Mid Range and makes any two other cards present in Mid Range Switch lanes.",
+          "Deploys directly to Mid Range and makes any 3 other cards present in Mid Range Switch lanes."
         ]
       },
       "S2_035": {
@@ -1299,8 +1299,8 @@ const TRANSLATIONS = {
         "name": "Gai Maito",
         "ability": "Reprimand",
         "descriptions": [
-          "Deploy to Mid Range, Chakra(+2) and Pin(2s) closest lane ally.",
-          "Deploy to Mid Range, Chakra(+2) and Pin(6s) closest lane ally."
+          "Deploys directly to Mid Range. The closest lane ally gains Chakra(+2) and is Pinned(2s).",
+          "Deploys directly to Mid Range. The closest lane ally gains Chakra(+2) and is Pinned(6s)."
         ]
       },
       "S2_057": {
@@ -1611,8 +1611,8 @@ const TRANSLATIONS = {
         "name": "Neji Hyuga",
         "ability": "Sixty-Four Palms",
         "descriptions": [
-          "On each encounter Push(1) and Weaken(1). When this card causes a rival to withdraw, it also permanently reduces its base Chakra by 2.",
-          "On each encounter Push(1) and Weaken(2). When this card causes a rival to withdraw, it also permanently reduces its base Chakra by 2."
+          "On each encounter Push(1) and Weaken(1). When this card causes a rival to withdraw, it also permanently reduces that rival's base Chakra by 2.",
+          "On each encounter Push(1) and Weaken(2). When this card causes a rival to withdraw, it also permanently reduces that rival's base Chakra by 2."
         ]
       },
       "S2_096": {
@@ -1971,8 +1971,8 @@ const TRANSLATIONS = {
         "name": "Arashi",
         "ability": "Binding Mandala",
         "descriptions": [
-          "On deploy, Push(2) and Pin(8s) lane rival with highest Chakra. While affected by this Pin, Weaken(1) the rival card every 4s.",
-          "On deploy, Push(4) and Pin(8s) lane rival with highest Chakra. While affected by this Pin, Weaken(1) the rival card every 4s."
+          "On deploy, Push(2) and Pin(8s) lane rival with highest Chakra. While that rival is affected by this Pin, Weaken(1) the rival card every 4s.",
+          "On deploy, Push(4) and Pin(8s) lane rival with highest Chakra. While that rival is affected by this Pin, Weaken(1) the rival card every 4s."
         ]
       },
       "S3_041": {
@@ -1987,8 +1987,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Dishonorable",
         "descriptions": [
-          "Next lane ally deployed gains Rush(4s). On withdraw, lane Switch and Slow(3s) all lane allies.",
-          "Next lane ally deployed gains Rush(5s). On withdraw, lane Switch and Slow(3s) all lane allies."
+          "The next lane ally deployed gains Rush(4s). When Kyuroku withdraws, that ally Switches lanes and all lane allies are Slowed(3s).",
+          "The next lane ally deployed gains Rush(5s). When Kyuroku withdraws, that ally Switches lanes and all lane allies are Slowed(3s)."
         ]
       },
       "S3_043": {
@@ -2816,8 +2816,8 @@ const TRANSLATIONS = {
         "name": "NARUTO UZUMAKI",
         "ability": "Giuramento",
         "descriptions": [
-          "Ottiene Chakra(+1) dopo una vittoria.",
-          "Ottiene Chakra(+2) dopo una vittoria."
+          "Ottiene Chakra(+1) dopo uno scontro vinto.",
+          "Ottiene Chakra(+2) dopo uno scontro vinto."
         ]
       },
       "S1_005": {
@@ -3184,8 +3184,8 @@ const TRANSLATIONS = {
         "name": "HIRUZEN SARUTOBI",
         "ability": "Tecnica della Chiaroveggenza",
         "descriptions": [
-          "Quando gli alleati Scattano, applica loro Chakra(+1) e Scatto(+1s).",
-          "Quando gli alleati Scattano, applica loro Chakra(+1) e Scatto(+2s)."
+          "Quando gli alleati ottengono Scatto, applica loro Chakra(+1) e Scatto(+1s).",
+          "Quando gli alleati ottengono Scatto, applica loro Chakra(+1) e Scatto(+2s)."
         ]
       },
       "S1_051": {
@@ -3200,8 +3200,8 @@ const TRANSLATIONS = {
         "name": "IRUKA UMINO",
         "ability": "Sacrificio",
         "descriptions": [
-          "Giocata nel medio raggio e fornisce Chakra(+1) all'alleato di corsia più vicino.",
-          "Giocata nel medio raggio e fornisce Chakra(+2) all'alleato di corsia più vicino."
+          "Viene schierata nel medio raggio e fornisce Chakra(+1) all'alleato di corsia più vicino.",
+          "Viene schierata nel medio raggio e fornisce Chakra(+2) all'alleato di corsia più vicino."
         ]
       },
       "S1_053": {
@@ -3416,8 +3416,8 @@ const TRANSLATIONS = {
         "name": "NARUTO UZUMAKI",
         "ability": "Pugno Vigoroso",
         "descriptions": [
-          "Giocata nel medio raggio, Indebolisce(2) e Respinge(1) tutti gli avversari di corsia.",
-          "Giocata nel medio raggio, Indebolisce(2) e Respinge(3) tutti gli avversari di corsia."
+          "Viene schierata nel medio raggio, Indebolisce(2) e Respinge(1) tutti gli avversari di corsia.",
+          "Viene schierata nel medio raggio, Indebolisce(2) e Respinge(3) tutti gli avversari di corsia."
         ]
       },
       "S1_080": {
@@ -3448,8 +3448,8 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Demone",
         "descriptions": [
-          "Quando viene giocata, Indebolisce(1) tutte le carte. Se hanno 3 o meno Chakra, Indebolisce(3).",
-          "Quando viene giocata, Indebolisce(1) tutte le carte. Se hanno 4 o meno Chakra, Indebolisce(4)."
+          "Quando viene giocata, Indebolisce(1) tutte le carte. Se hanno 3 o meno Chakra, invece Indebolisce(3).",
+          "Quando viene giocata, Indebolisce(1) tutte le carte. Se hanno 4 o meno Chakra, invece Indebolisce(4)."
         ]
       },
       "S1_084": {
@@ -3472,8 +3472,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Manipolazione del Chakra",
         "descriptions": [
-          "Quando viene giocata, ha il 50% di possibilità di Chakra(+3).",
-          "Quando viene giocata, ha il 50% di possibilità di Chakra(+4)."
+          "Quando viene giocata, ha il 50% di possibilità di ottenere Chakra(+3).",
+          "Quando viene giocata, ha il 50% di possibilità di ottenere Chakra(+4)."
         ]
       },
       "S2_002": {
@@ -3488,8 +3488,8 @@ const TRANSLATIONS = {
         "name": "Sasuke Uchiha",
         "ability": "Attacco concatenato del leone",
         "descriptions": [
-          "Salta sulla prima carta avversaria che si avvicina, e Indebolendola(2).",
-          "Salta sulla prima carta avversaria che si avvicina, e Indebolendola(3)."
+          "Salta sulla prima carta avversaria che si avvicina e la Indebolisce(2).",
+          "Salta sulla prima carta avversaria che si avvicina e la Indebolisce(3)."
         ]
       },
       "S2_004": {
@@ -3544,8 +3544,8 @@ const TRANSLATIONS = {
         "name": "Gaara",
         "ability": "Pericoloso",
         "descriptions": [
-          "Giocata nel medio raggio, ottiene Chakra(+3) se c'è una carta avversaria nel medio raggio.",
-          "Giocata nel medio raggio, ottiene Chakra(+4) se c'è una carta avversaria nel medio raggio."
+          "Viene schierata nel medio raggio, ottiene Chakra(+3) se c'è una carta avversaria nel medio raggio.",
+          "Viene schierata nel medio raggio, ottiene Chakra(+4) se c'è una carta avversaria nel medio raggio."
         ]
       },
       "S2_011": {
@@ -3912,8 +3912,8 @@ const TRANSLATIONS = {
         "name": "Gai Maito",
         "ability": "Rimproverare",
         "descriptions": [
-          "Giocata nel medio raggio, ottiene Chakra(+2) e Blocca(2s) l'alleato di corsia più vicino.",
-          "Giocata nel medio raggio, ottiene Chakra(+2) e Blocca(6s) l'alleato di corsia più vicino."
+          "Viene schierata nel medio raggio. L'alleato di corsia più vicino ottiene Chakra(+2) e viene Bloccato(2s).",
+          "Viene schierata nel medio raggio. L'alleato di corsia più vicino ottiene Chakra(+2) e viene Bloccato(6s)."
         ]
       },
       "S2_057": {
@@ -4224,8 +4224,8 @@ const TRANSLATIONS = {
         "name": "Neji Hyuga",
         "ability": "Sessantaquattro Palmi",
         "descriptions": [
-          "Ad ogni scontro, Respinge(1) e Indebolisce(1). Quando questa carta fa ritirare un rivale, riduce anche permanentemente il suo livello di Chakra di 2.",
-          "Ad ogni scontro, Respinge(1) e Indebolisce(2). Quando questa carta fa ritirare un rivale, riduce anche permanentemente il suo livello di Chakra di 2."
+          "Ad ogni scontro, Respinge(1) e Indebolisce(1). Quando questa carta fa ritirare un rivale, riduce anche permanentemente il Chakra base di quel rivale di 2.",
+          "Ad ogni scontro, Respinge(1) e Indebolisce(2). Quando questa carta fa ritirare un rivale, riduce anche permanentemente il Chakra base di quel rivale di 2."
         ]
       },
       "S2_096": {
@@ -4296,8 +4296,8 @@ const TRANSLATIONS = {
         "name": "Kankuro",
         "ability": "Scambio di marionette",
         "descriptions": [
-          "In caso di scontro, Teletrasporta dietro la carta avversaria, la Indebolisce(2) e la Blocca(5s).",
-          "In caso di scontro, Teletrasporta dietro la carta avversaria, la Indebolisce(2) e la Blocca(8s)."
+          "In caso di scontro, si Teletrasporta dietro la carta avversaria, la Indebolisce(2) e la Blocca(5s).",
+          "In caso di scontro, si Teletrasporta dietro la carta avversaria, la Indebolisce(2) e la Blocca(8s)."
         ]
       },
       "S3_005": {
@@ -4584,8 +4584,8 @@ const TRANSLATIONS = {
         "name": "Arashi",
         "ability": "Mandala vincolante",
         "descriptions": [
-          "Quando viene giocata, Respinge(2) e Blocca(8s) l'avversario di corsia con più Chakra. Finché subisce questo Blocca, Indebolisce(1) la carta avversaria ogni 4s.",
-          "Quando viene giocata, Respinge(4) e Blocca(8s) l'avversario di corsia con più Chakra. Finché subisce questo Blocca, Indebolisce(1) la carta avversaria ogni 4s."
+          "Quando viene giocata, Respinge(2) e Blocca(8s) l'avversario di corsia con più Chakra. Finché quell'avversario resta Bloccato da questo effetto, Indebolisce(1) la carta avversaria ogni 4s.",
+          "Quando viene giocata, Respinge(4) e Blocca(8s) l'avversario di corsia con più Chakra. Finché quell'avversario resta Bloccato da questo effetto, Indebolisce(1) la carta avversaria ogni 4s."
         ]
       },
       "S3_041": {
@@ -4600,8 +4600,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Disonorevole",
         "descriptions": [
-          "Il prossimo alleato di corsia giocato ottiene Scatta(4s). Al ritiro, Cambia corsia e Rallenta(3s) tutti gli alleati di corsia.",
-          "Il prossimo alleato di corsia giocato ottiene Scatta(5s). Al ritiro, Cambia corsia e Rallenta(3s) tutti gli alleati di corsia."
+          "Il prossimo alleato di corsia schierato ottiene Scatto(4s). Quando Kyuroku si ritira, quell'alleato Cambia corsia e tutti gli alleati di corsia vengono Rallentati(3s).",
+          "Il prossimo alleato di corsia schierato ottiene Scatto(5s). Quando Kyuroku si ritira, quell'alleato Cambia corsia e tutti gli alleati di corsia vengono Rallentati(3s)."
         ]
       },
       "S3_043": {
@@ -4776,8 +4776,8 @@ const TRANSLATIONS = {
         "name": "Kabuto Yakuchi",
         "ability": "Bisturi di chakra",
         "descriptions": [
-          "Scatta(2s). In caso di scontro, Teletrasporta dietro la carta avversaria e la Blocca in modo permanente.",
-          "Scatta(3s). In caso di scontro, Teletrasporta dietro la carta avversaria e la Blocca in modo permanente."
+          "Scatta(2s). In caso di scontro, si Teletrasporta dietro la carta avversaria e la Blocca in modo permanente.",
+          "Scatta(3s). In caso di scontro, si Teletrasporta dietro la carta avversaria e la Blocca in modo permanente."
         ]
       },
       "S3_065": {
@@ -4800,16 +4800,16 @@ const TRANSLATIONS = {
         "name": "Sakon & Ukon",
         "ability": "Fusione maledetta",
         "descriptions": [
-          "In caso di scontro, Teletrasporta dietro la carta avversaria poi Blocca(6s) lei e questa carta. L'avversario perde 1 Chakra ogni 2 secondi finché subisce questo Blocca.",
-          "In caso di scontro, Teletrasporta dietro la carta avversaria poi Blocca(8s) lei e questa carta. L'avversario perde 1 Chakra ogni 2 secondi finché subisce questo Blocca."
+          "In caso di scontro, si Teletrasporta dietro la carta avversaria poi Blocca(6s) lei e questa carta. L'avversario perde 1 Chakra ogni 2 secondi finché subisce questo Blocca.",
+          "In caso di scontro, si Teletrasporta dietro la carta avversaria poi Blocca(8s) lei e questa carta. L'avversario perde 1 Chakra ogni 2 secondi finché subisce questo Blocca."
         ]
       },
       "S3_068": {
         "name": "Kurenai Yuhi",
         "ability": "Finta illusoria",
         "descriptions": [
-          "In caso di scontro, Teletrasporta dietro la carta avversaria, la Indebolisce(2) e la Rallenta(4s).",
-          "In caso di scontro, Teletrasporta dietro la carta avversaria, la Indebolisce(2) e la Rallenta(8s)."
+          "In caso di scontro, si Teletrasporta dietro la carta avversaria, la Indebolisce(2) e la Rallenta(4s).",
+          "In caso di scontro, si Teletrasporta dietro la carta avversaria, la Indebolisce(2) e la Rallenta(8s)."
         ]
       },
       "S3_069": {
@@ -5016,8 +5016,8 @@ const TRANSLATIONS = {
         "name": "Gaara",
         "ability": "Tsunami di sabbia",
         "descriptions": [
-          "Quando viene giocata, Si Concentra(6s). Ogni 2 secondi durante la Concentrazione, Indebolisce(1) e Respinge(1) tutte le carte avversarie. Se hanno 2 o meno Chakra, invece Indebolisce(2). Quando questa carta ne fa ritirare un'altra, la Sigillo(5s).",
-          "Quando viene giocata, Si Concentra(8s). Ogni 2 secondi durante la Concentrazione, Indebolisce(1) e Respinge(1) tutte le carte avversarie. Se hanno 3 o meno Chakra, invece Indebolisce(3). Quando questa carta ne fa ritirare un'altra, la Sigillo(5s)."
+          "Quando viene giocata, Si Concentra(6s). Ogni 2 secondi durante la Concentrazione, Indebolisce(1) e Respinge(1) tutte le carte avversarie. Se hanno 2 o meno Chakra, invece Indebolisce(2). Quando questa carta ne fa ritirare un'altra, la Sigilla(5s).",
+          "Quando viene giocata, Si Concentra(8s). Ogni 2 secondi durante la Concentrazione, Indebolisce(1) e Respinge(1) tutte le carte avversarie. Se hanno 3 o meno Chakra, invece Indebolisce(3). Quando questa carta ne fa ritirare un'altra, la Sigilla(5s)."
         ]
       },
       "S3_095": {
@@ -5495,7 +5495,7 @@ const TRANSLATIONS = {
         "ability": "Chef d'Équipe",
         "descriptions": [
           "À la confrontation, Chakra(+2) à un allié à Courte Distance. Les cibles appartiennent à cette voie.",
-          "À la confrontation, Chakra(+3) à un allié de sa voieà Courte Distance."
+          "À la confrontation, Chakra(+3) à un allié de sa voie à Courte Distance."
         ]
       },
       "S1_011": {
@@ -5814,8 +5814,8 @@ const TRANSLATIONS = {
         "name": "HIRUZEN SARUTOBI",
         "ability": "Technique du Télescope",
         "descriptions": [
-          "Quand des alliés Accélèrent, ils gagnent Chakra(+1) et Accélère(+1s).",
-          "Quand des alliés Accélèrent, ils gagnent Chakra(+1) et Accélère(+2s)."
+          "Quand des alliés gagnent Accélération, ils gagnent Chakra(+1) et Accélère(+1s).",
+          "Quand des alliés gagnent Accélération, ils gagnent Chakra(+1) et Accélère(+2s)."
         ]
       },
       "S1_051": {
@@ -5830,8 +5830,8 @@ const TRANSLATIONS = {
         "name": "IRUKA UMINO",
         "ability": "Sacrifice",
         "descriptions": [
-          "Déploiement à mi-distance et Chakra(+1) à l'allié le plus proche. Les cibles appartiennent à cette voie.",
-          "Déploiement à mi-distance et Chakra(+2) à l'allié le plus proche. Les cibles appartiennent à cette voie."
+          "Est déployée directement à mi-distance et accorde Chakra(+1) à l'allié de sa voie le plus proche.",
+          "Est déployée directement à mi-distance et accorde Chakra(+2) à l'allié de sa voie le plus proche."
         ]
       },
       "S1_053": {
@@ -6046,8 +6046,8 @@ const TRANSLATIONS = {
         "name": "NARUTO UZUMAKI",
         "ability": "Coup de Poing Furieux",
         "descriptions": [
-          "Déploiement à mi-distance, Affaiblit(2) et Repousse(1) tous les rivaux de la voie.",
-          "Déploiement à mi-distance, Affaiblit(2) et Repousse(3) tous les rivaux de la voie."
+          "Est déployée directement à mi-distance, Affaiblit(2) et Repousse(1) tous les rivaux de la voie.",
+          "Est déployée directement à mi-distance, Affaiblit(2) et Repousse(3) tous les rivaux de la voie."
         ]
       },
       "S1_080": {
@@ -6086,7 +6086,7 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Charge Téméraire",
         "descriptions": [
-          "À chaque confrontation, Affaiblit(2) les cartes rivales avec 4 de Chakra ou moins et les pousse sur une autre voie. Accélère en permanence.",
+          "À chaque confrontation, Affaiblit(2) les cartes rivales avec 4 de Chakra ou moins et les Transfère sur une autre voie. Accélère en permanence.",
           "À chaque confrontation, Affaiblit(3) les cartes rivales avec 4 de Chakra ou moins et les Transfère sur une autre voie. Accélère en permanence."
         ]
       },
@@ -6174,8 +6174,8 @@ const TRANSLATIONS = {
         "name": "Gaara",
         "ability": "Dangereux",
         "descriptions": [
-          "Déployez à Mi-distance, Chakra(+3) s'il y a une carte rivale à Mi-distance.",
-          "Déployez à Mi-distance, Chakra(+4) s'il y a une carte rivale à Mi-distance."
+          "Est déployée directement à mi-distance et gagne Chakra(+3) si une carte rivale se trouve à mi-distance.",
+          "Est déployée directement à mi-distance et gagne Chakra(+4) si une carte rivale se trouve à mi-distance."
         ]
       },
       "S2_011": {
@@ -6366,8 +6366,8 @@ const TRANSLATIONS = {
         "name": "Giant Snake",
         "ability": "Glisser",
         "descriptions": [
-          "Déploiement à Moyenne Distance et Transfère deux autres cartes présentes à Moyenne Distance.",
-          "Se déploie à Mi-distance et Transfère de voie 3 autres cartes présentes à Mi-distance."
+          "Est déployée directement à mi-distance et Transfère deux autres cartes présentes à Moyenne Distance.",
+          "Est déployée directement à mi-distance et Transfère de voie 3 autres cartes présentes à Mi-distance."
         ]
       },
       "S2_035": {
@@ -6542,8 +6542,8 @@ const TRANSLATIONS = {
         "name": "Gai Maito",
         "ability": "Réprimande",
         "descriptions": [
-          "Déploiement à Mi-distance, Chakra(+2) et Immobilise(2s) l'allié de sa voie le plus proche.",
-          "Déploiement à Mi-distance, Chakra(+2) et Immobilise(6s) l'allié de sa voie le plus proche."
+          "Est déployée directement à mi-distance. L'allié de sa voie le plus proche gagne Chakra(+2) et est Immobilisé(2s).",
+          "Est déployée directement à mi-distance. L'allié de sa voie le plus proche gagne Chakra(+2) et est Immobilisé(6s)."
         ]
       },
       "S2_057": {
@@ -7214,8 +7214,8 @@ const TRANSLATIONS = {
         "name": "Arashi",
         "ability": "Mandala d'entrave",
         "descriptions": [
-          "Au déploiement, Repousse(2) et Immobilise(8s) le rival de voie avec le plus de Chakra. Tant qu'il subit cette Immobilisation, Affaiblit(1) la carte rivale toutes les 4 s.",
-          "Au déploiement, Repousse(4) et Immobilise(8s) le rival de voie avec le plus de Chakra. Tant qu'il subit cette Immobilisation, Affaiblit(1) la carte rivale toutes les 4 s."
+          "Au déploiement, Repousse(2) et Immobilise(8s) le rival de voie avec le plus de Chakra. Tant que ce rival subit cette Immobilisation, Affaiblit(1) la carte rivale toutes les 4 s.",
+          "Au déploiement, Repousse(4) et Immobilise(8s) le rival de voie avec le plus de Chakra. Tant que ce rival subit cette Immobilisation, Affaiblit(1) la carte rivale toutes les 4 s."
         ]
       },
       "S3_041": {
@@ -7230,8 +7230,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Déshonneur",
         "descriptions": [
-          "Le prochain allié de voie déployé gagne Accélère(4s). Au retrait, Change de voie et Ralentit(3s) tous les alliés de voie.",
-          "Le prochain allié de voie déployé gagne Accélère(5s). Au retrait, Change de voie et Ralentit(3s) tous les alliés de voie."
+          "Le prochain allié de voie déployé gagne Accélération(4s). Lorsque Kyuroku se retire, cet allié Change de voie et tous les alliés de voie sont Ralentis(3s).",
+          "Le prochain allié de voie déployé gagne Accélération(5s). Lorsque Kyuroku se retire, cet allié Change de voie et tous les alliés de voie sont Ralentis(3s)."
         ]
       },
       "S3_043": {
@@ -8443,8 +8443,8 @@ const TRANSLATIONS = {
         "name": "IRUKA UMINO",
         "ability": "Sacrifício",
         "descriptions": [
-          "Mobiliza em Médio Alcance e Chakra(+1) ao aliado mais próximo. Os alvos pertencem à própria fileira.",
-          "É mobilizada em Médio Alcance e Chakra(+2) para o aliado mais próximo. Os alvos pertencem à própria fileira."
+          "É mobilizada diretamente no Médio Alcance e Chakra(+1) ao aliado mais próximo. Os alvos pertencem à própria fileira.",
+          "É mobilizada diretamente no Médio Alcance e Chakra(+2) para o aliado mais próximo. Os alvos pertencem à própria fileira."
         ]
       },
       "S1_053": {
@@ -8659,8 +8659,8 @@ const TRANSLATIONS = {
         "name": "NARUTO UZUMAKI",
         "ability": "Soco Furioso",
         "descriptions": [
-          "É mobilizada em Médio Alcance, Enfraquece(2) e Empurra(1) todos os adversários da fileira.",
-          "É mobilizada em Médio Alcance, Enfraquece(2) e Empurra(3) todos os adversários da fileira."
+          "É mobilizada diretamente no Médio Alcance, Enfraquece(2) e Empurra(1) todos os adversários da fileira.",
+          "É mobilizada diretamente no Médio Alcance, Enfraquece(2) e Empurra(3) todos os adversários da fileira."
         ]
       },
       "S1_080": {
@@ -8699,8 +8699,8 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Investida Imprudente",
         "descriptions": [
-          "Em cada confronto, Enfraquece(2) cartas adversárias com 4 ou menos de Chakra e as empurra para outra fileira. Ímpeto permanente.",
-          "Em cada confronto, Enfraquece(3) cartas adversárias com 4 ou menos de Chakra, e Trocam de fileira. Ímpeto permanente."
+          "Em cada confronto, Enfraquece(2) as cartas adversárias com 4 ou menos de Chakra e obriga-as a Trocar de fileira. Ímpeto permanente.",
+          "Em cada confronto, Enfraquece(3) as cartas adversárias com 4 ou menos de Chakra e obriga-as a Trocar de fileira. Ímpeto permanente."
         ]
       },
       "S1_085": {
@@ -8787,8 +8787,8 @@ const TRANSLATIONS = {
         "name": "Gaara",
         "ability": "Perigoso",
         "descriptions": [
-          "É mobilizada em Médio Alcance. Chakra(+3) se houver uma carta adversária no Médio Alcance.",
-          "É mobilizada em Médio Alcance. Chakra(+4) se houver uma carta adversária no Médio Alcance."
+          "É mobilizada diretamente no Médio Alcance. Chakra(+3) se houver uma carta adversária no Médio Alcance.",
+          "É mobilizada diretamente no Médio Alcance. Chakra(+4) se houver uma carta adversária no Médio Alcance."
         ]
       },
       "S2_011": {
@@ -8979,8 +8979,8 @@ const TRANSLATIONS = {
         "name": "Giant Snake",
         "ability": "Deslize",
         "descriptions": [
-          "Mobiliza em Médio Alcance e Troca de fileira duas outras cartas presentes em Médio Alcance.",
-          "Mobiliza-se no Médio Alcance e Troca de fileira 3 outras cartas presentes no Médio Alcance."
+          "É mobilizada diretamente no Médio Alcance e Troca de fileira duas outras cartas presentes em Médio Alcance.",
+          "É mobilizada diretamente no Médio Alcance e Troca de fileira 3 outras cartas presentes no Médio Alcance."
         ]
       },
       "S2_035": {
@@ -9155,8 +9155,8 @@ const TRANSLATIONS = {
         "name": "Gai Maito",
         "ability": "Reprimenda",
         "descriptions": [
-          "Mobiliza para o Médio Alcance, ganha Chakra(+2) e Fixa(2s) o aliado da fileira mais próximo.",
-          "Mobiliza para o Médio Alcance, ganha Chakra(+2) e Imobiliza(6s) o aliado da fileira mais próximo."
+          "É mobilizada diretamente no Médio Alcance. O aliado da própria fileira mais próximo ganha Chakra(+2) e é Imobilizado(2s).",
+          "É mobilizada diretamente no Médio Alcance. O aliado da própria fileira mais próximo ganha Chakra(+2) e é Imobilizado(6s)."
         ]
       },
       "S2_057": {
@@ -9467,8 +9467,8 @@ const TRANSLATIONS = {
         "name": "Neji Hyuga",
         "ability": "Sessenta e Quatro Golpes",
         "descriptions": [
-          "Em cada encontro, Empurra(1) e Enfraquece(1). Quando este card faz um rival ser retirado, também reduz permanentemente seu Chakra base em 2.",
-          "Em cada encontro, Empurra(1) e Enfraquece(2). Quando este card faz um rival ser retirado, também reduz permanentemente seu Chakra base em 2."
+          "Em cada encontro, Empurra(1) e Enfraquece(1). Quando este card faz um rival ser retirado, também reduz permanentemente o Chakra base desse rival em 2.",
+          "Em cada encontro, Empurra(1) e Enfraquece(2). Quando este card faz um rival ser retirado, também reduz permanentemente o Chakra base desse rival em 2."
         ]
       },
       "S2_096": {
@@ -9827,8 +9827,8 @@ const TRANSLATIONS = {
         "name": "Arashi",
         "ability": "Mandala de aprisionamento",
         "descriptions": [
-          "Ao ser mobilizada, Empurra(2) e Imobiliza(8s) o rival de fileira com mais Chakra. Enquanto sob esta Imobilização, Enfraquece(1) a carta rival a cada 4s.",
-          "Ao ser mobilizada, Empurra(4) e Imobiliza(8s) o rival de fileira com mais Chakra. Enquanto sob esta Imobilização, Enfraquece(1) a carta rival a cada 4s."
+          "Ao ser mobilizada, Empurra(2) e Imobiliza(8s) o rival de fileira com mais Chakra. Enquanto esse rival estiver sob esta Imobilização, Enfraquece(1) a carta rival a cada 4s.",
+          "Ao ser mobilizada, Empurra(4) e Imobiliza(8s) o rival de fileira com mais Chakra. Enquanto esse rival estiver sob esta Imobilização, Enfraquece(1) a carta rival a cada 4s."
         ]
       },
       "S3_041": {
@@ -9843,8 +9843,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Desonra",
         "descriptions": [
-          "O próximo aliado de fileira mobilizado ganha Ímpeto(4s). Ao se retirar, Troca de fileira e Desacelera(3s) todos os aliados de fileira.",
-          "O próximo aliado de fileira mobilizado ganha Ímpeto(5s). Ao se retirar, Troca de fileira e Desacelera(3s) todos os aliados de fileira."
+          "O próximo aliado da própria fileira mobilizado ganha Ímpeto(4s). Quando Kyuroku se retira, esse aliado Troca de fileira e todos os aliados da própria fileira são Desacelerados(3s).",
+          "O próximo aliado da própria fileira mobilizado ganha Ímpeto(5s). Quando Kyuroku se retira, esse aliado Troca de fileira e todos os aliados da própria fileira são Desacelerados(3s)."
         ]
       },
       "S3_043": {
@@ -11040,8 +11040,8 @@ const TRANSLATIONS = {
         "name": "HIRUZEN SARUTOBI",
         "ability": "Técnica Bola de Cristal",
         "descriptions": [
-          "Cuando los aliados se aceleran, les aplica Chakra(+1) y Acelerar(+1s).",
-          "Cuando los aliados se aceleran, les aplica Chakra(+1) y Acelerar(+2s)."
+          "Cuando los aliados obtienen Acelerar, les aplica Chakra(+1) y Acelerar(+1s).",
+          "Cuando los aliados obtienen Acelerar, les aplica Chakra(+1) y Acelerar(+2s)."
         ]
       },
       "S1_051": {
@@ -11056,8 +11056,8 @@ const TRANSLATIONS = {
         "name": "IRUKA UMINO",
         "ability": "Sacrificio",
         "descriptions": [
-          "Despliega a medio alcance y otorga Chakra(+1) al aliado más cercano. Los objetivos pertenecen a su propia línea.",
-          "Despliega a medio alcance y otorga Chakra(+2) al aliado más cercano. Los objetivos pertenecen a su propia línea."
+          "Se despliega directamente a medio alcance y otorga Chakra(+1) al aliado más cercano. Los objetivos pertenecen a su propia línea.",
+          "Se despliega directamente a medio alcance y otorga Chakra(+2) al aliado más cercano. Los objetivos pertenecen a su propia línea."
         ]
       },
       "S1_053": {
@@ -11272,8 +11272,8 @@ const TRANSLATIONS = {
         "name": "NARUTO UZUMAKI",
         "ability": "Puñetazo furioso",
         "descriptions": [
-          "Se despliega a medio alcance, Debilita(2) y Empuja hacia atrás(1) a todos los rivales de la línea.",
-          "Se despliega a medio alcance, Debilita(2) y Empuja(3) hacia atrás a todos los rivales de la línea."
+          "Se despliega directamente a medio alcance, Debilita(2) y Empuja hacia atrás(1) a todos los rivales de la línea.",
+          "Se despliega directamente a medio alcance, Debilita(2) y Empuja(3) hacia atrás a todos los rivales de la línea."
         ]
       },
       "S1_080": {
@@ -11304,16 +11304,16 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Demonio",
         "descriptions": [
-          "Al desplegar, Debilita(1) todas las cartas. Si tienen 3 chakras o menos, Debilita(3).",
-          "Al desplegar, Debilita(1) todas las cartas. Si tienen 4 chakras o menos, Debilita(4)."
+          "Al desplegar, Debilita(1) todas las cartas. Si tienen 3 chakras o menos, Debilita(3) en su lugar.",
+          "Al desplegar, Debilita(1) todas las cartas. Si tienen 4 chakras o menos, Debilita(4) en su lugar."
         ]
       },
       "S1_084": {
         "name": "ZABUZA MOMOCHI",
         "ability": "Carga Temeraria",
         "descriptions": [
-          "En cada enfrentamiento, Debilita(2) cartas rivales con Chakra de 4 o menos y las empuja a otra línea. Acelera continuamente.",
-          "En cada enfrentamiento, Debilita(3) cartas rivales con Chakra de 4 o menos y ellas Cambian de línea. Acelera continuamente."
+          "En cada enfrentamiento, Debilita(2) las cartas rivales con 4 de Chakra o menos y hace que Cambien de línea. Acelera continuamente.",
+          "En cada enfrentamiento, Debilita(3) las cartas rivales con 4 de Chakra o menos y hace que Cambien de línea. Acelera continuamente."
         ]
       },
       "S1_085": {
@@ -11400,8 +11400,8 @@ const TRANSLATIONS = {
         "name": "Gaara",
         "ability": "Peligroso",
         "descriptions": [
-          "Se despliega a medio alcance, Chakra(+3) si hay una carta rival a medio alcance.",
-          "Se despliega a medio alcance, Chakra(+4) si hay una carta rival a medio alcance."
+          "Se despliega directamente a medio alcance, Chakra(+3) si hay una carta rival a medio alcance.",
+          "Se despliega directamente a medio alcance, Chakra(+4) si hay una carta rival a medio alcance."
         ]
       },
       "S2_011": {
@@ -11592,8 +11592,8 @@ const TRANSLATIONS = {
         "name": "Giant Snake",
         "ability": "Serpenteo",
         "descriptions": [
-          "Despliega a medio alcance y Cambia de línea a dos cartas más presentes a medio alcance.",
-          "Se despliega a medio alcance y Cambia de línea a otras 3 cartas presentes a medio alcance."
+          "Se despliega directamente a medio alcance y Cambia de línea a dos cartas más presentes a medio alcance.",
+          "Se despliega directamente a medio alcance y Cambia de línea a otras 3 cartas presentes a medio alcance."
         ]
       },
       "S2_035": {
@@ -11768,8 +11768,8 @@ const TRANSLATIONS = {
         "name": "Gai Maito",
         "ability": "Reprimenda",
         "descriptions": [
-          "Se despliega a medio alcance, otorga Chakra(+2) e Inmoviliza(2s) al aliado de línea más cercano.",
-          "Se despliega a medio alcance, otorga Chakra(+2) e Inmoviliza(6s) al aliado de línea más cercano."
+          "Se despliega directamente a medio alcance. El aliado de su línea más cercano obtiene Chakra(+2) y queda Inmovilizado(2s).",
+          "Se despliega directamente a medio alcance. El aliado de su línea más cercano obtiene Chakra(+2) y queda Inmovilizado(6s)."
         ]
       },
       "S2_057": {
@@ -12080,8 +12080,8 @@ const TRANSLATIONS = {
         "name": "Neji Hyuga",
         "ability": "64 puntos Hakke",
         "descriptions": [
-          "En cada enfrentamiento Empuja(1) y Debilita(1). Cuando esta carta hace que un rival se retire, también reduce permanentemente su Chakra base en 2.",
-          "En cada enfrentamiento Empuja(1) y Debilita(2). Cuando esta carta hace que un rival se retire, también reduce permanentemente su Chakra base en 2."
+          "En cada enfrentamiento Empuja(1) y Debilita(1). Cuando esta carta hace que un rival se retire, también reduce permanentemente el Chakra base de ese rival en 2.",
+          "En cada enfrentamiento Empuja(1) y Debilita(2). Cuando esta carta hace que un rival se retire, también reduce permanentemente el Chakra base de ese rival en 2."
         ]
       },
       "S2_096": {
@@ -12440,8 +12440,8 @@ const TRANSLATIONS = {
         "name": "Arashi",
         "ability": "Mandala de atadura",
         "descriptions": [
-          "Al desplegarse, Empuja(2) e Inmoviliza(8s) al rival de línea con más Chakra. Mientras esté bajo esta Inmovilización, Debilita(1) a la carta rival cada 4s.",
-          "Al desplegarse, Empuja(4) e Inmoviliza(8s) al rival de línea con más Chakra. Mientras esté bajo esta Inmovilización, Debilita(1) a la carta rival cada 4s."
+          "Al desplegarse, Empuja(2) e Inmoviliza(8s) al rival de línea con más Chakra. Mientras ese rival esté bajo esta Inmovilización, Debilita(1) a la carta rival cada 4s.",
+          "Al desplegarse, Empuja(4) e Inmoviliza(8s) al rival de línea con más Chakra. Mientras ese rival esté bajo esta Inmovilización, Debilita(1) a la carta rival cada 4s."
         ]
       },
       "S3_041": {
@@ -12456,8 +12456,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Deshonor",
         "descriptions": [
-          "El próximo aliado de línea desplegado gana Acelerar(4s). Al retirarse, Cambia de línea y Ralentiza(3s) a todos los aliados de línea.",
-          "El próximo aliado de línea desplegado gana Acelerar(5s). Al retirarse, Cambia de línea y Ralentiza(3s) a todos los aliados de línea."
+          "El próximo aliado de su línea desplegado obtiene Acelerar(4s). Cuando Kyuroku se retira, ese aliado Cambia de línea y todos los aliados de su línea quedan Ralentizados(3s).",
+          "El próximo aliado de su línea desplegado obtiene Acelerar(5s). Cuando Kyuroku se retira, ese aliado Cambia de línea y todos los aliados de su línea quedan Ralentizados(3s)."
         ]
       },
       "S3_043": {
@@ -13335,7 +13335,7 @@ const TRANSLATIONS = {
         "ability": "Teamleiter",
         "descriptions": [
           "Bei Begegnung erhält ein Verbündeter in Kurzdistanz Chakra(+2). Die Ziele befinden sich auf der eigenen Spur.",
-          "Bei Begegnung erhält ein Spur-Rivalen in Kurzdistanz Chakra(+3)."
+          "Bei Begegnung erhält ein Verbündeter auf der eigenen Spur in Kurzdistanz Chakra(+3)."
         ]
       },
       "S1_011": {
@@ -13350,8 +13350,8 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Bedrohlicher Auftritt",
         "descriptions": [
-          "Auf Mitteldistanz einsetzen. Den Gegner mit dem höchsten Chakra auf der eigenen Spur Verlangsamen(4s) und seine Spur Wechseln.",
-          "Auf Mitteldistanz einsetzen. Den Gegner mit dem höchsten Chakra auf der eigenen Spur Verlangsamen(6s) und seine Spur Wechseln."
+          "Wird direkt auf Mitteldistanz eingesetzt. Den Gegner mit dem höchsten Chakra auf der eigenen Spur Verlangsamen(4s) und seine Spur Wechseln.",
+          "Wird direkt auf Mitteldistanz eingesetzt. Den Gegner mit dem höchsten Chakra auf der eigenen Spur Verlangsamen(6s) und seine Spur Wechseln."
         ]
       },
       "S1_013": {
@@ -13670,8 +13670,8 @@ const TRANSLATIONS = {
         "name": "IRUKA UMINO",
         "ability": "Opfern",
         "descriptions": [
-          "Auf Mitteldistanz einsetzen und Chakra(+1) auf den nächsten Verbündeten. Die Ziele befinden sich auf der eigenen Spur.",
-          "Auf Mittelistanz einsetzen und Chakra(+2) auf den nächsten Verbündeten. Die Ziele befinden sich auf der eigenen Spur."
+          "Wird direkt auf Mitteldistanz eingesetzt und gewährt dem nächsten Verbündeten auf der eigenen Spur Chakra(+1).",
+          "Wird direkt auf Mitteldistanz eingesetzt und gewährt dem nächsten Verbündeten auf der eigenen Spur Chakra(+2)."
         ]
       },
       "S1_053": {
@@ -13886,8 +13886,8 @@ const TRANSLATIONS = {
         "name": "NARUTO UZUMAKI",
         "ability": "Wütender Schlag",
         "descriptions": [
-          "Auf Mitteldistanz einsetzen, alle Spur-Rivalen Schwächen(2) und Schieben(1).",
-          "Auf Mitteldistanz einsetzen, alle Spur-Rivalen Schwächen(2) und Schieben(3)."
+          "Wird direkt auf Mitteldistanz eingesetzt. Alle Spur-Rivalen werden mit Schwächen(2) und Schieben(1) belegt.",
+          "Wird direkt auf Mitteldistanz eingesetzt. Alle Spur-Rivalen werden mit Schwächen(2) und Schieben(3) belegt."
         ]
       },
       "S1_080": {
@@ -13926,16 +13926,16 @@ const TRANSLATIONS = {
         "name": "ZABUZA MOMOCHI",
         "ability": "Rücksichtsloser Angriff",
         "descriptions": [
-          "Bei jeder Begegnung rivalisierende Karten mit 4 oder weniger Chakra Schwächen(2) und auf eine andere Spur schieben. Permanenter Ansturm.",
-          "Bei jeder Begegnung rivalisierende Karten mit 4 oder weniger Chakra Schwächen(3) und Spur Wechseln. Permanenter Ansturm."
+          "Bei jeder Begegnung werden rivalisierende Karten mit 4 oder weniger Chakra mit Schwächen(2) belegt und müssen die Spur Wechseln. Permanenter Ansturm.",
+          "Bei jeder Begegnung werden rivalisierende Karten mit 4 oder weniger Chakra mit Schwächen(3) belegt und müssen die Spur Wechseln. Permanenter Ansturm."
         ]
       },
       "S1_085": {
         "name": "KYUBI",
         "ability": "Naturkatastrophe",
         "descriptions": [
-          "Auf Mitteldistanz einsetzen und alle Karten Schieben(1) und Schwächen(3). Solange diese Karte aktiv ist, neu eingesetzte Karten Schwächen(1). Dauerhaft Verlangsamt.",
-          "Auf Mitteldistanz einsetzen und alle Karten Schieben(1) und Schwächen(4). Solange diese Karte aktiv ist, neu eingesetzte Karten Schwächen(1). Dauerhaft Verlangsamt."
+          "Wird direkt auf Mitteldistanz eingesetzt. Alle Karten werden mit Schieben(1) und Schwächen(3) belegt. Solange diese Karte aktiv ist, werden neu eingesetzte Karten mit Schwächen(1) belegt. Dauerhaft Verlangsamt.",
+          "Wird direkt auf Mitteldistanz eingesetzt. Alle Karten werden mit Schieben(1) und Schwächen(4) belegt. Solange diese Karte aktiv ist, werden neu eingesetzte Karten mit Schwächen(1) belegt. Dauerhaft Verlangsamt."
         ]
       },
       "S2_001": {
@@ -14014,8 +14014,8 @@ const TRANSLATIONS = {
         "name": "Gaara",
         "ability": "Gefährlich",
         "descriptions": [
-          "Einsatz auf Mitteldistanz, Chakra(+3), wenn es eine rivalisierende Karte in Mitteldistanz gibt.",
-          "Einsatz auf Mitteldistanz, Chakra(+4), wenn es eine rivalisierende Karte in Mitteldistanz gibt."
+          "Wird direkt auf Mitteldistanz eingesetzt und erhält Chakra(+3), wenn sich eine rivalisierende Karte in Mitteldistanz befindet.",
+          "Wird direkt auf Mitteldistanz eingesetzt und erhält Chakra(+4), wenn sich eine rivalisierende Karte in Mitteldistanz befindet."
         ]
       },
       "S2_011": {
@@ -14206,8 +14206,8 @@ const TRANSLATIONS = {
         "name": "Giant Snake",
         "ability": "Schlittern",
         "descriptions": [
-          "Auf Mitteldistanz einsetzen und zwei beliebige andere Karten in Mitteldistanz die Spur Wechseln lassen.",
-          "Wird in Mitteldistanz eingesetzt und Wechsel der Spur bei 3 anderen Karten in Mitteldistanz."
+          "Wird direkt auf Mitteldistanz eingesetzt und lässt zwei beliebige andere Karten in Mitteldistanz die Spur Wechseln.",
+          "Wird direkt auf Mitteldistanz eingesetzt und lässt 3 beliebige andere Karten in Mitteldistanz die Spur Wechseln."
         ]
       },
       "S2_035": {
@@ -14382,8 +14382,8 @@ const TRANSLATIONS = {
         "name": "Gai Maito",
         "ability": "Verweis",
         "descriptions": [
-          "Einsatz auf Mitteldistanz, Chakra(+2) und Festnageln(2s) des nächsten Spur-Verbündeten.",
-          "Einsatz auf Mitteldistanz, Chakra(+2) und Festnageln(6s) des nächsten Spur-Verbündeten."
+          "Wird direkt auf Mitteldistanz eingesetzt. Der nächste Verbündete auf der eigenen Spur erhält Chakra(+2) und wird Festgenagelt(2s).",
+          "Wird direkt auf Mitteldistanz eingesetzt. Der nächste Verbündete auf der eigenen Spur erhält Chakra(+2) und wird Festgenagelt(6s)."
         ]
       },
       "S2_057": {
@@ -14694,8 +14694,8 @@ const TRANSLATIONS = {
         "name": "Neji Hyuga",
         "ability": "Vierundsechzig Palmen",
         "descriptions": [
-          "Bei jeder Begegnung Schieben(1) und Schwächen(1). Wenn diese Karte bewirkt, dass sich ein Rivale zurückzieht, reduziert sie auch ihr Basis Chakra dauerhaft um 2.",
-          "Bei jeder Begegnung Schieben(1) und Schwächen(2). Wenn diese Karte bewirkt, dass sich ein Rivale zurückzieht, reduziert sie auch ihr Basis Chakra dauerhaft um 2."
+          "Bei jeder Begegnung Schieben(1) und Schwächen(1). Wenn diese Karte bewirkt, dass sich ein Rivale zurückzieht, reduziert sie auch das Basis-Chakra dieses Rivalen dauerhaft um 2.",
+          "Bei jeder Begegnung Schieben(1) und Schwächen(2). Wenn diese Karte bewirkt, dass sich ein Rivale zurückzieht, reduziert sie auch das Basis-Chakra dieses Rivalen dauerhaft um 2."
         ]
       },
       "S2_096": {
@@ -15070,8 +15070,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Ehrlos",
         "descriptions": [
-          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(4s). Beim Zurückziehen die Spur Wechseln und alle Spur-Verbündeten Verlangsamen(3s).",
-          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(5s). Beim Zurückziehen die Spur Wechseln und alle Spur-Verbündeten Verlangsamen(3s)."
+          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(4s). Wenn Kyuroku sich zurückzieht, Wechselt dieser Verbündete die Spur und alle Spur-Verbündeten werden Verlangsamt(3s).",
+          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(5s). Wenn Kyuroku sich zurückzieht, Wechselt dieser Verbündete die Spur und alle Spur-Verbündeten werden Verlangsamt(3s)."
         ]
       },
       "S3_043": {

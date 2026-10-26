@@ -374,8 +374,7 @@ dialog button { border-radius:0; }
 .synergy-source-option[aria-selected=true] { background:#f9e7cf; }
 .synergy-source .game-card { height:auto; min-height:var(--synergy-source-min-height,0px); }
 .synergy-source .card-info { flex:none; grid-template-rows:auto auto; gap:0; }
-.synergy-partners { --synergy-card-width:108px; --synergy-min-gap:8px; display:grid; grid-template-columns:repeat(auto-fit,var(--synergy-card-width)); grid-auto-rows:max-content; align-content:start; justify-content:space-evenly; gap:var(--synergy-min-gap); max-height:var(--synergy-visible-height,352px); margin:0; padding:0 var(--synergy-min-gap); list-style:none; overflow-x:hidden; overflow-y:auto; scrollbar-width:thin; scrollbar-gutter:stable; }
-.synergy-partners.is-compact { justify-content:start; column-gap:var(--synergy-spacing,var(--synergy-min-gap)); padding-inline:var(--synergy-spacing,var(--synergy-min-gap)); }
+.synergy-partners { --synergy-card-width:108px; --synergy-gap:8px; display:grid; grid-template-columns:repeat(auto-fit,var(--synergy-card-width)); grid-auto-rows:max-content; align-content:start; justify-content:start; gap:var(--synergy-gap); max-height:var(--synergy-visible-height,352px); margin:0; padding:0 var(--synergy-gap); list-style:none; overflow-x:hidden; overflow-y:auto; scrollbar-width:thin; scrollbar-gutter:stable; }
 .synergy-more { padding:16px 0; text-align:center; overflow-anchor:none; }
 .synergy-partners:focus-visible { outline:2px solid var(--orange); outline-offset:2px; }
 .synergy-partner { display:flex; flex-direction:column; gap:0; align-items:stretch; width:100%; height:100%; min-width:0; padding:4px; text-align:left; background:#f3f5ed; font-weight:400; }
@@ -400,6 +399,6 @@ dialog button { border-radius:0; }
   .language-control { margin-left:auto; }
   .language-control label { display:none; }
   .synergy-row { grid-template-columns:124px minmax(0,1fr); gap:10px; padding:8px; }
-  .synergy-partners { --synergy-card-width:84px; --synergy-min-gap:6px; }
+  .synergy-partners { --synergy-card-width:84px; --synergy-gap:6px; }
   .synergy-art .orb { top:10px; width:17px; height:17px; font-size:10px; }
 }

@@ -381,7 +381,7 @@ function synergyRowHTML(group) {
   const sourceSelector=group.sources.length>1?`<button class="synergy-source-select" data-synergy-source-toggle popovertarget="${menuId}" aria-controls="${menuId}" aria-haspopup="listbox" aria-expanded="false" aria-label="${esc(t('ui.synergySources'))}" title="${esc(cardText(card).name+' — '+cardText(card).ability)}"><span class="synergy-source-label">${esc(cardText(card).name)} — ${esc(cardText(card).ability)}</span><span class="filter-arrow" aria-hidden="true">▾</span></button><div class="synergy-source-menu" id="${menuId}" popover="auto" role="listbox" aria-label="${esc(t('ui.synergySources'))}">${group.sources.map(source=>`<button class="synergy-source-option" type="button" role="option" data-synergy-source="${source.index}" aria-selected="${source===card}" tabindex="${source===card?0:-1}"><strong>${esc(cardText(source).name)}</strong> — ${esc(cardText(source).ability)}</button>`).join('')}</div>`:'';
   return `<article class="synergy-row" data-synergy="${card.index}" data-synergy-group="${group.key}">
     <div class="synergy-source">${sourceSelector}<div class="synergy-source-card database-list">${cardHTML(card)}</div></div>
-    <div class="synergy-group"><ul class="synergy-partners${partners.length<6?' is-compact':''}" tabindex="0" aria-label="${esc(t('ui.synergyPartners',{name:cardText(card).name}))}">${partners.map(partner=>`<li><button class="synergy-partner" data-open="${partner.index}" title="${esc(cardText(partner).ability)}" aria-label="${esc(cardText(partner).name)}"><span class="synergy-art"><img src="${imagePath(partner)}" alt="" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}"><span class="orb cost" title="${t('ui.cost')}">${partner.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${partner.chakra}</span></span><strong>${esc(cardText(partner).name)}</strong><span class="synergy-ability">${esc(cardText(partner).ability)}</span></button></li>`).join('')}</ul></div>
+    <div class="synergy-group"><ul class="synergy-partners" tabindex="0" aria-label="${esc(t('ui.synergyPartners',{name:cardText(card).name}))}">${partners.map(partner=>`<li><button class="synergy-partner" data-open="${partner.index}" title="${esc(cardText(partner).ability)}" aria-label="${esc(cardText(partner).name)}"><span class="synergy-art"><img src="${imagePath(partner)}" alt="" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}"><span class="orb cost" title="${t('ui.cost')}">${partner.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${partner.chakra}</span></span><strong>${esc(cardText(partner).name)}</strong><span class="synergy-ability">${esc(cardText(partner).ability)}</span></button></li>`).join('')}</ul></div>
   </article>`;
 }
 const synergyLoader=new IntersectionObserver(entries=>{
@@ -463,15 +463,6 @@ function scheduleSynergyLayout() {
     if (mode!=='synergies') return;
     const rows=[...$('synergies-card-list').querySelectorAll('.synergy-row')];
     measureSynergySourceHeights(rows);
-    // Small groups retain the same starting inset and gaps as a six-card group.
-    const spacing=rows.map(row=>{
-      const list=row.querySelector('.synergy-partners');
-      if (!list.classList.contains('is-compact')) return null;
-      const style=getComputedStyle(list),width=parseFloat(style.getPropertyValue('--synergy-card-width')),gap=parseFloat(style.getPropertyValue('--synergy-min-gap'));
-      const columns=Math.max(1,Math.min(6,Math.floor((list.clientWidth-gap)/(width+gap))));
-      return [row,Math.max(gap,(list.clientWidth-columns*width)/(columns+1))];
-    }).filter(Boolean);
-    for (const [row,gap] of spacing) row.style.setProperty('--synergy-spacing',gap+'px');
     // Measure before writing so each row keeps its natural content height.
     const sizes=rows.map(row=>{
       const items=row.querySelector('.synergy-partners').children;
