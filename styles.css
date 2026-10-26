@@ -297,7 +297,8 @@ dialog::backdrop { background:#26362770; backdrop-filter:blur(2px); }
   .toolbox.is-collapsed :is(.toolbox-label,.sidebar-toggle-label) { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
   .toolbox.is-collapsed .filter-count { position:absolute; top:0; right:0; background:var(--paper); font-size:9px; line-height:1.2; }
   .toolbox .scenario-actions { flex-wrap:wrap; }
-  .toolbox .text-search,.toolbox .text-search input { width:100%; }
+  .toolbox .text-search { width:calc(100% - 4px); }
+  .toolbox .text-search input { width:100%; }
   .toolbox .field > label { font-size:10.5px; }
   .workspace { flex:1; min-height:0; overflow:hidden; }
   .catalog { height:100%; min-height:0; overflow-y:auto; overscroll-behavior-y:contain; scrollbar-gutter:stable; padding:3px 6px 5px 3px; }
