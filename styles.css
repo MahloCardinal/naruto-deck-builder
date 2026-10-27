@@ -326,7 +326,6 @@ dialog button { border-radius:0; }
 .deck-dialog-toolbar > button { flex:none; min-height:31px; padding:6px 10px; font-size:11px; }
 .deck-strip .deck-grid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:5px; margin:0; }
 .deck-strip .metric b { font-size:15px; }
-.deck-strip .metric > span { overflow-wrap:anywhere; white-space:pre-line; }
 .deck-strip .deck-slot .remove { font-size:13px; }
 .deck-dialog { max-width:615px; }
 .deck-dialog .deck-grid { grid-template-columns:repeat(5,minmax(0,1fr)); }
@@ -496,22 +495,19 @@ dialog button { border-radius:0; }
 .preset-description { margin-top:12px; font-size:12px; line-height:1.6; color:#53634f; }
 .auto-build-button { width:100%; }
 .auto-dialog { max-width:1100px; }
-.auto-controls { display:flex; justify-content:flex-end; margin-bottom:8px; }
-.auto-status { color:var(--muted); font-size:12px; }
+.auto-dialog > .dialog-close { position:absolute; top:24px; right:24px; z-index:1; }
+.auto-status { color:var(--muted); font-size:12px; padding:8px 42px 8px 0; }
 .auto-status:empty { display:none; }
 .auto-results { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
 .auto-proposal { display:flex; flex-direction:column; min-width:0; gap:10px; padding:12px; border:1px solid var(--line); background:#f9fbf6; }
-.auto-proposal h3 { color:var(--green); }
-.proposal-explanation { min-height:3em; font-size:11px; line-height:1.5; }
-.proposal-legend { display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; font-size:10px; color:var(--muted); }
-.proposal-legend > span:first-child { border-left:3px solid var(--green); padding-left:5px; }
+.auto-proposal h3 { color:var(--green); padding-right:36px; }
+.proposal-explanation { font-size:11px; line-height:1.5; }
 .auto-proposal .preset-cards { grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; }
 .auto-proposal .deck-preview-card > strong { font-size:8px; }
 .auto-proposal .mini-art .orb { top:9px; width:17px; height:17px; font-size:10px; border-width:1px; }
 .proposal-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; }
 .proposal-metrics .metric b { font-size:17px; }
 .proposal-metrics .metric > span { font-size:9px; }
-.proposal-evidence { font-size:10px; line-height:1.6; color:var(--muted); }
 .auto-proposal > button { width:100%; margin-top:auto; min-height:36px; }
 .proposal-form { display:grid; gap:12px; padding:3px; }
 .proposal-form .field > label { font-size:11px; font-weight:600; color:var(--ink); }
@@ -532,7 +528,6 @@ dialog button { border-radius:0; }
 }
 @media(max-width:800px) {
   .auto-results { grid-template-columns:minmax(0,1fr); }
-  .proposal-explanation { min-height:0; }
 }
 @media(max-width:700px) {
   .preset { padding:10px; }

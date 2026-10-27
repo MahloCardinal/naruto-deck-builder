@@ -265,7 +265,6 @@ let useDefaultDeckName = true;
 let mode = 'db', dialogCard = null, dialogLevel = 1, dialogReadOnly = false, confirmAction = null, confirmMessageKey = null, toastTimer;
 const deckLevel = c => current.levels[c.index] ?? Number($('builder-f-level').value);
 const levelOf = c => mode === 'builder' ? deckLevel(c) : mode === 'db' ? Number($('db-f-level').value) : 1;
-const description = (c,level) => normalizeText(cardText(c).descriptions[level-1]);
 const scenarioFor = c => ({...(current.cardOptions[c.index] || current.scenario)});
 function applyWrittenStandard() {
   const values = {};
@@ -290,8 +289,8 @@ function syncScenario() {
   for (const [key,id] of Object.entries(settingIds)) $(id).value = current.scenario[key];
 }
 
-function cardHTML(c) {
-  const level=levelOf(c),build=mode==='builder',synergy=mode==='synergies',result=build?computed(c,level):null,selected=build&&current.cards.includes(c.index),text=cardText(c);
+function cardHTML(c,result=mode==='builder'?computed(c):null) {
+  const level=levelOf(c),build=mode==='builder',synergy=mode==='synergies',selected=build&&current.cards.includes(c.index),text=cardText(c);
   return `<article class="game-card${selected?' selected':''}" data-index="${c.index}">
     <button class="card-main" data-open="${c.index}" title="${esc(synergy?text.ability:cardReference(c))}" aria-label="${esc(synergy?text.name:t('ui.openCard',{name:text.name,reference:cardReference(c)}))}">
       <img src="${imagePath(c)}" alt="${esc(text.name)}" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}">
@@ -319,24 +318,23 @@ function updateFilterCount(area) {
   const quickBadge=$(area+'-quick-filter-count');
   if (quickBadge) { quickBadge.textContent=badge.textContent;quickBadge.hidden=badge.hidden; }
 }
-function filteredCards() {
+function filteredCards(estimateFor=computed) {
   const query = F('f-text').value.trim().toLowerCase();
   const words = query.replace(/\bs(\d+)\s*(?:[#_-]\s*|\s+)(\d+)\b/g,'s$1#$2').split(/\s+/).filter(Boolean);
-  const rarity = selectedFilterValues('f-rarity'), season = selectedFilterValues('f-season'), skill = selectedFilterValues('f-skill');
+  const rarity = selectedFilterValues('f-rarity'), season = selectedFilterValues('f-season'), skills = [...selectedFilterValues('f-skill')];
   const cost = selectedFilterValues('f-cost'), chakra = selectedFilterValues('f-chakra');
+  const minimumPower = mode==='builder' && F('f-estimate').value!=='' ? Number(F('f-estimate').value) : null;
   const indexQuery = /^#?\d+$/.test(query) ? Number(query.replace('#','')) : null;
   return CARDS.filter(c => {
     if (rarity.size && !rarity.has(c.rarity) || season.size && !season.has(String(c.season))) return false;
-    if (skill.size && ![...skill].some(value => value === 'none' ? c.skill_types_original.length === 0 : c.skill_types_original.includes(value))) return false;
+    if (skills.length && !skills.some(value => value === 'none' ? c.skill_types_original.length === 0 : c.skill_types_original.includes(value))) return false;
     if (cost.size && !cost.has(String(c.energy_cost)) || chakra.size && !chakra.has(String(c.chakra))) return false;
-    if (mode === 'builder') {
-      const e = computed(c);
-      if (F('f-estimate').value !== '' && e.value < Number(F('f-estimate').value)) return false;
-    }
+    if (minimumPower!==null && estimateFor(c).value<minimumPower) return false;
     if (query) {
       if (indexQuery !== null) { if (cardNumber(c) !== indexQuery) return false; }
       else {
-        const text = `${cardText(c).name} ${cardReference(c)} ${cardText(c).ability} ${description(c,levelOf(c))}`.toLowerCase();
+        const {name,ability,descriptions}=cardText(c);
+        const text = `${name} ${cardReference(c)} ${ability} ${normalizeText(descriptions[levelOf(c)-1])}`.toLowerCase();
         if (!words.every(word => {
           const reference = /^s(\d+)#(\d+)$/.exec(word);
           if (reference) return c.season === Number(reference[1]) && cardNumber(c) === Number(reference[2]);
@@ -351,21 +349,28 @@ function filteredCards() {
 }
 function renderCatalog() {
   if (mode==='decks') { renderPresetLibrary();scheduleSessionSave();return; }
-  const cards = filteredCards().filter(c=>mode!=='synergies' || synergyGroupByIndex.has(c.index)), sort = F('sort').value, direction = F('sort-direction').dataset.direction === 'desc' ? -1 : 1;
+  // Share estimates within this render; changing level, language or assumptions starts a fresh cache.
+  const estimates=new Map();
+  const estimateFor=card=>{
+    if (!estimates.has(card.index)) estimates.set(card.index,computed(card));
+    return estimates.get(card.index);
+  };
+  const cards = filteredCards(estimateFor).filter(c=>mode!=='synergies' || synergyGroupByIndex.has(c.index)), sort = F('sort').value, direction = F('sort-direction').dataset.direction === 'desc' ? -1 : 1;
+  const compareNames=sort==='name'?new Intl.Collator(TRANSLATIONS[language].locale).compare:null;
   const compareCards = (a,b) => {
     let d = 0;
     switch (sort) {
-      case 'name': d = cardText(a).name.localeCompare(cardText(b).name,TRANSLATIONS[language].locale); break;
+      case 'name': d = compareNames(cardText(a).name,cardText(b).name); break;
       case 'cost': d = a.energy_cost-b.energy_cost; break;
       case 'chakra': d = a.chakra-b.chakra; break;
-      case 'quality': d = computed(a).quality-computed(b).quality; break;
+      case 'quality': d = estimateFor(a).quality-estimateFor(b).quality; break;
       case 'rarity': d = RANK[a.rarity]-RANK[b.rarity];
     }
     return direction*(d || a.index-b.index);
   };
   cards.sort(compareCards);
   if (mode==='synergies') renderSynergies(cards,compareCards);
-  else $(mode+'-card-list').innerHTML = cards.length ? cards.map(cardHTML).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
+  else $(mode+'-card-list').innerHTML = cards.length ? cards.map(card=>cardHTML(card,mode==='builder'?estimateFor(card):null)).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
   updateFilterCount(mode);
   scheduleSessionSave();
 }
@@ -512,6 +517,16 @@ function deckSlotsHTML(cards,showDetails=false) {
     return `<li class="deck-slot"><button class="deck-open" data-deck-open="${card.index}" title="${esc(t('ui.cardLevelTitle',{name,level,reference:cardReference(card)}))}"><img src="${imagePath(card)}" alt="${esc(name)}">${showDetails?`<span class="orb cost" title="${t('ui.cost')}">${card.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${card.chakra}</span>`:''}</button>${showDetails?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`:`<button class="remove" data-remove="${card.index}" aria-label="${esc(t('ui.removeNamedCard',{name}))}">×</button>`}</li>`;
   }).join('');
 }
+function deckAverages(cards,levelFor=deckLevel) {
+  let cost=0,power=0,quality=0;
+  for (const card of cards) {
+    const result=computed(card,levelFor(card));
+    // Costs use printed values; power and quality include effects.
+    cost+=card.energy_cost;power+=result.value;quality+=result.quality;
+  }
+  const count=cards.length||1;
+  return {cost:cost/count,power:power/count,quality:quality/count};
+}
 function renderDeck() {
   const field=deckOrder.sort==='chakra'?'chakra':'energy_cost',direction=deckOrder.direction==='desc'?-1:1;
   const cards = current.cards.map(i => byIndex.get(i)).sort((a,b)=>direction*(a[field]-b[field] || a.index-b.index)), n = cards.length;
@@ -523,15 +538,11 @@ function renderDeck() {
   if (document.activeElement !== $('deck-name')) $('deck-name').value = current.name;
   $('deck-grid').innerHTML = deckSlotsHTML(cards);
   $('deck-dialog-grid').innerHTML = deckSlotsHTML(cards,true);
-  const totals = cards.reduce((a,c) => {
-    const e = computed(c,deckLevel(c));
-    // Deck cost statistics always use printed costs; power and quality include effects.
-    return {cost:a.cost+c.energy_cost,power:a.power+e.value,quality:a.quality+e.quality};
-  },{cost:0,power:0,quality:0});
+  const averages=deckAverages(cards);
   for (const prefix of ['', 'deck-dialog-']) {
-    $(prefix+'avg-cost').textContent = n ? fmt(totals.cost/n) : '—';
-    $(prefix+'avg-max').textContent = n ? fmt(totals.power/n) : '—';
-    $(prefix+'avg-quality').textContent = n ? fmt(totals.quality/n) : '—';
+    $(prefix+'avg-cost').textContent = n ? fmt(averages.cost) : '—';
+    $(prefix+'avg-max').textContent = n ? fmt(averages.power) : '—';
+    $(prefix+'avg-quality').textContent = n ? fmt(averages.quality) : '—';
   }
   const costs = cards.map(c => c.energy_cost);
   const counts = Array.from({length:9},(_,i) => costs.filter(cost => Math.min(cost,9) === i+1).length), peak = Math.max(1,...counts);
@@ -554,6 +565,7 @@ function renderPresetLibrary() {
   const query=$('library-search').value.trim().toLocaleLowerCase(),words=query.split(/\s+/).filter(Boolean),selectedMode=$('library-mode').value;
   const decks=PREBUILT_DECKS.filter(deck=>{
     if (selectedMode!=='all' && deck.mode!==selectedMode) return false;
+    if (!words.length) return true;
     const text=(t('ui.preset_'+deck.id)+' '+deck.cards.map(key=>{const card=cardByKey.get(key),text=cardText(card);return cardReference(card)+' '+text.name+' '+text.ability+' '+text.descriptions.join(' ');}).join(' ')).toLocaleLowerCase();
     return words.every(word=>text.includes(word));
   });
@@ -622,15 +634,12 @@ function autoDeckSnapshot() {
   return JSON.stringify({cards:current.cards,levels:current.levels,cardOptions:current.cardOptions,scenario:current.scenario});
 }
 function proposalMetrics(indices) {
-  const sum=indices.reduce((sum,index)=>{
-    const card=byIndex.get(index),value=estimate(card,autoLevels[index],scenarioFor(card));
-    return {cost:sum.cost+card.energy_cost,power:sum.power+value.value,quality:sum.quality+value.quality};
-  },{cost:0,power:0,quality:0});
-  return `<div class="proposal-metrics">${[['averageCost',sum.cost],['averagePower',sum.power],['averageQuality',sum.quality]].map(([key,value])=>`<div class="metric"><b>${fmt(value/indices.length,1)}</b><span>${t('ui.'+key)}</span></div>`).join('')}</div>`;
+  const averages=deckAverages(indices.map(index=>byIndex.get(index)),card=>autoLevels[card.index]);
+  return `<div class="proposal-metrics">${[['averageCost',averages.cost],['averagePower',averages.power],['averageQuality',averages.quality]].map(([key,value])=>`<div class="metric"><b>${fmt(value,1)}</b><span>${t('ui.'+key)}</span></div>`).join('')}</div>`;
 }
 function renderAutoResults() {
   const locked=new Set(current.cards);
-  $('auto-results').innerHTML=autoProposals.map((proposal,index)=>`<article class="auto-proposal"><h3>${t('ui.autoProfile_'+proposal.profile)}</h3><p class="proposal-explanation">${t('ui.autoExplain_'+proposal.profile)}</p><div class="proposal-legend"><span>${t('ui.autoFixed')}: ${fmt(locked.size,0)}</span><span>${t('ui.autoAdded',{count:10-locked.size})}</span></div><ol class="preset-cards">${deckPreviewHTML(proposal.indices,autoLevels,locked)}</ol>${proposalMetrics(proposal.indices)}<p class="proposal-evidence">${t('ui.autoPotentialLinks',{count:fmt(proposal.links,0)})}<br>${t('ui.autoReference',{number:Number(proposal.templateId),count:proposal.templateOverlap})}</p><button class="primary" data-use-proposal="${index}" type="button">${t('ui.autoApply')}</button></article>`).join('');
+  $('auto-results').innerHTML=autoProposals.map((proposal,index)=>`<article class="auto-proposal"><h3>${t('ui.autoProfile_'+proposal.profile)}</h3><p class="proposal-explanation">${t('ui.autoExplain_'+proposal.profile)}</p><ol class="preset-cards">${deckPreviewHTML(proposal.indices,autoLevels,locked)}</ol>${proposalMetrics(proposal.indices)}<button class="primary" data-use-proposal="${index}" type="button">${t('ui.autoApply')}</button></article>`).join('');
 }
 async function runAutoBuilder() {
   if (current.cards.length>=10) return;
@@ -1252,7 +1261,7 @@ function applyLanguage() {
   }
   syncLanguageControl();
   syncMobileSearch();syncMobileToolsLabels();
-  for (const area of Object.keys(toolbarPanels)) renderToolbar(area);
+  for (const area of toolbarAreas) renderToolbar(area);
   sizeHeaderControls();sizeFilterControls();sizeAssumptionBoxes();renderDeck();renderCatalog();
   if ($('card-dialog').open) renderDialog();
   if ($('auto-dialog').open) renderAutoResults();

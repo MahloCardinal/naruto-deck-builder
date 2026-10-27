@@ -292,895 +292,679 @@ const CARDS = [
 ];
 const RULES = {
   "S1_001": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S1_002": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S1_011": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S1_013": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S1_015": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S1_016": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S1_027": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S1_041": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S1_042": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S1_045": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S1_052": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S1_054": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S1_059": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S1_064": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S1_068": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S1_070": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S1_076": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S1_078": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S1_080": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S2_001": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S2_003": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S2_006": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S2_009": {
-    "expr": "C0*a1*N",
-    "review": true
+    "expr": "C0*a1*N"
   },
   "S2_010": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S2_011": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S2_026": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S2_031": {
-    "expr": "C0*a1*N",
-    "review": false
+    "expr": "C0*a1*N"
   },
   "S2_033": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S2_036": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S2_041": {
-    "expr": "C0*A",
-    "review": true
+    "expr": "C0*A"
   },
   "S2_044": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S2_046": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S2_048": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S2_050": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S2_055": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S2_056": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S2_060": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S2_081": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S2_084": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S2_090": {
-    "expr": "C0*a1*N",
-    "review": false
+    "expr": "C0*a1*N"
   },
   "S2_100": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S3_001": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S3_003": {
-    "expr": "W0*e1*N",
-    "review": false
+    "expr": "W0*e1*N"
   },
   "S3_005": {
-    "expr": "W0*e1*N",
-    "review": false
+    "expr": "W0*e1*N"
   },
   "S3_010": {
-    "expr": "C0*a1*N",
-    "review": false
+    "expr": "C0*a1*N"
   },
   "S3_012": {
-    "expr": "W0*e1*N",
-    "review": false
+    "expr": "W0*e1*N"
   },
   "S3_019": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S3_030": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S3_032": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S3_033": {
-    "expr": "C0*a1*N",
-    "review": false
+    "expr": "C0*a1*N"
   },
   "S3_037": {
-    "expr": "W0*e1*N",
-    "review": false
+    "expr": "W0*e1*N"
   },
   "S3_045": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S3_046": {
-    "expr": "W0*e1*N",
-    "review": false
+    "expr": "W0*e1*N"
   },
   "S3_049": {
-    "expr": "C0*a1",
-    "review": false
+    "expr": "C0*a1"
   },
   "S3_050": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S3_052": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S3_053": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S3_055": {
-    "expr": "W0*E*N",
-    "review": true
+    "expr": "W0*E*N"
   },
   "S3_056": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S3_058": {
-    "expr": "W0*e1*N",
-    "review": false
+    "expr": "W0*e1*N"
   },
   "S3_061": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S3_063": {
-    "expr": "W0*e1*N",
-    "review": false
+    "expr": "W0*e1*N"
   },
   "S3_076": {
-    "expr": "C0*N",
-    "review": false
+    "expr": "C0*N"
   },
   "S3_087": {
-    "expr": "auto",
-    "review": false
+    "expr": "auto"
   },
   "S1_004": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S1_005": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S1_006": {
-    "expr": "W0*e1",
-    "review": false
+    "expr": "W0*e1"
   },
   "S1_008": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S1_010": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S1_023": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S1_030": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S1_035": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S2_007": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S2_025": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S2_030": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S2_042": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S2_052": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S2_053": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S2_063": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S3_004": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S3_023": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S3_024": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S3_034": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S3_044": {
-    "expr": "W0*e1",
-    "review": true
+    "expr": "W0*e1"
   },
   "S3_047": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S3_059": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S3_068": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S3_072": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S3_074": {
-    "expr": "encounter",
-    "review": false
+    "expr": "encounter"
   },
   "S1_003": {
-    "expr": "K0",
-    "review": true
+    "expr": "K0"
   },
   "S1_007": {
-    "expr": "C0*a1*N",
-    "review": true
+    "expr": "C0*a1*N"
   },
   "S1_019": {
-    "expr": "C0*A",
-    "review": true
+    "expr": "C0*A"
   },
   "S1_046": {
-    "expr": "C0*A",
-    "review": true
+    "expr": "C0*A"
   },
   "S1_050": {
-    "expr": "C0*a1*N",
-    "review": true
+    "expr": "C0*a1*N"
   },
   "S1_062": {
-    "expr": "C0*A",
-    "review": true
+    "expr": "C0*A"
   },
   "S1_072": {
-    "expr": "C0*a1*N",
-    "review": true
+    "expr": "C0*a1*N"
   },
   "S1_073": {
-    "expr": "C0*A",
-    "review": true
+    "expr": "C0*A"
   },
   "S2_015": {
-    "expr": "C0*A",
-    "review": true
+    "expr": "C0*A"
   },
   "S2_022": {
-    "expr": "C0*A",
-    "review": true
+    "expr": "C0*A"
   },
   "S2_045": {
-    "expr": "C0*a1*N",
-    "review": true
+    "expr": "C0*a1*N"
   },
   "S2_073": {
-    "expr": "C0*A",
-    "review": true
+    "expr": "C0*A"
   },
   "S2_083": {
-    "expr": "C0*A",
-    "review": true
+    "expr": "C0*A"
   },
   "S3_002": {
-    "expr": "C0*burnAll",
-    "review": true
+    "expr": "C0*burnAll"
   },
   "S1_020": {
-    "expr": "C0-W0*a1",
-    "review": true
+    "expr": "C0-W0*a1"
   },
   "S1_021": {
-    "expr": "C0*a3",
-    "review": false
+    "expr": "C0*a3"
   },
   "S1_022": {
-    "expr": "C0*a3",
-    "review": false
+    "expr": "C0*a3"
   },
   "S1_024": {
     "expr": [
       "C0*a2",
       "C0*a3"
-    ],
-    "review": false
+    ]
   },
   "S1_033": {
-    "expr": "C0",
-    "review": true
+    "expr": "C0"
   },
   "S1_038": {
     "expr": [
       "C0*a2",
       "C0*a3"
-    ],
-    "review": false
+    ]
   },
   "S1_053": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S1_069": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S1_074": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S1_079": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S1_081": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S2_008": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S2_076": {
-    "expr": "W0*E",
-    "review": true
+    "expr": "W0*E"
   },
   "S2_088": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S3_017": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S3_031": {
-    "expr": "W0*E",
-    "review": true
+    "expr": "W0*E"
   },
   "S3_089": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S3_090": {
-    "expr": "W0*E",
-    "review": false
+    "expr": "W0*E"
   },
   "S1_056": {
-    "expr": "C0",
-    "review": true
+    "expr": "C0"
   },
   "S1_058": {
-    "expr": "C0*a1*N-W0*N",
-    "review": true
+    "expr": "C0*a1*N-W0*N"
   },
   "S1_060": {
-    "expr": "0",
-    "review": true
+    "expr": "0"
   },
   "S1_063": {
     "expr": [
       "K0*3*N",
       "K0*5*N"
-    ],
-    "review": true
+    ]
   },
   "S1_067": {
-    "expr": "C0*first+C1*remaining",
-    "review": true
+    "expr": "C0*first+C1*remaining"
   },
   "S1_071": {
     "expr": "K0*N",
-    "costPerActivation": 1,
-    "review": false
+    "costPerActivation": 1
   },
   "S1_075": {
-    "expr": "W0*E*N",
-    "review": true
+    "expr": "W0*E*N"
   },
   "S1_077": {
-    "expr": "K0*4+C0*N",
-    "review": true
+    "expr": "K0*4+C0*N"
   },
   "S1_082": {
-    "expr": "C0*N+C1*E",
-    "review": true
+    "expr": "C0*N+C1*E"
   },
   "S1_083": {
-    "expr": "W1*E-W1*A",
-    "review": true
+    "expr": "W1*E-W1*A"
   },
   "S1_084": {
-    "expr": "W0*e1*N",
-    "review": true
+    "expr": "W0*e1*N"
   },
   "S1_085": {
-    "expr": "W0*E-W0*A+W1*e1*N",
-    "review": true
+    "expr": "W0*E-W0*A+W1*e1*N"
   },
   "S2_002": {
-    "expr": "C0*E",
-    "review": true
+    "expr": "C0*E"
   },
   "S2_016": {
-    "expr": "K0*3",
-    "review": true
+    "expr": "K0*3"
   },
   "S2_018": {
-    "expr": "C0*a2",
-    "review": true
+    "expr": "C0*a2"
   },
   "S2_019": {
-    "expr": "C0*a2",
-    "review": true
+    "expr": "C0*a2"
   },
   "S2_020": {
-    "expr": "C0*a2",
-    "review": true
+    "expr": "C0*a2"
   },
   "S2_029": {
-    "expr": "K0*2+K0*N",
-    "review": true
+    "expr": "K0*2+K0*N"
   },
   "S2_032": {
-    "expr": "C0",
-    "review": true
+    "expr": "C0"
   },
   "S2_037": {
-    "expr": "0",
-    "review": true
+    "expr": "0"
   },
   "S2_038": {
-    "expr": "C0",
-    "review": true
+    "expr": "C0"
   },
   "S2_039": {
     "expr": [
       "W0*e1",
       "W0*e2"
-    ],
-    "review": false
+    ]
   },
   "S2_040": {
-    "expr": "W0*E-W0*A",
-    "review": true
+    "expr": "W0*E-W0*A"
   },
   "S2_054": {
-    "expr": "Q*0.5*e1",
-    "review": true
+    "expr": "Q*0.5*e1"
   },
   "S2_057": {
-    "expr": "W0*e1*N",
-    "review": true
+    "expr": "W0*e1*N"
   },
   "S2_058": {
-    "expr": "0",
-    "review": true
+    "expr": "0"
   },
   "S2_064": {
-    "expr": "0",
-    "review": true
+    "expr": "0"
   },
   "S2_062": {
     "expr": [
       "W0*e1",
       "W0*e2"
-    ],
-    "review": false
+    ]
   },
   "S2_067": {
     "expr": [
       "W0*e4*2",
       "W0*e6*2"
-    ],
-    "review": true
+    ]
   },
   "S2_068": {
-    "expr": "C0*N",
-    "review": true
+    "expr": "C0*N"
   },
   "S2_069": {
-    "expr": "C0*N",
-    "review": true
+    "expr": "C0*N"
   },
   "S2_070": {
-    "expr": "C0+C1*A",
-    "review": false
+    "expr": "C0+C1*A"
   },
   "S2_071": {
-    "expr": "W0*e1*3",
-    "review": false
+    "expr": "W0*e1*3"
   },
   "S2_072": {
-    "expr": "W0*E-W0*A",
-    "review": true
+    "expr": "W0*E-W0*A"
   },
   "S2_080": {
-    "expr": "W0*E-W0*A",
-    "review": true
+    "expr": "W0*E-W0*A"
   },
   "S2_074": {
-    "expr": "W0*E",
-    "review": true
+    "expr": "W0*E"
   },
   "S2_075": {
-    "expr": "W0*e1*N",
-    "review": true
+    "expr": "W0*e1*N"
   },
   "S2_079": {
-    "expr": "W0*e1*N",
-    "review": true
+    "expr": "W0*e1*N"
   },
   "S2_085": {
-    "expr": "W0*e1*N",
-    "review": true
+    "expr": "W0*e1*N"
   },
   "S2_077": {
-    "expr": "0",
-    "review": true
+    "expr": "0"
   },
   "S2_078": {
-    "expr": "C0+C1*a1*N",
-    "review": true
+    "expr": "C0+C1*a1*N"
   },
   "S2_082": {
-    "expr": "W0*e1*N+C0*remaining",
-    "review": true
+    "expr": "W0*e1*N+C0*remaining"
   },
   "S2_086": {
-    "expr": "-W0*a2",
-    "review": true
+    "expr": "-W0*a2"
   },
   "S2_089": {
-    "expr": "W0*e1+B0*burnOne",
-    "review": true
+    "expr": "W0*e1+B0*burnOne"
   },
   "S2_091": {
-    "expr": "C0",
-    "review": true
+    "expr": "C0"
   },
   "S2_092": {
-    "expr": "C0+C1*N",
-    "review": false
+    "expr": "C0+C1*N"
   },
   "S2_093": {
-    "expr": "C0*N",
-    "review": true
+    "expr": "C0*N"
   },
   "S2_094": {
-    "expr": "C0+W0*e1*N-W1*N",
-    "review": true
+    "expr": "C0+W0*e1*N-W1*N"
   },
   "S2_095": {
-    "expr": "W0*e1*N",
-    "review": true
+    "expr": "W0*e1*N"
   },
   "S2_096": {
-    "expr": "max(C0*N|W0*e1*N)",
-    "review": true
+    "expr": "max(C0*N|W0*e1*N)"
   },
   "S2_097": {
-    "expr": "W0*E+W1*E+B0*burnAll",
-    "review": true
+    "expr": "W0*E+W1*E+B0*burnAll"
   },
   "S2_098": {
     "expr": [
       "min12*e1*N",
       "min15*e1*N"
-    ],
-    "review": true
+    ]
   },
   "S2_099": {
-    "expr": "W0*E+W1*E*N",
-    "review": true
+    "expr": "W0*E+W1*E*N"
   },
   "S3_018": {
-    "expr": "C0*a3*N",
-    "review": true
+    "expr": "C0*a3*N"
   },
   "S3_026": {
-    "expr": "C0*N+W0*e1",
-    "review": false
+    "expr": "C0*N+W0*e1"
   },
   "S3_027": {
-    "expr": "K0+C0",
-    "review": true
+    "expr": "K0+C0"
   },
   "S3_028": {
-    "expr": "K0+C0",
-    "review": true
+    "expr": "K0+C0"
   },
   "S3_029": {
-    "expr": "-W0*A*N",
-    "review": true
+    "expr": "-W0*A*N"
   },
   "S3_035": {
-    "expr": "C0*A*N",
-    "review": true
+    "expr": "C0*A*N"
   },
   "S3_036": {
-    "expr": "C0*A-W0*A",
-    "review": true
+    "expr": "C0*A-W0*A"
   },
   "S3_040": {
-    "expr": "W0*e1*N",
-    "review": true
+    "expr": "W0*e1*N"
   },
   "S3_041": {
-    "expr": "W0*e2",
-    "review": false
+    "expr": "W0*e2"
   },
   "S3_043": {
-    "expr": "C0*a1+H0*a1",
-    "review": true
+    "expr": "C0*a1+H0*a1"
   },
   "S3_051": {
-    "expr": "C0+H0",
-    "review": true
+    "expr": "C0+H0"
   },
   "S3_054": {
-    "expr": "1*e1*N",
-    "review": true
+    "expr": "1*e1*N"
   },
   "S3_060": {
-    "expr": "C0*A+H0*A",
-    "review": true
+    "expr": "C0*A+H0*A"
   },
   "S3_062": {
-    "expr": "H0*a1+H1*a1",
-    "review": true
+    "expr": "H0*a1+H1*a1"
   },
   "S3_065": {
-    "expr": "W0*e1*N+C0*N",
-    "review": true
+    "expr": "W0*e1*N+C0*N"
   },
   "S3_066": {
-    "expr": "C0*N+W0*e1*N",
-    "review": false
+    "expr": "C0*N+W0*e1*N"
   },
   "S3_067": {
-    "expr": "1*e1*N",
-    "review": true
+    "expr": "1*e1*N"
   },
   "S3_069": {
-    "expr": "2*E*N-2*A*N",
-    "review": true
+    "expr": "2*E*N-2*A*N"
   },
   "S3_070": {
-    "expr": "W0*e1*N+C0-W1*a1",
-    "review": true
+    "expr": "W0*e1*N+C0-W1*a1"
   },
   "S3_073": {
-    "expr": "C0+W0*e1",
-    "review": false
+    "expr": "C0+W0*e1"
   },
   "S3_075": {
-    "expr": "W0*e1*N+H0",
-    "review": true
+    "expr": "W0*e1*N+H0"
   },
   "S3_077": {
-    "expr": "W0*e1*N",
-    "review": true
+    "expr": "W0*e1*N"
   },
   "S3_079": {
-    "expr": "C0*a2+W0*e1*N",
-    "review": true
+    "expr": "C0*a2+W0*e1*N"
   },
   "S3_080": {
-    "expr": "C0*N+W0*e1*N",
-    "review": true
+    "expr": "C0*N+W0*e1*N"
   },
   "S3_081": {
-    "expr": "W0*E*N",
-    "review": true
+    "expr": "W0*E*N"
   },
   "S3_082": {
-    "expr": "base*N-1*N",
-    "review": true
+    "expr": "base*N-1*N"
   },
   "S3_083": {
-    "expr": "B0*burnAll*N-1*N",
-    "review": true
+    "expr": "B0*burnAll*N-1*N"
   },
   "S3_084": {
-    "expr": "burnTotal*burnAll+C0*N",
-    "review": true
+    "expr": "burnTotal*burnAll+C0*N"
   },
   "S3_085": {
-    "expr": "B0*burnAll",
-    "review": true
+    "expr": "B0*burnAll"
   },
   "S3_086": {
-    "expr": "W0*e1*N",
-    "review": true
+    "expr": "W0*e1*N"
   },
   "S3_088": {
-    "expr": "W0*e1*N",
-    "review": false
+    "expr": "W0*e1*N"
   },
   "S3_091": {
-    "expr": "C0+W0*e1+W1*E-W1*A",
-    "review": true
+    "expr": "C0+W0*e1+W1*E-W1*A"
   },
   "S3_092": {
-    "expr": "W0*e1+W1*otherE-W1*A",
-    "review": true
+    "expr": "W0*e1+W1*otherE-W1*A"
   },
   "S3_093": {
-    "expr": "C0*N+W0*e1*N",
-    "review": true
+    "expr": "C0*N+W0*e1*N"
   },
   "S3_094": {
-    "expr": "W1*E*N",
-    "review": true
+    "expr": "W1*E*N"
   },
   "S3_095": {
     "expr": [
       "drain12*e1*N-1*N",
       "drain16*e1*N-1*N"
-    ],
-    "review": true
+    ]
   },
   "S3_096": {
-    "expr": "W1*e1*N",
-    "review": true
+    "expr": "W1*e1*N"
   },
   "S3_097": {
-    "expr": "restoreBase+C0+H0*N",
-    "review": true
+    "expr": "restoreBase+C0+H0*N"
   },
   "S3_098": {
-    "expr": "base+C0*2*N",
-    "review": true
+    "expr": "base+C0*2*N"
   },
   "S3_099": {
-    "expr": "C0*a1*N",
-    "review": true
+    "expr": "C0*a1*N"
   },
   "S3_100": {
-    "expr": "C0+W1*e1*N-W0*N+W2*E-W2*A",
-    "review": true
+    "expr": "C0+W1*e1*N-W0*N+W2*E-W2*A"
   },
   "S3_039": {
-    "expr": "rushChakra*a1",
-    "review": true
+    "expr": "rushChakra*a1"
   }
 };
 
 // The proposal API validates against the same card database as the browser.
-if (typeof module!=='undefined' && module.exports) module.exports={CARDS,DEFAULT_SCENARIO};
+if (typeof module!=='undefined' && module.exports) module.exports={CARDS};

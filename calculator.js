@@ -8,7 +8,6 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
   const scenario = cleanScenario(options);
   const numbers = card.effect_values[level - 1];
   const rule = RULES[card.card_key];
-  let review = !!rule?.review;
   let note = getTranslation('ruleNotes.' + card.card_key) ? t('ruleNotes.' + card.card_key, scenario) : '';
   let expression = Array.isArray(rule?.expr) ? rule.expr[level - 1] : rule?.expr;
   let parts = [];
@@ -16,7 +15,6 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
   if (!expression) {
     expression = '0';
     if (Object.values(numbers).some(values => values.length)) {
-      review = true;
       note = t('calculation.unquantified');
     }
   }
@@ -30,7 +28,7 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
   }
 
   function product(term, negative = false) {
-    let amount = 1, kind = 'damage', burnCount = null;
+    let amount = 1, kind = 'damage';
     const labels = [];
     const usesAllyDamage = negative && card.card_key !== 'S1_058' && /(?:^|\*)a(?:\d+)?(?:$|\*)|(?:^|\*)A(?:$|\*)/.test(term);
     const use = key => dependencies?.add(key);
@@ -74,7 +72,7 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
         use('enemyChakra'); value = scenario.enemyChakra; label('enemyChakra', value);
       } else if (factor === 'burnAll' || factor === 'burnOne') {
         if (factor === 'burnAll') use('enemies');
-        value = factor === 'burnOne' ? 1 : scenario.enemies; burnCount = value; label('targets', value);
+        value = factor === 'burnOne' ? 1 : scenario.enemies; label('targets', value);
       } else if (target) {
         const key = target[1] === 'e' ? 'enemies' : 'allies';
         if (Number(target[2]) > 1) use(key);
@@ -92,7 +90,7 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
       }
       amount *= value;
     }
-    return {value: amount, kind, label: labels.join(' × '), burnCount};
+    return {value: amount, kind, label: labels.join(' × ')};
   }
 
   const branch = /^max\(([^|]+)\|([^|]+)\)$/.exec(expression);
@@ -116,7 +114,7 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
   if (costPerActivation) dependencies?.add('activations');
   const cost = card.energy_cost + costPerActivation * scenario.activations;
 
-  if (card.conditional[level - 1]) { review = true; if (!note) note = t('calculation.favourable'); }
+  if (card.conditional[level - 1] && !note) note = t('calculation.favourable');
   if (!rule && !note) note = t('calculation.tactical');
   if (card.card_key === 'S2_054') note = t('calculation.halving');
   if (card.card_key === 'S3_083' || numbers.B.length) note = t('calculation.burnNote');
@@ -124,5 +122,5 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
   if (card.card_key === 'S1_058') note = t('calculation.ebisu');
   if (/(?:^|[^\w])(?:N|first|remaining)(?:$|[^\w])/.test(expression)) note = '';
   return {value, cost, quality: value / cost, chakra, base: card.chakra, boosts, summoned, friendly,
-    damage, burn, heal, parts: parts.filter(part => part.value !== 0), review, note, level, scenario};
+    damage, burn, heal, parts: parts.filter(part => part.value !== 0), note, level, scenario};
 }
