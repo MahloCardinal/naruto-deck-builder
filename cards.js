@@ -1,7 +1,7 @@
 'use strict';
 
 // Language-independent card data and calculation rules. Indices stay stable for deck files.
-const DEFAULT_SCENARIO = {"enemyChakra": 4, "enemies": 4, "allyChakra": 4, "allies": 4, "activations": 2};
+const DEFAULT_SCENARIO = {"enemyChakra": 4, "enemies": 4, "allyChakra": 4, "allies": 2, "activations": 2};
 const CARD_ART = {width:600,height:649};
 const CARDS = [
 {"card_key":"S1_001","season":1,"rarity":"Common","energy_cost":1,"chakra":1,"index":1,"skill_types_original":["Chakra"],"effect_values":[{"C":[1],"W":[],"H":[],"B":[],"K":[]},{"C":[2],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
@@ -125,7 +125,7 @@ const CARDS = [
 {"card_key":"S2_034","season":2,"rarity":"Common","energy_cost":3,"chakra":4,"index":119,"skill_types_original":["Switch"],"effect_values":[{"C":[],"W":[],"H":[],"B":[],"K":[]},{"C":[],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[0,0]},
 {"card_key":"S2_035","season":2,"rarity":"Common","energy_cost":4,"chakra":4,"index":120,"skill_types_original":["Rush"],"effect_values":[{"C":[],"W":[],"H":[],"B":[],"K":[]},{"C":[],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[2,3]},
 {"card_key":"S2_036","season":2,"rarity":"Common","energy_cost":2,"chakra":1,"index":121,"skill_types_original":["Guard","Chakra"],"effect_values":[{"C":[1],"W":[],"H":[],"B":[],"K":[]},{"C":[2],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
-{"card_key":"S2_037","season":2,"rarity":"Common","energy_cost":2,"chakra":1,"index":122,"skill_types_original":[],"effect_values":[{"C":[],"W":[],"H":[],"B":[],"K":[]},{"C":[],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[0,0]},
+{"card_key":"S2_037","season":2,"rarity":"Common","energy_cost":2,"chakra":1,"index":122,"skill_types_original":["Summon"],"effect_values":[{"C":[],"W":[],"H":[],"B":[],"K":[]},{"C":[],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[0,0]},
 {"card_key":"S2_038","season":2,"rarity":"Common","energy_cost":5,"chakra":4,"index":123,"skill_types_original":["Focus","Summon","Chakra"],"effect_values":[{"C":[2],"W":[],"H":[],"B":[],"K":[]},{"C":[2],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
 {"card_key":"S2_039","season":2,"rarity":"Common","energy_cost":3,"chakra":4,"index":124,"skill_types_original":["Weaken"],"effect_values":[{"C":[],"W":[3],"H":[],"B":[],"K":[]},{"C":[],"W":[3],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[0,0]},
 {"card_key":"S2_040","season":2,"rarity":"Common","energy_cost":3,"chakra":3,"index":125,"skill_types_original":["Weaken"],"effect_values":[{"C":[],"W":[3],"H":[],"B":[],"K":[]},{"C":[],"W":[4],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[0,0]},
@@ -1181,3 +1181,6 @@ const RULES = {
     "review": true
   }
 };
+
+// The proposal API validates against the same card database as the browser.
+if (typeof module!=='undefined' && module.exports) module.exports={CARDS,DEFAULT_SCENARIO};

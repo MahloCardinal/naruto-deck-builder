@@ -6,6 +6,71 @@ const TRANSLATIONS = {
     "name": "English",
     "locale": "en-GB",
     "ui": {
+      "proposalFailed": "Could not send the proposal. Your description has been kept. Try again.",
+      "proposalRateLimited": "Too many requests. Wait a minute and try again.",
+      "proposalNotConfigured": "Sending is not configured on this server yet.",
+      "proposalSending": "Sending…",
+      "proposeSynergy": "Propose a synergy",
+      "proposeDeck": "Propose a deck",
+      "propose": "Propose",
+      "describeDeck": "Describe your deck",
+      "describeSynergy": "Describe your synergy",
+      "sendProposal": "Send",
+      "proposalFeedbackTitle": "Proposal sent",
+      "deckProposalFeedback": "Your proposal will be reviewed and may be added to the list.",
+      "synergyProposalFeedback": "Your proposal will be reviewed and may be added to the synergy list.",
+      "proposalEmptyDeck": "Build a deck before proposing it.",
+      "proposalDescriptionRequired": "Enter a description.",
+      "averageCostStacked": "Average\ncost",
+      "prebuiltDecks": "Prebuilt decks",
+      "navDecks": "Decks",
+      "presetNumber": "Deck {number}",
+      "deckMode": "Mode",
+      "allDeckModes": "All modes",
+      "standardDecks": "Standard",
+      "bossDecks": "Clan Boss",
+      "librarySearch": "Search cards or effects",
+      "libraryEmpty": "No matching decks.",
+      "useDeck": "Use this deck",
+      "autoBuild": "Auto-build deck",
+      "autoTitle": "Complete your deck",
+      "autoBusy": "Finding compatible combinations…",
+      "autoApply": "Use this proposal",
+      "autoFull": "Deck complete",
+      "autoFailed": "Could not generate proposals. Try again.",
+      "autoFixed": "Your cards",
+      "autoProfile_balanced": "Balanced",
+      "autoProfile_synergy": "Synergies",
+      "autoProfile_reference": "Related deck",
+      "autoExplain_balanced": "Combines synergy, cost curve and useful defensive options.",
+      "autoExplain_synergy": "Prioritizes interactions between your cards and their supports.",
+      "autoExplain_reference": "Follows a compatible prebuilt strategy while keeping your cards.",
+      "autoPotentialLinks": "Potential interactions: {count}",
+      "autoReference": "Related list: {number} · {count}/10 cards",
+      "autoAdded": "{count} cards to add",
+      "autoApplied": "Deck completed.",
+      "presetLoaded": "Deck loaded.",
+      "preset_01": "Grow Naruto through repeated withdrawals. Kiba converts allied Kiba and Akamaru into Chakra while your withdrawal effects create more value.",
+      "preset_02": "Use Guard to withstand the boss. Sakon and Ukon gain Chakra from allied Guard activations while the other defenders maintain your board.",
+      "preset_03": "Pressure the boss with cheap cards and summoned units. Tayuya supports the summons, while Gaara supplies control.",
+      "preset_04": "Establish Kakashi and Gaara before applying multi-target Weaken. Hiruzen and the other control cards turn those actions into sustained pressure.",
+      "preset_05": "Keep Shikamaru active, then use Iruka and Izumo to Pin allies. Low-Chakra deployments and Focus provide opportunities for additional Chakra.",
+      "preset_06": "Position Itachi where cards will be deployed, then use lane changes and Enma to support your board. The Old Friends trio supplies Chakra.",
+      "preset_07": "Protect Tsunade after her first recovery with healing and Guard. Shizune and the supporting cards help preserve your main threat.",
+      "preset_08": "Combine inexpensive disruption with Gaara and Temari for repeated board control. Use defensive cards to keep your rotation flexible.",
+      "preset_09": "Keep Battle Plan Kakashi active and follow with multi-target Weaken. Akamaru strengthens pressure against enemies affected by his Slow.",
+      "preset_10": "Use Kyubi to Weaken the board while Gaara benefits from allied Weaken effects. Tsunade helps mitigate damage to your own cards.",
+      "preset_11": "Keep Shared Dream cards active while another Shared Dream card withdraws. Other withdrawal effects provide Chakra or control during the rotation.",
+      "preset_12": "Support Rock Lee with Gai and Shikamaru. Protect Focus until completion; extending it can also delay the Fifth Gate payoff.",
+      "preset_13": "Establish Choza, Inoichi and Shikaku to support one another. Their other forms turn this Chakra support into pressure and control.",
+      "preset_14": "Build around Hiashi and Hyuga support. Neji and the other clan cards use Chakra, Guard and disruption to contest encounters.",
+      "preset_15": "Use Ino and Inoichi to control rival cards during Focus. Shikamaru and the Old Friends engine support the setup.",
+      "preset_16": "Develop the toad summon package, then combine Jiraiya and Gamabunta for Burn pressure. Keep the relevant targets burning before the detonation.",
+      "preset_17": "Prepare Orochimaru with the Sound Four. Weaken low-Chakra allies to trigger withdrawal value and summon Edo Hashirama and Tobirama.",
+      "preset_18": "Keep Itachi active while allies Pin enemies to generate clones. Sustain the original card: the clones cannot score or gain Chakra.",
+      "preset_19": "Use Fugaku, Itachi and Mikoto before deploying Sasuke. Their bonuses depend on Chakra thresholds, lane placement and deployment order.",
+      "preset_20": "Develop Kiba and Akamaru with hound and Rush support. Use Transformation Combo once those allies hold enough Chakra to transfer.",
+      "preset_21": "Support Gaara with Kankuro, Karura and Yashamaru. Add Weaken effects to feed Bloodlust while Guard helps keep your threats active.",
       "navDatabase": "Database",
       "navBuilder": "Deck",
       "navSynergies": "Synergies",
@@ -875,8 +940,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Challenger",
         "descriptions": [
-          "On deploy, Pin(1s) and gain Chakra(+2) for each lane rival with higher Chakra.",
-          "On deploy, Pin(2s) and gain Chakra(+2) for each lane rival with higher Chakra."
+          "On deploy, this card is Pinned(1s) and gains Chakra(+2) for each lane rival with higher Chakra.",
+          "On deploy, this card is Pinned(2s) and gains Chakra(+2) for each lane rival with higher Chakra."
         ]
       },
       "S2_003": {
@@ -1155,8 +1220,8 @@ const TRANSLATIONS = {
         "name": "Koharu Utatane",
         "ability": "Security",
         "descriptions": [
-          "After 10 seconds, deploy Anbu Black Ops.",
-          "After 8 seconds, deploy Anbu Black Ops."
+          "After 10 seconds, Summon an Anbu Black Ops unit.",
+          "After 8 seconds, Summon an Anbu Black Ops unit."
         ]
       },
       "S2_038": {
@@ -1995,8 +2060,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Dishonorable",
         "descriptions": [
-          "The next lane ally deployed gains Rush(4s). When Kyuroku withdraws, that ally Switches lanes and all lane allies are Slowed(3s).",
-          "The next lane ally deployed gains Rush(5s). When Kyuroku withdraws, that ally Switches lanes and all lane allies are Slowed(3s)."
+          "The next lane ally deployed gains Rush(4s). When this card withdraws, that ally Switches lanes and all lane allies are Slowed(3s).",
+          "The next lane ally deployed gains Rush(5s). When this card withdraws, that ally Switches lanes and all lane allies are Slowed(3s)."
         ]
       },
       "S3_043": {
@@ -2627,6 +2692,71 @@ const TRANSLATIONS = {
     "name": "Italiano",
     "locale": "it-IT",
     "ui": {
+      "proposalFailed": "Impossibile inviare la proposta. La descrizione è stata mantenuta. Riprova.",
+      "proposalRateLimited": "Troppe richieste. Attendi un minuto e riprova.",
+      "proposalNotConfigured": "L’invio non è ancora configurato su questo server.",
+      "proposalSending": "Invio in corso…",
+      "proposeSynergy": "Proponi sinergia",
+      "proposeDeck": "Proponi mazzo",
+      "propose": "Proponi",
+      "describeDeck": "Descrivi il tuo mazzo",
+      "describeSynergy": "Descrivi la tua sinergia",
+      "sendProposal": "Invia",
+      "proposalFeedbackTitle": "Proposta inviata",
+      "deckProposalFeedback": "La tua proposta sarà valutata ed eventualmente aggiunta alla lista.",
+      "synergyProposalFeedback": "La tua proposta sarà valutata ed eventualmente aggiunta alla lista delle sinergie.",
+      "proposalEmptyDeck": "Componi un mazzo prima di proporlo.",
+      "proposalDescriptionRequired": "Inserisci una descrizione.",
+      "averageCostStacked": "Costo\nmedio",
+      "prebuiltDecks": "Mazzi precostruiti",
+      "navDecks": "Mazzi",
+      "presetNumber": "Mazzo {number}",
+      "deckMode": "Modalità",
+      "allDeckModes": "Tutte le modalità",
+      "standardDecks": "Normale",
+      "bossDecks": "Boss del clan",
+      "librarySearch": "Cerca carte o effetti",
+      "libraryEmpty": "Nessun mazzo corrispondente.",
+      "useDeck": "Usa questo mazzo",
+      "autoBuild": "Completamento automatico",
+      "autoTitle": "Completa il mazzo",
+      "autoBusy": "Ricerca delle combinazioni compatibili…",
+      "autoApply": "Usa questa proposta",
+      "autoFull": "Mazzo completo",
+      "autoFailed": "Impossibile generare le proposte. Riprova.",
+      "autoFixed": "Le tue carte",
+      "autoProfile_balanced": "Equilibrio",
+      "autoProfile_synergy": "Sinergie",
+      "autoProfile_reference": "Mazzo affine",
+      "autoExplain_balanced": "Combina sinergie, curva dei costi e risposte difensive utili.",
+      "autoExplain_synergy": "Privilegia le interazioni fra le tue carte e i loro supporti.",
+      "autoExplain_reference": "Segue la strategia di un mazzo precostruito compatibile, mantenendo le tue carte.",
+      "autoPotentialLinks": "Interazioni potenziali: {count}",
+      "autoReference": "Lista affine: {number} · {count}/10 carte",
+      "autoAdded": "{count} carte da aggiungere",
+      "autoApplied": "Mazzo completato.",
+      "presetLoaded": "Mazzo caricato.",
+      "preset_01": "Fai crescere Naruto attraverso i ritiri. Kiba converte Kiba e Akamaru alleati in Chakra, mentre gli effetti di ritiro generano altro valore.",
+      "preset_02": "Usa Difesa per resistere al boss. Sakon e Ukon guadagnano Chakra dalle attivazioni della Difesa alleata mentre gli altri difensori mantengono il campo.",
+      "preset_03": "Metti pressione al boss con carte economiche e unità evocate. Tayuya sostiene le Evocazioni, mentre Gaara offre controllo.",
+      "preset_04": "Prepara Kakashi e Gaara prima degli Indebolimenti su più bersagli. Hiruzen e le altre carte di controllo trasformano queste azioni in pressione continua.",
+      "preset_05": "Mantieni Shikamaru attivo, poi usa Iruka e Izumo per Bloccare gli alleati. Schieramenti a basso Chakra e Concentrazione permettono altri bonus Chakra.",
+      "preset_06": "Posiziona Itachi dove verranno schierate carte, poi usa Cambio corsia ed Enma per sostenere il campo. Il trio Vecchi Amici fornisce Chakra.",
+      "preset_07": "Proteggi Tsunade dopo il primo recupero con Cura e Difesa. Shizune e i supporti aiutano a mantenere attiva la minaccia principale.",
+      "preset_08": "Combina disturbo economico con Gaara e Temari per controllare il campo ripetutamente. Le carte difensive mantengono flessibile la rotazione.",
+      "preset_09": "Mantieni attivo Kakashi Piano di Battaglia e usa Indebolimento su più bersagli. Akamaru aumenta la pressione contro gli avversari affetti dal suo Rallenta.",
+      "preset_10": "Usa Kyubi per Indebolire il campo mentre Gaara beneficia degli Indebolimenti alleati. Tsunade aiuta a mitigare i danni alle tue carte.",
+      "preset_11": "Mantieni attive le carte Sogno condiviso mentre un’altra carta con quella stessa abilità si ritira. Gli altri effetti di ritiro forniscono Chakra o controllo.",
+      "preset_12": "Sostieni Rock Lee con Gai e Shikamaru. Proteggi la Concentrazione fino al completamento: prolungarla può anche ritardare il beneficio della Quinta Porta.",
+      "preset_13": "Prepara Choza, Inoichi e Shikaku affinché si potenzino a vicenda. Le altre forme della famiglia trasformano il supporto Chakra in pressione e controllo.",
+      "preset_14": "Costruisci il campo attorno a Hiashi e ai supporti Hyuga. Neji e le altre carte del clan sfruttano Chakra, Difesa e disturbo negli scontri.",
+      "preset_15": "Usa Ino e Inoichi per controllare le carte avversarie durante Concentrazione. Shikamaru e il motore Vecchi Amici sostengono la preparazione.",
+      "preset_16": "Sviluppa le Evocazioni dei rospi, poi combina Jiraiya e Gamabunta per la pressione di Brucia. Mantieni i bersagli sotto Brucia prima della detonazione.",
+      "preset_17": "Prepara Orochimaru con il Quartetto del Suono. Indebolisci alleati con poco Chakra per ottenere effetti di ritiro ed Evocare Edo Hashirama e Tobirama.",
+      "preset_18": "Mantieni Itachi attivo mentre gli alleati Bloccano i nemici per creare cloni. Sostieni la carta originale: i cloni non possono segnare né ottenere Chakra.",
+      "preset_19": "Usa Fugaku, Itachi e Mikoto prima di schierare Sasuke. I bonus dipendono dalle soglie Chakra, dalla corsia e dall’ordine degli schieramenti.",
+      "preset_20": "Prepara Kiba e Akamaru con supporti ai segugi e a Scatto. Usa Combinazione di trasformazione quando gli alleati hanno accumulato Chakra da trasferire.",
+      "preset_21": "Sostieni Gaara con Kankuro, Karura e Yashamaru. Gli Indebolimenti alimentano Sete di sangue, mentre Difesa aiuta a mantenere attive le minacce.",
       "navDatabase": "Database",
       "navBuilder": "Mazzo",
       "navSynergies": "Sinergie",
@@ -3496,8 +3626,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Sfidante",
         "descriptions": [
-          "Quando viene giocata, Blocca(1s) e ottiene Chakra(+2) per ogni avversario di corsia con più Chakra.",
-          "Quando viene giocata, Blocca(2s) e ottiene Chakra(+2) per ogni avversario di corsia con più Chakra."
+          "Quando viene giocata, si Blocca(1s) e ottiene Chakra(+2) per ogni avversario di corsia con più Chakra.",
+          "Quando viene giocata, si Blocca(2s) e ottiene Chakra(+2) per ogni avversario di corsia con più Chakra."
         ]
       },
       "S2_003": {
@@ -3776,8 +3906,8 @@ const TRANSLATIONS = {
         "name": "Koharu Utatane",
         "ability": "Sicurezza",
         "descriptions": [
-          "Dopo 10 secondi, schiera la Squadra Speciale Anbu.",
-          "Dopo 8 secondi, schiera la Squadra Speciale Anbu."
+          "Dopo 10 secondi, Evoca una Squadra Speciale Anbu.",
+          "Dopo 8 secondi, Evoca una Squadra Speciale Anbu."
         ]
       },
       "S2_038": {
@@ -4616,8 +4746,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Disonorevole",
         "descriptions": [
-          "Il prossimo alleato di corsia schierato ottiene Scatto(4s). Quando Kyuroku si ritira, quell'alleato Cambia corsia e tutti gli alleati di corsia vengono Rallentati(3s).",
-          "Il prossimo alleato di corsia schierato ottiene Scatto(5s). Quando Kyuroku si ritira, quell'alleato Cambia corsia e tutti gli alleati di corsia vengono Rallentati(3s)."
+          "Il prossimo alleato di corsia schierato ottiene Scatto(4s). Quando questa carta si ritira, quell'alleato Cambia corsia e tutti gli alleati di corsia vengono Rallentati(3s).",
+          "Il prossimo alleato di corsia schierato ottiene Scatto(5s). Quando questa carta si ritira, quell'alleato Cambia corsia e tutti gli alleati di corsia vengono Rallentati(3s)."
         ]
       },
       "S3_043": {
@@ -5265,6 +5395,71 @@ const TRANSLATIONS = {
     "name": "Français",
     "locale": "fr-FR",
     "ui": {
+      "proposalFailed": "Impossible d’envoyer la proposition. Votre description a été conservée. Réessayez.",
+      "proposalRateLimited": "Trop de demandes. Attendez une minute et réessayez.",
+      "proposalNotConfigured": "L’envoi n’est pas encore configuré sur ce serveur.",
+      "proposalSending": "Envoi en cours…",
+      "proposeSynergy": "Proposer une synergie",
+      "proposeDeck": "Proposer un deck",
+      "propose": "Proposer",
+      "describeDeck": "Décrivez votre deck",
+      "describeSynergy": "Décrivez votre synergie",
+      "sendProposal": "Envoyer",
+      "proposalFeedbackTitle": "Proposition envoyée",
+      "deckProposalFeedback": "Votre proposition sera évaluée et pourra être ajoutée à la liste.",
+      "synergyProposalFeedback": "Votre proposition sera évaluée et pourra être ajoutée à la liste des synergies.",
+      "proposalEmptyDeck": "Composez un deck avant de le proposer.",
+      "proposalDescriptionRequired": "Saisissez une description.",
+      "averageCostStacked": "Coût\nmoyen",
+      "prebuiltDecks": "Decks préconstruits",
+      "navDecks": "Decks",
+      "presetNumber": "Deck {number}",
+      "deckMode": "Mode",
+      "allDeckModes": "Tous les modes",
+      "standardDecks": "Standard",
+      "bossDecks": "Boss de clan",
+      "librarySearch": "Chercher des cartes ou des effets",
+      "libraryEmpty": "Aucun deck correspondant.",
+      "useDeck": "Utiliser ce deck",
+      "autoBuild": "Construction automatique",
+      "autoTitle": "Compléter le deck",
+      "autoBusy": "Recherche de combinaisons compatibles…",
+      "autoApply": "Utiliser cette proposition",
+      "autoFull": "Deck complet",
+      "autoFailed": "Impossible de générer les propositions. Réessayez.",
+      "autoFixed": "Vos cartes",
+      "autoProfile_balanced": "Équilibre",
+      "autoProfile_synergy": "Synergies",
+      "autoProfile_reference": "Deck similaire",
+      "autoExplain_balanced": "Combine les synergies, la courbe des coûts et les réponses défensives.",
+      "autoExplain_synergy": "Privilégie les interactions entre vos cartes et leurs soutiens.",
+      "autoExplain_reference": "Suit une stratégie préconstruite compatible en conservant vos cartes.",
+      "autoPotentialLinks": "Interactions potentielles : {count}",
+      "autoReference": "Liste similaire : {number} · {count}/10 cartes",
+      "autoAdded": "{count} cartes à ajouter",
+      "autoApplied": "Deck complété.",
+      "presetLoaded": "Deck chargé.",
+      "preset_01": "Renforcez Naruto grâce aux retraits. Kiba convertit les Kiba et Akamaru alliés en Chakra, tandis que les effets de retrait apportent davantage de valeur.",
+      "preset_02": "Utilisez Parade pour résister au boss. Sakon et Ukon gagnent du Chakra lorsque les Parades alliées s’activent, pendant que les défenseurs tiennent le terrain.",
+      "preset_03": "Mettez le boss sous pression avec des cartes peu coûteuses et des unités invoquées. Tayuya soutient les Invocations et Gaara apporte du contrôle.",
+      "preset_04": "Installez Kakashi et Gaara avant les Affaiblissements multiples. Hiruzen et les autres cartes de contrôle entretiennent ensuite la pression.",
+      "preset_05": "Gardez Shikamaru actif, puis utilisez Iruka et Izumo pour Immobiliser les alliés. Les déploiements à faible Chakra et la Concentration apportent des bonus.",
+      "preset_06": "Placez Itachi sur les voies où des cartes seront déployées. Les Changements de voie, Enma et le trio Vieux Amis soutiennent votre terrain.",
+      "preset_07": "Protégez Tsunade après sa première récupération avec des Soins et Parade. Shizune et les soutiens préservent votre menace principale.",
+      "preset_08": "Associez un contrôle peu coûteux à Gaara et Temari pour perturber le terrain régulièrement. Les défenseurs préservent une rotation souple.",
+      "preset_09": "Gardez Kakashi Plan de bataille actif et utilisez des Affaiblissements multiples. Akamaru renforce la pression contre les adversaires soumis à son Ralentissement.",
+      "preset_10": "Utilisez Kyubi pour Affaiblir le terrain et alimenter Gaara. Tsunade aide à compenser les dégâts infligés à vos propres cartes.",
+      "preset_11": "Gardez les cartes Rêve partagé actives lorsqu’une autre carte ayant cette même compétence se retire. Les autres retraits apportent Chakra ou contrôle.",
+      "preset_12": "Soutenez Rock Lee avec Gai et Shikamaru. Protégez sa Concentration : la prolonger peut aussi retarder le bénéfice de la Cinquième Porte.",
+      "preset_13": "Installez Choza, Inoichi et Shikaku pour qu’ils se renforcent mutuellement. Leurs autres formes transforment le soutien en Chakra en pression et contrôle.",
+      "preset_14": "Construisez votre terrain autour de Hiashi et des soutiens Hyuga. Neji et le clan utilisent Chakra, Parade et perturbations pour gagner les confrontations.",
+      "preset_15": "Utilisez Ino et Inoichi pour contrôler des cartes rivales pendant la Concentration. Shikamaru et les Vieux Amis soutiennent cette préparation.",
+      "preset_16": "Développez les Invocations de crapauds, puis combinez Jiraiya et Gamabunta pour Brûler les adversaires. Préparez les cibles avant la détonation.",
+      "preset_17": "Préparez Orochimaru avec le Quartet du Son. Affaiblissez les alliés ayant peu de Chakra pour déclencher leurs retraits et Invoquer Edo Hashirama et Tobirama.",
+      "preset_18": "Gardez Itachi actif et Immobilisez les ennemis pour créer des clones. Soutenez l’original : ses clones ne peuvent ni marquer ni gagner de Chakra.",
+      "preset_19": "Utilisez Fugaku, Itachi et Mikoto avant de déployer Sasuke. Leurs bonus dépendent du Chakra, de la voie et de l’ordre de déploiement.",
+      "preset_20": "Préparez Kiba et Akamaru avec les soutiens aux chiens et à l’Accélération. Utilisez la transformation lorsque leur Chakra mérite d’être transféré.",
+      "preset_21": "Soutenez Gaara avec Kankuro, Karura et Yashamaru. Les Affaiblissements alimentent sa croissance et Parade protège vos menaces.",
       "navDatabase": "Cartes",
       "navBuilder": "Deck",
       "navSynergies": "Synergies",
@@ -6134,8 +6329,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Challenger",
         "descriptions": [
-          "Au déploiement, Immobilisation(1s) et gagne Chakra(+2) pour chaque adversaire de sa voie ayant plus de Chakra.",
-          "Au déploiement, Immobilisation(2s) et gagne Chakra(+2) pour chaque adversaire de sa voie ayant plus de Chakra."
+          "Au déploiement, cette carte est Immobilisée(1s) et gagne Chakra(+2) pour chaque adversaire de sa voie ayant plus de Chakra.",
+          "Au déploiement, cette carte est Immobilisée(2s) et gagne Chakra(+2) pour chaque adversaire de sa voie ayant plus de Chakra."
         ]
       },
       "S2_003": {
@@ -6414,8 +6609,8 @@ const TRANSLATIONS = {
         "name": "Koharu Utatane",
         "ability": "Sécurité",
         "descriptions": [
-          "Après 10 secondes, déploie les forces spéciales Anbu.",
-          "Après 8 secondes, déploie les forces spéciales Anbu."
+          "Après 10 secondes, Invoque une unité des forces spéciales Anbu.",
+          "Après 8 secondes, Invoque une unité des forces spéciales Anbu."
         ]
       },
       "S2_038": {
@@ -7254,8 +7449,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Déshonneur",
         "descriptions": [
-          "Le prochain allié de voie déployé gagne Accélération(4s). Lorsque Kyuroku se retire, cet allié Change de voie et tous les alliés de voie sont Ralentis(3s).",
-          "Le prochain allié de voie déployé gagne Accélération(5s). Lorsque Kyuroku se retire, cet allié Change de voie et tous les alliés de voie sont Ralentis(3s)."
+          "Le prochain allié de voie déployé gagne Accélération(4s). Lorsque cette carte se retire, cet allié Change de voie et tous les alliés de voie sont Ralentis(3s).",
+          "Le prochain allié de voie déployé gagne Accélération(5s). Lorsque cette carte se retire, cet allié Change de voie et tous les alliés de voie sont Ralentis(3s)."
         ]
       },
       "S3_043": {
@@ -7886,6 +8081,71 @@ const TRANSLATIONS = {
     "name": "Português",
     "locale": "pt-PT",
     "ui": {
+      "proposalFailed": "Não foi possível enviar a proposta. A descrição foi mantida. Tenta novamente.",
+      "proposalRateLimited": "Demasiados pedidos. Aguarda um minuto e tenta novamente.",
+      "proposalNotConfigured": "O envio ainda não está configurado neste servidor.",
+      "proposalSending": "A enviar…",
+      "proposeSynergy": "Propor sinergia",
+      "proposeDeck": "Propor deck",
+      "propose": "Propor",
+      "describeDeck": "Descreve o teu deck",
+      "describeSynergy": "Descreve a tua sinergia",
+      "sendProposal": "Enviar",
+      "proposalFeedbackTitle": "Proposta enviada",
+      "deckProposalFeedback": "A tua proposta será avaliada e poderá ser adicionada à lista.",
+      "synergyProposalFeedback": "A tua proposta será avaliada e poderá ser adicionada à lista de sinergias.",
+      "proposalEmptyDeck": "Constrói um deck antes de o propor.",
+      "proposalDescriptionRequired": "Introduz uma descrição.",
+      "averageCostStacked": "Custo\nmédio",
+      "prebuiltDecks": "Decks pré-construídos",
+      "navDecks": "Decks",
+      "presetNumber": "Deck {number}",
+      "deckMode": "Modo",
+      "allDeckModes": "Todos os modos",
+      "standardDecks": "Normal",
+      "bossDecks": "Chefe do clã",
+      "librarySearch": "Pesquisar cartas ou efeitos",
+      "libraryEmpty": "Nenhum deck correspondente.",
+      "useDeck": "Usar este deck",
+      "autoBuild": "Construção automática",
+      "autoTitle": "Completar o deck",
+      "autoBusy": "A procurar combinações compatíveis…",
+      "autoApply": "Usar esta proposta",
+      "autoFull": "Deck completo",
+      "autoFailed": "Não foi possível gerar propostas. Tente novamente.",
+      "autoFixed": "As suas cartas",
+      "autoProfile_balanced": "Equilíbrio",
+      "autoProfile_synergy": "Sinergias",
+      "autoProfile_reference": "Deck semelhante",
+      "autoExplain_balanced": "Combina sinergias, curva de custos e opções defensivas úteis.",
+      "autoExplain_synergy": "Dá prioridade às interações entre as suas cartas e os seus apoios.",
+      "autoExplain_reference": "Segue uma estratégia pré-construída compatível, mantendo as suas cartas.",
+      "autoPotentialLinks": "Interações potenciais: {count}",
+      "autoReference": "Lista semelhante: {number} · {count}/10 cartas",
+      "autoAdded": "{count} cartas a adicionar",
+      "autoApplied": "Deck completado.",
+      "presetLoaded": "Deck carregado.",
+      "preset_01": "Faça Naruto crescer através das retiradas. Kiba converte Kiba e Akamaru aliados em Chakra, enquanto os efeitos de retirada geram mais valor.",
+      "preset_02": "Use Defesa para resistir ao chefe. Sakon e Ukon ganham Chakra com as ativações da Defesa aliada, enquanto os outros defensores mantêm o campo.",
+      "preset_03": "Pressione o chefe com cartas baratas e unidades invocadas. Tayuya apoia as Invocações e Gaara oferece controlo.",
+      "preset_04": "Prepare Kakashi e Gaara antes dos Enfraquecimentos com vários alvos. Hiruzen e as outras cartas de controlo mantêm a pressão.",
+      "preset_05": "Mantenha Shikamaru ativo e use Iruka e Izumo para Imobilizar aliados. Cartas com pouco Chakra e Concentração permitem obter mais Chakra.",
+      "preset_06": "Coloque Itachi nas fileiras onde serão mobilizadas cartas. As Trocas de fileira, Enma e o trio Velhos Amigos apoiam o seu campo.",
+      "preset_07": "Proteja Tsunade após a primeira recuperação com Cura e Defesa. Shizune e os apoios ajudam a preservar a ameaça principal.",
+      "preset_08": "Combine perturbações baratas com Gaara e Temari para controlar o campo repetidamente. Os defensores mantêm a rotação flexível.",
+      "preset_09": "Mantenha Kakashi Plano de Batalha ativo e aplique Enfraquecimento a vários alvos. Akamaru reforça a pressão sobre rivais sob a sua Desaceleração.",
+      "preset_10": "Use Kyubi para Enfraquecer o campo e alimentar Gaara. Tsunade ajuda a compensar os danos às suas próprias cartas.",
+      "preset_11": "Mantenha as cartas Sonho Partilhado ativas quando outra carta com a mesma habilidade se retira. As restantes retiradas dão Chakra ou controlo.",
+      "preset_12": "Apoie Rock Lee com Gai e Shikamaru. Proteja a Concentração: prolongá-la também pode atrasar o benefício do Quinto Portão.",
+      "preset_13": "Prepare Choza, Inoichi e Shikaku para se reforçarem mutuamente. As outras formas da família convertem o apoio de Chakra em pressão e controlo.",
+      "preset_14": "Construa o campo em torno de Hiashi e dos apoios Hyuga. Neji e o clã usam Chakra, Defesa e perturbações nos confrontos.",
+      "preset_15": "Use Ino e Inoichi para controlar cartas rivais durante a Concentração. Shikamaru e os Velhos Amigos apoiam a preparação.",
+      "preset_16": "Desenvolva as Invocações dos sapos e combine Jiraiya com Gamabunta para Queimar os adversários. Prepare os alvos antes da detonação.",
+      "preset_17": "Prepare Orochimaru com o Quarteto do Som. Enfraqueça aliados com pouco Chakra para ativar as retiradas e Invocar Edo Hashirama e Tobirama.",
+      "preset_18": "Mantenha Itachi ativo e Imobilize inimigos para criar clones. Apoie o original: os clones não podem marcar pontos nem ganhar Chakra.",
+      "preset_19": "Use Fugaku, Itachi e Mikoto antes de mobilizar Sasuke. Os bónus dependem do Chakra, da fileira e da ordem de mobilização.",
+      "preset_20": "Prepare Kiba e Akamaru com apoios aos cães e ao Ímpeto. Use a transformação quando tiverem Chakra suficiente para transferir.",
+      "preset_21": "Apoie Gaara com Kankuro, Karura e Yashamaru. Os Enfraquecimentos alimentam a sua evolução e a Defesa protege as ameaças.",
       "navDatabase": "Cartas",
       "navBuilder": "Deck",
       "navSynergies": "Sinergias",
@@ -8755,8 +9015,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Desafiante",
         "descriptions": [
-          "Ao ser mobilizada, Imobilização(1s) e ganha Chakra(+2) para cada adversário da própria fileira com mais Chakra.",
-          "Ao ser mobilizada, Imobilização(2s) e ganha Chakra(+2) para cada adversário da própria fileira com mais Chakra."
+          "Ao ser mobilizada, esta carta fica Imobilizada(1s) e ganha Chakra(+2) para cada adversário da própria fileira com mais Chakra.",
+          "Ao ser mobilizada, esta carta fica Imobilizada(2s) e ganha Chakra(+2) para cada adversário da própria fileira com mais Chakra."
         ]
       },
       "S2_003": {
@@ -9035,8 +9295,8 @@ const TRANSLATIONS = {
         "name": "Koharu Utatane",
         "ability": "Segurança",
         "descriptions": [
-          "Após 10 segundos, mobiliza Os Caçadores Especiais Anbu.",
-          "Após 8 segundos, mobiliza Os Caçadores Especiais Anbu."
+          "Após 10 segundos, Invoca uma unidade dos Caçadores Especiais Anbu.",
+          "Após 8 segundos, Invoca uma unidade dos Caçadores Especiais Anbu."
         ]
       },
       "S2_038": {
@@ -9875,8 +10135,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Desonra",
         "descriptions": [
-          "O próximo aliado da própria fileira mobilizado ganha Ímpeto(4s). Quando Kyuroku se retira, esse aliado Troca de fileira e todos os aliados da própria fileira são Desacelerados(3s).",
-          "O próximo aliado da própria fileira mobilizado ganha Ímpeto(5s). Quando Kyuroku se retira, esse aliado Troca de fileira e todos os aliados da própria fileira são Desacelerados(3s)."
+          "O próximo aliado da própria fileira mobilizado ganha Ímpeto(4s). Quando esta carta se retira, esse aliado Troca de fileira e todos os aliados da própria fileira são Desacelerados(3s).",
+          "O próximo aliado da própria fileira mobilizado ganha Ímpeto(5s). Quando esta carta se retira, esse aliado Troca de fileira e todos os aliados da própria fileira são Desacelerados(3s)."
         ]
       },
       "S3_043": {
@@ -10507,6 +10767,71 @@ const TRANSLATIONS = {
     "name": "Español",
     "locale": "es-ES",
     "ui": {
+      "proposalFailed": "No se pudo enviar la propuesta. Se ha conservado la descripción. Vuelve a intentarlo.",
+      "proposalRateLimited": "Demasiadas solicitudes. Espera un minuto y vuelve a intentarlo.",
+      "proposalNotConfigured": "El envío todavía no está configurado en este servidor.",
+      "proposalSending": "Enviando…",
+      "proposeSynergy": "Proponer sinergia",
+      "proposeDeck": "Proponer mazo",
+      "propose": "Proponer",
+      "describeDeck": "Describe tu mazo",
+      "describeSynergy": "Describe tu sinergia",
+      "sendProposal": "Enviar",
+      "proposalFeedbackTitle": "Propuesta enviada",
+      "deckProposalFeedback": "Tu propuesta será evaluada y podrá añadirse a la lista.",
+      "synergyProposalFeedback": "Tu propuesta será evaluada y podrá añadirse a la lista de sinergias.",
+      "proposalEmptyDeck": "Construye un mazo antes de proponerlo.",
+      "proposalDescriptionRequired": "Introduce una descripción.",
+      "averageCostStacked": "Coste\nmedio",
+      "prebuiltDecks": "Mazos preconstruidos",
+      "navDecks": "Mazos",
+      "presetNumber": "Mazo {number}",
+      "deckMode": "Modo",
+      "allDeckModes": "Todos los modos",
+      "standardDecks": "Normal",
+      "bossDecks": "Jefe de clan",
+      "librarySearch": "Buscar cartas o efectos",
+      "libraryEmpty": "No hay mazos coincidentes.",
+      "useDeck": "Usar este mazo",
+      "autoBuild": "Construcción automática",
+      "autoTitle": "Completar el mazo",
+      "autoBusy": "Buscando combinaciones compatibles…",
+      "autoApply": "Usar esta propuesta",
+      "autoFull": "Mazo completo",
+      "autoFailed": "No se pudieron generar propuestas. Inténtalo de nuevo.",
+      "autoFixed": "Tus cartas",
+      "autoProfile_balanced": "Equilibrio",
+      "autoProfile_synergy": "Sinergias",
+      "autoProfile_reference": "Mazo afín",
+      "autoExplain_balanced": "Combina sinergias, curva de costes y respuestas defensivas útiles.",
+      "autoExplain_synergy": "Prioriza las interacciones entre tus cartas y sus apoyos.",
+      "autoExplain_reference": "Sigue una estrategia preconstruida compatible y mantiene tus cartas.",
+      "autoPotentialLinks": "Interacciones potenciales: {count}",
+      "autoReference": "Lista afín: {number} · {count}/10 cartas",
+      "autoAdded": "{count} cartas por añadir",
+      "autoApplied": "Mazo completado.",
+      "presetLoaded": "Mazo cargado.",
+      "preset_01": "Haz crecer a Naruto mediante las retiradas. Kiba convierte a los Kiba y Akamaru aliados en Chakra, mientras sus retiradas generan más valor.",
+      "preset_02": "Usa Guardia para resistir al jefe. Sakon y Ukon ganan Chakra con las activaciones de la Guardia aliada mientras los defensores mantienen el campo.",
+      "preset_03": "Presiona al jefe con cartas económicas y unidades invocadas. Tayuya apoya las Invocaciones y Gaara aporta control.",
+      "preset_04": "Prepara a Kakashi y Gaara antes de Debilitar a varios objetivos. Hiruzen y las otras cartas de control mantienen la presión.",
+      "preset_05": "Mantén activo a Shikamaru y usa a Iruka e Izumo para Inmovilizar aliados. Las cartas con poco Chakra y la Concentración permiten obtener más Chakra.",
+      "preset_06": "Coloca a Itachi en las líneas donde se desplegarán cartas. Los Cambios de línea, Enma y el trío Viejos Amigos apoyan tu campo.",
+      "preset_07": "Protege a Tsunade tras la primera recuperación con Cura y Guardia. Shizune y los apoyos conservan tu amenaza principal.",
+      "preset_08": "Combina interrupciones económicas con Gaara y Temari para controlar el campo repetidamente. Los defensores mantienen una rotación flexible.",
+      "preset_09": "Mantén activo a Kakashi Plan de Batalla y Debilita a varios objetivos. Akamaru aumenta la presión contra los rivales bajo su Ralentización.",
+      "preset_10": "Usa a Kyubi para Debilitar el campo y alimentar a Gaara. Tsunade ayuda a compensar el daño a tus propias cartas.",
+      "preset_11": "Mantén activas las cartas Sueño compartido cuando otra carta con esa misma habilidad se retira. Las demás retiradas aportan Chakra o control.",
+      "preset_12": "Apoya a Rock Lee con Gai y Shikamaru. Protege la Concentración: prolongarla también puede retrasar el beneficio de la Quinta Puerta.",
+      "preset_13": "Prepara a Choza, Inoichi y Shikaku para que se potencien entre sí. Sus otras formas convierten el apoyo de Chakra en presión y control.",
+      "preset_14": "Construye el campo alrededor de Hiashi y los apoyos Hyuga. Neji y el clan usan Chakra, Guardia e interrupciones en los enfrentamientos.",
+      "preset_15": "Usa a Ino e Inoichi para controlar cartas rivales durante la Concentración. Shikamaru y Viejos Amigos apoyan la preparación.",
+      "preset_16": "Desarrolla las Invocaciones de sapos y combina a Jiraiya con Gamabunta para Quemar a los rivales. Prepara los objetivos antes de la detonación.",
+      "preset_17": "Prepara a Orochimaru con el Cuarteto del Sonido. Debilita a aliados con poco Chakra para activar sus retiradas e Invocar a Edo Hashirama y Tobirama.",
+      "preset_18": "Mantén activo a Itachi e Inmoviliza enemigos para crear clones. Apoya al original: los clones no pueden marcar puntos ni ganar Chakra.",
+      "preset_19": "Usa a Fugaku, Itachi y Mikoto antes de desplegar a Sasuke. Sus bonus dependen del Chakra, la línea y el orden de despliegue.",
+      "preset_20": "Prepara a Kiba y Akamaru con apoyos a los perros y a Acelerar. Usa la transformación cuando acumulen Chakra suficiente para transferir.",
+      "preset_21": "Apoya a Gaara con Kankuro, Karura y Yashamaru. Debilitar alimenta su crecimiento y la Guardia protege tus amenazas.",
       "navDatabase": "Cartas",
       "navBuilder": "Mazo",
       "navSynergies": "Sinergias",
@@ -11376,8 +11701,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Aspirante",
         "descriptions": [
-          "Al desplegarse, Inmovilización(1s) y gana Chakra(+2) por cada rival de su línea con más Chakra.",
-          "Al desplegarse, Inmovilización(2s) y gana Chakra(+2) por cada rival de su línea con más Chakra."
+          "Al desplegarse, esta carta queda Inmovilizada(1s) y gana Chakra(+2) por cada rival de su línea con más Chakra.",
+          "Al desplegarse, esta carta queda Inmovilizada(2s) y gana Chakra(+2) por cada rival de su línea con más Chakra."
         ]
       },
       "S2_003": {
@@ -11656,8 +11981,8 @@ const TRANSLATIONS = {
         "name": "Koharu Utatane",
         "ability": "Seguridad",
         "descriptions": [
-          "Después de 10 segundos, despliega a los Cuerpos de élite.",
-          "Después de 8 segundos, despliega a los Cuerpos de élite."
+          "Después de 10 segundos, Invoca una unidad de las fuerzas especiales Anbu.",
+          "Después de 8 segundos, Invoca una unidad de las fuerzas especiales Anbu."
         ]
       },
       "S2_038": {
@@ -12496,8 +12821,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Deshonor",
         "descriptions": [
-          "El próximo aliado de su línea desplegado obtiene Acelerar(4s). Cuando Kyuroku se retira, ese aliado Cambia de línea y todos los aliados de su línea quedan Ralentizados(3s).",
-          "El próximo aliado de su línea desplegado obtiene Acelerar(5s). Cuando Kyuroku se retira, ese aliado Cambia de línea y todos los aliados de su línea quedan Ralentizados(3s)."
+          "El próximo aliado de su línea desplegado obtiene Acelerar(4s). Cuando esta carta se retira, ese aliado Cambia de línea y todos los aliados de su línea quedan Ralentizados(3s).",
+          "El próximo aliado de su línea desplegado obtiene Acelerar(5s). Cuando esta carta se retira, ese aliado Cambia de línea y todos los aliados de su línea quedan Ralentizados(3s)."
         ]
       },
       "S3_043": {
@@ -13129,6 +13454,71 @@ const TRANSLATIONS = {
     "locale": "de-DE",
     "flag": "de",
     "ui": {
+      "proposalFailed": "Der Vorschlag konnte nicht gesendet werden. Deine Beschreibung wurde beibehalten. Versuche es erneut.",
+      "proposalRateLimited": "Zu viele Anfragen. Warte eine Minute und versuche es erneut.",
+      "proposalNotConfigured": "Der Versand ist auf diesem Server noch nicht eingerichtet.",
+      "proposalSending": "Wird gesendet…",
+      "proposeSynergy": "Synergie vorschlagen",
+      "proposeDeck": "Deck vorschlagen",
+      "propose": "Vorschlagen",
+      "describeDeck": "Beschreibe dein Deck",
+      "describeSynergy": "Beschreibe deine Synergie",
+      "sendProposal": "Senden",
+      "proposalFeedbackTitle": "Vorschlag gesendet",
+      "deckProposalFeedback": "Dein Vorschlag wird geprüft und gegebenenfalls zur Liste hinzugefügt.",
+      "synergyProposalFeedback": "Dein Vorschlag wird geprüft und gegebenenfalls zur Synergieliste hinzugefügt.",
+      "proposalEmptyDeck": "Erstelle ein Deck, bevor du es vorschlägst.",
+      "proposalDescriptionRequired": "Gib eine Beschreibung ein.",
+      "averageCostStacked": "Ø\nKosten",
+      "prebuiltDecks": "Vorgefertigte Decks",
+      "navDecks": "Decks",
+      "presetNumber": "Deck {number}",
+      "deckMode": "Modus",
+      "allDeckModes": "Alle Modi",
+      "standardDecks": "Normal",
+      "bossDecks": "Clan-Boss",
+      "librarySearch": "Karten oder Effekte suchen",
+      "libraryEmpty": "Keine passenden Decks.",
+      "useDeck": "Dieses Deck verwenden",
+      "autoBuild": "Automatischer Deckbau",
+      "autoTitle": "Deck vervollständigen",
+      "autoBusy": "Passende Kombinationen werden gesucht…",
+      "autoApply": "Diesen Vorschlag verwenden",
+      "autoFull": "Deck vollständig",
+      "autoFailed": "Vorschläge konnten nicht erstellt werden. Versuche es erneut.",
+      "autoFixed": "Deine Karten",
+      "autoProfile_balanced": "Ausgewogen",
+      "autoProfile_synergy": "Synergien",
+      "autoProfile_reference": "Ähnliches Deck",
+      "autoExplain_balanced": "Verbindet Synergien, Kostenkurve und hilfreiche Verteidigung.",
+      "autoExplain_synergy": "Bevorzugt Wechselwirkungen zwischen deinen Karten und ihrer Unterstützung.",
+      "autoExplain_reference": "Folgt einer passenden vorgefertigten Strategie und behält deine Karten bei.",
+      "autoPotentialLinks": "Mögliche Wechselwirkungen: {count}",
+      "autoReference": "Ähnliche Liste: {number} · {count}/10 Karten",
+      "autoAdded": "{count} Karten hinzufügen",
+      "autoApplied": "Deck vervollständigt.",
+      "presetLoaded": "Deck geladen.",
+      "preset_01": "Lass Naruto durch Rückzüge wachsen. Kiba wandelt verbündete Kiba und Akamaru in Chakra um, während Rückzugseffekte zusätzlichen Nutzen bringen.",
+      "preset_02": "Nutze Wache gegen den Boss. Sakon und Ukon erhalten Chakra durch verbündete Wache-Aktivierungen, während die Verteidiger das Feld halten.",
+      "preset_03": "Setze den Boss mit günstigen Karten und beschworenen Einheiten unter Druck. Tayuya unterstützt die Beschwörungen, Gaara sorgt für Kontrolle.",
+      "preset_04": "Spiele Kakashi und Gaara vor Schwächen gegen mehrere Ziele. Hiruzen und weitere Kontrollkarten halten danach den Druck aufrecht.",
+      "preset_05": "Halte Shikamaru aktiv und nutze Iruka sowie Izumo zum Festnageln von Verbündeten. Günstige Chakra-Werte und Fokus ermöglichen weitere Chakra-Boni.",
+      "preset_06": "Platziere Itachi auf Spuren, auf denen Karten eingesetzt werden. Spurwechsel, Enma und das Alte-Freunde-Trio unterstützen dein Feld.",
+      "preset_07": "Schütze Tsunade nach ihrer ersten Erholung mit Heilung und Wache. Shizune und weitere Unterstützer halten deine wichtigste Bedrohung aktiv.",
+      "preset_08": "Verbinde günstige Störungen mit Gaara und Temari für wiederholte Feldkontrolle. Verteidiger ermöglichen eine flexible Rotation.",
+      "preset_09": "Halte Kakashi Schlachtplan aktiv und nutze Schwächen gegen mehrere Ziele. Akamaru verstärkt den Druck auf Gegner unter seiner Verlangsamung.",
+      "preset_10": "Nutze Kyubi zum Schwächen des Feldes und zum Unterstützen von Gaara. Tsunade hilft, den Schaden an deinen eigenen Karten auszugleichen.",
+      "preset_11": "Halte Gemeinsamer-Traum-Karten aktiv, wenn eine andere Karte mit derselben Fähigkeit zurückgezogen wird. Weitere Rückzüge liefern Chakra oder Kontrolle.",
+      "preset_12": "Unterstütze Rock Lee mit Gai und Shikamaru. Schütze den Fokus: Eine Verlängerung kann auch den Nutzen des Fünften Tors verzögern.",
+      "preset_13": "Spiele Choza, Inoichi und Shikaku zur gegenseitigen Unterstützung. Ihre anderen Formen verwandeln Chakra-Unterstützung in Druck und Kontrolle.",
+      "preset_14": "Baue um Hiashi und die Hyuga-Unterstützer. Neji und der Clan nutzen Chakra, Wache und Störungen in Begegnungen.",
+      "preset_15": "Nutze Ino und Inoichi, um Rivalen während des Fokus zu kontrollieren. Shikamaru und Alte Freunde unterstützen den Aufbau.",
+      "preset_16": "Entwickle die Krötenbeschwörungen und kombiniere Jiraiya mit Gamabunta für Brennen. Bereite die Ziele vor der sofortigen Auslösung vor.",
+      "preset_17": "Bereite Orochimaru mit den Vier des Schalls vor. Schwäche Verbündete mit wenig Chakra für Rückzugseffekte und Beschwörungen von Edo Hashirama und Tobirama.",
+      "preset_18": "Halte Itachi aktiv und nagle Gegner fest, um Klone zu erzeugen. Unterstütze das Original: Die Klone können weder punkten noch Chakra erhalten.",
+      "preset_19": "Spiele Fugaku, Itachi und Mikoto vor Sasuke. Die Boni hängen von Chakra-Schwellen, Spur und Einsatzreihenfolge ab.",
+      "preset_20": "Bereite Kiba und Akamaru mit Hunde- und Ansturm-Unterstützung vor. Nutze die Verwandlung, sobald sie genügend Chakra zum Übertragen angesammelt haben.",
+      "preset_21": "Unterstütze Gaara mit Kankuro, Karura und Yashamaru. Schwächen fördert sein Wachstum, während Wache deine Bedrohungen schützt.",
       "navDatabase": "Karten",
       "navBuilder": "Deck",
       "navSynergies": "Synergien",
@@ -13998,8 +14388,8 @@ const TRANSLATIONS = {
         "name": "Naruto Uzumaki",
         "ability": "Herausforderer",
         "descriptions": [
-          "Bei Einsatz Festnageln(1s) und Chakra(+2) für jeden Spur-Rivalen mit höherem Chakra.",
-          "Bei Einsatz Festnageln(2s) und Chakra(+2) für jeden Spur-Rivalen mit höherem Chakra."
+          "Bei Einsatz wird diese Karte Festgenagelt(1s) und erhält Chakra(+2) für jeden Spur-Rivalen mit höherem Chakra.",
+          "Bei Einsatz wird diese Karte Festgenagelt(2s) und erhält Chakra(+2) für jeden Spur-Rivalen mit höherem Chakra."
         ]
       },
       "S2_003": {
@@ -14278,8 +14668,8 @@ const TRANSLATIONS = {
         "name": "Koharu Utatane",
         "ability": "Sicherheit",
         "descriptions": [
-          "Setze nach 10 Sekunden Anbu Black Ops ein.",
-          "Setze nach 8 Sekunden Anbu Black Ops ein."
+          "Beschwört nach 10 Sekunden eine Anbu-Black-Ops-Einheit.",
+          "Beschwört nach 8 Sekunden eine Anbu-Black-Ops-Einheit."
         ]
       },
       "S2_038": {
@@ -15118,8 +15508,8 @@ const TRANSLATIONS = {
         "name": "Kyuroku Wagarashi",
         "ability": "Ehrlos",
         "descriptions": [
-          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(4s). Wenn Kyuroku sich zurückzieht, Wechselt dieser Verbündete die Spur und alle Spur-Verbündeten werden Verlangsamt(3s).",
-          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(5s). Wenn Kyuroku sich zurückzieht, Wechselt dieser Verbündete die Spur und alle Spur-Verbündeten werden Verlangsamt(3s)."
+          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(4s). Wenn diese Karte sich zurückzieht, Wechselt dieser Verbündete die Spur und alle Spur-Verbündeten werden Verlangsamt(3s).",
+          "Der nächste eingesetzte Spur-Verbündete erhält Ansturm(5s). Wenn diese Karte sich zurückzieht, Wechselt dieser Verbündete die Spur und alle Spur-Verbündeten werden Verlangsamt(3s)."
         ]
       },
       "S3_043": {
@@ -15746,3 +16136,6 @@ const TRANSLATIONS = {
     "normalizations": []
   }
 };
+
+// Share the language catalogs with the proposal API.
+if (typeof module!=='undefined' && module.exports) module.exports=TRANSLATIONS;

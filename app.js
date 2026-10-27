@@ -5,7 +5,8 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;',
 // New sessions start in English; refreshes restore the current tab's language.
 let language = 'en';
 const SESSION_KEY = 'naruto-ninja-cards.session';
-const sections = {db:'database',builder:'builder',synergies:'synergies'};
+const sections = {db:'database',builder:'builder',synergies:'synergies',decks:'prebuiltDecks'};
+const shortSectionLabels = {db:'navDatabase',builder:'navBuilder',synergies:'navSynergies',decks:'navDecks'};
 const sectionIds = Object.keys(sections);
 const toolbarPanels = {
   db: [{key:'filters',label:'filters',id:'db-filter-host'}],
@@ -14,9 +15,12 @@ const toolbarPanels = {
     {key:'assumptions',label:'assumptions',id:'scenario-panel'},
     {key:'deck',label:'deckBuilding',id:'deck-panel'}
   ],
-  synergies: [{key:'filters',label:'filters',id:'synergies-filter-host'}]
+  synergies: [{key:'filters',label:'filters',id:'synergies-filter-host'},{key:'proposal',label:'proposeSynergy',id:'synergy-proposal-panel'}],
+  decks: [{key:'filters',label:'filters',id:'decks-filter-host'},{key:'proposal',label:'proposeDeck',id:'deck-proposal-panel'}]
 };
-const toolbarState = Object.fromEntries(sectionIds.map(area=>[area,{active:'filters',open:true}]));
+const toolbarAreas = Object.keys(toolbarPanels);
+const filterAreas = toolbarAreas.filter(area=>area!=='decks');
+const toolbarState = Object.fromEntries(toolbarAreas.map(area=>[area,{active:'filters',open:true}]));
 const mobileViewport = matchMedia('(max-width:700px)');
 const catalogScroll = Object.fromEntries(sectionIds.map(area=>[area,{mobile:0,desktop:0}]));
 let mobileToolsArea = null;
@@ -24,7 +28,8 @@ let scrollRestoreFrame = null;
 const toolbarIcons = {
   filters:'<path d="M3 5h18l-7 8v6l-4 2v-8z"/>',
   assumptions:'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M7 7h10M8 11h1m6 0h1m-8 4h1m6 0h1m-8 3h1m6 0h1"/>',
-  deck:'<path d="M8 3h12v15M4 7h12v14H4z"/>'
+  deck:'<path d="M8 3h12v15M4 7h12v14H4z"/>',
+  proposal:'<path d="M3 5h18v12H9l-5 4v-4H3zM7 9h10M7 13h6"/>'
 };
 const deckOrder = {sort:'cost',direction:'asc'};
 let sessionReady = false, sessionTimer, lastSessionText = '', sessionWarning = false;
@@ -257,9 +262,9 @@ function cleanScenario(value = {}) {
 const emptyDeck = () => ({name:t('ui.defaultDeckName'),cards:[],levels:{},scenario:{...defaults},cardOptions:{}});
 let current = emptyDeck();
 let useDefaultDeckName = true;
-let mode = 'db', dialogCard = null, dialogLevel = 1, confirmAction = null, confirmMessageKey = null, toastTimer;
+let mode = 'db', dialogCard = null, dialogLevel = 1, dialogReadOnly = false, confirmAction = null, confirmMessageKey = null, toastTimer;
 const deckLevel = c => current.levels[c.index] ?? Number($('builder-f-level').value);
-const levelOf = c => mode === 'builder' ? deckLevel(c) : mode === 'synergies' ? 1 : Number(F('f-level').value);
+const levelOf = c => mode === 'builder' ? deckLevel(c) : mode === 'db' ? Number($('db-f-level').value) : 1;
 const description = (c,level) => normalizeText(cardText(c).descriptions[level-1]);
 const scenarioFor = c => ({...(current.cardOptions[c.index] || current.scenario)});
 function applyWrittenStandard() {
@@ -301,8 +306,12 @@ function cardHTML(c) {
 }
 const filterIds = ['f-level','f-text','f-estimate'];
 function updateFilterCount(area) {
-  const groups=Object.keys(filterDefinitions).filter(id=>$(area+'-'+id+'-menu').querySelector('input:checked')).length;
-  const count=groups+Number($(area+'-f-text').value.trim()!=='')+Number(!!$(area+'-f-estimate') && $(area+'-f-estimate').value!=='');
+  let count;
+  if (area==='decks') count=Number($('library-search').value.trim()!=='')+Number($('library-mode').value!=='all');
+  else {
+    const groups=Object.keys(filterDefinitions).filter(id=>$(area+'-'+id+'-menu').querySelector('input:checked')).length;
+    count=groups+Number($(area+'-f-text').value.trim()!=='')+Number(!!$(area+'-f-estimate') && $(area+'-f-estimate').value!=='');
+  }
   const badge=$(area+'-toolbox-tab-filters').querySelector('.filter-count');
   badge.textContent=count?` (${fmt(count,0)})`:'';
   badge.hidden=count===0;
@@ -341,6 +350,7 @@ function filteredCards() {
   });
 }
 function renderCatalog() {
+  if (mode==='decks') { renderPresetLibrary();scheduleSessionSave();return; }
   const cards = filteredCards().filter(c=>mode!=='synergies' || synergyGroupByIndex.has(c.index)), sort = F('sort').value, direction = F('sort-direction').dataset.direction === 'desc' ? -1 : 1;
   const compareCards = (a,b) => {
     let d = 0;
@@ -506,6 +516,8 @@ function renderDeck() {
   const field=deckOrder.sort==='chakra'?'chakra':'energy_cost',direction=deckOrder.direction==='desc'?-1:1;
   const cards = current.cards.map(i => byIndex.get(i)).sort((a,b)=>direction*(a[field]-b[field] || a.index-b.index)), n = cards.length;
   $('mobile-deck-count').textContent=n+'/10';
+  $('auto-build').disabled=n===10;
+  $('auto-build').title=t(n===10?'ui.autoFull':'ui.autoBuild');
   $('deck-sort').value=deckOrder.sort;
   setSortDirection($('deck-sort-direction'),deckOrder.direction);
   if (document.activeElement !== $('deck-name')) $('deck-name').value = current.name;
@@ -526,8 +538,131 @@ function renderDeck() {
   const curveHTML=counts.map((num,i) => `<div class="bar-slot" title="${t('ui.curveBar',{cost:i+1,count:num})}"><span>${num || ''}</span><div class="bar" style="height:${num/peak*29}px"></div><small>${i+1}${i === 8 ? '+' : ''}</small></div>`).join('');
   $('curve').innerHTML=curveHTML;
   for (const button of document.querySelectorAll('[data-deck-action="clear"]')) button.disabled=n===0;
+  renderDeckProposal();
 }
 
+const presetById=new Map(PREBUILT_DECKS.map(deck=>[deck.id,deck]));
+const cardByKey=new Map(CARDS.map(card=>[card.card_key,card]));
+let autoController=null,autoProposals=[],autoLevels={},autoSnapshot='';
+function deckPreviewHTML(indices,levels={},locked=new Set(),showLevels=true) {
+  return indices.map(index=>{
+    const card=byIndex.get(index),text=cardText(card),level=levels[index]||1;
+    return `<li><button class="deck-preview-card${locked.has(index)?' is-fixed':''}" data-preview-card="${index}" data-preview-level="${level}" type="button" title="${esc(text.ability)}" aria-label="${esc(t('ui.openCard',{name:text.name,reference:cardReference(card)}))}"><span class="mini-art"><img src="${imagePath(card)}" alt="" width="${CARD_ART.width}" height="${CARD_ART.height}" loading="lazy" decoding="async"><span class="orb cost">${card.energy_cost}</span><span class="orb chakra">${card.chakra}</span>${showLevels?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`:''}</span><strong>${esc(text.name)}</strong></button></li>`;
+  }).join('');
+}
+function renderPresetLibrary() {
+  const query=$('library-search').value.trim().toLocaleLowerCase(),words=query.split(/\s+/).filter(Boolean),selectedMode=$('library-mode').value;
+  const decks=PREBUILT_DECKS.filter(deck=>{
+    if (selectedMode!=='all' && deck.mode!==selectedMode) return false;
+    const text=(t('ui.preset_'+deck.id)+' '+deck.cards.map(key=>{const card=cardByKey.get(key),text=cardText(card);return cardReference(card)+' '+text.name+' '+text.ability+' '+text.descriptions.join(' ');}).join(' ')).toLocaleLowerCase();
+    return words.every(word=>text.includes(word));
+  });
+  $('preset-list').innerHTML=decks.length?decks.map(deck=>`<article class="preset"><div class="preset-head"><h3>${t('ui.presetNumber',{number:fmt(Number(deck.id),0)})}</h3><span class="mode-label">${t(deck.mode==='boss'?'ui.bossDecks':'ui.standardDecks')}</span><button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(deck.cards.map(key=>cardByKey.get(key).index),{},new Set(),false)}</ol><p class="preset-description">${formatTerms(t('ui.preset_'+deck.id))}</p></article>`).join(''):`<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
+  updateFilterCount('decks');
+}
+function renderDeckProposal() {
+  $('proposal-deck-name').textContent=current.name;
+  $('proposal-deck-cards').innerHTML=deckPreviewHTML(current.cards,{},new Set(),false);
+  $('proposal-deck-empty').hidden=current.cards.length>0;
+  $('send-deck-proposal').disabled=current.cards.length===0||proposalSending;
+}
+function openDeckProposal() {
+  setMode('decks');selectToolbarPanel('decks','proposal');renderDeckProposal();
+  if (mobileViewport.matches) openMobileTools('proposal');
+}
+let proposalSending=false;
+async function sendProposal(event) {
+  event.preventDefault();
+  if (proposalSending) return;
+  const isDeck=event.currentTarget.id==='deck-proposal-panel';
+  if (isDeck && !current.cards.length) return;
+  const input=$(isDeck?'deck-proposal-description':'synergy-proposal-description');
+  if (!input.value.trim()) {input.setCustomValidity(t('ui.proposalDescriptionRequired'));input.reportValidity();return;}
+  if (input.value.length>2000) return;
+  const form=event.currentTarget,button=form.querySelector('[type=submit]'),status=form.querySelector('[role=status]');
+  const description=input.value.trim(),payload={type:isDeck?'deck':'synergy',description,language};
+  if (isDeck) payload.deck={name:current.name,cards:current.cards.map(index=>byIndex.get(index).card_key)};
+  proposalSending=true;button.disabled=true;form.setAttribute('aria-busy','true');
+  status.dataset.i18n='ui.proposalSending';status.textContent=t(status.dataset.i18n);
+  try {
+    const response=await fetch('/api/proposals',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:AbortSignal.timeout(15000)});
+    const result=await response.json();
+    if (!response.ok || result.ok!==true) throw Error(result.error||'send_failed');
+    if (input.value.trim()===description) input.value='';
+    scheduleSessionSave();delete status.dataset.i18n;status.textContent='';
+    const key=isDeck?'ui.deckProposalFeedback':'ui.synergyProposalFeedback';
+    $('proposal-feedback-message').dataset.i18n=key;
+    $('proposal-feedback-message').textContent=t(key);
+    $('proposal-feedback-dialog').showModal();
+  } catch(error) {
+    const key=error.message==='not_configured'?'ui.proposalNotConfigured':error.message==='rate_limited'?'ui.proposalRateLimited':'ui.proposalFailed';
+    status.dataset.i18n=key;status.textContent=t(key);
+  } finally {
+    proposalSending=false;form.removeAttribute('aria-busy');
+    button.disabled=isDeck && !current.cards.length;
+  }
+}
+function loadPreset(id) {
+  const deck=presetById.get(id);
+  if (!deck) return;
+  const apply=()=>{
+    const scenario={...current.scenario};
+    current=emptyDeck();current.scenario=scenario;
+    current.cards=deck.cards.map(key=>cardByKey.get(key).index);
+    current.levels=Object.fromEntries(current.cards.map(index=>[index,1]));
+    current.cardOptions=Object.fromEntries(current.cards.map(index=>[index,{...scenario}]));
+    current.name=t('ui.presetNumber',{number:Number(id)}).slice(0,15);useDefaultDeckName=false;
+    setMode('builder');syncScenario();changed();selectToolbarPanel('builder','deck');
+    if (mobileViewport.matches) openMobileTools('deck');
+    toast(t('ui.presetLoaded'));
+  };
+  if (current.cards.length) ask('ui.replaceDeck',apply);else apply();
+}
+function autoDeckSnapshot() {
+  return JSON.stringify({cards:current.cards,levels:current.levels,cardOptions:current.cardOptions,scenario:current.scenario});
+}
+function proposalMetrics(indices) {
+  const sum=indices.reduce((sum,index)=>{
+    const card=byIndex.get(index),value=estimate(card,autoLevels[index],scenarioFor(card));
+    return {cost:sum.cost+card.energy_cost,power:sum.power+value.value,quality:sum.quality+value.quality};
+  },{cost:0,power:0,quality:0});
+  return `<div class="proposal-metrics">${[['averageCost',sum.cost],['averagePower',sum.power],['averageQuality',sum.quality]].map(([key,value])=>`<div class="metric"><b>${fmt(value/indices.length,1)}</b><span>${t('ui.'+key)}</span></div>`).join('')}</div>`;
+}
+function renderAutoResults() {
+  const locked=new Set(current.cards);
+  $('auto-results').innerHTML=autoProposals.map((proposal,index)=>`<article class="auto-proposal"><h3>${t('ui.autoProfile_'+proposal.profile)}</h3><p class="proposal-explanation">${t('ui.autoExplain_'+proposal.profile)}</p><div class="proposal-legend"><span>${t('ui.autoFixed')}: ${fmt(locked.size,0)}</span><span>${t('ui.autoAdded',{count:10-locked.size})}</span></div><ol class="preset-cards">${deckPreviewHTML(proposal.indices,autoLevels,locked)}</ol>${proposalMetrics(proposal.indices)}<p class="proposal-evidence">${t('ui.autoPotentialLinks',{count:fmt(proposal.links,0)})}<br>${t('ui.autoReference',{number:Number(proposal.templateId),count:proposal.templateOverlap})}</p><button class="primary" data-use-proposal="${index}" type="button">${t('ui.autoApply')}</button></article>`).join('');
+}
+async function runAutoBuilder() {
+  if (current.cards.length>=10) return;
+  autoController?.abort();
+  const controller=new AbortController();autoController=controller;
+  autoSnapshot=autoDeckSnapshot();autoLevels=Object.fromEntries(CARDS.map(card=>[card.index,deckLevel(card)]));autoProposals=[];
+  $('auto-status').dataset.i18n='ui.autoBusy';$('auto-status').textContent=t('ui.autoBusy');$('auto-results').innerHTML='';
+  if (!$('auto-dialog').open) $('auto-dialog').showModal();
+  try {
+    const proposals=await DECK_AUTOBUILDER.generate({selected:current.cards,estimateCard:card=>estimate(card,autoLevels[card.index],scenarioFor(card)),signal:controller.signal});
+    if (controller.signal.aborted || autoSnapshot!==autoDeckSnapshot()) return;
+    autoProposals=proposals;delete $('auto-status').dataset.i18n;$('auto-status').textContent='';renderAutoResults();
+  } catch {
+    if (controller.signal.aborted) return;
+    $('auto-status').dataset.i18n='ui.autoFailed';$('auto-status').textContent=t('ui.autoFailed');
+  }
+}
+function applyAutoProposal(index) {
+  const proposal=autoProposals[index];
+  if (!proposal || autoSnapshot!==autoDeckSnapshot()) {toast(t('ui.autoFailed'),true);return;}
+  const locked=new Set(current.cards);
+  if (proposal.indices.length!==10 || new Set(proposal.indices).size!==10 || !current.cards.every(index=>proposal.indices.includes(index))) return;
+  for (const index of proposal.indices) if (!locked.has(index)) {
+    current.levels[index]=autoLevels[index];
+    current.cardOptions[index]={...(current.cardOptions[index]||current.scenario)};
+  }
+  current.cards=[...proposal.indices];$('auto-dialog').close();changed();toast(t('ui.autoApplied'));
+}
+function handleDeckPreview(event) {
+  const button=event.target.closest('[data-preview-card]');
+  if (button) openCard(Number(button.dataset.previewCard),Number(button.dataset.previewLevel),true);
+}
 function changed() { renderDeck(); renderCatalog(); }
 function addCard(index) {
   if (current.cards.includes(index) || current.cards.length >= 10) return;
@@ -600,17 +735,17 @@ function renderToolbar(area) {
 }
 function selectToolbarPanel(area,key) {
   closeFilterMenus();
-  const state=toolbarState[area];
   toolbarState[area]={active:key,open:true};
   renderToolbar(area);
-  if (mobileToolsArea) $('mobile-tools-host').scrollTop=0;
+  if (mobileToolsArea) {$('mobile-tools-host').scrollTop=0;syncMobileToolsLabels();}
+  if (area==='decks' && key==='proposal') renderDeckProposal();
   scheduleSessionSave();
 }
 function mountToolbars() {
   for (const [area,panels] of Object.entries(toolbarPanels)) {
     const header=document.createElement('div');
     header.className='toolbox-header';
-    const shortLabels={filters:'quickFilters',assumptions:'quickAssumptions',deck:'quickDeck'};
+    const shortLabels={filters:'quickFilters',assumptions:'quickAssumptions',deck:'quickDeck',proposal:area==='decks'?'proposeDeck':'proposeSynergy'};
     header.innerHTML=`<button class="toolbox-toggle" id="${area}-toolbox-toggle" type="button" aria-controls="${area}-toolbox-body"><span class="toolbox-toggle-icon" aria-hidden="true"><span class="toolbox-chevron"></span></span><span class="sidebar-toggle-label"></span></button><div class="toolbox-tabs" role="tablist" data-i18n-aria-label="ui.toolbarModes">${panels.map(panel=>`<button class="toolbox-tab" id="${area}-toolbox-tab-${panel.key}" type="button" role="tab" aria-controls="${panel.id}" data-panel="${panel.key}"><svg class="toolbox-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${toolbarIcons[panel.key]}</svg><span class="toolbox-label" data-i18n="ui.${shortLabels[panel.key]}"></span>${panel.key==='filters'?'<span class="filter-count" hidden></span>':''}</button>`).join('')}</div>`;
     $(area+'-toolbox').prepend(header);
     for (const panel of panels) $(panel.id).setAttribute('aria-labelledby',area+'-toolbox-tab-'+panel.key);
@@ -643,20 +778,26 @@ function mountToolbars() {
 }
 // The mobile sheet hosts the actual controls, so filters and deck settings have one source of truth.
 function mountMobileNavigation() {
-  for (const area of sectionIds) {
+  for (const area of toolbarAreas) {
     const bar=document.createElement('div');
     bar.className='mobile-browse-bar';bar.id=area+'-browse-bar';
     bar.innerHTML=`<div class="mobile-search-host"></div><button class="mobile-filter-button" type="button" aria-haspopup="dialog" aria-controls="mobile-tools-dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">${toolbarIcons.filters}</svg><span data-i18n="ui.quickFilters"></span><span class="filter-count" id="${area}-quick-filter-count" hidden></span></button>`;
     bar.querySelector('button').onclick=()=>openMobileTools('filters');
+    if (toolbarPanels[area].some(panel=>panel.key==='proposal')) {
+      const button=document.createElement('button');button.className='mobile-propose-button';button.type='button';button.dataset.i18n='ui.propose';
+      button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-controls','mobile-tools-dialog');
+      button.onclick=()=>{if (area==='decks') renderDeckProposal();openMobileTools('proposal');};
+      bar.append(button);
+    }
     $(area+'-area').prepend(bar);
   }
   $('mobile-deck-button').onclick=()=>openMobileTools('deck');
   $('mobile-tools-close').onclick=closeMobileTools;
   $('mobile-tools-done').onclick=closeMobileTools;
-  $('mobile-tools-dialog').addEventListener('close',restoreMobileToolbox);
+  $('mobile-tools-dialog').addEventListener('close',()=>{if (!$('mobile-tools-dialog').open) restoreMobileToolbox();});
   mobileViewport.addEventListener('change',()=>{
     closeMobileTools();syncMobileSearch();
-    for (const area of sectionIds) renderToolbar(area);
+    for (const area of toolbarAreas) renderToolbar(area);
     restoreCatalogScroll();scheduleViewportUpdate();
   });
   syncMobileSearch();
@@ -707,12 +848,11 @@ function mountMobileTapActivation() {
   },true);
 }
 function syncMobileSearch() {
-  for (const area of sectionIds) {
-    const field=$(area+'-f-text').closest('.text-search');
+  for (const area of toolbarAreas) {
+    const input=$(area==='decks'?'library-search':area+'-f-text'),field=input.closest('.text-search');
     const host=mobileViewport.matches?$(area+'-browse-bar').querySelector('.mobile-search-host'):$(area+'-filter-host').querySelector('.filter-fields');
     if (field.parentElement!==host) host.prepend(field);
-    const input=$(area+'-f-text');
-    input.dataset.i18nPlaceholder=mobileViewport.matches?'ui.searchCards':'ui.searchPlaceholder';
+    input.dataset.i18nPlaceholder=area==='decks'?'ui.librarySearch':mobileViewport.matches?'ui.searchCards':'ui.searchPlaceholder';
     input.placeholder=t(input.dataset.i18nPlaceholder);
   }
 }
@@ -723,7 +863,7 @@ function openMobileTools(kind) {
   mobileToolsArea=mode;
   dialog.dataset.kind=kind;
   $('mobile-tools-host').append($(mode+'-toolbox'));
-  toolbarState[mode]={active:kind==='filters'?'filters':'deck',open:true};
+  toolbarState[mode]={active:kind==='filters'?'filters':kind==='proposal'?'proposal':'deck',open:true};
   renderToolbar(mode);syncMobileToolsLabels();
   document.body.classList.add('mobile-tools-open');
   dialog.showModal();
@@ -732,8 +872,8 @@ function openMobileTools(kind) {
 }
 function syncMobileToolsLabels() {
   if (!mobileToolsArea) return;
-  const filters=$('mobile-tools-dialog').dataset.kind==='filters';
-  $('mobile-tools-title').textContent=t(filters?'ui.quickFilters':'ui.deckBuilding');
+  const active=toolbarPanels[mobileToolsArea].find(panel=>panel.key===toolbarState[mobileToolsArea].active),filters=active.key==='filters';
+  $('mobile-tools-title').textContent=t('ui.'+(filters?'quickFilters':active.label));
   $('mobile-tools-done').dataset.i18n=filters?'ui.showResults':'ui.backToCards';
   $('mobile-tools-done').textContent=t($('mobile-tools-done').dataset.i18n);
 }
@@ -770,8 +910,8 @@ function restoreCatalogScroll() {
   };
   scrollRestoreFrame=requestAnimationFrame(restore);
 }
-function openCard(index,level) {
-  dialogCard = byIndex.get(index); dialogLevel = level || levelOf(dialogCard);
+function openCard(index,level,readOnly=false) {
+  dialogCard = byIndex.get(index); dialogLevel = level || levelOf(dialogCard);dialogReadOnly=readOnly;
   renderDialog(); $('card-dialog').showModal();
 }
 function calculationHTML(c,level,result=estimate(c,level)) {
@@ -793,7 +933,7 @@ function relevantSettings(c,level) {
   return Object.keys(settingIds).filter(key => used.has(key));
 }
 function renderDialog() {
-  const c = dialogCard, level = dialogLevel, build = mode === 'builder';
+  const c = dialogCard, level = dialogLevel, build = mode === 'builder' && !dialogReadOnly;
   const scenario = build ? scenarioFor(c) : null, keys = build ? relevantSettings(c,level) : [];
   const text=cardText(c);
   $('dialog-title').innerHTML=`<span class="dialog-index">${cardReference(c)}</span> ${esc(text.name)}`;
@@ -825,12 +965,15 @@ function renderDialog() {
   };
 }
 
-function exportDeck() {
-  const data = {format:'naruto-deck',name:current.name,
+function serializeDeck() {
+  return {format:'naruto-deck',name:current.name,
     cards:current.cards.map(index => ({index,level:deckLevel(byIndex.get(index))})),
     scenario:{...current.scenario},
     cardOptions:Object.fromEntries(current.cards.map(index => [index,scenarioFor(byIndex.get(index))]))
   };
+}
+function exportDeck() {
+  const data=serializeDeck();
   const url = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
   const link = document.createElement('a'); link.href = url;
   link.download = (current.name.trim().replace(/[^\p{L}\p{N}_-]+/gu,'-') || t('ui.defaultDeckName').replace(/\s+/g,'-'))+'.json';
@@ -970,7 +1113,7 @@ function sizeHeaderControls() {
   const frame=style=>['paddingLeft','paddingRight','borderLeftWidth','borderRightWidth'].reduce((sum,key)=>sum+(parseFloat(style[key])||0),0);
   for (const [area,key] of Object.entries(sections)) {
     const button=$('tab-'+area),style=getComputedStyle(button);
-    const label=innerWidth<=1100?'nav'+(area==='db'?'Database':area==='builder'?'Builder':'Synergies'):key;
+    const label=innerWidth<=1250?shortSectionLabels[area]:key;
     const icon=button.querySelector('.nav-icon').getBoundingClientRect().width;
     button.style.setProperty('--tab-width',Math.ceil(Math.max(...Object.values(TRANSLATIONS).map(catalog=>measure(catalog.ui[label],style)))+frame(style)+icon+8)+'px');
   }
@@ -1097,7 +1240,7 @@ function applyLanguage() {
   document.documentElement.lang=language;
   buildTermPatterns();translateStatic();
   filterDefinitions=createFilterDefinitions();
-  for (const area of sectionIds) {
+  for (const area of filterAreas) {
     for (const [id,config] of Object.entries(filterDefinitions)) mountMultiFilter(area,id,config);
     if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),Number($(area+'-f-level').value));
     const button=$(area+'-sort-direction');
@@ -1108,6 +1251,7 @@ function applyLanguage() {
   for (const area of Object.keys(toolbarPanels)) renderToolbar(area);
   sizeHeaderControls();sizeFilterControls();sizeAssumptionBoxes();renderDeck();renderCatalog();
   if ($('card-dialog').open) renderDialog();
+  if ($('auto-dialog').open) renderAutoResults();
   if (confirmMessageKey) $('confirm-text').textContent=t(confirmMessageKey);
 }
 function setLanguage(code) {
@@ -1158,7 +1302,9 @@ function saveSession() {
     const text = JSON.stringify({
       language,mode,useDefaultDeckName,defaults,deck:current,
       toolbars:toolbarState,deckOrder,scroll:catalogScroll,
-      filters:Object.fromEntries(sectionIds.map(area=>[area,captureFilters(area)])),
+      filters:Object.fromEntries(filterAreas.map(area=>[area,captureFilters(area)])),
+      library:{query:$('library-search').value,mode:$('library-mode').value},
+      proposalDrafts:{deck:$('deck-proposal-description').value,synergy:$('synergy-proposal-description').value},
       standardDraft:Object.fromEntries(Object.entries(settingIds).map(([key,id]) => [key,$(id).value])),
       standardStatus:$('standard-status').dataset.i18n || ''
     });
@@ -1203,7 +1349,10 @@ function restoreSession() {
     language = saved.language; mode = saved.mode; useDefaultDeckName = saved.useDefaultDeckName;
     Object.assign(defaults,nextDefaults); current = next;
     if (useDefaultDeckName) current.name = t('ui.defaultDeckName');
-    for (const area of sectionIds) restoreFilters(area,saved.filters?.[area] || {});
+    for (const area of filterAreas) restoreFilters(area,saved.filters?.[area] || {});
+    if (typeof saved.library?.query==='string') $('library-search').value=saved.library.query;
+    if (['standard','boss','all'].includes(saved.library?.mode)) $('library-mode').value=saved.library.mode;
+    for (const [key,id] of [['deck','deck-proposal-description'],['synergy','synergy-proposal-description']]) if (typeof saved.proposalDrafts?.[key]==='string') $(id).value=saved.proposalDrafts[key].slice(0,2000);
     for (const area of sectionIds) for (const viewport of ['mobile','desktop']) {
       const top=saved.scroll?.[area]?.[viewport];
       if (Number.isFinite(top) && top>=0) catalogScroll[area][viewport]=top;
@@ -1217,7 +1366,7 @@ function restoreSession() {
 mountLanguageMenu();
 
 mountToolbars();
-for (const area of sectionIds) mountFilters(area);
+for (const area of filterAreas) mountFilters(area);
 mountMobileNavigation();
 mountMobileTapActivation();
 for (const id of Object.values(settingIds)) $(id).addEventListener('input',() => {
@@ -1241,6 +1390,25 @@ for (const id of ['deck-grid','deck-dialog-grid']) $(id).onclick = event => {
   else if (open) { const c = byIndex.get(Number(open.dataset.deckOpen)); openCard(c.index,deckLevel(c)); }
 };
 $('view-deck').onclick = () => { renderDeck(); $('deck-dialog').showModal(); };
+$('auto-build').onclick=runAutoBuilder;
+$('close-auto').onclick=()=>$('auto-dialog').close();
+$('auto-dialog').addEventListener('close',()=>{autoController?.abort();autoController=null;});
+$('auto-results').onclick=event=>{
+  const button=event.target.closest('[data-use-proposal]');
+  if (button) applyAutoProposal(Number(button.dataset.useProposal));else handleDeckPreview(event);
+};
+$('preset-list').onclick=event=>{
+  const button=event.target.closest('[data-load-preset]');
+  if (button) loadPreset(button.dataset.loadPreset);else handleDeckPreview(event);
+};
+$('library-search').oninput=()=>{renderPresetLibrary();scheduleSessionSave();};
+$('library-mode').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
+$('reset-library-filters').onclick=()=>{$('library-search').value='';$('library-mode').value='all';renderPresetLibrary();scheduleSessionSave();};
+$('propose-deck').onclick=openDeckProposal;
+$('proposal-deck-cards').onclick=handleDeckPreview;
+for (const id of ['deck-proposal-panel','synergy-proposal-panel']) $(id).onsubmit=sendProposal;
+for (const id of ['deck-proposal-description','synergy-proposal-description']) $(id).oninput=()=>$(id).setCustomValidity('');
+$('close-proposal-feedback').onclick=()=>$('proposal-feedback-dialog').close();
 $('deck-sort').onchange = () => { deckOrder.sort=$('deck-sort').value;renderDeck();scheduleSessionSave(); };
 $('deck-sort-direction').onclick = () => { deckOrder.direction=deckOrder.direction==='asc'?'desc':'asc';renderDeck();scheduleSessionSave(); };
 $('close-deck-dialog').onclick = () => $('deck-dialog').close();

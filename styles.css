@@ -10,12 +10,14 @@
 }
 *,*::before,*::after { box-sizing:border-box; border-radius:0; }
 body { margin:0; }
-button,input,select { font:inherit; color:inherit; border:1px solid var(--line); background:white; }
+button,input,select,textarea { font:inherit; color:inherit; border:1px solid var(--line); background:white; }
+textarea { display:block; width:100%; min-height:110px; max-height:300px; padding:7px 8px; resize:vertical; }
 button { padding:7px 10px; border-radius:0; cursor:pointer; font-weight:600; line-height:1.25; }
 .reset-filters:hover:not(:disabled),.strong-danger:hover:not(:disabled) { border-color:var(--red); background:#fff0ec; }
 button:hover:not(:disabled) { background:#edf4ed; border-color:#94b3a2; }
 button:disabled { opacity:.45; cursor:default; }
-button:focus-visible,input:focus-visible,select:focus-visible { outline:2px solid var(--orange); outline-offset:2px; }
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible { outline:2px solid var(--orange); outline-offset:2px; }
+.visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 input,select { width:100%; min-height:31px; padding:5px 8px; border-radius:0; }
 input[data-integer] { font-variant-numeric:tabular-nums; }
 h1,h2,h3,h4,p { margin:0; }
@@ -323,7 +325,7 @@ dialog button { border-radius:0; }
 .deck-dialog-toolbar > button { flex:none; min-height:31px; padding:6px 10px; font-size:11px; }
 .deck-strip .deck-grid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:5px; margin:0; }
 .deck-strip .metric b { font-size:15px; }
-.deck-strip .metric > span { overflow-wrap:anywhere; }
+.deck-strip .metric > span { overflow-wrap:anywhere; white-space:pre-line; }
 .deck-strip .deck-slot .remove { font-size:13px; }
 .deck-dialog { max-width:615px; }
 .deck-dialog .deck-grid { grid-template-columns:repeat(5,minmax(0,1fr)); }
@@ -393,8 +395,8 @@ dialog button { border-radius:0; }
 .synergy-art .orb.chakra { right:max(11px,var(--frame-right)); }
 .synergy-partner strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:8.5px; line-height:1.25; }
 .synergy-ability { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:9px; line-height:1.25; color:var(--muted); }
-@media(min-width:701px) and (max-width:1100px) {
-  .top { grid-template-columns:minmax(0,1fr) auto auto; gap:12px; }
+@media(min-width:701px) and (max-width:1250px) {
+  .top { grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); gap:12px; }
   .top h1 { font-size:17px; }
   .brand-mark { width:32px; height:36px; font-size:22px; }
   .nav-full { display:none; }
@@ -411,7 +413,7 @@ dialog button { border-radius:0; }
   .top h1 { font-size:clamp(16px,4.5vw,19px); }
   .nav-full { display:none; }
   .nav-short { display:block; }
-  .tabs { position:fixed; z-index:40; inset:auto 0 0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; width:100%; max-width:none; margin:0; padding:3px 6px calc(3px + env(safe-area-inset-bottom)); border:0; border-top:1px solid var(--line); background:var(--paper); box-shadow:0 -4px 20px #203b3309; }
+  .tabs { position:fixed; z-index:40; inset:auto 0 0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; width:100%; max-width:none; margin:0; padding:3px 6px calc(3px + env(safe-area-inset-bottom)); border:0; border-top:1px solid var(--line); background:var(--paper); box-shadow:0 -4px 20px #203b3309; }
   .tab { flex-direction:column; width:100%; min-width:0; max-width:100%; min-height:54px; gap:4px; padding:6px 4px; font-size:11px; color:var(--muted); }
   .nav-icon { width:20px; height:20px; }
   .tab + .tab::before { left:0; background:var(--line); }
@@ -430,6 +432,8 @@ dialog button { border-radius:0; }
   .mobile-filter-button { display:flex; align-items:center; justify-content:center; flex:none; gap:5px; min-height:44px; padding:8px 10px; border-color:#9fbaaa; background:#eaf2ea; }
   .mobile-filter-button svg { width:17px; height:17px; }
   .mobile-filter-button .filter-count { margin-left:-3px; }
+  .mobile-propose-button { flex:none; min-height:44px; padding:8px 9px; color:#995b1f; border-color:#dfb17e; background:#fff0db; }
+  .mobile-propose-button:hover:not(:disabled) { color:#995b1f; border-color:#cb8b4b; background:#ffe6c3; }
   .area > .toolbox { display:none; }
   .mobile-deck-shortcut { position:fixed; z-index:30; left:12px; right:auto; bottom:calc(74px + env(safe-area-inset-bottom)); display:none; align-items:center; gap:8px; min-height:44px; padding:10px 13px; box-shadow:0 4px 16px #203b3324; }
   body[data-mode=builder] .mobile-deck-shortcut { display:flex; }
@@ -446,7 +450,7 @@ dialog button { border-radius:0; }
   #mobile-tools-host { min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:16px; }
   #mobile-tools-host .toolbox { display:block; margin:0; padding:0; border:0; }
   #mobile-tools-host .toolbox-body { display:block; margin:0; padding:0; border:0; }
-  #mobile-tools-dialog[data-kind=filters] .toolbox-header,#mobile-tools-host .toolbox-toggle,#mobile-tools-dialog[data-kind=deck] [data-panel=filters] { display:none; }
+  #mobile-tools-dialog[data-kind=filters] .toolbox-header,#mobile-tools-dialog[data-kind=proposal] .toolbox-header,#mobile-tools-host .toolbox-toggle,#mobile-tools-dialog[data-kind=deck] [data-panel=filters] { display:none; }
   #mobile-tools-host .toolbox-header { margin-bottom:16px; }
   #mobile-tools-host .toolbox-tabs { display:flex; flex-wrap:nowrap; width:100%; gap:6px; padding:3px; background:#f1f5ef; border:1px solid var(--line); }
   #mobile-tools-host .toolbox-tab { flex:1; max-width:none; min-height:42px; font-size:12px; }
@@ -470,4 +474,78 @@ dialog button { border-radius:0; }
   .synergy-row { grid-template-columns:124px minmax(0,1fr); gap:10px; padding:8px; }
   .synergy-partners { --synergy-card-width:84px; --synergy-gap:6px; }
   .synergy-art .orb { top:10px; width:17px; height:17px; font-size:10px; }
+  .catalog { padding-top:3px; }
+  .game-card.selected { position:relative; outline:0; }
+  .game-card.selected::after { content:""; position:absolute; z-index:2; inset:0; border:2px solid var(--green); pointer-events:none; }
+}
+
+/* Anonymous deck lists and reviewable auto-builder proposals share compact card previews. */
+.preset-list { display:grid; gap:14px; }
+.preset { min-width:0; padding:14px; border:1px solid var(--line); background:var(--paper); }
+.preset-head { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+.preset-head h3 { font-size:15px; }
+.preset-head > button { margin-left:auto; }
+.mode-label { color:var(--muted); font-size:10px; }
+.preset-cards { display:grid; grid-template-columns:repeat(10,minmax(0,1fr)); align-items:stretch; gap:6px; margin:0; padding:0; list-style:none; }
+.preset-cards > li { min-width:0; }
+.deck-preview-card { display:flex; flex-direction:column; width:100%; height:100%; min-width:0; padding:3px; background:#f3f6ef; text-align:left; }
+.deck-preview-card.is-fixed { border:2px solid var(--green); padding:2px; }
+.mini-art { position:relative; display:block; width:100%; aspect-ratio:var(--art-ratio); }
+.mini-art img { display:block; width:100%; height:100%; object-fit:contain; }
+.mini-art .orb { top:max(11px,var(--frame-top)); width:20px; height:20px; border-width:1.5px; font-size:12px; }
+.mini-art .orb.cost { left:max(10px,var(--frame-left)); }
+.mini-art .orb.chakra { right:max(10px,var(--frame-right)); }
+.mini-art .slot-level { right:1px; bottom:1px; padding:1px 2px; font-size:8px; border-width:1px; }
+.deck-preview-card > strong { display:block; padding:4px 1px 2px; font-size:8.5px; line-height:1.3; overflow-wrap:anywhere; }
+.preset-description { margin-top:12px; font-size:12px; line-height:1.6; color:#53634f; }
+.auto-build-button { width:100%; }
+.auto-dialog { max-width:1100px; }
+.auto-controls { display:flex; justify-content:flex-end; margin-bottom:8px; }
+.auto-status { color:var(--muted); font-size:12px; }
+.auto-status:empty { display:none; }
+.auto-results { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.auto-proposal { display:flex; flex-direction:column; min-width:0; gap:10px; padding:12px; border:1px solid var(--line); background:#f9fbf6; }
+.auto-proposal h3 { color:var(--green); }
+.proposal-explanation { min-height:3em; font-size:11px; line-height:1.5; }
+.proposal-legend { display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; font-size:10px; color:var(--muted); }
+.proposal-legend > span:first-child { border-left:3px solid var(--green); padding-left:5px; }
+.auto-proposal .preset-cards { grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; }
+.auto-proposal .deck-preview-card > strong { font-size:8px; }
+.auto-proposal .mini-art .orb { top:9px; width:17px; height:17px; font-size:10px; border-width:1px; }
+.proposal-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; }
+.proposal-metrics .metric b { font-size:17px; }
+.proposal-metrics .metric > span { font-size:9px; }
+.proposal-evidence { font-size:10px; line-height:1.6; color:var(--muted); }
+.auto-proposal > button { width:100%; margin-top:auto; min-height:36px; }
+.proposal-form { display:grid; gap:12px; padding:3px; }
+.proposal-form .field > label { font-size:11px; font-weight:600; color:var(--ink); }
+.proposal-form > button { justify-self:start; min-height:34px; }
+.proposal-status:empty { display:none; }
+.proposal-deck-name { font-size:13px; overflow-wrap:anywhere; }
+.proposal-deck-cards { grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; }
+.proposal-deck-cards:empty { display:none; }
+.proposal-feedback { max-width:460px; }
+.proposal-feedback > p { line-height:1.6; }
+.proposal-feedback .inline-note { margin-top:12px; }
+#propose-deck { width:100%; }
+#decks-filter-host select { width:auto; max-width:100%; }
+@media(min-width:701px) and (max-width:900px) {
+  .top .nav-icon { display:none; }
+  .preset-cards { grid-template-columns:repeat(5,minmax(0,1fr)); }
+}
+@media(max-width:800px) {
+  .auto-results { grid-template-columns:minmax(0,1fr); }
+  .proposal-explanation { min-height:0; }
+}
+@media(max-width:700px) {
+  .preset { padding:10px; }
+  .preset-cards { grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; }
+  .preset-head { gap:6px; }
+  .preset-head > button { max-width:50%; }
+  .mini-art .orb { top:9px; width:17px; height:17px; font-size:10px; border-width:1px; }
+  .preset-description { font-size:11px; }
+  .auto-proposal { padding:10px; }
+  .auto-proposal > button { min-height:42px; }
+  textarea { font-size:16px; }
+  .proposal-deck-cards { grid-template-columns:repeat(5,minmax(0,1fr)); }
 }
