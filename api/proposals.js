@@ -5,7 +5,7 @@ const translations=require('../translations.js');
 const byKey=new Map(CARDS.map(card=>[card.card_key,card]));
 const recentRequests=new Map();
 function validDeck(deck) {
-  return deck && typeof deck.name==='string' && deck.name.length<=15 && Array.isArray(deck.cards) && deck.cards.length>0 && deck.cards.length<=10 && new Set(deck.cards).size===deck.cards.length && deck.cards.every(key=>byKey.has(key));
+  return deck && typeof deck.name==='string' && deck.name.length<=15 && Array.isArray(deck.cards) && deck.cards.length===10 && new Set(deck.cards).size===10 && deck.cards.every(key=>byKey.has(key));
 }
 function discordPayload(data) {
   const embed={title:data.type==='deck'?'Deck proposal: '+data.deck.name:'Synergy proposal',color:0xbe6b27,fields:[{name:'Language',value:translations[data.language].name,inline:true}],timestamp:new Date().toISOString()};

@@ -563,8 +563,8 @@ function renderPresetLibrary() {
 function renderDeckProposal() {
   $('proposal-deck-name').textContent=current.name;
   $('proposal-deck-cards').innerHTML=deckPreviewHTML(current.cards,{},new Set(),false);
-  $('proposal-deck-empty').hidden=current.cards.length>0;
-  $('send-deck-proposal').disabled=current.cards.length===0||proposalSending;
+  $('proposal-deck-incomplete').hidden=current.cards.length===10;
+  $('send-deck-proposal').disabled=current.cards.length!==10||proposalSending;
 }
 function openDeckProposal() {
   setMode('decks');selectToolbarPanel('decks','proposal');renderDeckProposal();
@@ -575,7 +575,7 @@ async function sendProposal(event) {
   event.preventDefault();
   if (proposalSending) return;
   const isDeck=event.currentTarget.id==='deck-proposal-panel';
-  if (isDeck && !current.cards.length) return;
+  if (isDeck && current.cards.length!==10) return;
   const input=$(isDeck?'deck-proposal-description':'synergy-proposal-description');
   if (!input.value.trim()) {input.setCustomValidity(t('ui.proposalDescriptionRequired'));input.reportValidity();return;}
   if (input.value.length>2000) return;
@@ -599,7 +599,7 @@ async function sendProposal(event) {
     status.dataset.i18n=key;status.textContent=t(key);
   } finally {
     proposalSending=false;form.removeAttribute('aria-busy');
-    button.disabled=isDeck && !current.cards.length;
+    button.disabled=isDeck && current.cards.length!==10;
   }
 }
 function loadPreset(id) {
@@ -762,17 +762,16 @@ function mountToolbars() {
       if (tab) selectToolbarPanel(area,tab.dataset.panel);
     };
     tabs.onkeydown=event=>{
-      const available=mobileToolsArea===area && $('mobile-tools-dialog').dataset.kind==='deck' ? [panels.find(panel=>panel.key==='deck'),panels.find(panel=>panel.key==='assumptions')] : panels;
-      const index=available.findIndex(panel=>panel.key===toolbarState[area].active);
+      const index=panels.findIndex(panel=>panel.key===toolbarState[area].active);
       let next;
-      if (event.key==='ArrowRight' || desktop.matches && event.key==='ArrowDown') next=(index+1)%available.length;
-      else if (event.key==='ArrowLeft' || desktop.matches && event.key==='ArrowUp') next=(index+available.length-1)%available.length;
+      if (event.key==='ArrowRight' || desktop.matches && event.key==='ArrowDown') next=(index+1)%panels.length;
+      else if (event.key==='ArrowLeft' || desktop.matches && event.key==='ArrowUp') next=(index+panels.length-1)%panels.length;
       else if (event.key==='Home') next=0;
-      else if (event.key==='End') next=available.length-1;
+      else if (event.key==='End') next=panels.length-1;
       else return;
       event.preventDefault();
-      selectToolbarPanel(area,available[next].key);
-      $(area+'-toolbox-tab-'+available[next].key).focus();
+      selectToolbarPanel(area,panels[next].key);
+      $(area+'-toolbox-tab-'+panels[next].key).focus();
     };
   }
 }
@@ -783,6 +782,11 @@ function mountMobileNavigation() {
     bar.className='mobile-browse-bar';bar.id=area+'-browse-bar';
     bar.innerHTML=`<div class="mobile-search-host"></div><button class="mobile-filter-button" type="button" aria-haspopup="dialog" aria-controls="mobile-tools-dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">${toolbarIcons.filters}</svg><span data-i18n="ui.quickFilters"></span><span class="filter-count" id="${area}-quick-filter-count" hidden></span></button>`;
     bar.querySelector('button').onclick=()=>openMobileTools('filters');
+    if (toolbarPanels[area].some(panel=>panel.key==='assumptions')) {
+      const button=document.createElement('button');button.className='mobile-assumptions-button';button.type='button';button.dataset.i18n='ui.quickAssumptions';
+      button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-controls','mobile-tools-dialog');button.dataset.i18nAriaLabel='ui.assumptions';
+      button.onclick=()=>openMobileTools('assumptions');bar.append(button);
+    }
     if (toolbarPanels[area].some(panel=>panel.key==='proposal')) {
       const button=document.createElement('button');button.className='mobile-propose-button';button.type='button';button.dataset.i18n='ui.propose';
       button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-controls','mobile-tools-dialog');
@@ -857,13 +861,13 @@ function syncMobileSearch() {
   }
 }
 function openMobileTools(kind) {
-  if (!mobileViewport.matches) return;
+  if (!mobileViewport.matches || !toolbarPanels[mode].some(panel=>panel.key===kind)) return;
   closeFilterMenus();
   const dialog=$('mobile-tools-dialog');
   mobileToolsArea=mode;
   dialog.dataset.kind=kind;
   $('mobile-tools-host').append($(mode+'-toolbox'));
-  toolbarState[mode]={active:kind==='filters'?'filters':kind==='proposal'?'proposal':'deck',open:true};
+  toolbarState[mode]={active:kind,open:true};
   renderToolbar(mode);syncMobileToolsLabels();
   document.body.classList.add('mobile-tools-open');
   dialog.showModal();

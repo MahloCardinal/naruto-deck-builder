@@ -262,6 +262,7 @@ dialog::backdrop { background:#26362770; backdrop-filter:blur(2px); }
 .cycle-icon { display:block; width:15px; height:15px; flex:none; }
 .level-cell:hover:not(:disabled),.level-filter:hover:not(:disabled) { background:#e5eddd; border-color:var(--green); }
 #card-dialog #dialog-add { height:auto; min-height:34px; align-self:center; margin:0; padding:6px 10px; border-radius:5px; font-size:12px; }
+#card-dialog #dialog-add.strong-danger { margin-left:auto; }
 .level-filter { display:inline-flex; align-items:center; justify-content:center; gap:7px; width:64px; height:31px; padding:5px 8px; font-weight:400; background:white; border:1px solid var(--line); }
 .dialog-workbench.calculation-only { grid-template-columns:1fr; }
 @media(max-width:700px) {
@@ -429,7 +430,7 @@ dialog button { border-radius:0; }
   .mobile-search-host .text-search,.mobile-search-host input { width:100%; }
   .mobile-search-host label { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
   .mobile-search-host input { min-height:44px; border-color:#bdcdc2; background:var(--paper); }
-  .mobile-filter-button { display:flex; align-items:center; justify-content:center; flex:none; gap:5px; min-height:44px; padding:8px 10px; border-color:#9fbaaa; background:#eaf2ea; }
+  .mobile-filter-button,.mobile-assumptions-button { display:flex; align-items:center; justify-content:center; flex:none; gap:5px; min-height:44px; padding:8px 10px; border-color:#9fbaaa; background:#eaf2ea; white-space:nowrap; }
   .mobile-filter-button svg { width:17px; height:17px; }
   .mobile-filter-button .filter-count { margin-left:-3px; }
   .mobile-propose-button { flex:none; min-height:44px; padding:8px 9px; color:#995b1f; border-color:#dfb17e; background:#fff0db; }
@@ -450,12 +451,7 @@ dialog button { border-radius:0; }
   #mobile-tools-host { min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:16px; }
   #mobile-tools-host .toolbox { display:block; margin:0; padding:0; border:0; }
   #mobile-tools-host .toolbox-body { display:block; margin:0; padding:0; border:0; }
-  #mobile-tools-dialog[data-kind=filters] .toolbox-header,#mobile-tools-dialog[data-kind=proposal] .toolbox-header,#mobile-tools-host .toolbox-toggle,#mobile-tools-dialog[data-kind=deck] [data-panel=filters] { display:none; }
-  #mobile-tools-host .toolbox-header { margin-bottom:16px; }
-  #mobile-tools-host .toolbox-tabs { display:flex; flex-wrap:nowrap; width:100%; gap:6px; padding:3px; background:#f1f5ef; border:1px solid var(--line); }
-  #mobile-tools-host .toolbox-tab { flex:1; max-width:none; min-height:42px; font-size:12px; }
-  #mobile-tools-host [data-panel=deck] { order:-1; }
-  #mobile-tools-host .toolbox-tab[aria-selected=true] { background:white; }
+  #mobile-tools-host .toolbox-header { display:none; }
   #mobile-tools-host .filter-fields { gap:14px 10px; }
   #mobile-tools-host .field > label { font-size:11px; margin-bottom:5px; }
   #mobile-tools-host input:not([type=checkbox]),#mobile-tools-host select,#mobile-tools-host button { min-height:40px; }
@@ -521,6 +517,7 @@ dialog button { border-radius:0; }
 .proposal-form .field > label { font-size:11px; font-weight:600; color:var(--ink); }
 .proposal-form > button { justify-self:start; min-height:34px; }
 .proposal-status:empty { display:none; }
+#proposal-deck-incomplete { color:var(--red); }
 .proposal-deck-name { font-size:13px; overflow-wrap:anywhere; }
 .proposal-deck-cards { grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; }
 .proposal-deck-cards:empty { display:none; }
