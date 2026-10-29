@@ -1,10 +1,13 @@
 'use strict';
 
-// Deck lists without author attribution. Card text and descriptions come from the language catalogs.
+// Named deck lists with saved feature tags. Beginner eligibility is assigned when a list is first saved.
+// Save "beginner" for at most 1 Legendary and 4 Epic cards; never reclassify while rendering.
+// Card text, localized names and descriptions come from the language catalogs.
 const PREBUILT_DECKS = [
   {
     "id": "01",
-    "mode": "standard",
+    "name": "Kyubi Rage",
+    "tags": [],
     "cards": [
       "S1_078",
       "S1_034",
@@ -25,7 +28,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "02",
-    "mode": "boss",
+    "name": "Reactive Guard",
+    "tags": [
+      "boss"
+    ],
     "cards": [
       "S3_098",
       "S3_076",
@@ -45,7 +51,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "03",
-    "mode": "boss",
+    "name": "Summon Swarm",
+    "tags": [
+      "boss"
+    ],
     "cards": [
       "S1_034",
       "S1_033",
@@ -66,7 +75,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "04",
-    "mode": "standard",
+    "name": "Sand and Fire",
+    "tags": [],
     "cards": [
       "S2_097",
       "S2_081",
@@ -87,7 +97,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "05",
-    "mode": "standard",
+    "name": "Shogi Lock",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S1_072",
       "S2_078",
@@ -108,7 +121,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "06",
-    "mode": "standard",
+    "name": "Roaming Itachi",
+    "tags": [],
     "cards": [
       "S3_096",
       "S2_090",
@@ -128,7 +142,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "07",
-    "mode": "standard",
+    "name": "Tsunade’s Stand",
+    "tags": [],
     "cards": [
       "S3_097",
       "S3_060",
@@ -149,7 +164,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "08",
-    "mode": "standard",
+    "name": "Wind and Sand",
+    "tags": [],
     "cards": [
       "S1_081",
       "S3_099",
@@ -169,7 +185,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "09",
-    "mode": "standard",
+    "name": "Water Plan",
+    "tags": [],
     "cards": [
       "S1_082",
       "S1_069",
@@ -190,7 +207,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "10",
-    "mode": "standard",
+    "name": "Kyubi and Gaara",
+    "tags": [],
     "cards": [
       "S1_085",
       "S3_060",
@@ -211,7 +229,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "11",
-    "mode": "standard",
+    "name": "Shared Dream",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S3_045",
       "S3_032",
@@ -232,7 +253,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "12",
-    "mode": "standard",
+    "name": "Lee’s Gates",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S2_094",
       "S2_005",
@@ -253,7 +277,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "13",
-    "mode": "standard",
+    "name": "Ino-Shika-Cho",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S2_018",
       "S2_020",
@@ -274,7 +301,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "14",
-    "mode": "standard",
+    "name": "Hyuga Clan",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S2_022",
       "S2_023",
@@ -295,7 +325,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "15",
-    "mode": "standard",
+    "name": "Mind Control",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S2_064",
       "S2_058",
@@ -316,7 +349,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "16",
-    "mode": "standard",
+    "name": "Burning Toads",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S2_033",
       "S3_035",
@@ -337,7 +373,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "17",
-    "mode": "standard",
+    "name": "Edo and Sound",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S2_086",
       "S2_068",
@@ -358,7 +397,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "18",
-    "mode": "standard",
+    "name": "Itachi Clones",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S3_082",
       "S1_014",
@@ -379,7 +421,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "19",
-    "mode": "standard",
+    "name": "Uchiha Support",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S3_033",
       "S3_050",
@@ -400,7 +445,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "20",
-    "mode": "standard",
+    "name": "Kiba & Akamaru",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S3_079",
       "S2_077",
@@ -421,7 +469,10 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "21",
-    "mode": "standard",
+    "name": "Sand Shield",
+    "tags": [
+      "beginner"
+    ],
     "cards": [
       "S2_081",
       "S2_060",
@@ -443,7 +494,7 @@ const PREBUILT_DECKS = [
   {
     "id": "22",
     "name": "Season 1 Only",
-    "mode": "standard",
+    "tags": [],
     "cards": [
       "S1_077",
       "S1_081",
@@ -459,6 +510,249 @@ const PREBUILT_DECKS = [
     "core": [
       "S1_077",
       "S1_073"
+    ]
+  },
+  {
+    "id": "23",
+    "name": "Focus",
+    "tags": [
+      "beginner"
+    ],
+    "cards": [
+      "S2_058",
+      "S3_010",
+      "S3_056",
+      "S3_080",
+      "S3_086",
+      "S3_084",
+      "S3_090",
+      "S2_037",
+      "S2_036",
+      "S2_061"
+    ],
+    "core": [
+      "S3_056",
+      "S3_010"
+    ]
+  },
+  {
+    "id": "24",
+    "name": "Deckbot",
+    "tags": [],
+    "cards": [
+      "S3_011",
+      "S3_098",
+      "S3_077",
+      "S2_091",
+      "S2_092",
+      "S2_099",
+      "S3_066",
+      "S3_086",
+      "S3_097",
+      "S1_042"
+    ],
+    "core": [
+      "S3_098",
+      "S3_077",
+      "S3_011"
+    ]
+  },
+  {
+    "id": "25",
+    "name": "Control",
+    "tags": [],
+    "cards": [
+      "S2_091",
+      "S1_070",
+      "S1_069",
+      "S2_099",
+      "S3_062",
+      "S3_097",
+      "S2_054",
+      "S1_081",
+      "S1_006",
+      "S1_010"
+    ],
+    "core": [
+      "S2_099",
+      "S3_097",
+      "S1_070"
+    ]
+  },
+  {
+    "id": "26",
+    "name": "Rage by Pluto",
+    "tags": [],
+    "cards": [
+      "S1_078",
+      "S2_091",
+      "S2_092",
+      "S3_062",
+      "S1_033",
+      "S1_034",
+      "S3_079",
+      "S2_054",
+      "S1_081",
+      "S3_097"
+    ],
+    "core": [
+      "S1_078",
+      "S3_079",
+      "S2_091"
+    ]
+  },
+  {
+    "id": "27",
+    "name": "Control by Pluto",
+    "tags": [],
+    "cards": [
+      "S3_097",
+      "S2_091",
+      "S2_092",
+      "S1_070",
+      "S2_061",
+      "S2_054",
+      "S1_081",
+      "S1_085",
+      "S2_099",
+      "S3_062"
+    ],
+    "core": [
+      "S1_085",
+      "S2_099",
+      "S2_091"
+    ]
+  },
+  {
+    "id": "28",
+    "name": "Deck by ALX",
+    "tags": [],
+    "cards": [
+      "S1_081",
+      "S2_091",
+      "S2_092",
+      "S2_099",
+      "S1_070",
+      "S2_084",
+      "S3_062",
+      "S2_061",
+      "S1_010",
+      "S2_054"
+    ],
+    "core": [
+      "S2_099",
+      "S1_070",
+      "S2_084"
+    ]
+  },
+  {
+    "id": "29",
+    "name": "Focus by Denn",
+    "tags": [],
+    "cards": [
+      "S2_058",
+      "S3_056",
+      "S3_080",
+      "S3_094",
+      "S3_090",
+      "S2_078",
+      "S2_099",
+      "S2_094",
+      "S2_036",
+      "S1_060"
+    ],
+    "core": [
+      "S2_078",
+      "S3_056",
+      "S3_094"
+    ]
+  },
+  {
+    "id": "30",
+    "name": "Carnage",
+    "tags": [],
+    "cards": [
+      "S1_006",
+      "S1_070",
+      "S1_081",
+      "S2_054",
+      "S2_091",
+      "S2_092",
+      "S3_062",
+      "S3_096",
+      "S1_021",
+      "S2_090"
+    ],
+    "core": [
+      "S3_096",
+      "S2_090",
+      "S1_021"
+    ]
+  },
+  {
+    "id": "31",
+    "name": "Gaara",
+    "tags": [],
+    "cards": [
+      "S2_081",
+      "S1_085",
+      "S1_070",
+      "S3_062",
+      "S1_069",
+      "S1_081",
+      "S2_054",
+      "S1_006",
+      "S2_036",
+      "S2_094"
+    ],
+    "core": [
+      "S2_081",
+      "S1_085",
+      "S2_094"
+    ]
+  },
+  {
+    "id": "32",
+    "name": "Simo BP",
+    "tags": [],
+    "cards": [
+      "S1_082",
+      "S2_054",
+      "S3_077",
+      "S3_030",
+      "S1_081",
+      "S2_088",
+      "S2_097",
+      "S3_058",
+      "S2_095",
+      "S2_036"
+    ],
+    "core": [
+      "S1_082",
+      "S2_097",
+      "S1_081"
+    ]
+  },
+  {
+    "id": "33",
+    "name": "Forbidden List",
+    "tags": [],
+    "cards": [
+      "S1_081",
+      "S2_091",
+      "S3_097",
+      "S3_098",
+      "S1_010",
+      "S2_036",
+      "S2_054",
+      "S3_062",
+      "S2_095",
+      "S3_091"
+    ],
+    "core": [
+      "S3_098",
+      "S3_097",
+      "S2_095"
     ]
   }
 ];

@@ -50,7 +50,7 @@ const RANK = {Common:0, Rare:1, Epic:2, Legendary:3};
 const byIndex = new Map(CARDS.map(c => [c.index,c]));
 const cardByKey = new Map(CARDS.map(card=>[card.card_key,card]));
 const presetById = new Map(PREBUILT_DECKS.map(deck=>[deck.id,deck]));
-const presetName = deck => deck.name || t('ui.presetNumber',{number:fmt(Number(deck.id),0)});
+const presetName = deck => getTranslation('ui.presetName_'+deck.id) ?? deck.name;
 let autoController=null,autoProposals=[],autoLevels={},autoSnapshot='';
 let proposalSending=false,deckProposalAttempted=false;
 // Sources share a row only when their complete partner lists are identical.
@@ -178,6 +178,18 @@ function setStandardStatus(key) {
 let termPatterns,termRegex;
 function normalizeText(text) {
   return (TRANSLATIONS[language].normalizations || []).reduce((value,[from,to]) => value.replaceAll(from,to),String(text ?? ''));
+}
+const normalizeSearchText = text => normalizeText(text).toLocaleLowerCase(TRANSLATIONS[language].locale).replace(/\s+/g,' ').trim();
+const matchesSearchPhrase = (query,fields) => fields.some(text=>normalizeSearchText(text).includes(query));
+function matchesCardSearch(card,query,allLevels=false) {
+  const index=/^#?(\d+)$/.exec(query);
+  if (index) return cardNumber(card)===Number(index[1]);
+  const reference=/^s(\d+)\s*(?:[#_-]|\s)\s*(\d+)$/.exec(query);
+  if (reference) return card.season===Number(reference[1]) && cardNumber(card)===Number(reference[2]);
+  const season=/^s(\d+)$/.exec(query);
+  if (season) return card.season===Number(season[1]);
+  const {name,ability,descriptions}=cardText(card);
+  return matchesSearchPhrase(query,[name,ability,`${cardReference(card)} ${name}`,...(allLevels?descriptions:[descriptions[levelOf(card)-1]])]);
 }
 function buildTermPatterns() {
   const patterns=Object.entries(TRANSLATIONS[language].terms);
@@ -324,7 +336,7 @@ function cardHTML(c,result=mode==='builder'?computed(c):null) {
 const filterIds = ['f-level','f-text','f-estimate'];
 function updateFilterCount(area) {
   let count;
-  if (area==='decks') count=Number($('library-search').value.trim()!=='')+Number($('library-mode').value!=='all')+Number($('decks-owned-only').checked);
+  if (area==='decks') count=Number($('library-search').value.trim()!=='')+Number(selectedFilterValues('f-tags','decks').size>0)+Number($('decks-owned-only').checked);
   else {
     const groups=Object.keys(filterDefinitions).filter(id=>$(area+'-'+id+'-menu').querySelector('input:checked')).length;
     count=groups+Number($(area+'-f-text').value.trim()!=='')+Number(!!$(area+'-f-estimate') && $(area+'-f-estimate').value!=='')+Number($(area+'-owned-only').checked);
@@ -337,12 +349,10 @@ function updateFilterCount(area) {
   if (quickBadge) { quickBadge.textContent=badge.textContent;quickBadge.hidden=badge.hidden; }
 }
 function filteredCards(estimateFor=computed) {
-  const query = F('f-text').value.trim().toLowerCase();
-  const words = query.replace(/\bs(\d+)\s*(?:[#_-]\s*|\s+)(\d+)\b/g,'s$1#$2').split(/\s+/).filter(Boolean);
+  const query = normalizeSearchText(F('f-text').value);
   const rarity = selectedFilterValues('f-rarity'), season = selectedFilterValues('f-season'), skills = [...selectedFilterValues('f-skill')];
   const cost = selectedFilterValues('f-cost'), chakra = selectedFilterValues('f-chakra');
   const minimumPower = mode==='builder' && F('f-estimate').value!=='' ? Number(F('f-estimate').value) : null;
-  const indexQuery = /^#?\d+$/.test(query) ? Number(query.replace('#','')) : null;
   const ownedOnly = F('owned-only').checked;
   return CARDS.filter(c => {
     if (ownedOnly && !ownsCard(c)) return false;
@@ -350,20 +360,7 @@ function filteredCards(estimateFor=computed) {
     if (skills.length && !skills.some(value => value === 'none' ? c.skill_types_original.length === 0 : c.skill_types_original.includes(value))) return false;
     if (cost.size && !cost.has(String(c.energy_cost)) || chakra.size && !chakra.has(String(c.chakra))) return false;
     if (minimumPower!==null && estimateFor(c).value<minimumPower) return false;
-    if (query) {
-      if (indexQuery !== null) { if (cardNumber(c) !== indexQuery) return false; }
-      else {
-        const {name,ability,descriptions}=cardText(c);
-        const text = `${name} ${cardReference(c)} ${ability} ${normalizeText(descriptions[levelOf(c)-1])}`.toLowerCase();
-        if (!words.every(word => {
-          const reference = /^s(\d+)#(\d+)$/.exec(word);
-          if (reference) return c.season === Number(reference[1]) && cardNumber(c) === Number(reference[2]);
-          if (/^#\d+$/.test(word)) return cardNumber(c) === Number(word.slice(1));
-          if (/^s\d+$/.test(word)) return c.season === Number(word.slice(1));
-          return text.includes(word);
-        })) return false;
-      }
-    }
+    if (query && !matchesCardSearch(c,query)) return false;
     return true;
   });
 }
@@ -740,17 +737,35 @@ function deckPreviewHTML(indices,{levels={},locked=new Set(),showOwnership=false
     return `<li><button class="deck-preview-card${locked.has(index)?' is-fixed':''}${missing?' is-missing':''}" data-preview-card="${index}" data-preview-level="${level}" type="button" title="${esc(text.ability+(missing?' · '+t('ui.collectionMissingCard'):''))}" aria-label="${esc(t('ui.openCard',{name:text.name,reference:cardReference(card)})+(missing?' · '+t('ui.collectionMissingCard'):''))}"><span class="mini-art"><img src="${imagePath(card)}" alt="" width="${CARD_ART.width}" height="${CARD_ART.height}" loading="lazy" decoding="async"><span class="orb cost">${card.energy_cost}</span><span class="orb chakra">${card.chakra}</span></span><strong>${esc(text.name)}</strong></button></li>`;
   }).join('');
 }
+const presetDescriptionPatterns=new Map();
+function formatPresetDescription(deck) {
+  if (!presetDescriptionPatterns.has(language)) {
+    const names=new Set(CARDS.map(card=>getTranslation('cards.'+card.card_key).name));
+    const pattern=[...names].sort((a,b)=>b.length-a.length).map(name=>name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
+    presetDescriptionPatterns.set(language,new RegExp(`(?<![\\p{L}\\p{N}_])(?:${pattern})(?![\\p{L}\\p{N}_])`,'giu'));
+  }
+  const text=t('ui.preset_'+deck.id);
+  let html='',start=0;
+  for (const match of text.matchAll(presetDescriptionPatterns.get(language))) {
+    html+=formatTerms(text.slice(start,match.index))+`<strong>${esc(match[0])}</strong>`;
+    start=match.index+match[0].length;
+  }
+  return html+formatTerms(text.slice(start));
+}
 function renderPresetLibrary() {
-  const query=$('library-search').value.trim().toLocaleLowerCase(),words=query.split(/\s+/).filter(Boolean),selectedMode=$('library-mode').value;
+  const query=normalizeSearchText($('library-search').value),tags=selectedFilterValues('f-tags','decks');
   const ownedOnly=$('decks-owned-only').checked;
   const decks=PREBUILT_DECKS.filter(deck=>{
     if (ownedOnly && !deck.cards.every(key=>!!collectionCounts?.[key])) return false;
-    if (selectedMode!=='all' && deck.mode!==selectedMode) return false;
-    if (!words.length) return true;
-    const text=(presetName(deck)+' '+t('ui.preset_'+deck.id)+' '+deck.cards.map(key=>{const card=cardByKey.get(key),text=cardText(card);return cardReference(card)+' '+text.name+' '+text.ability+' '+text.descriptions.join(' ');}).join(' ')).toLocaleLowerCase();
-    return words.every(word=>text.includes(word));
+    if (tags.size && !deck.tags.some(tag=>tags.has(tag))) return false;
+    return !query || matchesSearchPhrase(query,[presetName(deck),t('ui.preset_'+deck.id)]) || deck.cards.some(key=>matchesCardSearch(cardByKey.get(key),query,true));
   });
-  $('preset-list').innerHTML=decks.length?decks.map(deck=>`<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${deck.mode==='standard'?'':`<span class="mode-label">${t('ui.bossDecks')}</span>`}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(deck.cards.map(key=>cardByKey.get(key).index),{showOwnership:true})}</ol><p class="preset-description">${formatTerms(t('ui.preset_'+deck.id))}</p></article>`).join(''):`<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
+  const collator=new Intl.Collator(TRANSLATIONS[language].locale,{numeric:true,sensitivity:'base'});
+  decks.sort((a,b)=>collator.compare(presetName(a),presetName(b))||a.id.localeCompare(b.id));
+  $('preset-list').innerHTML=decks.length?decks.map(deck=>{
+    const cards=deck.cards.map(key=>cardByKey.get(key)).sort((a,b)=>a.energy_cost-b.energy_cost||a.index-b.index);
+    return `<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${deck.tags.length?`<div class="tags">${deck.tags.map(tag=>`<span class="tag">${esc(t('ui.tag_'+tag))}</span>`).join('')}</div>`:''}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(cards.map(card=>card.index),{showOwnership:true})}</ol><p class="preset-description">${formatPresetDescription(deck)}</p></article>`;
+  }).join(''):`<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
   updateFilterCount('decks');
 }
 function renderDeckProposal() {
@@ -1232,8 +1247,12 @@ function createFilterDefinitions() {
   };
 }
 let filterDefinitions=createFilterDefinitions();
-function selectedFilterValues(id) {
-  return new Set(Array.from($(mode+'-'+id+'-menu').querySelectorAll('input:checked'),input => input.value));
+function createDeckTagFilterDefinition() {
+  return {label:t('ui.deckTags'),all:t('ui.allFeminine'),options:[...new Set(PREBUILT_DECKS.flatMap(deck=>deck.tags))].map(value=>({value,label:t('ui.tag_'+value)})).sort((a,b)=>a.label.localeCompare(b.label,TRANSLATIONS[language].locale))};
+}
+let deckTagFilterDefinition=createDeckTagFilterDefinition();
+function selectedFilterValues(id,area=mode) {
+  return new Set(Array.from($(area+'-'+id+'-menu').querySelectorAll('input:checked'),input => input.value));
 }
 function updateMultiFilter(button,config) {
   const menu = $(button.getAttribute('popovertarget'));
@@ -1344,7 +1363,7 @@ function sizeFilterControls() {
   // Reserve enough room for every possible selection count in the active language.
   const context=document.createElement('canvas').getContext('2d');
   for (const button of document.querySelectorAll('[data-multi-filter]')) {
-    const config=filterDefinitions[button.dataset.filterKey];
+    const config=button.dataset.filterKey==='f-tags'?deckTagFilterDefinition:filterDefinitions[button.dataset.filterKey];
     const style=getComputedStyle(button),arrow=getComputedStyle(button.querySelector('.filter-arrow'));
     context.font=`${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
     let textWidth=0;
@@ -1456,6 +1475,8 @@ function applyLanguage() {
   buildTermPatterns();translateStatic();
   if (mode!=='collection') renderCollectionUI();
   filterDefinitions=createFilterDefinitions();
+  deckTagFilterDefinition=createDeckTagFilterDefinition();
+  mountMultiFilter('decks','f-tags',deckTagFilterDefinition);
   for (const area of filterAreas) {
     for (const [id,config] of Object.entries(filterDefinitions)) mountMultiFilter(area,id,config);
     if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),Number($(area+'-f-level').value));
@@ -1521,7 +1542,7 @@ function saveSession() {
       language,mode,useDefaultDeckName,defaults,deck:current,
       toolbars:toolbarState,deckOrder,scroll:catalogScroll,autoOwnedOnly:$('auto-owned-only').checked,
       filters:Object.fromEntries(filterAreas.map(area=>[area,captureFilters(area)])),
-      library:{query:$('library-search').value,mode:$('library-mode').value,ownedOnly:$('decks-owned-only').checked},
+      library:{query:$('library-search').value,tags:[...selectedFilterValues('f-tags','decks')],ownedOnly:$('decks-owned-only').checked},
       proposalDrafts:{deck:$('deck-proposal-description').value,synergy:$('synergy-proposal-description').value},
       standardDraft:Object.fromEntries(Object.entries(settingIds).map(([key,id]) => [key,$(id).value])),
       standardStatus:$('standard-status').dataset.i18n || ''
@@ -1569,7 +1590,9 @@ function restoreSession() {
     if (useDefaultDeckName) current.name = t('ui.defaultDeckName');
     for (const area of filterAreas) restoreFilters(area,saved.filters?.[area] || {});
     if (typeof saved.library?.query==='string') $('library-search').value=saved.library.query;
-    if (['standard','boss','all'].includes(saved.library?.mode)) $('library-mode').value=saved.library.mode;
+    const tags=new Set(Array.isArray(saved.library?.tags)?saved.library.tags:[]);
+    for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=tags.has(input.value);
+    updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);
     $('decks-owned-only').checked=collectionCounts!==null && saved.library?.ownedOnly===true;
     $('auto-owned-only').checked=collectionCounts!==null && saved.autoOwnedOnly===true;
     for (const [key,id] of [['deck','deck-proposal-description'],['synergy','synergy-proposal-description']]) if (typeof saved.proposalDrafts?.[key]==='string') $(id).value=saved.proposalDrafts[key].slice(0,2000);
@@ -1588,6 +1611,7 @@ mountLanguageMenu();
 
 mountToolbars();
 for (const area of filterAreas) mountFilters(area);
+mountMultiFilter('decks','f-tags',deckTagFilterDefinition);
 mountCollectionControls();
 mountMobileNavigation();
 mountMobileTapActivation();
@@ -1624,9 +1648,12 @@ $('preset-list').onclick=event=>{
   if (button) loadPreset(button.dataset.loadPreset);else handleDeckPreview(event);
 };
 $('library-search').oninput=()=>{renderPresetLibrary();scheduleSessionSave();};
-$('library-mode').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
 $('decks-owned-only').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
-$('reset-library-filters').onclick=()=>{$('library-search').value='';$('library-mode').value='all';$('decks-owned-only').checked=false;renderPresetLibrary();scheduleSessionSave();};
+$('reset-library-filters').onclick=()=>{
+  $('library-search').value='';$('decks-owned-only').checked=false;
+  for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=false;
+  updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);renderPresetLibrary();scheduleSessionSave();
+};
 $('propose-deck').onclick=openDeckProposal;
 for (const id of ['deck-proposal-panel','synergy-proposal-panel']) $(id).onsubmit=sendProposal;
 for (const id of ['deck-proposal-description','synergy-proposal-description']) $(id).oninput=()=>$(id).setCustomValidity('');

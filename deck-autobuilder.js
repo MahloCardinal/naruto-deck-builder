@@ -5,9 +5,9 @@ const DECK_AUTOBUILDER = (() => {
   const byIndex=new Map(CARDS.map(card=>[card.index,card]));
   const byKey=new Map(CARDS.map(card=>[card.card_key,card.index]));
   for (const deck of PREBUILT_DECKS) {
-    if (deck.cards.length!==10 || new Set(deck.cards).size!==10 || deck.cards.some(key=>!byKey.has(key)) || deck.core.some(key=>!deck.cards.includes(key))) throw Error('Invalid prebuilt deck: '+deck.id);
+    if (!deck.name || !Array.isArray(deck.tags) || new Set(deck.tags).size!==deck.tags.length || deck.cards.length!==10 || new Set(deck.cards).size!==10 || deck.cards.some(key=>!byKey.has(key)) || deck.core.some(key=>!deck.cards.includes(key))) throw Error('Invalid prebuilt deck: '+deck.id);
   }
-  const templates=PREBUILT_DECKS.filter(deck=>deck.mode==='standard').map(deck=>({
+  const templates=PREBUILT_DECKS.filter(deck=>!deck.tags.includes('boss')).map(deck=>({
     id:deck.id,cards:deck.cards.map(key=>byKey.get(key)),core:deck.core.map(key=>byKey.get(key)),
     average:deck.cards.reduce((sum,key)=>sum+byIndex.get(byKey.get(key)).energy_cost,0)/10
   }));
