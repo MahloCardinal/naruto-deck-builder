@@ -1,6 +1,6 @@
 'use strict';
 
-// Anonymous deck lists. All card text and descriptions come from the language catalogs.
+// Deck lists without author attribution. Card text and descriptions come from the language catalogs.
 const PREBUILT_DECKS = [
   {
     "id": "01",
@@ -442,6 +442,7 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "22",
+    "name": "Season 1 Only",
     "mode": "standard",
     "cards": [
       "S1_077",

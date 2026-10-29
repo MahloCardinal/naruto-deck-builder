@@ -49,6 +49,7 @@ const RANK = {Common:0, Rare:1, Epic:2, Legendary:3};
 const byIndex = new Map(CARDS.map(c => [c.index,c]));
 const cardByKey = new Map(CARDS.map(card=>[card.card_key,card]));
 const presetById = new Map(PREBUILT_DECKS.map(deck=>[deck.id,deck]));
+const presetName = deck => deck.name || t('ui.presetNumber',{number:fmt(Number(deck.id),0)});
 let autoController=null,autoProposals=[],autoLevels={},autoSnapshot='';
 let proposalSending=false,deckProposalAttempted=false;
 // Sources share a row only when their complete partner lists are identical.
@@ -736,10 +737,10 @@ function renderPresetLibrary() {
     if (ownedOnly && !deck.cards.every(key=>!!collectionCounts?.[key])) return false;
     if (selectedMode!=='all' && deck.mode!==selectedMode) return false;
     if (!words.length) return true;
-    const text=(t('ui.preset_'+deck.id)+' '+deck.cards.map(key=>{const card=cardByKey.get(key),text=cardText(card);return cardReference(card)+' '+text.name+' '+text.ability+' '+text.descriptions.join(' ');}).join(' ')).toLocaleLowerCase();
+    const text=(presetName(deck)+' '+t('ui.preset_'+deck.id)+' '+deck.cards.map(key=>{const card=cardByKey.get(key),text=cardText(card);return cardReference(card)+' '+text.name+' '+text.ability+' '+text.descriptions.join(' ');}).join(' ')).toLocaleLowerCase();
     return words.every(word=>text.includes(word));
   });
-  $('preset-list').innerHTML=decks.length?decks.map(deck=>`<article class="preset"><div class="preset-head"><h3>${t('ui.presetNumber',{number:fmt(Number(deck.id),0)})}</h3><span class="mode-label">${t(deck.mode==='boss'?'ui.bossDecks':'ui.standardDecks')}</span><button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(deck.cards.map(key=>cardByKey.get(key).index),{showOwnership:true})}</ol><p class="preset-description">${formatTerms(t('ui.preset_'+deck.id))}</p></article>`).join(''):`<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
+  $('preset-list').innerHTML=decks.length?decks.map(deck=>`<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${deck.mode==='standard'?'':`<span class="mode-label">${t('ui.bossDecks')}</span>`}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(deck.cards.map(key=>cardByKey.get(key).index),{showOwnership:true})}</ol><p class="preset-description">${formatTerms(t('ui.preset_'+deck.id))}</p></article>`).join(''):`<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
   updateFilterCount('decks');
 }
 function renderDeckProposal() {
@@ -801,7 +802,7 @@ function loadPreset(id) {
     current.cards=deck.cards.map(key=>cardByKey.get(key).index);
     current.levels=Object.fromEntries(current.cards.map(index=>[index,collectionLevel(byIndex.get(index))||1]));
     current.cardOptions=Object.fromEntries(current.cards.map(index=>[index,{...scenario}]));
-    current.name=t('ui.presetNumber',{number:Number(id)}).slice(0,15);useDefaultDeckName=false;
+    current.name=presetName(deck).slice(0,15);useDefaultDeckName=false;
     setMode('builder');syncScenario();changed();selectToolbarPanel('builder','deck');
     if (mobileViewport.matches) openMobileTools('deck');
     toast(t('ui.presetLoaded'));
@@ -1142,7 +1143,7 @@ function renderDialog() {
   $('dialog-body').innerHTML=`<div class="dialog-layout"><div class="dialog-art-column"><div class="dialog-visual"><img class="dialog-art" src="${imagePath(c)}" alt="${esc(text.name)}"><span class="orb cost" title="${t('ui.cost')}">${c.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${c.chakra}</span>${build?`<span class="card-level">${t('ui.levelShort',{level})}</span>`:''}</div></div>
     <div class="dialog-content"><div class="dialog-effect"><div class="ability-heading"><h3 class="ability-title">${esc(text.ability)}</h3><div class="tags">${c.skill_types_original.map(key=>`<span class="tag">${effectHTML(effectLabel(key),key)}</span>`).join('')}</div></div><p class="ability">${formatDescription(c,level)}</p></div>
     <div class="dialog-toolbar${build?'':' read-only'}"><button class="toolbar-cell level-cell" id="dialog-level" type="button" title="${t('ui.changeLevelTitle',{level:level===1?2:1})}" role="switch" aria-checked="${level===2}" aria-label="${t('ui.changeLevelAction',{level,next:level===1?2:1})}"><span>${t('ui.changeLevel')}</span><span class="level-value"><b>${level}</b>${LEVEL_CYCLE_ICON}</span></button>${build?`<div class="dialog-stats" aria-label="${t('ui.powerQuality')}"><div class="toolbar-cell"><span>${t('ui.power')}</span><b id="dialog-max">${fmt(result.value)}</b></div><div class="toolbar-cell"><span>${t('ui.quality')}</span><b id="dialog-quality">${fmt(result.quality)}</b></div></div><button class="${selected?'strong-danger':'primary'}" id="dialog-add" ${!selected&&current.cards.length>=10?'disabled':''}>${t(selected?'ui.removeFromDeck':'ui.addToDeck')}</button>`:''}</div></div>
-    ${build?`<div class="dialog-workbench${keys.length?'':' calculation-only'}">${keys.length?`<section class="local-options"><div class="section-head"><h4>${t('ui.localAssumptions')}</h4><button class="small" id="reset-local">${t('ui.useStandard')}</button></div><p class="inline-note">${t('ui.localChanges')}</p><div class="local-grid">${keys.map(key=>`<div class="parameter"><label for="local-${key}">${formatTerms(t('ui.'+key))}</label><input id="local-${key}" data-local="${key}" type="text" inputmode="numeric" pattern="[0-9]*" data-integer min="0" max="99" required step="1" value="${scenario[key]}"></div>`).join('')}</div></section>`:''}<section id="dialog-calculation">${calculationHTML(c,level,result)}</section></div>`:''}</div>`;
+    ${build?`<div class="dialog-workbench${keys.length?'':' calculation-only'}">${keys.length?`<section class="local-options"><div class="section-head"><h4>${t('ui.localAssumptions')}</h4><button class="small primary" id="reset-local">${t('ui.useStandard')}</button></div><p class="inline-note">${t('ui.localChanges')}</p><div class="local-grid">${keys.map(key=>`<div class="parameter"><label for="local-${key}">${formatTerms(t('ui.'+key))}</label><input id="local-${key}" data-local="${key}" type="text" inputmode="numeric" pattern="[0-9]*" data-integer min="0" max="99" required step="1" value="${scenario[key]}"></div>`).join('')}</div></section>`:''}<section id="dialog-calculation">${calculationHTML(c,level,result)}</section></div>`:''}</div>`;
   $('dialog-level').onclick = () => {
     dialogLevel = level===1 ? 2 : 1;
     if (build) { current.levels[c.index] = dialogLevel;changed(); }

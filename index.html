@@ -21,11 +21,14 @@
 <body>
 <div class="shell">
 <header class="top">
+<div class="header-main">
 <div class="brand">
-<div aria-hidden="true" class="brand-mark">忍</div>
+<img class="brand-icon" src="misc_images/naruto-icon.svg" alt="" width="32" height="32" aria-hidden="true"/>
 <div>
 <h1 data-i18n="ui.heading"></h1>
 </div>
+</div>
+<div class="language-control"><label data-i18n="ui.language" for="language-select" id="language-label"></label><button aria-labelledby="language-label language-name" aria-haspopup="listbox" aria-expanded="false" aria-controls="language-menu" id="language-select" popovertarget="language-menu" type="button"><img alt="" class="language-flag" id="language-flag" width="20" height="15"/><span id="language-name"></span><span aria-hidden="true" id="language-code"></span><span aria-hidden="true" class="language-arrow">▾</span></button><div data-i18n-aria-label="ui.language" id="language-menu" popover="auto" role="listbox"></div></div>
 </div>
 <nav class="tabs" data-i18n-aria-label="ui.sections" role="tablist">
 <button aria-controls="db-area" aria-selected="true" class="tab" id="tab-db" role="tab"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h13v16H4zM8 8h5M8 12h5M20 7v14H7"/></svg><span class="nav-full" data-i18n="ui.database"></span><span class="nav-short" data-i18n="ui.navDatabase"></span></button>
@@ -34,7 +37,7 @@
 <button aria-controls="decks-area" aria-selected="false" class="tab" id="tab-decks" role="tab"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 3h7v8H3zM14 3h7v8h-7zM3 15h7v6H3zM14 15h7v6h-7z"/></svg><span class="nav-full" data-i18n="ui.prebuiltDecks"></span><span class="nav-short" data-i18n="ui.navDecks"></span></button>
 <button aria-controls="collection-area" aria-selected="false" class="tab" id="tab-collection" role="tab"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 5h13v16H4zM8 2h12v16M7 9h7M7 13h7M7 17h4"/></svg><span class="nav-full" data-i18n="ui.collectionManage"></span><span class="nav-short" data-i18n="ui.collectionManage"></span></button>
 </nav>
-<div class="language-control"><label data-i18n="ui.language" for="language-select" id="language-label"></label><button aria-labelledby="language-label language-name" aria-haspopup="listbox" aria-expanded="false" aria-controls="language-menu" id="language-select" popovertarget="language-menu" type="button"><img alt="" class="language-flag" id="language-flag" width="20" height="15"/><span id="language-name"></span><span aria-hidden="true" id="language-code"></span><span aria-hidden="true" class="language-arrow">▾</span></button><div data-i18n-aria-label="ui.language" id="language-menu" popover="auto" role="listbox"></div></div></header>
+</header>
 <section aria-labelledby="tab-db" class="area" id="db-area" role="tabpanel">
 <section class="toolbox panel" id="db-toolbox">
 <div class="toolbox-body" id="db-toolbox-body">
