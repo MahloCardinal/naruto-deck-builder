@@ -38,6 +38,8 @@ const DECK_AUTOBUILDER = (() => {
     }
   }
   const profiles={balanced:[.4,.3,.2,.1],synergy:[.55,.2,.15,.1],reference:[.3,.5,.15,.05]};
+  // Gamatatsu needs another toad for its core effect, even when Focus triggers are available.
+  const partnerRequirements=new Map([[byKey.get('S3_035'),['S1_076','S2_032','S2_033','S2_073','S3_063','S3_085'].map(key=>byKey.get(key))]]);
   const clamp=value=>Math.max(0,Math.min(1,value));
   function pairValue(a,b,chosen) {
     const records=pairRules.get(a<b?a+':'+b:b+':'+a)||[];
@@ -62,11 +64,15 @@ const DECK_AUTOBUILDER = (() => {
     }
     return result;
   }
-  async function generate({selected,estimateCard,signal}) {
+  async function generate({selected,estimateCard,signal,eligibleIndices=null}) {
     const locked=[...selected],lockedSet=new Set(locked);
     if (locked.length>10 || lockedSet.size!==locked.length || locked.some(index=>!byIndex.has(index))) throw Error('Invalid locked cards');
     if (locked.length===10) return [];
-    const values=CARDS.map(card=>{const value=estimateCard(card);return [card.index,Number.isFinite(value.quality)?value.quality:0];});
+    const eligible=eligibleIndices===null?null:new Set(eligibleIndices);
+    const available=CARDS.filter(card=>lockedSet.has(card.index) || eligible===null || eligible.has(card.index));
+    const availableSet=new Set(available.map(card=>card.index));
+    if (available.length<10) return [];
+    const values=available.map(card=>{const value=estimateCard(card);return [card.index,Number.isFinite(value.quality)?value.quality:0];});
     const qualityRank=ranks(values);
     const matched=templates.map(template=>{
       const overlap=locked.filter(index=>template.cards.includes(index)).length;
@@ -114,10 +120,10 @@ const DECK_AUTOBUILDER = (() => {
     }
     const score=(indices,weights)=>{const c=components(indices);return c.synergy*weights[0]+c.reference*weights[1]+c.balance*weights[2]+c.quality*weights[3];};
     const initial=[...locked].sort((a,b)=>a-b),completed=[];
-    const required=new Set(matched.slice(0,5).flatMap(template=>template.core).filter(index=>!lockedSet.has(index)));
+    const required=new Set([...matched.slice(0,5).flatMap(template=>template.core),...partnerRequirements.values()].flat().filter(index=>!lockedSet.has(index) && availableSet.has(index)));
     for(const [profile,weights]of Object.entries(profiles)){
       if(signal?.aborted)return [];
-      const candidates=CARDS.filter(card=>!lockedSet.has(card.index)).map(card=>({index:card.index,score:score([...initial,card.index].sort((a,b)=>a-b),weights)})).sort((a,b)=>b.score-a.score||a.index-b.index);
+      const candidates=available.filter(card=>!lockedSet.has(card.index)).map(card=>({index:card.index,score:score([...initial,card.index].sort((a,b)=>a-b),weights)})).sort((a,b)=>b.score-a.score||a.index-b.index);
       const pool=[...required,...candidates.filter(candidate=>!required.has(candidate.index)).slice(0,80-required.size).map(candidate=>candidate.index)];
       let beam=[{indices:initial,score:0}];
       for(let size=locked.length;size<10;size++){
@@ -127,6 +133,7 @@ const DECK_AUTOBUILDER = (() => {
         for(const state of beam)for(const index of pool){
           if(state.indices.includes(index))continue;
           const indices=[...state.indices,index].sort((a,b)=>a-b),key=indices.join(',');
+          if (indices.length===10 && [...partnerRequirements].some(([card,partners])=>indices.includes(card) && !partners.some(partner=>indices.includes(partner)))) continue;
           if(!next.has(key))next.set(key,{indices,score:score(indices,weights)});
         }
         beam=[...next.values()].sort((a,b)=>b.score-a.score||a.indices.join(',').localeCompare(b.indices.join(','))).slice(0,20);

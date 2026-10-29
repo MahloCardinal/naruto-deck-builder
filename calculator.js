@@ -95,7 +95,8 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
 
   const branch = /^max\(([^|]+)\|([^|]+)\)$/.exec(expression);
   if (branch) {
-    parts = [product(branch[1]), product(branch[2])].sort((a, b) => b.value - a.value).slice(0, 1);
+    const first = product(branch[1]), second = product(branch[2]);
+    parts = [second.value > first.value ? second : first];
     parts[0].label = t('calculation.bestBranch', {label: parts[0].label});
   } else {
     for (const match of expression.matchAll(/([+-]?)([^+-]+)/g)) {
@@ -105,9 +106,10 @@ function estimate(card, level, options = scenarioFor(card), dependencies = null)
     }
   }
 
-  const sum = kind => parts.filter(part => part.kind === kind).reduce((total, part) => total + part.value, 0);
-  const boosts = sum('boost'), summoned = sum('summon'), friendly = -sum('friendly');
-  const damage = sum('damage'), burn = sum('burn'), heal = sum('heal');
+  const totals = {boost:0,summon:0,friendly:0,damage:0,burn:0,heal:0};
+  for (const part of parts) totals[part.kind] += part.value;
+  const boosts = totals.boost, summoned = totals.summon, friendly = -totals.friendly;
+  const {damage,burn,heal} = totals;
   const chakra = card.chakra + boosts + summoned - friendly;
   const value = chakra + damage + burn + heal;
   const costPerActivation = rule?.costPerActivation ?? 0;

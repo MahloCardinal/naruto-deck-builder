@@ -1,7 +1,7 @@
 'use strict';
 
 // Language-independent card data and calculation rules. Indices stay stable for deck files.
-const DEFAULT_SCENARIO = {"enemyChakra": 4, "enemies": 4, "allyChakra": 4, "allies": 2, "activations": 2};
+const DEFAULT_SCENARIO = {"enemyChakra": 4, "enemies": 3, "allyChakra": 4, "allies": 2, "activations": 2};
 const CARD_ART = {width:600,height:649};
 const CARDS = [
 {"card_key":"S1_001","season":1,"rarity":"Common","energy_cost":1,"chakra":1,"index":1,"skill_types_original":["Chakra"],"effect_values":[{"C":[1],"W":[],"H":[],"B":[],"K":[]},{"C":[2],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
@@ -244,7 +244,7 @@ const CARDS = [
 {"card_key":"S3_053","season":3,"rarity":"Rare","energy_cost":3,"chakra":2,"index":238,"skill_types_original":["Chakra"],"effect_values":[{"C":[2],"W":[],"H":[],"B":[],"K":[]},{"C":[3],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
 {"card_key":"S3_054","season":3,"rarity":"Rare","energy_cost":3,"chakra":3,"index":239,"skill_types_original":["Chakra","Pin"],"effect_values":[{"C":[],"W":[],"H":[],"B":[],"K":[]},{"C":[],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[0,0]},
 {"card_key":"S3_055","season":3,"rarity":"Rare","energy_cost":3,"chakra":1,"index":240,"skill_types_original":["Slow","Weaken"],"effect_values":[{"C":[],"W":[1],"H":[],"B":[],"K":[]},{"C":[],"W":[1],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[0,0]},
-{"card_key":"S3_056","season":3,"rarity":"Rare","energy_cost":5,"chakra":6,"index":241,"skill_types_original":["Chakra","Pin"],"effect_values":[{"C":[1],"W":[],"H":[],"B":[],"K":[]},{"C":[2],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
+{"card_key":"S3_056","season":3,"rarity":"Rare","energy_cost":5,"chakra":6,"index":241,"skill_types_original":["Chakra","Pin","Focus"],"effect_values":[{"C":[1],"W":[],"H":[],"B":[],"K":[]},{"C":[2],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
 {"card_key":"S3_057","season":3,"rarity":"Rare","energy_cost":3,"chakra":4,"index":242,"skill_types_original":["Rush","Switch"],"effect_values":[{"C":[],"W":[],"H":[],"B":[],"K":[]},{"C":[],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[3,4]},
 {"card_key":"S3_058","season":3,"rarity":"Rare","energy_cost":5,"chakra":6,"index":243,"skill_types_original":["Guard","Weaken"],"effect_values":[{"C":[],"W":[2],"H":[],"B":[],"K":[]},{"C":[],"W":[2],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
 {"card_key":"S3_059","season":3,"rarity":"Rare","energy_cost":3,"chakra":4,"index":244,"skill_types_original":["Rush","Weaken"],"effect_values":[{"C":[],"W":[1],"H":[],"B":[],"K":[]},{"C":[],"W":[1],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[false,false],"rush":[3,4]},

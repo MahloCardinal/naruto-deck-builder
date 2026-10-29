@@ -5,7 +5,7 @@ const translations=require('../translations.js');
 const byKey=new Map(CARDS.map(card=>[card.card_key,card]));
 const recentRequests=new Map();
 function validDeck(deck) {
-  return deck && typeof deck.name==='string' && deck.name.length<=15 && Array.isArray(deck.cards) && deck.cards.length===10 && new Set(deck.cards).size===10 && deck.cards.every(key=>byKey.has(key));
+  return deck && typeof deck.name==='string' && deck.name.trim().length>0 && deck.name.trim().length<=15 && Array.isArray(deck.cards) && deck.cards.length===10 && new Set(deck.cards).size===10 && deck.cards.every(key=>byKey.has(key));
 }
 function discordPayload(data) {
   const embed={title:data.type==='deck'?'Deck proposal: '+data.deck.name:'Synergy proposal',color:0xbe6b27,fields:[{name:'Language',value:translations[data.language].name,inline:true}],timestamp:new Date().toISOString()};
@@ -35,9 +35,9 @@ module.exports=async function handler(req,res) {
     if (!body || Buffer.byteLength(body)>16000) return respond(413,'too_large');
     data=JSON.parse(body);
   } catch {return respond(400,'invalid_request');}
-  if (!data || !['deck','synergy'].includes(data.type) || typeof data.description!=='string' || !data.description.trim() || data.description.length>2000 || typeof data.language!=='string' || !Object.hasOwn(translations,data.language) || data.type==='deck' && !validDeck(data.deck)) return respond(400,'invalid_request');
-  data.description=data.description.trim();
-  if (data.type==='deck') data.deck={name:data.deck.name,cards:[...data.deck.cards]};
+  if (!data || !['deck','synergy'].includes(data.type) || typeof data.description!=='string' || data.type==='synergy' && !data.description.trim() || data.description.length>2000 || typeof data.language!=='string' || !Object.hasOwn(translations,data.language) || data.type==='deck' && !validDeck(data.deck)) return respond(400,'invalid_request');
+  data.description=data.description.trim()||(data.type==='deck'?translations[data.language].ui.proposalNoDescription:'');
+  if (data.type==='deck') data.deck={name:data.deck.name.trim(),cards:[...data.deck.cards]};
   let webhook;
   try {
     webhook=new URL(process.env.DISCORD_WEBHOOK_URL);
