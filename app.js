@@ -7,6 +7,7 @@ let language = 'en';
 const SESSION_KEY = 'naruto-ninja-cards.session';
 let collectionCounts=null,collectionRestoreFailed=false,collectionFeedback=null,collectionMethod='sync',collectionCopyState=null,collectionBookmarkCopyState=null;
 let collectionSync=null,collectionSyncError=null;
+const collectionCopyTimers=new Map();
 try { collectionCounts=CARD_COLLECTION.restore(); } catch { collectionRestoreFailed=true; }
 const ownsCard=card=>!!collectionCounts?.[card.card_key];
 const collectionLevel=card=>ownsCard(card)?(collectionCounts[card.card_key]>=2?2:1):null;
@@ -17,9 +18,9 @@ document.documentElement.style.setProperty('--section-count',sectionIds.length);
 const toolbarPanels = {
   db: [{key:'filters',label:'filters',id:'db-filter-host'}],
   builder: [
+    {key:'deck',label:'deckBuilding',id:'deck-panel'},
     {key:'filters',label:'filters',id:'builder-filter-host'},
-    {key:'assumptions',label:'assumptions',id:'scenario-panel'},
-    {key:'deck',label:'deckBuilding',id:'deck-panel'}
+    {key:'assumptions',label:'assumptions',id:'scenario-panel'}
   ],
   synergies: [{key:'filters',label:'filters',id:'synergies-filter-host'},{key:'proposal',label:'proposeSynergy',id:'synergy-proposal-panel'}],
   decks: [{key:'filters',label:'filters',id:'decks-filter-host'},{key:'proposal',label:'proposeDeck',id:'deck-proposal-panel'}]
@@ -159,7 +160,7 @@ const cardReference = card => `S${card.season} #${String(cardNumber(card)).padSt
 const imagePath = card => `card_images/${card.card_key}.webp`;
 const effectLabel = key => t('effects.'+key);
 function translateStatic(root=document) {
-  const values={count:CARDS.length,section:t('ui.builder'),copyLink:t('ui.collectionCopyLink')};
+  const values={count:CARDS.length,section:t('ui.builder'),copyLink:t('ui.collectionCopyLink'),bookmark:t('ui.collectionBookmark')};
   for (const el of root.querySelectorAll('[data-i18n]')) {
     const value=t(el.dataset.i18n,values);
     if (el.hasAttribute('data-i18n-rich')) el.innerHTML=formatTerms(value); else el.textContent=value;
@@ -590,6 +591,7 @@ function renderCollectionUI() {
   }
   $('collection-bookmark').href=CARD_COLLECTION.bookmarklet({wrongSite:t('ui.collectionWrongSite'),signIn:t('ui.collectionSignIn'),failed:t('ui.collectionSyncFailed'),noConnection:t('ui.collectionSyncNoConnection')},location.protocol==='file:'?'file:':location.origin);
   $('collection-command').value=CARD_COLLECTION.url;
+  for (const input of document.querySelectorAll('[data-collection-site-link]')) input.value=CARD_COLLECTION.officialOrigin+'/';
   renderCollectionCopyStatus();renderCollectionSyncStatus();
   if (collectionFeedback) collectionStatus(collectionFeedback.key,collectionFeedback.error,collectionFeedback.values);
 }
@@ -649,7 +651,7 @@ function renderCollectionCopyStatus() {
   status.textContent=collectionCopyState?t('ui.'+collectionCopyState):'';
   status.classList.toggle('is-error',collectionCopyState==='collectionCopyFailed');
   const bookmarkStatus=$('collection-bookmark-copy-status');
-  bookmarkStatus.textContent=collectionBookmarkCopyState?t('ui.'+collectionBookmarkCopyState):'';
+  bookmarkStatus.textContent=collectionBookmarkCopyState?t('ui.'+collectionBookmarkCopyState,{bookmark:t('ui.collectionBookmark')}):'';
   bookmarkStatus.classList.toggle('is-error',collectionBookmarkCopyState==='collectionLinkCopyFailed');
 }
 async function copyCollectionText(value,input=null) {
@@ -687,10 +689,13 @@ function importCollection(text) {
   let saved=true;try { CARD_COLLECTION.save(collectionCounts); } catch { saved=false; }
   $('collection-text').value='';refreshCollection();
   collectionStatus(saved?null:'collectionStorageUnavailable',!saved,{ignored:result.ignored});
+  $('collection-feedback-dialog').showModal();
 }
 function mountCollectionControls() {
+  $('close-collection-feedback').onclick=()=>$('collection-feedback-dialog').close();
   $('collection-open').onclick=startCollectionSync;
   $('collection-open-manual').onclick=()=>window.open(CARD_COLLECTION.officialOrigin+'/', '_blank','noopener');
+  for (const input of document.querySelectorAll('[data-collection-site-link]')) input.onfocus=input.onclick=()=>input.select();
   window.addEventListener('message',receiveCollectionSync);
   for (const method of ['sync','paste']) $('collection-tab-'+method).onclick=()=>selectCollectionMethod(method);
   document.querySelector('.collection-tabs').onkeydown=event=>{
@@ -704,6 +709,11 @@ function mountCollectionControls() {
     const copied=await copyCollectionText(bookmark?$('collection-bookmark').getAttribute('href'):CARD_COLLECTION.url,bookmark?null:$('collection-command'));
     if (bookmark) collectionBookmarkCopyState=copied?'collectionLinkCopied':'collectionLinkCopyFailed';
     else collectionCopyState=copied?'collectionCopied':'collectionCopyFailed';
+    clearTimeout(collectionCopyTimers.get(id));collectionCopyTimers.delete(id);
+    if (copied) collectionCopyTimers.set(id,setTimeout(()=>{
+      if (bookmark) collectionBookmarkCopyState=null;else collectionCopyState=null;
+      collectionCopyTimers.delete(id);renderCollectionCopyStatus();
+    },5000));
     renderCollectionCopyStatus();button.disabled=false;
   };
   $('collection-form').onsubmit=event=>{

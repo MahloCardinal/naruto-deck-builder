@@ -133,13 +133,12 @@
 <form id="collection-form">
 <section class="collection-method" id="collection-method-sync" role="tabpanel" aria-labelledby="collection-tab-sync">
 <ol><li><p data-i18n="ui.collectionSyncStep1"></p><div class="collection-step-actions"><a id="collection-bookmark" class="bookmark-link" draggable="true" data-i18n="ui.collectionBookmark"></a><div class="collection-bookmark-copy"><button id="collection-copy-bookmark" type="button" data-i18n="ui.collectionCopyLink"></button><span id="collection-bookmark-copy-status" class="inline-note" role="status" aria-live="polite"></span></div></div></li>
-<li><p data-i18n="ui.collectionAccess"></p><button id="collection-open" class="collection-open" type="button" data-i18n="ui.collectionOpenOfficial"></button></li>
+<li><p data-i18n="ui.collectionSyncAccess"></p><div class="collection-site-row"><button id="collection-open" class="collection-open" type="button" data-i18n="ui.collectionOpenOfficial"></button></div><p id="collection-sync-status" class="inline-note" role="status" aria-live="polite"></p></li>
 <li data-i18n="ui.collectionSyncStep3"></li></ol>
-<p id="collection-sync-status" class="inline-note" role="status" aria-live="polite"></p>
 </section>
 <section class="collection-method" id="collection-method-paste" role="tabpanel" aria-labelledby="collection-tab-paste" hidden inert>
-<ol><li><p data-i18n="ui.collectionAccess"></p><button id="collection-open-manual" class="collection-open" type="button" data-i18n="ui.collectionOpenOfficial"></button></li>
-<li><p data-i18n="ui.collectionDirectStep2"></p><div class="collection-command-row"><input id="collection-command" type="text" readonly data-i18n-aria-label="ui.collectionCommand"/><button type="button" id="collection-copy" data-i18n="ui.collectionCopy"></button></div><p id="collection-copy-status" class="inline-note" role="status" aria-live="polite"></p></li>
+<ol><li><p data-i18n="ui.collectionAccess"></p><div class="collection-site-row"><button id="collection-open-manual" class="collection-open" type="button" data-i18n="ui.collectionOpenOfficial"></button><input class="collection-site-link" data-collection-site-link type="url" readonly spellcheck="false" data-i18n-aria-label="ui.collectionSiteAddress"/></div></li>
+<li><p data-i18n="ui.collectionDirectStep2"></p><div class="collection-command-row"><button type="button" id="collection-copy" data-i18n="ui.collectionCopy"></button><input id="collection-command" type="text" readonly data-i18n-aria-label="ui.collectionCommand"/></div><p id="collection-copy-status" class="inline-note" role="status" aria-live="polite"></p></li>
 <li data-i18n="ui.collectionManualAddress"></li><li data-i18n="ui.collectionDirectStep3"></li>
 <li><p id="collection-paste-instruction" data-i18n="ui.collectionDirectStep4"></p><div class="field"><textarea id="collection-text" rows="3" maxlength="2000000" spellcheck="false" aria-labelledby="collection-paste-instruction"></textarea></div><button class="primary" type="submit" data-i18n="ui.collectionImport"></button></li></ol>
 </section>
@@ -162,6 +161,9 @@
 <dialog class="proposal-feedback" id="proposal-feedback-dialog" aria-labelledby="proposal-feedback-title">
 <div class="dialog-head"><h2 id="proposal-feedback-title" data-i18n="ui.proposalFeedbackTitle"></h2><button class="dialog-close" id="close-proposal-feedback" type="button" data-i18n-aria-label="ui.closeTools">✕</button></div>
 <p id="proposal-feedback-message"></p>
+</dialog>
+<dialog class="collection-feedback" id="collection-feedback-dialog" aria-labelledby="collection-feedback-title">
+<div class="dialog-head"><h2 id="collection-feedback-title" data-i18n="ui.collectionImported"></h2><button class="dialog-close" id="close-collection-feedback" type="button" data-i18n-aria-label="ui.closeTools">✕</button></div>
 </dialog>
 <template id="filters-template">
 <div class="filter-fields">
