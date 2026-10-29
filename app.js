@@ -11,8 +11,8 @@ const collectionCopyTimers=new Map();
 try { collectionCounts=CARD_COLLECTION.restore(); } catch { collectionRestoreFailed=true; }
 const ownsCard=card=>!!collectionCounts?.[card.card_key];
 const collectionLevel=card=>ownsCard(card)?(collectionCounts[card.card_key]>=2?2:1):null;
-const sections = {db:'database',builder:'builder',synergies:'synergies',decks:'prebuiltDecks',collection:'collectionManage'};
-const shortSectionLabels = {db:'navDatabase',builder:'navBuilder',synergies:'navSynergies',decks:'navDecks',collection:'collectionManage'};
+const sections = {db:'database',synergies:'synergies',builder:'builder',decks:'prebuiltDecks',collection:'collectionManage'};
+const shortSectionLabels = {db:'navDatabase',synergies:'navSynergies',builder:'navBuilder',decks:'navDecks',collection:'collectionManage'};
 const sectionIds = Object.keys(sections);
 document.documentElement.style.setProperty('--section-count',sectionIds.length);
 const toolbarPanels = {
@@ -320,8 +320,8 @@ function syncScenario() {
 
 // Catalog filtering, rendering and progressive synergy groups.
 function cardHTML(c,result=mode==='builder'?computed(c):null) {
-  const level=levelOf(c),build=mode==='builder',synergy=mode==='synergies',selected=build&&current.cards.includes(c.index),text=cardText(c);
-  return `<article class="game-card${selected?' selected':''}" data-index="${c.index}">
+  const level=levelOf(c),build=mode==='builder',synergy=mode==='synergies',selected=build&&current.cards.includes(c.index),missing=build&&collectionCounts!==null&&!ownsCard(c),text=cardText(c);
+  return `<article class="game-card${selected?' selected':''}${missing?' is-missing':''}" data-index="${c.index}">
     <button class="card-main" data-open="${c.index}" title="${esc(synergy?text.ability:cardReference(c))}" aria-label="${esc(synergy?text.name:t('ui.openCard',{name:text.name,reference:cardReference(c)}))}">
       <img src="${imagePath(c)}" alt="${esc(text.name)}" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}">
       <span class="orb cost" title="${t('ui.energyCost')}" aria-label="${t('ui.costValue',{value:c.energy_cost})}">${c.energy_cost}</span>
@@ -336,10 +336,10 @@ function cardHTML(c,result=mode==='builder'?computed(c):null) {
 const filterIds = ['f-level','f-text','f-estimate'];
 function updateFilterCount(area) {
   let count;
-  if (area==='decks') count=Number($('library-search').value.trim()!=='')+Number(selectedFilterValues('f-tags','decks').size>0)+Number($('decks-owned-only').checked);
+  if (area==='decks') count=Number($('library-search').value.trim()!=='')+Number(selectedFilterValues('f-tags','decks').size>0)+Number($('decks-f-collection').value!=='all');
   else {
     const groups=Object.keys(filterDefinitions).filter(id=>$(area+'-'+id+'-menu').querySelector('input:checked')).length;
-    count=groups+Number($(area+'-f-text').value.trim()!=='')+Number(!!$(area+'-f-estimate') && $(area+'-f-estimate').value!=='')+Number($(area+'-owned-only').checked);
+    count=groups+Number($(area+'-f-text').value.trim()!=='')+Number(!!$(area+'-f-estimate') && $(area+'-f-estimate').value!=='')+Number($(area+'-f-collection').value!=='all');
   }
   const badge=$(area+'-toolbox-tab-filters').querySelector('.filter-count');
   badge.textContent=count?` (${fmt(count,0)})`:'';
@@ -353,9 +353,9 @@ function filteredCards(estimateFor=computed) {
   const rarity = selectedFilterValues('f-rarity'), season = selectedFilterValues('f-season'), skills = [...selectedFilterValues('f-skill')];
   const cost = selectedFilterValues('f-cost'), chakra = selectedFilterValues('f-chakra');
   const minimumPower = mode==='builder' && F('f-estimate').value!=='' ? Number(F('f-estimate').value) : null;
-  const ownedOnly = F('owned-only').checked;
+  const collection = F('f-collection').value;
   return CARDS.filter(c => {
-    if (ownedOnly && !ownsCard(c)) return false;
+    if (collection==='owned' && !ownsCard(c) || collection==='missing' && ownsCard(c)) return false;
     if (rarity.size && !rarity.has(c.rarity) || season.size && !season.has(String(c.season))) return false;
     if (skills.length && !skills.some(value => value === 'none' ? c.skill_types_original.length === 0 : c.skill_types_original.includes(value))) return false;
     if (cost.size && !cost.has(String(c.energy_cost)) || chakra.size && !chakra.has(String(c.chakra))) return false;
@@ -394,7 +394,7 @@ function renderCatalog() {
 }
 function renderSynergies(cards,compareCards) {
   synergyLoader.disconnect();
-  const groups=new Map(),ownedOnly=$('synergies-owned-only').checked;
+  const groups=new Map(),ownedOnly=$('synergies-f-collection').value==='owned';
   for (const card of cards) {
     const group=synergyGroupByIndex.get(card.index);
     if (!groups.has(group.key)) {
@@ -582,10 +582,12 @@ function renderCollectionUI() {
   const loaded=collectionCounts!==null,count=loaded?Object.keys(collectionCounts).length:0;
   $('collection-summary').textContent=t('ui.collectionSummary',{count,total:CARDS.length});
   $('collection-remove').disabled=!loaded;
-  for (const check of document.querySelectorAll('[data-owned-only],#auto-owned-only')) {
-    check.disabled=!loaded;
-    if (!loaded) check.checked=false;
+  for (const select of document.querySelectorAll('[data-collection-filter]')) {
+    select.disabled=!loaded;
+    if (!loaded) select.value='all';
   }
+  $('auto-owned-only').disabled=!loaded;
+  if (!loaded) $('auto-owned-only').checked=false;
   $('collection-bookmark').href=CARD_COLLECTION.bookmarklet({wrongSite:t('ui.collectionWrongSite'),signIn:t('ui.collectionSignIn'),failed:t('ui.collectionSyncFailed'),noConnection:t('ui.collectionSyncNoConnection')},location.protocol==='file:'?'file:':location.origin);
   $('collection-command').value=CARD_COLLECTION.url;
   for (const input of document.querySelectorAll('[data-collection-site-link]')) input.value=CARD_COLLECTION.officialOrigin+'/';
@@ -754,7 +756,7 @@ function formatPresetDescription(deck) {
 }
 function renderPresetLibrary() {
   const query=normalizeSearchText($('library-search').value),tags=selectedFilterValues('f-tags','decks');
-  const ownedOnly=$('decks-owned-only').checked;
+  const ownedOnly=$('decks-f-collection').value==='owned';
   const decks=PREBUILT_DECKS.filter(deck=>{
     if (ownedOnly && !deck.cards.every(key=>!!collectionCounts?.[key])) return false;
     if (tags.size && !deck.tags.some(tag=>tags.has(tag))) return false;
@@ -1309,7 +1311,7 @@ function mountMultiFilter(area,id,config) {
   menu.innerHTML = `<div class="filter-menu-head"><strong>${formatTerms(config.label)}</strong><button type="button" data-filter-clear>${config.all}</button></div>`+config.options.map(option => `<label class="filter-option-row"><span>${option.html || esc(option.label)}</span><input class="filter-option" type="checkbox" value="${esc(option.value)}" aria-label="${esc(option.label)}" ${selected.has(option.value)?'checked':''}></label>`).join('');
   menu.onbeforetoggle=event=>{if(event.newState==='open')positionFilterMenu(button,menu);};
   menu.ontoggle=event=>button.setAttribute('aria-expanded',String(event.newState==='open'));
-  menu.onchange=()=>{updateMultiFilter(button,config);menu.hidePopover();renderCatalog();};
+  menu.onchange=()=>{updateMultiFilter(button,config);renderCatalog();};
   menu.querySelector('[data-filter-clear]').onclick = () => {
     for (const input of menu.querySelectorAll('input')) input.checked = false;
     updateMultiFilter(button,config); renderCatalog();
@@ -1427,6 +1429,7 @@ function mountFilters(area) {
   const fragment = $('filters-template').content.cloneNode(true);
   if (area!=='builder') fragment.querySelectorAll('.builder-only').forEach(el => el.remove());
   if (area==='synergies') fragment.querySelector('.level-field').remove();
+  if (area!=='db') fragment.querySelector('#f-collection option[value=missing]').remove();
   for (const el of fragment.querySelectorAll('[id]')) el.id = area+'-'+el.id;
   for (const el of fragment.querySelectorAll('label[for]')) el.htmlFor = area+'-'+el.htmlFor;
   $(area+'-filter-host').append(fragment);
@@ -1458,7 +1461,7 @@ function mountFilters(area) {
       for (const input of $(area+'-'+id+'-menu').querySelectorAll('input')) input.checked = false;
       updateMultiFilter($(area+'-'+id),config);
     }
-    $(area+'-owned-only').checked=false;
+    $(area+'-f-collection').value='all';
     closeFilterMenus();
     if (area === 'builder') renderDeck();
     renderCatalog();
@@ -1504,7 +1507,7 @@ function setLanguage(code) {
 function captureFilters(area) {
   return {
     text:$(area+'-f-text').value,
-    ownedOnly:$(area+'-owned-only').checked,
+    collection:$(area+'-f-collection').value,
     ...($(area+'-f-level')?{level:Number($(area+'-f-level').value)}:{}),
     minimumPower:$(area+'-f-estimate')?.value ?? '',
     sort:$(area+'-sort').value,
@@ -1515,7 +1518,8 @@ function captureFilters(area) {
 }
 function restoreFilters(area,filter = {}) {
   $(area+'-f-text').value = typeof filter.text === 'string' ? filter.text : '';
-  $(area+'-owned-only').checked=collectionCounts!==null && filter.ownedOnly===true;
+  const collection=$(area+'-f-collection');
+  collection.value=collectionCounts!==null && Array.from(collection.options).some(option=>option.value===filter.collection)?filter.collection:'all';
   if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),filter.level === 2 ? 2 : 1);
   const minimum = $(area+'-f-estimate');
   if (minimum) minimum.value = typeof filter.minimumPower === 'string' && /^\d{0,3}$/.test(filter.minimumPower) ? filter.minimumPower : '';
@@ -1542,7 +1546,7 @@ function saveSession() {
       language,mode,useDefaultDeckName,defaults,deck:current,
       toolbars:toolbarState,deckOrder,scroll:catalogScroll,autoOwnedOnly:$('auto-owned-only').checked,
       filters:Object.fromEntries(filterAreas.map(area=>[area,captureFilters(area)])),
-      library:{query:$('library-search').value,tags:[...selectedFilterValues('f-tags','decks')],ownedOnly:$('decks-owned-only').checked},
+      library:{query:$('library-search').value,tags:[...selectedFilterValues('f-tags','decks')],collection:$('decks-f-collection').value},
       proposalDrafts:{deck:$('deck-proposal-description').value,synergy:$('synergy-proposal-description').value},
       standardDraft:Object.fromEntries(Object.entries(settingIds).map(([key,id]) => [key,$(id).value])),
       standardStatus:$('standard-status').dataset.i18n || ''
@@ -1593,7 +1597,7 @@ function restoreSession() {
     const tags=new Set(Array.isArray(saved.library?.tags)?saved.library.tags:[]);
     for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=tags.has(input.value);
     updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);
-    $('decks-owned-only').checked=collectionCounts!==null && saved.library?.ownedOnly===true;
+    $('decks-f-collection').value=collectionCounts!==null && saved.library?.collection==='owned'?'owned':'all';
     $('auto-owned-only').checked=collectionCounts!==null && saved.autoOwnedOnly===true;
     for (const [key,id] of [['deck','deck-proposal-description'],['synergy','synergy-proposal-description']]) if (typeof saved.proposalDrafts?.[key]==='string') $(id).value=saved.proposalDrafts[key].slice(0,2000);
     for (const area of sectionIds) for (const viewport of ['mobile','desktop']) {
@@ -1648,9 +1652,9 @@ $('preset-list').onclick=event=>{
   if (button) loadPreset(button.dataset.loadPreset);else handleDeckPreview(event);
 };
 $('library-search').oninput=()=>{renderPresetLibrary();scheduleSessionSave();};
-$('decks-owned-only').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
+$('decks-f-collection').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
 $('reset-library-filters').onclick=()=>{
-  $('library-search').value='';$('decks-owned-only').checked=false;
+  $('library-search').value='';$('decks-f-collection').value='all';
   for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=false;
   updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);renderPresetLibrary();scheduleSessionSave();
 };

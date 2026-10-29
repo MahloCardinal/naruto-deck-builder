@@ -65,7 +65,7 @@ h4 { font-size:11px; font-weight:650; }
 .toolbox-tab[aria-selected=true] { color:var(--accent-text); border-bottom-color:var(--accent); }
 .toolbox-icon { display:none; }
 .filter-count { color:var(--red); white-space:nowrap; }
-.toolbox-tab .filter-count,.mobile-filter-button .filter-count { position:absolute; bottom:2px; right:3px; font-size:9px; line-height:1; }
+.toolbox-tab .filter-count,.mobile-filter-button .filter-count { position:absolute; bottom:4px; right:3px; font-size:9px; line-height:1; }
 .toolbox-body { display:grid; border-top:1px solid var(--line); margin-top:7px; padding-top:10px; }
 .toolbox-pane { grid-area:1 / 1; min-width:0; align-self:start; }
 .filter-fields { display:flex; flex-wrap:wrap; align-items:end; gap:8px; }
@@ -474,7 +474,6 @@ dialog button { border-radius:0; }
   #mobile-tools-host .multi-filter { font-size:12px; }
   #mobile-tools-host .sort-direction { height:40px; width:36px; }
   #mobile-tools-host .reset-filters { margin-top:4px; }
-  #mobile-tools-host .filter-fields > .collection-check { min-height:40px; margin:0; align-items:center; line-height:1.2; }
   #mobile-tools-host .scenario-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 12px; }
   #mobile-tools-host .scenario-fields .parameter { width:100%; gap:3px; }
   #mobile-tools-host .scenario-fields .parameter input { height:30px; min-height:30px; }
@@ -541,7 +540,7 @@ dialog button { border-radius:0; }
 .collection-check { display:flex; align-items:center; gap:6px; font-size:11px; }
 .collection-check input { flex:none; width:14px; height:14px; min-height:0; margin:0; padding:0; accent-color:var(--accent); }
 .collection-check:has(input:disabled) { color:var(--muted); }
-.filter-fields > .collection-check { min-height:31px; }
+.collection-filter select { width:auto; max-width:100%; }
 .collection-area { grid-template-columns:minmax(0,1fr); }
 .collection-page { width:100%; max-width:800px; margin:0 auto; padding:18px; background:var(--paper); border:1px solid var(--line); }
 .collection-page > h2 { font-size:18px; }
@@ -572,9 +571,11 @@ dialog button { border-radius:0; }
 #collection-status { margin-top:10px; }
 #collection-status.is-error { color:var(--red); }
 .bookmark-link { display:inline-block; padding:5px 8px; margin-right:6px; border:1px solid var(--accent-line); background:var(--accent-soft); color:var(--accent-text); font-weight:650; text-decoration:none; cursor:grab; }
-.deck-preview-card.is-missing { border:1px dashed var(--red); background:#fff5f1; }
-.deck-preview-card.is-missing:hover:not(:disabled) { border-color:var(--red); background:#fff0eb; }
-.deck-preview-card.is-missing img { opacity:.5; }
+.deck-preview-card.is-missing { border:1px dashed var(--red); }
+.game-card.is-missing { outline:1px dashed var(--red); }
+.deck-preview-card.is-missing,.game-card.is-missing { background:#fff5f1; }
+.deck-preview-card.is-missing:hover:not(:disabled),.game-card.is-missing:hover { border-color:var(--red); background:#fff0eb; }
+.deck-preview-card.is-missing img,.game-card.is-missing .card-main img { opacity:.5; }
 .proposal-feedback .inline-note { margin-top:12px; }
 #propose-deck { width:100%; }
 @media(min-width:701px) and (max-width:900px) {
