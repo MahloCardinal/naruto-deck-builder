@@ -591,3 +591,7 @@ dialog button { border-radius:0; }
 .feedback-notice { position:fixed; inset:auto; margin:0; width:max-content; max-width:calc(100vw - 16px); padding:9px 12px; border:1px solid currentColor; border-radius:0; background:var(--paper); color:var(--ink); box-shadow:0 4px 16px #0002; font:11px/1.45 system-ui,sans-serif; overflow-wrap:anywhere; }
 .feedback-notice.is-error { color:var(--red); }
 #collection-method-paste .collection-site-row > button,#collection-method-paste .collection-site-row > input,.collection-command-row > button,.collection-command-row > input { height:34px; min-height:34px; padding:5px 8px; font-size:11px; }
+
+.collection-import-dialog { max-width:460px; }
+.collection-import-dialog .dialog-head { align-items:center; margin-bottom:0; }
+.collection-import-dialog p { margin-top:8px; }

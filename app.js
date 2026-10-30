@@ -40,7 +40,7 @@ const toolbarIcons = {
   deck:'<path d="M8 3h12v15M4 7h12v14H4z"/>',
   proposal:'<path d="M3 5h18v12H9l-5 4v-4H3zM7 9h10M7 13h6"/>'
 };
-const deckOrder = {sort:'cost',direction:'asc'};
+const deckOrder = {sort:'index',direction:'asc'};
 let sessionReady = false, sessionTimer, lastSessionText = '', sessionWarning = false;
 const numberFormatters = new Map();
 const pluralRules = new Map();
@@ -407,6 +407,10 @@ function updateFilterCount(area) {
     const groups=Object.keys(filterDefinitions).filter(id=>$(area+'-'+id+'-menu').querySelector('input:checked')).length;
     count=groups+Number($(area+'-f-text').value.trim()!=='')+Number(!!$(area+'-f-estimate') && $(area+'-f-estimate').value!=='')+Number($(area+'-f-collection').value!=='all');
   }
+  const sort=$(area==='decks'?'decks-sort':area+'-sort'),direction=$(area==='decks'?'decks-sort-direction':area+'-sort-direction');
+  const changedOrder=sort.selectedIndex!==0 || direction.dataset.direction!=='asc';
+  const changedLevel=area!=='decks' && Number($(area+'-f-level')?.value || 1)!==1;
+  $(area==='decks'?'reset-library-filters':area+'-reset').disabled=count===0 && !changedOrder && !changedLevel;
   const badge=$(area+'-toolbox-tab-filters').querySelector('.filter-count');
   badge.textContent=count?` (${fmt(count,0)})`:'';
   badge.hidden=count===0;
@@ -621,8 +625,8 @@ function deckAverages(cards,levelFor=deckLevel) {
   return {cost:cost/count,power:power/count,quality:quality/count};
 }
 function renderDeck() {
-  const field=deckOrder.sort==='chakra'?'chakra':'energy_cost',direction=deckOrder.direction==='desc'?-1:1;
-  const cards = current.cards.map(i => byIndex.get(i)).sort((a,b)=>direction*(a[field]-b[field] || a.index-b.index)), n = cards.length;
+  const compareCards=createCardComparator(deckOrder.sort,deckOrder.direction,card=>computed(card,deckLevel(card)));
+  const cards = current.cards.map(i => byIndex.get(i)).sort(compareCards), n = cards.length;
   $('mobile-deck-count').textContent=n+'/10';
   $('auto-build').disabled=n===10;
   $('auto-build').title=t(n===10?'ui.autoFull':'ui.autoBuild');
@@ -754,9 +758,15 @@ function importCollection(text) {
   let saved=true;try { CARD_COLLECTION.save(collectionCounts); } catch { saved=false; }
   $('collection-text').value='';refreshCollection();
   const target=collectionMethod==='paste'?'collection-status':'collection-sync-status';
-  collectionStatus(saved?'collectionImported':'collectionStorageUnavailable',!saved,{ignored:result.ignored},target);
+  if (saved) {
+    clearNavigationFeedback();
+    $('collection-import-note').textContent=result.ignored?t('ui.collectionIgnored',{count:result.ignored}):'';
+    $('collection-import-note').hidden=!result.ignored;
+    if (!$('collection-import-dialog').open) $('collection-import-dialog').showModal();
+  } else collectionStatus('collectionStorageUnavailable',true,{ignored:result.ignored},target);
 }
 function mountCollectionControls() {
+  $('close-collection-import').onclick=()=>$('collection-import-dialog').close();
   $('collection-bookmark').onclick=event=>{event.preventDefault();setFeedback('collection-bookmark-status','ui.collectionWrongSite',{error:true});};
   $('collection-open').onclick=startCollectionSync;
   $('collection-open-manual').onclick=()=>openOfficialCollectionPage('collection-manual-open-status');
@@ -1269,7 +1279,7 @@ function exportDeck() {
   const data=serializeDeck();
   const url = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
   const link = document.createElement('a'); link.href = url;
-  link.download = (current.name.trim().replace(/[^\p{L}\p{N}_-]+/gu,'-') || t('ui.defaultDeckName').replace(/\s+/g,'-'))+'.json';
+  link.download = (current.name.trim().replace(/[^\p{L}\p{N}_-]+/gu,'_') || t('ui.defaultDeckName').replace(/\s+/g,'_'))+'.json';
   link.click(); setTimeout(() => URL.revokeObjectURL(url),1000);
   return data;
 }
@@ -1520,7 +1530,7 @@ function mountFilters(area) {
       if (el.matches('[data-level-toggle]')) { if (area === 'builder') applyBuilderLevel(1); else setFilterLevel(el,1); }
       else el.value = '';
     }
-    $(area+'-sort').value = 'index';
+    $(area+'-sort').selectedIndex = 0;
     setSortDirection($(area+'-sort-direction'),'asc');
     for (const [id,config] of Object.entries(filterDefinitions)) {
       for (const input of $(area+'-'+id+'-menu').querySelectorAll('input')) input.checked = false;
@@ -1590,7 +1600,7 @@ function restoreFilters(area,filter = {}) {
   const minimum = $(area+'-f-estimate');
   if (minimum) minimum.value = typeof filter.minimumPower === 'string' && /^\d{0,3}$/.test(filter.minimumPower) ? filter.minimumPower : '';
   const sort = $(area+'-sort');
-  sort.value = Array.from(sort.options).some(option => option.value === filter.sort) ? filter.sort : 'index';
+  sort.value = Array.from(sort.options).some(option => option.value === filter.sort) ? filter.sort : sort.options[0].value;
   setSortDirection($(area+'-sort-direction'),filter.direction);
   for (const [id,config] of Object.entries(filterDefinitions)) {
     const selected = new Set(Array.isArray(filter.selected?.[id]) ? filter.selected[id] : []);
@@ -1664,7 +1674,7 @@ function restoreSession() {
     for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=tags.has(input.value);
     updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);
     $('decks-f-collection').value=collectionCounts!==null && saved.library?.collection==='owned'?'owned':'all';
-    $('decks-sort').value=Array.from($('decks-sort').options).some(option=>option.value===saved.library?.sort)?saved.library.sort:'cost';
+    $('decks-sort').value=Array.from($('decks-sort').options).some(option=>option.value===saved.library?.sort)?saved.library.sort:$('decks-sort').options[0].value;
     setSortDirection($('decks-sort-direction'),saved.library?.direction);
     $('auto-owned-only').checked=collectionCounts!==null && saved.autoOwnedOnly===true;
     for (const [key,id] of [['deck','deck-proposal-description'],['synergy','synergy-proposal-description']]) if (typeof saved.proposalDrafts?.[key]==='string') $(id).value=saved.proposalDrafts[key].slice(0,2000);
@@ -1683,6 +1693,7 @@ mountLanguageMenu();
 
 mountToolbars();
 for (const area of filterAreas) mountFilters(area);
+$('deck-sort').replaceChildren(...Array.from($('builder-sort').options,option=>option.cloneNode(true)));
 mountMultiFilter('decks','f-tags',deckTagFilterDefinition);
 mountCollectionControls();
 mountMobileNavigation();
@@ -1725,7 +1736,7 @@ $('decks-sort').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
 $('decks-sort-direction').onclick=()=>{const button=$('decks-sort-direction');setSortDirection(button,button.dataset.direction==='desc'?'asc':'desc');renderPresetLibrary();scheduleSessionSave();};
 $('reset-library-filters').onclick=()=>{
   $('library-search').value='';$('decks-f-collection').value='all';
-  $('decks-sort').value='cost';setSortDirection($('decks-sort-direction'),'asc');
+  $('decks-sort').selectedIndex=0;setSortDirection($('decks-sort-direction'),'asc');
   for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=false;
   updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);renderPresetLibrary();scheduleSessionSave();
 };
@@ -1743,7 +1754,7 @@ $('deck-name').oninput = () => {
 const deckActions={
   export:exportDeck,
   import:()=>$('import-file').click(),
-  clear:()=>ask('ui.confirmClear',()=>{current.cards=[];current.levels={};changed();})
+  clear:()=>ask('ui.confirmClear',()=>{current.cards=[];current.levels={};current.name=t('ui.defaultDeckName');useDefaultDeckName=true;changed();})
 };
 for (const button of document.querySelectorAll('[data-deck-action]')) button.onclick=deckActions[button.dataset.deckAction];
 $('import-file').onchange = async () => {
@@ -1776,7 +1787,7 @@ for (const dialog of document.querySelectorAll('dialog')) {
 
 // Restore session state, then start responsive layout and persistence.
 const restoredSession = restoreSession();
-if (['cost','chakra'].includes(restoredSession.deckOrder?.sort) && ['asc','desc'].includes(restoredSession.deckOrder?.direction)) Object.assign(deckOrder,restoredSession.deckOrder);
+if (Array.from($('deck-sort').options).some(option=>option.value===restoredSession.deckOrder?.sort) && ['asc','desc'].includes(restoredSession.deckOrder?.direction)) Object.assign(deckOrder,restoredSession.deckOrder);
 for (const [area,panels] of Object.entries(toolbarPanels)) {
   const saved=restoredSession.toolbars?.[area];
   if (saved && panels.some(panel=>panel.key===saved.active) && typeof saved.open==='boolean') toolbarState[area]={active:saved.active,open:saved.open};
