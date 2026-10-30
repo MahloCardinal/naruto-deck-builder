@@ -46,11 +46,15 @@ const CARD_COLLECTION = (() => {
     // This runs only when the user activates the bookmark on the official app.
     async function synchronize(messages,endpoint,channel,builderOrigin) {
       function showError(message) {
-        document.getElementById('nnc-collection-feedback')?.remove();
+        document.getElementById('nnc-collection-feedback')?.dismiss?.();
         const notice=document.createElement('div');notice.id='nnc-collection-feedback';notice.setAttribute('role','alert');
         notice.textContent=String(message).trimEnd().replace(/[.]+$/,'');
         notice.style.cssText='all:initial;position:fixed;right:12px;bottom:12px;z-index:2147483647;box-sizing:border-box;max-width:calc(100vw - 24px);padding:12px 16px;border:1px solid #aa4942;border-radius:0;background:#fff;color:#aa4942;font:14px/1.4 system-ui,sans-serif;box-shadow:0 4px 16px #0002';
-        (document.body||document.documentElement).append(notice);setTimeout(()=>notice.remove(),5000);
+        const created=performance.now();
+        const dismiss=()=>{if(performance.now()-created>=3000)notice.dismiss();};
+        const timer=setTimeout(()=>notice.dismiss(),10000);
+        notice.dismiss=()=>{clearTimeout(timer);document.removeEventListener('click',dismiss,true);notice.remove();};
+        (document.body||document.documentElement).append(notice);document.addEventListener('click',dismiss,true);
       }
       if (location.origin!=='https://app.narutoninjacards.com') {
         const bookmark=document.getElementById('collection-bookmark');

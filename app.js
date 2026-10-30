@@ -7,8 +7,9 @@ let language = 'en';
 const SESSION_KEY = 'naruto-ninja-cards.session';
 let collectionCounts=null,collectionRestoreFailed=false,collectionMethod='sync';
 let collectionSync=null;
-const FEEDBACK_DURATION=5000;
-const feedbackStates=new Map(),feedbackTimers=new Map();
+const FEEDBACK_DURATION=10000,FEEDBACK_MIN_DURATION=3000;
+const feedbackStates=new Map(),feedbackTimers=new Map(),feedbackAnchorRects=new WeakMap();
+let feedbackAnchor=null;
 try { collectionCounts=CARD_COLLECTION.restore(); } catch { collectionRestoreFailed=true; }
 const ownsCard=card=>!!collectionCounts?.[card.card_key];
 const collectionLevel=card=>ownsCard(card)?(collectionCounts[card.card_key]>=2?2:1):null;
@@ -171,28 +172,71 @@ function translateStatic(root=document) {
   }
 }
 const feedbackText=text=>String(text).trimEnd().replace(/[.]+$/,'');
+const feedbackAnchors={
+  'collection-bookmark-status':'collection-bookmark','collection-bookmark-copy-status':'collection-copy-bookmark',
+  'collection-copy-status':'collection-copy','collection-site-copy-status':'collection-copy-site',
+  'collection-manual-open-status':'collection-open-manual','collection-sync-status':'collection-open',
+  'collection-status':'collection-import','collection-notice':'collection-remove',
+  'deck-proposal-status':'send-deck-proposal','synergy-proposal-status':'send-synergy-proposal',
+  'standard-status':'apply-standard','auto-status':'auto-build'
+};
+function positionFeedbackNotices() {
+  for (const [id,state] of feedbackStates) {
+    const notice=$(id+'-notice');if (!notice?.matches(':popover-open')) continue;
+    const anchor=state.anchor,dialog=notice.closest('dialog[open]');
+    let rect=anchor?.getBoundingClientRect();
+    if (dialog && !dialog.contains(anchor)) {
+      const box=dialog.getBoundingClientRect();rect={left:box.left+12,top:box.top+8,bottom:box.top+8};
+    } else if (rect?.width && rect.height) state.rect=rect;else rect=state.rect;
+    notice.style.maxWidth=Math.min(420,innerWidth-16)+'px';
+    const box=notice.getBoundingClientRect();
+    let left=rect?rect.left:innerWidth-box.width-12,top=rect?rect.bottom+7:innerHeight-box.height-12;
+    if (rect && top+box.height>innerHeight-8 && rect.top-box.height-7>=8) top=rect.top-box.height-7;
+    left=Math.max(8,Math.min(left,innerWidth-box.width-8));top=Math.max(8,Math.min(top,innerHeight-box.height-8));
+    notice.style.left=left+'px';notice.style.top=top+'px';
+  }
+}
 function renderFeedback(id) {
-  const element=$(id),state=feedbackStates.get(id);
-  element.classList.add('action-feedback');
-  element.classList.toggle('is-error',!!state?.error);
-  if (!state) { element.textContent='';delete element.dataset.i18n;return; }
-  const keys=Array.isArray(state.key)?state.key:[state.key];
-  const values={bookmark:t('ui.collectionBookmark'),copyLink:t('ui.collectionCopyLink'),...state.values};
-  element.textContent=keys.map(key=>feedbackText(t(key,values))).join(' ');
-  if (keys.length===1) element.dataset.i18n=keys[0];else delete element.dataset.i18n;
+  const state=feedbackStates.get(id),inline=id==='standard-status'?$(id):null;
+  let notice=$(id+'-notice');
+  if (inline) {inline.textContent='';delete inline.dataset.i18n;}
+  if (!state || state.persistent && state.key==='ui.standardPending') {
+    if (notice) {if(notice.matches(':popover-open'))notice.hidePopover();notice.remove();}
+    if (state && inline) {inline.textContent=feedbackText(t(state.key));inline.dataset.i18n=state.key;}
+    return;
+  }
+  if (!notice) {notice=document.createElement('div');notice.id=id+'-notice';notice.popover='manual';notice.dataset.feedbackId=id;}
+  notice.className='feedback-notice'+(state.error?' is-error':'');
+  notice.setAttribute('role',state.error?'alert':'status');notice.setAttribute('aria-live','polite');
+  const keys=Array.isArray(state.key)?state.key:[state.key],values={bookmark:t('ui.collectionBookmark'),copyLink:t('ui.collectionCopyLink'),...state.values};
+  notice.textContent=state.message!==null?feedbackText(state.message):keys.map(key=>feedbackText(t(key,values))).join(' ');
+  const dialog=document.activeElement?.closest('dialog[open]')||Array.from(document.querySelectorAll('dialog[open]')).at(-1),parent=dialog||document.body;
+  if (notice.parentElement!==parent) {if(notice.matches(':popover-open'))notice.hidePopover();parent.append(notice);}
+  if (!notice.matches(':popover-open')) notice.showPopover();
+  positionFeedbackNotices();
 }
-function setFeedback(id,key=null,{error=false,values={},persistent=false}={}) {
+function refreshFeedbackNotices() {
+  for (const id of feedbackStates.keys()) renderFeedback(id);
+}
+function setFeedback(id,key=null,{error=false,values={},persistent=false,message=null,anchor=null}={}) {
   clearTimeout(feedbackTimers.get(id));feedbackTimers.delete(id);
-  if (key) feedbackStates.set(id,{key,error,values});else feedbackStates.delete(id);
+  if (key || message) {
+    if (!(persistent && key==='ui.standardPending')) {
+      for (const [otherId,state] of feedbackStates) if (otherId!==id && !(state.persistent && state.key==='ui.standardPending')) setFeedback(otherId);
+    }
+    anchor=anchor || $(feedbackAnchors[id]) || feedbackAnchor;
+    const rect=anchor?.getBoundingClientRect();
+    feedbackStates.set(id,{key,error,values,persistent,message,anchor,startedAt:performance.now(),rect:rect?.width&&rect.height?rect:feedbackAnchorRects.get(anchor)});
+  } else feedbackStates.delete(id);
   renderFeedback(id);
-  if (key && !persistent) feedbackTimers.set(id,setTimeout(()=>setFeedback(id),FEEDBACK_DURATION));
+  if ((key || message) && !persistent) feedbackTimers.set(id,setTimeout(()=>setFeedback(id),FEEDBACK_DURATION));
 }
-function showFeedbackDialog(id) {
-  const dialog=$(id);
-  clearTimeout(feedbackTimers.get(id));
-  if (!dialog.open) dialog.showModal();
-  feedbackTimers.set(id,setTimeout(()=>{dialog.close();feedbackTimers.delete(id);},FEEDBACK_DURATION));
-}
+document.addEventListener('click',event=>{
+  for (const [id,state] of feedbackStates) if (!state.persistent && performance.now()-state.startedAt>=FEEDBACK_MIN_DURATION) setFeedback(id);
+  const anchor=event.target.closest?.('button,a,[role=button]');
+  if (anchor) {feedbackAnchor=anchor;feedbackAnchorRects.set(anchor,anchor.getBoundingClientRect());}
+  requestAnimationFrame(refreshFeedbackNotices);
+},true);
 function setStandardStatus(key) {
   setFeedback('standard-status',key,{persistent:key==='ui.standardPending'});
   scheduleSessionSave();
@@ -314,7 +358,7 @@ function cleanScenario(value = {}) {
 const emptyDeck = () => ({name:t('ui.defaultDeckName'),cards:[],levels:{},scenario:{...defaults},cardOptions:{}});
 let current = emptyDeck();
 let useDefaultDeckName = true;
-let mode = 'db', dialogCard = null, dialogLevel = 1, dialogReadOnly = false, confirmAction = null, confirmMessageKey = null, toastTimer;
+let mode = 'db', dialogCard = null, dialogLevel = 1, dialogReadOnly = false, confirmAction = null, confirmMessageKey = null;
 const deckLevel = c => current.levels[c.index] ?? collectionLevel(c) ?? Number($('builder-f-level').value);
 const levelOf = c => mode === 'builder' ? deckLevel(c) : mode === 'db' ? Number($('db-f-level').value) : 1;
 const scenarioFor = c => ({...(current.cardOptions[c.index] || current.scenario)});
@@ -330,12 +374,7 @@ function applyWrittenStandard() {
   setStandardStatus('ui.standardApplied');
 }
 const computed = (c,level = levelOf(c)) => estimate(c,level);
-function toast(message,error = false) {
-  clearTimeout(toastTimer);
-  $('toast').textContent = feedbackText(message);
-  $('toast').className = 'toast' + (error ? ' error' : '');
-  toastTimer = setTimeout(() => $('toast').classList.add('hidden'),FEEDBACK_DURATION);
-}
+function toast(message,error = false) {setFeedback('toast',null,{message,error});}
 function ask(key,action) { confirmAction=action; confirmMessageKey=key; $('confirm-text').textContent=t(key); $('confirm-dialog').showModal(); }
 function syncScenario() {
   for (const [key,id] of Object.entries(settingIds)) $(id).value = current.scenario[key];
@@ -387,6 +426,20 @@ function filteredCards(estimateFor=computed) {
     return true;
   });
 }
+function createCardComparator(sort,direction,estimateFor=computed) {
+  const compareNames=sort==='name'?new Intl.Collator(TRANSLATIONS[language].locale).compare:null;
+  return (a,b) => {
+    let d = 0;
+    switch (sort) {
+      case 'name': d = compareNames(cardText(a).name,cardText(b).name); break;
+      case 'cost': d = a.energy_cost-b.energy_cost; break;
+      case 'chakra': d = a.chakra-b.chakra; break;
+      case 'quality': d = estimateFor(a).quality-estimateFor(b).quality; break;
+      case 'rarity': d = RANK[a.rarity]-RANK[b.rarity];
+    }
+    return (direction==='desc'?-1:1)*(d || a.index-b.index);
+  };
+}
 function renderCatalog() {
   if (mode==='decks') { renderPresetLibrary();scheduleSessionSave();return; }
   if (mode==='collection') { renderCollectionUI();scheduleSessionSave();return; }
@@ -396,19 +449,8 @@ function renderCatalog() {
     if (!estimates.has(card.index)) estimates.set(card.index,computed(card));
     return estimates.get(card.index);
   };
-  const cards = filteredCards(estimateFor).filter(c=>mode!=='synergies' || synergyGroupByIndex.has(c.index)), sort = F('sort').value, direction = F('sort-direction').dataset.direction === 'desc' ? -1 : 1;
-  const compareNames=sort==='name'?new Intl.Collator(TRANSLATIONS[language].locale).compare:null;
-  const compareCards = (a,b) => {
-    let d = 0;
-    switch (sort) {
-      case 'name': d = compareNames(cardText(a).name,cardText(b).name); break;
-      case 'cost': d = a.energy_cost-b.energy_cost; break;
-      case 'chakra': d = a.chakra-b.chakra; break;
-      case 'quality': d = estimateFor(a).quality-estimateFor(b).quality; break;
-      case 'rarity': d = RANK[a.rarity]-RANK[b.rarity];
-    }
-    return direction*(d || a.index-b.index);
-  };
+  const cards = filteredCards(estimateFor).filter(c=>mode!=='synergies' || synergyGroupByIndex.has(c.index)), sort = F('sort').value, direction = F('sort-direction').dataset.direction;
+  const compareCards=createCardComparator(sort,direction,estimateFor);
   cards.sort(compareCards);
   if (mode==='synergies') renderSynergies(cards,compareCards);
   else $(mode+'-card-list').innerHTML = cards.length ? cards.map(card=>cardHTML(card,mode==='builder'?estimateFor(card):null)).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
@@ -587,9 +629,9 @@ function renderDeck() {
   $('deck-dialog-grid').innerHTML = deckSlotsHTML(cards,true);
   const averages=deckAverages(cards);
   for (const prefix of ['', 'deck-dialog-']) {
-    $(prefix+'avg-cost').textContent = n ? fmt(averages.cost) : '—';
-    $(prefix+'avg-max').textContent = n ? fmt(averages.power) : '—';
-    $(prefix+'avg-quality').textContent = n ? fmt(averages.quality) : '—';
+    $(prefix+'avg-cost').textContent = n ? fmt(averages.cost,1) : '—';
+    $(prefix+'avg-max').textContent = n ? fmt(averages.power,1) : '—';
+    $(prefix+'avg-quality').textContent = n ? fmt(averages.quality,1) : '—';
   }
   const costs = cards.map(c => c.energy_cost);
   const counts = Array.from({length:9},(_,i) => costs.filter(cost => Math.min(cost,9) === i+1).length), peak = Math.max(1,...counts);
@@ -638,7 +680,7 @@ function openOfficialCollectionPage(statusId,retainOpener=false) {
     setFeedback(statusId);return source;
   } catch {
     try { source?.close(); } catch { /* A blocked window may no longer be accessible. */ }
-    setFeedback(statusId,'ui.collectionSyncPopupBlocked',{error:true});return null;
+    setFeedback(statusId,retainOpener?'ui.collectionSyncPopupBlocked':'ui.collectionManualPopupBlocked',{error:true});return null;
   }
 }
 function startCollectionSync() {
@@ -707,14 +749,9 @@ function importCollection(text) {
   let saved=true;try { CARD_COLLECTION.save(collectionCounts); } catch { saved=false; }
   $('collection-text').value='';refreshCollection();
   const target=collectionMethod==='paste'?'collection-status':'collection-sync-status';
-  collectionStatus(saved?null:'collectionStorageUnavailable',!saved,saved?{}:{ignored:result.ignored},target);
-  if (saved) {
-    setFeedback('collection-import-feedback-note',result.ignored?'ui.collectionIgnored':null,{values:{count:result.ignored}});
-    showFeedbackDialog('collection-feedback-dialog');
-  }
+  collectionStatus(saved?'collectionImported':'collectionStorageUnavailable',!saved,{ignored:result.ignored},target);
 }
 function mountCollectionControls() {
-  $('close-collection-feedback').onclick=()=>$('collection-feedback-dialog').close();
   $('collection-bookmark').onclick=event=>{event.preventDefault();setFeedback('collection-bookmark-status','ui.collectionWrongSite',{error:true});};
   $('collection-open').onclick=startCollectionSync;
   $('collection-open-manual').onclick=()=>openOfficialCollectionPage('collection-manual-open-status');
@@ -727,12 +764,15 @@ function mountCollectionControls() {
     selectCollectionMethod(event.key==='Home'?'sync':event.key==='End'?'paste':collectionMethod==='sync'?'paste':'sync');
     $('collection-tab-'+collectionMethod).focus();
   };
-  for (const id of ['collection-copy','collection-copy-bookmark']) $(id).onclick=async event=>{
-    const button=event.currentTarget,bookmark=id==='collection-copy-bookmark';button.disabled=true;
-    const copied=await copyCollectionText(bookmark?$('collection-bookmark').getAttribute('href'):CARD_COLLECTION.url,bookmark?null:$('collection-command'));
-    const key=bookmark?(copied?'collectionLinkCopied':'collectionLinkCopyFailed'):(copied?'collectionCopied':'collectionCopyFailed');
-    setFeedback(bookmark?'collection-bookmark-copy-status':'collection-copy-status','ui.'+key,{error:!copied});
-    button.disabled=false;
+  const copyActions=[
+    ['collection-copy-bookmark','collection-bookmark-copy-status',()=>$('collection-bookmark').href,null,'collectionLinkCopied','collectionLinkCopyFailed'],
+    ['collection-copy','collection-copy-status',()=>CARD_COLLECTION.url,'collection-command','collectionCopied','collectionCopyFailed'],
+    ['collection-copy-site','collection-site-copy-status',()=>CARD_COLLECTION.officialOrigin+'/','collection-site-address','collectionSiteCopied','collectionCopyFailed']
+  ];
+  for (const [id,status,value,input,success,failure] of copyActions) $(id).onclick=async event=>{
+    const button=event.currentTarget;button.disabled=true;
+    const copied=await copyCollectionText(value(),input?$(input):null);
+    setFeedback(status,'ui.'+(copied?success:failure),{error:!copied,anchor:button});button.disabled=false;
   };
   $('collection-form').onsubmit=event=>{
     event.preventDefault();
@@ -783,8 +823,9 @@ function renderPresetLibrary() {
   });
   const collator=new Intl.Collator(TRANSLATIONS[language].locale,{numeric:true,sensitivity:'base'});
   decks.sort((a,b)=>collator.compare(presetName(a),presetName(b))||a.id.localeCompare(b.id));
+  const compareCards=createCardComparator($('decks-sort').value,$('decks-sort-direction').dataset.direction);
   $('preset-list').innerHTML=decks.length?decks.map(deck=>{
-    const cards=deck.cards.map(key=>cardByKey.get(key)).sort((a,b)=>a.energy_cost-b.energy_cost||a.index-b.index);
+    const cards=deck.cards.map(key=>cardByKey.get(key)).sort(compareCards);
     return `<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${deck.tags.length?`<div class="tags">${deck.tags.map(tag=>`<span class="tag">${esc(t('ui.tag_'+tag))}</span>`).join('')}</div>`:''}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(cards.map(card=>card.index),{showOwnership:true})}</ol><p class="preset-description">${formatPresetDescription(deck)}</p></article>`;
   }).join(''):`<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
   updateFilterCount('decks');
@@ -794,7 +835,7 @@ function renderDeckProposal() {
 
   const count=current.cards.length;
   const form=$('deck-proposal-panel');
-  if ((count===0 || count===10) && form.querySelector('[role=status]').dataset.i18n==='ui.proposalIncompleteDeck') setProposalStatus(form);
+  if ((count===0 || count===10) && feedbackStates.get('deck-proposal-status')?.key==='ui.proposalIncompleteDeck') setProposalStatus(form);
   $('send-deck-proposal').disabled=count===0 || proposalSending;
 }
 function openDeckProposal() {
@@ -802,7 +843,7 @@ function openDeckProposal() {
   if (mobileViewport.matches) openMobileTools('proposal');
 }
 function setProposalStatus(form,key=null,error=false) {
-  setFeedback(form.querySelector('[role=status]').id,key,{error,persistent:key==='ui.proposalSending'});
+  setFeedback(form.id==='deck-proposal-panel'?'deck-proposal-status':'synergy-proposal-status',key,{error,persistent:key==='ui.proposalSending',anchor:form.querySelector('[type=submit]')});
 }
 async function sendProposal(event) {
   event.preventDefault();
@@ -825,11 +866,8 @@ async function sendProposal(event) {
     const result=await response.json();
     if (!response.ok || result.ok!==true) throw Error(result.error||'send_failed');
     if (input.value.trim()===draft) input.value='';
-    scheduleSessionSave();setProposalStatus(form);
-    const key=isDeck?'ui.deckProposalFeedback':'ui.synergyProposalFeedback';
-    $('proposal-feedback-message').dataset.i18n=key;
-    $('proposal-feedback-message').textContent=t(key);
-    showFeedbackDialog('proposal-feedback-dialog');
+    scheduleSessionSave();
+    setProposalStatus(form,isDeck?'ui.deckProposalFeedback':'ui.synergyProposalFeedback');
   } catch {
     setProposalStatus(form,'ui.proposalFailed',true);
   } finally {
@@ -870,8 +908,8 @@ async function runAutoBuilder() {
   autoController?.abort();
   const controller=new AbortController();autoController=controller;
   autoSnapshot=autoDeckSnapshot();autoLevels=Object.fromEntries(CARDS.map(card=>[card.index,deckLevel(card)]));autoProposals=[];
-  setFeedback('auto-status','ui.autoBusy',{persistent:true});$('auto-results').innerHTML='';
   if (!$('auto-dialog').open) $('auto-dialog').showModal();
+  setFeedback('auto-status','ui.autoBusy',{persistent:true});$('auto-results').innerHTML='';
   try {
     const eligibleIndices=$('auto-owned-only').checked?CARDS.filter(ownsCard).map(card=>card.index):null;
     if (eligibleIndices && new Set([...eligibleIndices,...current.cards]).size<10) {
@@ -1335,6 +1373,7 @@ function mountMultiFilter(area,id,config) {
   updateMultiFilter(button,config);
 }
 function repositionMenus() {
+  positionFeedbackNotices();
   if ($('language-menu').matches(':popover-open')) positionLanguageMenu();
   for (const menu of document.querySelectorAll('.filter-menu:popover-open')) positionFilterMenu($(menu.id.replace(/-menu$/,'')),menu);
   for (const menu of document.querySelectorAll('.synergy-source-menu:popover-open')) positionSynergySourceMenu(menu);
@@ -1503,6 +1542,7 @@ function applyLanguage() {
     const button=$(area+'-sort-direction');
     setSortDirection(button,button.dataset.direction);
   }
+  setSortDirection($('decks-sort-direction'),$('decks-sort-direction').dataset.direction);
   syncLanguageControl();
   syncMobileSearch();syncMobileToolsLabels();
   for (const area of toolbarAreas) renderToolbar(area);
@@ -1516,7 +1556,6 @@ function setLanguage(code) {
   if ($('language-menu').matches(':popover-open')) $('language-menu').hidePopover();
   closeFilterMenus();language=code;
   if (useDefaultDeckName) current.name=t('ui.defaultDeckName');
-  clearTimeout(toastTimer);$('toast').classList.add('hidden');
   applyLanguage();return true;
 }
 
@@ -1563,7 +1602,7 @@ function saveSession() {
       language,mode,useDefaultDeckName,defaults,deck:current,
       toolbars:toolbarState,deckOrder,scroll:catalogScroll,autoOwnedOnly:$('auto-owned-only').checked,
       filters:Object.fromEntries(filterAreas.map(area=>[area,captureFilters(area)])),
-      library:{query:$('library-search').value,tags:[...selectedFilterValues('f-tags','decks')],collection:$('decks-f-collection').value},
+      library:{query:$('library-search').value,tags:[...selectedFilterValues('f-tags','decks')],collection:$('decks-f-collection').value,sort:$('decks-sort').value,direction:$('decks-sort-direction').dataset.direction},
       proposalDrafts:{deck:$('deck-proposal-description').value,synergy:$('synergy-proposal-description').value},
       standardDraft:Object.fromEntries(Object.entries(settingIds).map(([key,id]) => [key,$(id).value])),
       standardStatus:$('standard-status').dataset.i18n==='ui.standardPending'?'ui.standardPending':''
@@ -1615,6 +1654,8 @@ function restoreSession() {
     for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=tags.has(input.value);
     updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);
     $('decks-f-collection').value=collectionCounts!==null && saved.library?.collection==='owned'?'owned':'all';
+    $('decks-sort').value=Array.from($('decks-sort').options).some(option=>option.value===saved.library?.sort)?saved.library.sort:'cost';
+    setSortDirection($('decks-sort-direction'),saved.library?.direction);
     $('auto-owned-only').checked=collectionCounts!==null && saved.autoOwnedOnly===true;
     for (const [key,id] of [['deck','deck-proposal-description'],['synergy','synergy-proposal-description']]) if (typeof saved.proposalDrafts?.[key]==='string') $(id).value=saved.proposalDrafts[key].slice(0,2000);
     for (const area of sectionIds) for (const viewport of ['mobile','desktop']) {
@@ -1670,14 +1711,16 @@ $('preset-list').onclick=event=>{
 };
 $('library-search').oninput=()=>{renderPresetLibrary();scheduleSessionSave();};
 $('decks-f-collection').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
+$('decks-sort').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
+$('decks-sort-direction').onclick=()=>{const button=$('decks-sort-direction');setSortDirection(button,button.dataset.direction==='desc'?'asc':'desc');renderPresetLibrary();scheduleSessionSave();};
 $('reset-library-filters').onclick=()=>{
   $('library-search').value='';$('decks-f-collection').value='all';
+  $('decks-sort').value='cost';setSortDirection($('decks-sort-direction'),'asc');
   for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=false;
   updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);renderPresetLibrary();scheduleSessionSave();
 };
 $('propose-deck').onclick=openDeckProposal;
 for (const id of ['deck-proposal-panel','synergy-proposal-panel']) $(id).onsubmit=sendProposal;
-$('close-proposal-feedback').onclick=()=>$('proposal-feedback-dialog').close();
 $('deck-sort').onchange = () => { deckOrder.sort=$('deck-sort').value;renderDeck();scheduleSessionSave(); };
 $('deck-sort-direction').onclick = () => { deckOrder.direction=deckOrder.direction==='asc'?'desc':'asc';renderDeck();scheduleSessionSave(); };
 $('close-deck-dialog').onclick = () => $('deck-dialog').close();
@@ -1713,7 +1756,7 @@ $('confirm-yes').onclick = () => { const action = confirmAction; confirmAction =
 $('confirm-dialog').oncancel = () => { confirmAction = null; };
 for (const dialog of document.querySelectorAll('dialog')) {
   dialog.setAttribute('closedby','any');
-  if (['proposal-feedback-dialog','collection-feedback-dialog'].includes(dialog.id)) dialog.addEventListener('close',()=>{if (!dialog.open) {clearTimeout(feedbackTimers.get(dialog.id));feedbackTimers.delete(dialog.id);}});
+  dialog.addEventListener('close',()=>requestAnimationFrame(refreshFeedbackNotices));
   let startedInside = false;
   const outside = event => { const r = dialog.getBoundingClientRect(); return event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom; };
   dialog.addEventListener('pointerdown',event => { startedInside = !outside(event); });
