@@ -45,9 +45,21 @@ const CARD_COLLECTION = (() => {
   function bookmarklet(messages,builderOrigin) {
     // This runs only when the user activates the bookmark on the official app.
     async function synchronize(messages,endpoint,channel,builderOrigin) {
-      if (location.origin!=='https://app.narutoninjacards.com') { alert(messages.wrongSite);return; }
+      function showError(message) {
+        document.getElementById('nnc-collection-feedback')?.remove();
+        const notice=document.createElement('div');notice.id='nnc-collection-feedback';notice.setAttribute('role','alert');
+        notice.textContent=String(message).trimEnd().replace(/[.]+$/,'');
+        notice.style.cssText='all:initial;position:fixed;right:12px;bottom:12px;z-index:2147483647;box-sizing:border-box;max-width:calc(100vw - 24px);padding:12px 16px;border:1px solid #aa4942;border-radius:0;background:#fff;color:#aa4942;font:14px/1.4 system-ui,sans-serif;box-shadow:0 4px 16px #0002';
+        (document.body||document.documentElement).append(notice);setTimeout(()=>notice.remove(),5000);
+      }
+      if (location.origin!=='https://app.narutoninjacards.com') {
+        const bookmark=document.getElementById('collection-bookmark');
+        const onBuilder=builderOrigin==='file:'?location.protocol==='file:':location.origin===builderOrigin;
+        if (onBuilder && typeof bookmark?.onclick==='function') bookmark.click();else showError(messages.wrongSite);
+        return;
+      }
       const builder=window.opener,fileBuilder=builderOrigin==='file:',targetOrigin=fileBuilder?'*':builderOrigin;
-      if (!builder || builder.closed) { alert(messages.noConnection);return; }
+      if (!builder || builder.closed) { showError(messages.noConnection);return; }
       if (window.__narutoCollectionSyncRunning) return;
       window.__narutoCollectionSyncRunning=true;
       let token,errorCode='failed';
@@ -81,7 +93,7 @@ const CARD_COLLECTION = (() => {
         builder.focus();window.close();
       } catch(error) {
         if (token) builder.postMessage({channel,type:'error',token,code:errorCode},targetOrigin);
-        alert([messages.noConnection,messages.signIn,messages.failed].includes(error.message)?error.message:messages.failed);
+        showError([messages.noConnection,messages.signIn,messages.failed].includes(error.message)?error.message:messages.failed);
       } finally { delete window.__narutoCollectionSyncRunning; }
     }
     return 'javascript:'+encodeURIComponent(`void (${synchronize.toString()})(${JSON.stringify(messages)},${JSON.stringify(url)},${JSON.stringify(syncChannel)},${JSON.stringify(builderOrigin)})`);

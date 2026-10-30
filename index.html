@@ -57,9 +57,8 @@
 <div class="parameter"><label data-i18n="ui.allies" data-i18n-rich="" for="s-allies"></label><input data-integer="" id="s-allies" inputmode="numeric" max="99" min="0" pattern="[0-9]*" required="" type="text" value="2"/></div>
 <div class="parameter"><label data-i18n="ui.allyChakra" data-i18n-rich="" for="s-ally-chakra"></label><input data-integer="" id="s-ally-chakra" inputmode="numeric" max="99" min="0" pattern="[0-9]*" required="" step="1" type="text" value="4"/></div>
 <div class="parameter"><label data-i18n="ui.activations" data-i18n-rich="" for="s-activations"></label><input data-integer="" id="s-activations" inputmode="numeric" max="99" min="0" pattern="[0-9]*" required="" type="text" value="2"/></div>
-<div class="scenario-actions"><button class="primary" data-i18n="ui.applyStandard" id="apply-standard"></button><button aria-controls="calculation-info-dialog" aria-haspopup="dialog" class="info-button" data-i18n="ui.calculationInfo" id="calculation-info-button"></button></div>
+<div class="scenario-actions"><button class="primary" data-i18n="ui.applyStandard" id="apply-standard"></button><button aria-controls="calculation-info-dialog" aria-haspopup="dialog" class="info-button" data-i18n="ui.calculationInfo" id="calculation-info-button"></button><p class="inline-note action-feedback" id="standard-status" role="status"></p></div>
 </div>
-<div class="scenario-footer"><p class="inline-note" id="standard-status" role="status"></p></div>
 </section>
 <section class="deck-strip toolbox-pane" hidden="" id="deck-panel" role="tabpanel">
 <h2 class="deck-preview-title" data-i18n="ui.deckBuilding"></h2>
@@ -95,7 +94,7 @@
 <div class="filters-panel toolbox-pane" data-i18n-aria-label="ui.searchFilters" id="synergies-filter-host" role="tabpanel"></div>
 <form class="proposal-form toolbox-pane" id="synergy-proposal-panel" role="tabpanel" novalidate hidden>
 <div class="field"><label for="synergy-proposal-description" data-i18n="ui.describeSynergy"></label><textarea id="synergy-proposal-description" rows="6" maxlength="2000" required></textarea></div>
-<div class="proposal-actions"><button class="primary" type="submit" data-i18n="ui.sendProposal"></button><p class="inline-note proposal-status" role="status" aria-live="polite"></p></div>
+<div class="proposal-actions"><button class="primary" type="submit" data-i18n="ui.sendProposal"></button><p class="inline-note action-feedback proposal-status" id="synergy-proposal-status" role="status" aria-live="polite"></p></div>
 </form>
 </div>
 </section>
@@ -113,7 +112,7 @@
 <p class="proposal-guide" data-i18n="ui.proposalDeckGuide"></p>
 <ol class="deck-grid proposal-deck-cards" id="proposal-deck-cards"></ol>
 <div class="field"><label for="deck-proposal-description" data-i18n="ui.describeDeck"></label><textarea id="deck-proposal-description" rows="6" maxlength="2000"></textarea></div>
-<div class="proposal-actions"><button class="primary" id="send-deck-proposal" type="submit" data-i18n="ui.sendProposal"></button><p class="inline-note proposal-status" role="status" aria-live="polite"></p></div>
+<div class="proposal-actions"><button class="primary" id="send-deck-proposal" type="submit" data-i18n="ui.sendProposal"></button><p class="inline-note action-feedback proposal-status" id="deck-proposal-status" role="status" aria-live="polite"></p></div>
 </form>
 </div></section>
 <main class="workspace"><section class="catalog" data-i18n-aria-label="ui.prebuiltDecks">
@@ -123,24 +122,24 @@
 <section aria-labelledby="tab-collection" class="area collection-area hidden" id="collection-area" role="tabpanel"><main class="workspace"><section class="catalog collection-catalog" data-i18n-aria-label="ui.collectionTitle"><div class="collection-page">
 <h2 id="collection-title" data-i18n="ui.collectionTitle"></h2>
 <div class="collection-overview"><p id="collection-summary" class="collection-summary"></p><button class="strong-danger" id="collection-remove" type="button" data-i18n="ui.collectionRemove"></button></div>
+<p id="collection-notice" class="inline-note action-feedback" role="status" aria-live="polite"></p>
 <div class="collection-tabs" role="tablist" data-i18n-aria-label="ui.collectionMethods">
 <button id="collection-tab-sync" type="button" role="tab" aria-selected="true" aria-controls="collection-method-sync" data-i18n="ui.collectionMethodSync"></button>
 <button id="collection-tab-paste" type="button" role="tab" aria-selected="false" aria-controls="collection-method-paste" tabindex="-1" data-i18n="ui.collectionMethodPaste"></button>
 </div>
 <form id="collection-form">
 <section class="collection-method" id="collection-method-sync" role="tabpanel" aria-labelledby="collection-tab-sync">
-<ol><li><p data-i18n="ui.collectionSyncStep1"></p><div class="collection-step-actions"><a id="collection-bookmark" class="bookmark-link" draggable="true" data-i18n="ui.collectionBookmark"></a><div class="collection-bookmark-copy"><button id="collection-copy-bookmark" type="button" data-i18n="ui.collectionCopyLink"></button><span id="collection-bookmark-copy-status" class="inline-note" role="status" aria-live="polite"></span></div></div></li>
-<li><p data-i18n="ui.collectionSyncAccess"></p><div class="collection-site-row"><button id="collection-open" class="collection-open" type="button" data-i18n="ui.collectionOpenOfficial"></button></div><p id="collection-sync-status" class="inline-note" role="status" aria-live="polite"></p></li>
+<ol><li><p data-i18n="ui.collectionSyncStep1"></p><div class="collection-step-actions"><a id="collection-bookmark" class="bookmark-link" draggable="true" data-i18n="ui.collectionBookmark"></a><button id="collection-copy-bookmark" type="button" data-i18n="ui.collectionCopyLink"></button><span id="collection-bookmark-copy-status" class="inline-note action-feedback" role="status" aria-live="polite"></span><span id="collection-bookmark-status" class="inline-note action-feedback" role="status" aria-live="polite"></span></div></li>
+<li><p data-i18n="ui.collectionSyncAccess"></p><div class="collection-site-row"><button id="collection-open" class="collection-open" type="button" data-i18n="ui.collectionOpenOfficial"></button><span id="collection-sync-status" class="inline-note action-feedback" role="status" aria-live="polite"></span></div></li>
 <li data-i18n="ui.collectionSyncStep3"></li></ol>
 </section>
 <section class="collection-method" id="collection-method-paste" role="tabpanel" aria-labelledby="collection-tab-paste" hidden inert>
-<ol><li><p data-i18n="ui.collectionAccess"></p><div class="collection-site-row"><button id="collection-open-manual" class="collection-open" type="button" data-i18n="ui.collectionOpenOfficial"></button><input class="collection-site-link" data-collection-site-link type="url" readonly spellcheck="false" data-i18n-aria-label="ui.collectionSiteAddress"/></div></li>
-<li><p data-i18n="ui.collectionDirectStep2"></p><div class="collection-command-row"><button type="button" id="collection-copy" data-i18n="ui.collectionCopy"></button><input id="collection-command" type="text" readonly data-i18n-aria-label="ui.collectionCommand"/><span id="collection-copy-status" class="inline-note" role="status" aria-live="polite"></span></div></li>
+<ol><li><p data-i18n="ui.collectionAccess"></p><div class="collection-site-row"><button id="collection-open-manual" class="collection-open" type="button" data-i18n="ui.collectionOpenOfficial"></button><input class="collection-site-link" data-collection-site-link type="url" readonly spellcheck="false" data-i18n-aria-label="ui.collectionSiteAddress"/><span id="collection-manual-open-status" class="inline-note action-feedback" role="status" aria-live="polite"></span></div></li>
+<li><p data-i18n="ui.collectionDirectStep2"></p><div class="collection-command-row"><button type="button" id="collection-copy" data-i18n="ui.collectionCopy"></button><input id="collection-command" type="text" readonly data-i18n-aria-label="ui.collectionCommand"/><span id="collection-copy-status" class="inline-note action-feedback" role="status" aria-live="polite"></span></div></li>
 <li data-i18n="ui.collectionManualAddress"></li><li data-i18n="ui.collectionDirectStep3"></li>
-<li><p id="collection-paste-instruction" data-i18n="ui.collectionDirectStep4"></p><div class="field"><textarea id="collection-text" rows="3" maxlength="2000000" spellcheck="false" aria-labelledby="collection-paste-instruction"></textarea></div><button class="primary" type="submit" data-i18n="ui.collectionImport"></button></li></ol>
+<li><p id="collection-paste-instruction" data-i18n="ui.collectionDirectStep4"></p><div class="field"><textarea id="collection-text" rows="3" maxlength="2000000" spellcheck="false" aria-labelledby="collection-paste-instruction"></textarea></div><div class="collection-import-actions"><button class="primary" type="submit" data-i18n="ui.collectionImport"></button><span id="collection-status" class="inline-note action-feedback" role="status" aria-live="polite"></span></div></li></ol>
 </section>
 </form>
-<p id="collection-status" class="inline-note" role="status" aria-live="polite"></p>
 </div></section></main></section>
 </div>
 <button class="mobile-deck-shortcut primary" id="mobile-deck-button" type="button" aria-haspopup="dialog" aria-controls="mobile-tools-dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 3h12v15M4 7h12v14H4z"/></svg><span data-i18n="ui.quickDeck"></span><b id="mobile-deck-count">0/10</b></button>
@@ -151,7 +150,7 @@
 </dialog>
 <dialog class="auto-dialog" id="auto-dialog" aria-labelledby="auto-title">
 <h2 class="visually-hidden" id="auto-title" data-i18n="ui.autoTitle"></h2><button class="dialog-close" id="close-auto" data-i18n-aria-label="ui.closeTools" type="button">✕</button>
-<p class="auto-status" id="auto-status" role="status" aria-live="polite"></p>
+<p class="auto-status action-feedback" id="auto-status" role="status" aria-live="polite"></p>
 <div class="auto-results" id="auto-results"></div>
 </dialog>
 
@@ -161,6 +160,7 @@
 </dialog>
 <dialog class="collection-feedback" id="collection-feedback-dialog" aria-labelledby="collection-feedback-title">
 <div class="dialog-head"><h2 id="collection-feedback-title" data-i18n="ui.collectionImported"></h2><button class="dialog-close" id="close-collection-feedback" type="button" data-i18n-aria-label="ui.closeTools">✕</button></div>
+<p class="inline-note action-feedback" id="collection-import-feedback-note" role="status"></p>
 </dialog>
 <template id="filters-template">
 <div class="filter-fields">

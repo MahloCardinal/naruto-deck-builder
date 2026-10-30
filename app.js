@@ -5,9 +5,10 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;',
 // New sessions start in English; refreshes restore the current tab's language.
 let language = 'en';
 const SESSION_KEY = 'naruto-ninja-cards.session';
-let collectionCounts=null,collectionRestoreFailed=false,collectionFeedback=null,collectionMethod='sync',collectionCopyState=null,collectionBookmarkCopyState=null;
-let collectionSync=null,collectionSyncError=null;
-const collectionCopyTimers=new Map();
+let collectionCounts=null,collectionRestoreFailed=false,collectionMethod='sync';
+let collectionSync=null;
+const FEEDBACK_DURATION=5000;
+const feedbackStates=new Map(),feedbackTimers=new Map();
 try { collectionCounts=CARD_COLLECTION.restore(); } catch { collectionRestoreFailed=true; }
 const ownsCard=card=>!!collectionCounts?.[card.card_key];
 const collectionLevel=card=>ownsCard(card)?(collectionCounts[card.card_key]>=2?2:1):null;
@@ -53,7 +54,6 @@ const presetById = new Map(PREBUILT_DECKS.map(deck=>[deck.id,deck]));
 const presetName = deck => getTranslation('ui.presetName_'+deck.id) ?? deck.name;
 let autoController=null,autoProposals=[],autoLevels={},autoSnapshot='';
 let proposalSending=false;
-const proposalStatusTimers=new Map();
 // Sources share a row only when their complete partner lists are identical.
 const synergyGroupByIndex = (()=>{
   const groups=new Map(),indices=new Map();
@@ -170,9 +170,31 @@ function translateStatic(root=document) {
     for (const el of root.querySelectorAll('[data-i18n-'+attribute+']')) el.setAttribute(attribute,t(el.getAttribute('data-i18n-'+attribute)));
   }
 }
+const feedbackText=text=>String(text).trimEnd().replace(/[.]+$/,'');
+function renderFeedback(id) {
+  const element=$(id),state=feedbackStates.get(id);
+  element.classList.add('action-feedback');
+  element.classList.toggle('is-error',!!state?.error);
+  if (!state) { element.textContent='';delete element.dataset.i18n;return; }
+  const keys=Array.isArray(state.key)?state.key:[state.key];
+  const values={bookmark:t('ui.collectionBookmark'),copyLink:t('ui.collectionCopyLink'),...state.values};
+  element.textContent=keys.map(key=>feedbackText(t(key,values))).join(' ');
+  if (keys.length===1) element.dataset.i18n=keys[0];else delete element.dataset.i18n;
+}
+function setFeedback(id,key=null,{error=false,values={},persistent=false}={}) {
+  clearTimeout(feedbackTimers.get(id));feedbackTimers.delete(id);
+  if (key) feedbackStates.set(id,{key,error,values});else feedbackStates.delete(id);
+  renderFeedback(id);
+  if (key && !persistent) feedbackTimers.set(id,setTimeout(()=>setFeedback(id),FEEDBACK_DURATION));
+}
+function showFeedbackDialog(id) {
+  const dialog=$(id);
+  clearTimeout(feedbackTimers.get(id));
+  if (!dialog.open) dialog.showModal();
+  feedbackTimers.set(id,setTimeout(()=>{dialog.close();feedbackTimers.delete(id);},FEEDBACK_DURATION));
+}
 function setStandardStatus(key) {
-  $('standard-status').dataset.i18n = key;
-  $('standard-status').textContent = t(key);
+  setFeedback('standard-status',key,{persistent:key==='ui.standardPending'});
   scheduleSessionSave();
 }
 // Keyword patterns belong to each language catalog, rather than to the renderer.
@@ -310,9 +332,9 @@ function applyWrittenStandard() {
 const computed = (c,level = levelOf(c)) => estimate(c,level);
 function toast(message,error = false) {
   clearTimeout(toastTimer);
-  $('toast').textContent = message;
+  $('toast').textContent = feedbackText(message);
   $('toast').className = 'toast' + (error ? ' error' : '');
-  toastTimer = setTimeout(() => $('toast').classList.add('hidden'),2600);
+  toastTimer = setTimeout(() => $('toast').classList.add('hidden'),FEEDBACK_DURATION);
 }
 function ask(key,action) { confirmAction=action; confirmMessageKey=key; $('confirm-text').textContent=t(key); $('confirm-dialog').showModal(); }
 function syncScenario() {
@@ -592,8 +614,6 @@ function renderCollectionUI() {
   $('collection-bookmark').href=CARD_COLLECTION.bookmarklet({wrongSite:t('ui.collectionWrongSite'),signIn:t('ui.collectionSignIn'),failed:t('ui.collectionSyncFailed'),noConnection:t('ui.collectionSyncNoConnection')},location.protocol==='file:'?'file:':location.origin);
   $('collection-command').value=CARD_COLLECTION.url;
   for (const input of document.querySelectorAll('[data-collection-site-link]')) input.value=CARD_COLLECTION.officialOrigin+'/';
-  renderCollectionCopyStatus();renderCollectionSyncStatus();
-  if (collectionFeedback) collectionStatus(collectionFeedback.key,collectionFeedback.error,collectionFeedback.values);
 }
 function selectCollectionMethod(method) {
   collectionMethod=method;
@@ -603,25 +623,31 @@ function selectCollectionMethod(method) {
     panel.hidden=!selected;panel.inert=!selected;
   }
 }
-function renderCollectionSyncStatus() {
-  const status=$('collection-sync-status');
-  status.textContent=collectionSyncError?t('ui.'+collectionSyncError):'';
-  status.classList.toggle('is-error',collectionSyncError!==null);
-}
 function setCollectionSyncStatus(key) {
-  collectionSyncError=key;renderCollectionSyncStatus();
+  setFeedback('collection-sync-status',key?'ui.'+key:null,{error:!!key});
 }
 function stopCollectionSync() {
   clearTimeout(collectionSync?.timer);collectionSync=null;
 }
+function openOfficialCollectionPage(statusId,retainOpener=false) {
+  let source;
+  try {
+    source=window.open(retainOpener?CARD_COLLECTION.officialOrigin+'/':'about:blank','_blank');
+    if (!source || source.closed) throw Error('popup_blocked');
+    if (!retainOpener) { source.opener=null;source.location.href=CARD_COLLECTION.officialOrigin+'/'; }
+    setFeedback(statusId);return source;
+  } catch {
+    try { source?.close(); } catch { /* A blocked window may no longer be accessible. */ }
+    setFeedback(statusId,'ui.collectionSyncPopupBlocked',{error:true});return null;
+  }
+}
 function startCollectionSync() {
   stopCollectionSync();
-  // Keep the opener relationship so the user's bookmark can return data to this exact window.
-  const source=window.open(CARD_COLLECTION.officialOrigin+'/', '_blank');
-  if (!source) { setCollectionSyncStatus('collectionSyncPopupBlocked');return; }
+  // Bookmark synchronization must retain the opener relationship.
+  const source=openOfficialCollectionPage('collection-sync-status',true);
+  if (!source) return;
   const timer=setTimeout(()=>{stopCollectionSync();setCollectionSyncStatus('collectionSyncExpired');},600_000);
   collectionSync={source,timer,phase:'waiting',token:null};
-  setCollectionSyncStatus(null);
 }
 function receiveCollectionSync(event) {
   const pending=collectionSync,data=event.data;
@@ -642,17 +668,9 @@ function receiveCollectionSync(event) {
   catch { collectionStatus('collectionInvalid',true); }
   event.source.postMessage({channel:CARD_COLLECTION.syncChannel,type:'ack',token:pending.token,ok},event.origin);
   if (ok) {
-    stopCollectionSync();setCollectionSyncStatus(null);
+    stopCollectionSync();
     setMode('collection');
   } else { pending.phase='waiting';pending.token=null;setCollectionSyncStatus('collectionSyncFailed'); }
-}
-function renderCollectionCopyStatus() {
-  const status=$('collection-copy-status');
-  status.textContent=collectionCopyState?t('ui.'+collectionCopyState):'';
-  status.classList.toggle('is-error',collectionCopyState==='collectionCopyFailed');
-  const bookmarkStatus=$('collection-bookmark-copy-status');
-  bookmarkStatus.textContent=collectionBookmarkCopyState?t('ui.'+collectionBookmarkCopyState,{bookmark:t('ui.collectionBookmark')}):'';
-  bookmarkStatus.classList.toggle('is-error',collectionBookmarkCopyState==='collectionLinkCopyFailed');
 }
 async function copyCollectionText(value,input=null) {
   try { await navigator.clipboard.writeText(value);return true; } catch { /* Fall back when clipboard permissions are unavailable. */ }
@@ -667,11 +685,11 @@ async function copyCollectionText(value,input=null) {
   if (temporary) { input.remove();previous?.focus({preventScroll:true}); }
   return copied;
 }
-function collectionStatus(key=null,error=false,values={}) {
-  collectionFeedback=key || values.ignored?{key,error,values}:null;
-  const status=$('collection-status');
-  status.textContent=key?t('ui.'+key,values):'';status.classList.toggle('is-error',error);
-  if (values.ignored) status.textContent+=(status.textContent?' ':'')+t('ui.collectionIgnored',{count:values.ignored});
+function collectionStatus(key=null,error=false,values={},target=null) {
+  const globalNotice=['collectionRestoreFailed','collectionStorageUnavailable'].includes(key);
+  const id=target || (globalNotice?'collection-notice':collectionMethod==='sync'?'collection-sync-status':'collection-status');
+  const keys=[key?'ui.'+key:null,values.ignored?'ui.collectionIgnored':null].filter(Boolean);
+  setFeedback(id,keys.length?keys:null,{error,values:{...values,count:values.ignored}});
 }
 function refreshCollection() {
   // Selected cards retain their manual levels; other cards follow the latest collection.
@@ -688,13 +706,18 @@ function importCollection(text) {
   collectionCounts=result.counts;collectionRestoreFailed=false;
   let saved=true;try { CARD_COLLECTION.save(collectionCounts); } catch { saved=false; }
   $('collection-text').value='';refreshCollection();
-  collectionStatus(saved?null:'collectionStorageUnavailable',!saved,{ignored:result.ignored});
-  $('collection-feedback-dialog').showModal();
+  const target=collectionMethod==='paste'?'collection-status':'collection-sync-status';
+  collectionStatus(saved?null:'collectionStorageUnavailable',!saved,saved?{}:{ignored:result.ignored},target);
+  if (saved) {
+    setFeedback('collection-import-feedback-note',result.ignored?'ui.collectionIgnored':null,{values:{count:result.ignored}});
+    showFeedbackDialog('collection-feedback-dialog');
+  }
 }
 function mountCollectionControls() {
   $('close-collection-feedback').onclick=()=>$('collection-feedback-dialog').close();
+  $('collection-bookmark').onclick=event=>{event.preventDefault();setFeedback('collection-bookmark-status','ui.collectionWrongSite',{error:true});};
   $('collection-open').onclick=startCollectionSync;
-  $('collection-open-manual').onclick=()=>window.open(CARD_COLLECTION.officialOrigin+'/', '_blank','noopener');
+  $('collection-open-manual').onclick=()=>openOfficialCollectionPage('collection-manual-open-status');
   for (const input of document.querySelectorAll('[data-collection-site-link]')) input.onfocus=input.onclick=()=>input.select();
   window.addEventListener('message',receiveCollectionSync);
   for (const method of ['sync','paste']) $('collection-tab-'+method).onclick=()=>selectCollectionMethod(method);
@@ -707,14 +730,9 @@ function mountCollectionControls() {
   for (const id of ['collection-copy','collection-copy-bookmark']) $(id).onclick=async event=>{
     const button=event.currentTarget,bookmark=id==='collection-copy-bookmark';button.disabled=true;
     const copied=await copyCollectionText(bookmark?$('collection-bookmark').getAttribute('href'):CARD_COLLECTION.url,bookmark?null:$('collection-command'));
-    if (bookmark) collectionBookmarkCopyState=copied?'collectionLinkCopied':'collectionLinkCopyFailed';
-    else collectionCopyState=copied?'collectionCopied':'collectionCopyFailed';
-    clearTimeout(collectionCopyTimers.get(id));collectionCopyTimers.delete(id);
-    if (copied) collectionCopyTimers.set(id,setTimeout(()=>{
-      if (bookmark) collectionBookmarkCopyState=null;else collectionCopyState=null;
-      collectionCopyTimers.delete(id);renderCollectionCopyStatus();
-    },5000));
-    renderCollectionCopyStatus();button.disabled=false;
+    const key=bookmark?(copied?'collectionLinkCopied':'collectionLinkCopyFailed'):(copied?'collectionCopied':'collectionCopyFailed');
+    setFeedback(bookmark?'collection-bookmark-copy-status':'collection-copy-status','ui.'+key,{error:!copied});
+    button.disabled=false;
   };
   $('collection-form').onsubmit=event=>{
     event.preventDefault();
@@ -773,9 +791,7 @@ function renderPresetLibrary() {
 }
 function renderDeckProposal() {
   $('proposal-deck-cards').innerHTML=deckSlotsHTML(current.cards.map(index=>byIndex.get(index)),false,false);
-  updateDeckProposalValidation();
-}
-function updateDeckProposalValidation() {
+
   const count=current.cards.length;
   const form=$('deck-proposal-panel');
   if ((count===0 || count===10) && form.querySelector('[role=status]').dataset.i18n==='ui.proposalIncompleteDeck') setProposalStatus(form);
@@ -786,12 +802,7 @@ function openDeckProposal() {
   if (mobileViewport.matches) openMobileTools('proposal');
 }
 function setProposalStatus(form,key=null,error=false) {
-  const status=form.querySelector('[role=status]');
-  clearTimeout(proposalStatusTimers.get(form));proposalStatusTimers.delete(form);
-  status.classList.toggle('is-error',error);
-  if (key) { status.dataset.i18n=key;status.textContent=t(key); }
-  else { delete status.dataset.i18n;status.textContent=''; }
-  if (error) proposalStatusTimers.set(form,setTimeout(()=>setProposalStatus(form),5000));
+  setFeedback(form.querySelector('[role=status]').id,key,{error,persistent:key==='ui.proposalSending'});
 }
 async function sendProposal(event) {
   event.preventDefault();
@@ -814,12 +825,11 @@ async function sendProposal(event) {
     const result=await response.json();
     if (!response.ok || result.ok!==true) throw Error(result.error||'send_failed');
     if (input.value.trim()===draft) input.value='';
-    if (isDeck) updateDeckProposalValidation();
     scheduleSessionSave();setProposalStatus(form);
     const key=isDeck?'ui.deckProposalFeedback':'ui.synergyProposalFeedback';
     $('proposal-feedback-message').dataset.i18n=key;
     $('proposal-feedback-message').textContent=t(key);
-    $('proposal-feedback-dialog').showModal();
+    showFeedbackDialog('proposal-feedback-dialog');
   } catch {
     setProposalStatus(form,'ui.proposalFailed',true);
   } finally {
@@ -860,21 +870,20 @@ async function runAutoBuilder() {
   autoController?.abort();
   const controller=new AbortController();autoController=controller;
   autoSnapshot=autoDeckSnapshot();autoLevels=Object.fromEntries(CARDS.map(card=>[card.index,deckLevel(card)]));autoProposals=[];
-  $('auto-status').dataset.i18n='ui.autoBusy';$('auto-status').textContent=t('ui.autoBusy');$('auto-results').innerHTML='';
+  setFeedback('auto-status','ui.autoBusy',{persistent:true});$('auto-results').innerHTML='';
   if (!$('auto-dialog').open) $('auto-dialog').showModal();
   try {
     const eligibleIndices=$('auto-owned-only').checked?CARDS.filter(ownsCard).map(card=>card.index):null;
     if (eligibleIndices && new Set([...eligibleIndices,...current.cards]).size<10) {
-      $('auto-status').dataset.i18n='ui.autoNotEnoughOwned';$('auto-status').textContent=t('ui.autoNotEnoughOwned');return;
+      setFeedback('auto-status','ui.autoNotEnoughOwned',{error:true});return;
     }
     const proposals=await DECK_AUTOBUILDER.generate({selected:current.cards,estimateCard:card=>estimate(card,autoLevels[card.index],scenarioFor(card)),signal:controller.signal,eligibleIndices});
     if (controller.signal.aborted || autoSnapshot!==autoDeckSnapshot()) return;
-    autoProposals=proposals;delete $('auto-status').dataset.i18n;$('auto-status').textContent='';
-    if (!proposals.length) { $('auto-status').dataset.i18n='ui.autoNoResults';$('auto-status').textContent=t('ui.autoNoResults'); }
+    autoProposals=proposals;setFeedback('auto-status',proposals.length?null:'ui.autoNoResults',{error:!proposals.length});
     renderAutoResults();
   } catch {
     if (controller.signal.aborted) return;
-    $('auto-status').dataset.i18n='ui.autoFailed';$('auto-status').textContent=t('ui.autoFailed');
+    setFeedback('auto-status','ui.autoFailed',{error:true});
   }
 }
 function applyAutoProposal(index) {
@@ -1483,6 +1492,7 @@ function mountFilters(area) {
 function applyLanguage() {
   document.documentElement.lang=language;
   buildTermPatterns();translateStatic();
+  for (const id of feedbackStates.keys()) renderFeedback(id);
   if (mode!=='collection') renderCollectionUI();
   filterDefinitions=createFilterDefinitions();
   deckTagFilterDefinition=createDeckTagFilterDefinition();
@@ -1556,7 +1566,7 @@ function saveSession() {
       library:{query:$('library-search').value,tags:[...selectedFilterValues('f-tags','decks')],collection:$('decks-f-collection').value},
       proposalDrafts:{deck:$('deck-proposal-description').value,synergy:$('synergy-proposal-description').value},
       standardDraft:Object.fromEntries(Object.entries(settingIds).map(([key,id]) => [key,$(id).value])),
-      standardStatus:$('standard-status').dataset.i18n || ''
+      standardStatus:$('standard-status').dataset.i18n==='ui.standardPending'?'ui.standardPending':''
     });
     if (text === lastSessionText) return;
     sessionStorage.setItem(SESSION_KEY,text);
@@ -1703,6 +1713,7 @@ $('confirm-yes').onclick = () => { const action = confirmAction; confirmAction =
 $('confirm-dialog').oncancel = () => { confirmAction = null; };
 for (const dialog of document.querySelectorAll('dialog')) {
   dialog.setAttribute('closedby','any');
+  if (['proposal-feedback-dialog','collection-feedback-dialog'].includes(dialog.id)) dialog.addEventListener('close',()=>{if (!dialog.open) {clearTimeout(feedbackTimers.get(dialog.id));feedbackTimers.delete(dialog.id);}});
   let startedInside = false;
   const outside = event => { const r = dialog.getBoundingClientRect(); return event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom; };
   dialog.addEventListener('pointerdown',event => { startedInside = !outside(event); });
@@ -1731,7 +1742,7 @@ for (const [key,id] of Object.entries(settingIds)) {
   const draft = restoredSession.standardDraft?.[key];
   if (typeof draft === 'string' && /^\d{0,3}$/.test(draft)) $(id).value = draft;
 }
-if (['ui.standardApplied','ui.standardPending'].includes(restoredSession.standardStatus)) setStandardStatus(restoredSession.standardStatus);
+if (restoredSession.standardStatus==='ui.standardPending') setStandardStatus(restoredSession.standardStatus);
 sessionReady = true;
 document.addEventListener('input',scheduleSessionSave);
 document.addEventListener('change',scheduleSessionSave);
