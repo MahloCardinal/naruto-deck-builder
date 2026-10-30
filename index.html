@@ -93,10 +93,9 @@
 <section class="toolbox panel" id="synergies-toolbox">
 <div class="toolbox-body" id="synergies-toolbox-body">
 <div class="filters-panel toolbox-pane" data-i18n-aria-label="ui.searchFilters" id="synergies-filter-host" role="tabpanel"></div>
-<form class="proposal-form toolbox-pane" id="synergy-proposal-panel" role="tabpanel" hidden>
+<form class="proposal-form toolbox-pane" id="synergy-proposal-panel" role="tabpanel" novalidate hidden>
 <div class="field"><label for="synergy-proposal-description" data-i18n="ui.describeSynergy"></label><textarea id="synergy-proposal-description" rows="6" maxlength="2000" required></textarea></div>
-<p class="inline-note proposal-status" role="status" aria-live="polite"></p>
-<button class="primary" type="submit" data-i18n="ui.sendProposal"></button>
+<div class="proposal-actions"><button class="primary" type="submit" data-i18n="ui.sendProposal"></button><p class="inline-note proposal-status" role="status" aria-live="polite"></p></div>
 </form>
 </div>
 </section>
@@ -113,10 +112,8 @@
 <form class="proposal-form toolbox-pane" id="deck-proposal-panel" role="tabpanel" hidden>
 <p class="proposal-guide" data-i18n="ui.proposalDeckGuide"></p>
 <ol class="deck-grid proposal-deck-cards" id="proposal-deck-cards"></ol>
-<p class="inline-note proposal-validation" id="proposal-deck-incomplete" data-i18n="ui.proposalIncompleteDeck" hidden></p>
 <div class="field"><label for="deck-proposal-description" data-i18n="ui.describeDeck"></label><textarea id="deck-proposal-description" rows="6" maxlength="2000"></textarea></div>
-<p class="inline-note proposal-status" role="status" aria-live="polite"></p>
-<button class="primary" id="send-deck-proposal" type="submit" data-i18n="ui.sendProposal"></button>
+<div class="proposal-actions"><button class="primary" id="send-deck-proposal" type="submit" data-i18n="ui.sendProposal"></button><p class="inline-note proposal-status" role="status" aria-live="polite"></p></div>
 </form>
 </div></section>
 <main class="workspace"><section class="catalog" data-i18n-aria-label="ui.prebuiltDecks">

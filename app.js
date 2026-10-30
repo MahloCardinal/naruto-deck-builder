@@ -52,7 +52,8 @@ const cardByKey = new Map(CARDS.map(card=>[card.card_key,card]));
 const presetById = new Map(PREBUILT_DECKS.map(deck=>[deck.id,deck]));
 const presetName = deck => getTranslation('ui.presetName_'+deck.id) ?? deck.name;
 let autoController=null,autoProposals=[],autoLevels={},autoSnapshot='';
-let proposalSending=false,deckProposalAttempted=false;
+let proposalSending=false;
+const proposalStatusTimers=new Map();
 // Sources share a row only when their complete partner lists are identical.
 const synergyGroupByIndex = (()=>{
   const groups=new Map(),indices=new Map();
@@ -580,7 +581,7 @@ function renderDeck() {
 function renderCollectionUI() {
   if (collectionRestoreFailed) { collectionRestoreFailed=false;collectionStatus('collectionRestoreFailed',true); }
   const loaded=collectionCounts!==null,count=loaded?Object.keys(collectionCounts).length:0;
-  $('collection-summary').textContent=t('ui.collectionSummary',{count,total:CARDS.length});
+  $('collection-summary').innerHTML=esc(t('ui.collectionSummary')).replace('{amount}',`<span class="collection-count">${count}/${CARDS.length}</span>`);
   $('collection-remove').disabled=!loaded;
   for (const select of document.querySelectorAll('[data-collection-filter]')) {
     select.disabled=!loaded;
@@ -776,45 +777,51 @@ function renderDeckProposal() {
 }
 function updateDeckProposalValidation() {
   const count=current.cards.length;
-  $('proposal-deck-incomplete').hidden=!deckProposalAttempted || count===0 || count===10;
+  const form=$('deck-proposal-panel');
+  if ((count===0 || count===10) && form.querySelector('[role=status]').dataset.i18n==='ui.proposalIncompleteDeck') setProposalStatus(form);
   $('send-deck-proposal').disabled=count===0 || proposalSending;
 }
 function openDeckProposal() {
   setMode('decks');selectToolbarPanel('decks','proposal');
   if (mobileViewport.matches) openMobileTools('proposal');
 }
+function setProposalStatus(form,key=null,error=false) {
+  const status=form.querySelector('[role=status]');
+  clearTimeout(proposalStatusTimers.get(form));proposalStatusTimers.delete(form);
+  status.classList.toggle('is-error',error);
+  if (key) { status.dataset.i18n=key;status.textContent=t(key); }
+  else { delete status.dataset.i18n;status.textContent=''; }
+  if (error) proposalStatusTimers.set(form,setTimeout(()=>setProposalStatus(form),5000));
+}
 async function sendProposal(event) {
   event.preventDefault();
   if (proposalSending) return;
-  const isDeck=event.currentTarget.id==='deck-proposal-panel';
-  if (isDeck) {
-    deckProposalAttempted=true;updateDeckProposalValidation();
-    if (current.cards.length!==10) return;
+  const form=event.currentTarget,isDeck=form.id==='deck-proposal-panel';
+  if (isDeck && current.cards.length!==10) {
+    if (current.cards.length) setProposalStatus(form,'ui.proposalIncompleteDeck',true);
+    return;
   }
   const input=$(isDeck?'deck-proposal-description':'synergy-proposal-description');
-  if (!isDeck && !input.value.trim()) {input.setCustomValidity(t('ui.proposalDescriptionRequired'));input.reportValidity();return;}
+  if (!isDeck && !input.value.trim()) {setProposalStatus(form,'ui.proposalDescriptionRequired',true);return;}
   if (input.value.length>2000) return;
-  const form=event.currentTarget,button=form.querySelector('[type=submit]'),status=form.querySelector('[role=status]');
+  const button=form.querySelector('[type=submit]');
   const draft=input.value.trim(),description=draft||(isDeck?t('ui.proposalNoDescription'):''),payload={type:isDeck?'deck':'synergy',description,language};
   if (isDeck) payload.deck={name:current.name.trim()||t('ui.defaultDeckName'),cards:current.cards.map(index=>byIndex.get(index).card_key)};
   proposalSending=true;button.disabled=true;form.setAttribute('aria-busy','true');
-  status.classList.remove('is-error');
-  status.dataset.i18n='ui.proposalSending';status.textContent=t(status.dataset.i18n);
+  setProposalStatus(form,'ui.proposalSending');
   try {
     const response=await fetch('/api/proposals',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:AbortSignal.timeout(15000)});
     const result=await response.json();
     if (!response.ok || result.ok!==true) throw Error(result.error||'send_failed');
     if (input.value.trim()===draft) input.value='';
-    if (isDeck) {
-      deckProposalAttempted=false;updateDeckProposalValidation();
-    }
-    scheduleSessionSave();delete status.dataset.i18n;status.textContent='';
+    if (isDeck) updateDeckProposalValidation();
+    scheduleSessionSave();setProposalStatus(form);
     const key=isDeck?'ui.deckProposalFeedback':'ui.synergyProposalFeedback';
     $('proposal-feedback-message').dataset.i18n=key;
     $('proposal-feedback-message').textContent=t(key);
     $('proposal-feedback-dialog').showModal();
   } catch {
-    status.dataset.i18n='ui.proposalFailed';status.textContent=t('ui.proposalFailed');status.classList.add('is-error');
+    setProposalStatus(form,'ui.proposalFailed',true);
   } finally {
     proposalSending=false;form.removeAttribute('aria-busy');
     button.disabled=isDeck && current.cards.length===0;
@@ -1660,7 +1667,6 @@ $('reset-library-filters').onclick=()=>{
 };
 $('propose-deck').onclick=openDeckProposal;
 for (const id of ['deck-proposal-panel','synergy-proposal-panel']) $(id).onsubmit=sendProposal;
-for (const id of ['deck-proposal-description','synergy-proposal-description']) $(id).oninput=()=>$(id).setCustomValidity('');
 $('close-proposal-feedback').onclick=()=>$('proposal-feedback-dialog').close();
 $('deck-sort').onchange = () => { deckOrder.sort=$('deck-sort').value;renderDeck();scheduleSessionSave(); };
 $('deck-sort-direction').onclick = () => { deckOrder.direction=deckOrder.direction==='asc'?'desc':'asc';renderDeck();scheduleSessionSave(); };
