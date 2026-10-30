@@ -9,7 +9,7 @@ let collectionCounts=null,collectionRestoreFailed=false,collectionMethod='sync';
 let collectionSync=null;
 const FEEDBACK_DURATION=10000,FEEDBACK_MIN_DURATION=3000;
 const feedbackStates=new Map(),feedbackTimers=new Map(),feedbackAnchorRects=new WeakMap();
-let feedbackAnchor=null;
+let feedbackAnchor=null,feedbackRevision=0;
 try { collectionCounts=CARD_COLLECTION.restore(); } catch { collectionRestoreFailed=true; }
 const ownsCard=card=>!!collectionCounts?.[card.card_key];
 const collectionLevel=card=>ownsCard(card)?(collectionCounts[card.card_key]>=2?2:1):null;
@@ -230,6 +230,10 @@ function setFeedback(id,key=null,{error=false,values={},persistent=false,message
   } else feedbackStates.delete(id);
   renderFeedback(id);
   if ((key || message) && !persistent) feedbackTimers.set(id,setTimeout(()=>setFeedback(id),FEEDBACK_DURATION));
+}
+function clearNavigationFeedback() {
+  feedbackRevision++;
+  for (const [id,state] of feedbackStates) if (!(state.persistent && state.key==='ui.standardPending')) setFeedback(id);
 }
 document.addEventListener('click',event=>{
   for (const [id,state] of feedbackStates) if (!state.persistent && performance.now()-state.startedAt>=FEEDBACK_MIN_DURATION) setFeedback(id);
@@ -658,6 +662,7 @@ function renderCollectionUI() {
   for (const input of document.querySelectorAll('[data-collection-site-link]')) input.value=CARD_COLLECTION.officialOrigin+'/';
 }
 function selectCollectionMethod(method) {
+  if (method!==collectionMethod) clearNavigationFeedback();
   collectionMethod=method;
   for (const key of ['sync','paste']) {
     const selected=key===method,tab=$('collection-tab-'+key),panel=$('collection-method-'+key);
@@ -856,7 +861,7 @@ async function sendProposal(event) {
   const input=$(isDeck?'deck-proposal-description':'synergy-proposal-description');
   if (!isDeck && !input.value.trim()) {setProposalStatus(form,'ui.proposalDescriptionRequired',true);return;}
   if (input.value.length>2000) return;
-  const button=form.querySelector('[type=submit]');
+  const button=form.querySelector('[type=submit]'),feedbackContext=feedbackRevision;
   const draft=input.value.trim(),description=draft||(isDeck?t('ui.proposalNoDescription'):''),payload={type:isDeck?'deck':'synergy',description,language};
   if (isDeck) payload.deck={name:current.name.trim()||t('ui.defaultDeckName'),cards:current.cards.map(index=>byIndex.get(index).card_key)};
   proposalSending=true;button.disabled=true;form.setAttribute('aria-busy','true');
@@ -867,9 +872,9 @@ async function sendProposal(event) {
     if (!response.ok || result.ok!==true) throw Error(result.error||'send_failed');
     if (input.value.trim()===draft) input.value='';
     scheduleSessionSave();
-    setProposalStatus(form,isDeck?'ui.deckProposalFeedback':'ui.synergyProposalFeedback');
+    if (feedbackContext===feedbackRevision) setProposalStatus(form,isDeck?'ui.deckProposalFeedback':'ui.synergyProposalFeedback');
   } catch {
-    setProposalStatus(form,'ui.proposalFailed',true);
+    if (feedbackContext===feedbackRevision) setProposalStatus(form,'ui.proposalFailed',true);
   } finally {
     proposalSending=false;form.removeAttribute('aria-busy');
     button.disabled=isDeck && current.cards.length===0;
@@ -958,6 +963,7 @@ function toggleCard(index) {
 }
 function setMode(next) {
   if (next===mode) return;
+  clearNavigationFeedback();
   rememberCatalogScroll();
   closeMobileTools();
   closeFilterMenus();
@@ -1011,6 +1017,7 @@ function renderToolbar(area) {
   scheduleBackToTop();
 }
 function selectToolbarPanel(area,key) {
+  if (key!==toolbarState[area].active) clearNavigationFeedback();
   closeFilterMenus();
   toolbarState[area]={active:key,open:true};
   renderToolbar(area);
@@ -1027,6 +1034,7 @@ function mountToolbars() {
     $(area+'-toolbox').prepend(header);
     for (const panel of panels) $(panel.id).setAttribute('aria-labelledby',area+'-toolbox-tab-'+panel.key);
     $(area+'-toolbox-toggle').onclick=()=>{
+      if (toolbarState[area].open) clearNavigationFeedback();
       closeFilterMenus();
       toolbarState[area].open=!toolbarState[area].open;
       renderToolbar(area);
@@ -1139,6 +1147,7 @@ function syncMobileSearch() {
 }
 function openMobileTools(kind) {
   if (!mobileViewport.matches || !toolbarPanels[mode]?.some(panel=>panel.key===kind)) return;
+  if (kind!==toolbarState[mode].active) clearNavigationFeedback();
   closeFilterMenus();
   const dialog=$('mobile-tools-dialog');
   mobileToolsArea=mode;
@@ -1160,6 +1169,7 @@ function syncMobileToolsLabels() {
 }
 function restoreMobileToolbox() {
   if (!mobileToolsArea) return;
+  clearNavigationFeedback();
   const area=mobileToolsArea;
   $(area+'-area').insertBefore($(area+'-toolbox'),$(area+'-area').querySelector('.workspace'));
   mobileToolsArea=null;
