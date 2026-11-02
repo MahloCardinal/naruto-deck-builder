@@ -509,6 +509,9 @@ dialog button { border-radius:0; }
 .preset-description strong { font-weight:700; color:var(--ink); }
 .auto-build-button { width:100%; }
 .auto-dialog { max-width:1100px; }
+.auto-dialog.has-status { max-width:420px; }
+.auto-status { display:grid; place-items:center; min-height:180px; margin:0; padding:36px 28px; font-size:15px; line-height:1.5; text-align:center; }
+.auto-status.is-error { color:var(--red); }
 .auto-dialog > .dialog-close { position:absolute; top:24px; right:24px; z-index:1; }
 .auto-results { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
 .auto-proposal { display:flex; flex-direction:column; min-width:0; gap:10px; padding:12px; border:1px solid var(--line); background:var(--surface); }
@@ -595,3 +598,9 @@ dialog button { border-radius:0; }
 .collection-import-dialog { max-width:460px; }
 .collection-import-dialog .dialog-head { align-items:center; margin-bottom:0; }
 .collection-import-dialog p { margin-top:8px; }
+
+/* Only viewport-adjacent synergy rows exist in the DOM. Native scroll height is retained. */
+.virtual-list { position:relative; display:block; overflow-anchor:none; }
+.virtual-list > .synergy-row { position:absolute; left:0; right:0; }
+.progressive-more { height:1px; }
+.preset { content-visibility:auto; contain-intrinsic-size:auto 280px; }

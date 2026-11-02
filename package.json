@@ -1,0 +1,12 @@
+{
+  "name": "naruto-ninja-cards",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "locales": "node scripts/generate-data.cjs"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "terser": "5.51.2"
+  }
+}

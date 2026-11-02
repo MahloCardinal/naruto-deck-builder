@@ -151,6 +151,51 @@ const DECK_AUTOBUILDER = (() => {
       seen.add(chosen.indices.join(','));
       results.push({...chosen,indices:[...locked,...chosen.indices.filter(index=>!lockedSet.has(index))]});
     }
+    // Improve complete decks after the beam search. Every allowed card can now
+    // enter through a replacement, including cards outside the initial pool.
+    // Accept only strict improvements under the same profile and constraints.
+    const completeSeeds=templates.filter(template=>locked.every(index=>template.cards.includes(index))&&template.cards.every(index=>availableSet.has(index)));
+    const additions=10-locked.length,usualOverlap=Math.ceil(additions*.85)-1;
+    function overlap(a,b){return a.filter(index=>!lockedSet.has(index)&&b.includes(index)).length;}
+    function validPartners(indices){return [...partnerRequirements].every(([card,partners])=>!indices.includes(card)||partners.some(partner=>indices.includes(partner)));}
+    let yieldedAt=performance.now();
+    async function refine(proposal,others){
+      const weights=profiles[proposal.profile],limits=others.map(other=>Math.max(usualOverlap,overlap(proposal.indices,other.indices)));
+      let indices=[...proposal.indices].sort((a,b)=>a-b),currentScore=proposal.score;
+      const acceptable=candidate=>validPartners(candidate)&&others.every((other,i)=>overlap(candidate,other.indices)<=limits[i]&&candidate.some(index=>!other.indices.includes(index)));
+      for(let pass=0;pass<3;pass++){
+        if(signal?.aborted)return null;
+        let best=indices,bestScore=currentScore;
+        function consider(candidate){
+          if(!acceptable(candidate))return;
+          const value=score(candidate,weights);
+          if(value>bestScore+1e-10){best=candidate;bestScore=value;}
+        }
+        if(pass===0)for(const template of completeSeeds)consider([...template.cards].sort((a,b)=>a-b));
+        const chosen=new Set(indices);
+        for(let slot=0;slot<indices.length;slot++){
+          if(lockedSet.has(indices[slot]))continue;
+          for(const card of available){
+            if(chosen.has(card.index))continue;
+            const candidate=[...indices];candidate[slot]=card.index;candidate.sort((a,b)=>a-b);
+            consider(candidate);
+            if(performance.now()-yieldedAt>=12){
+              await new Promise(resolve=>setTimeout(resolve,0));yieldedAt=performance.now();
+              if(signal?.aborted)return null;
+            }
+          }
+        }
+        if(best===indices)break;
+        indices=best;currentScore=bestScore;
+      }
+      if(currentScore<=proposal.score+1e-10)return proposal;
+      return {...proposal,...components(indices),score:currentScore,indices:[...locked,...indices.filter(index=>!lockedSet.has(index))]};
+    }
+    for(let i=0;i<results.length;i++){
+      const improved=await refine(results[i],results.filter((_,j)=>j!==i));
+      if(signal?.aborted)return [];
+      results[i]=improved;
+    }
     return results;
   }
   return {generate};

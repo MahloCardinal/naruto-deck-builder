@@ -3,7 +3,7 @@
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // New sessions start in English; refreshes restore the current tab's language.
-let language = 'en';
+let language = LOCALIZATION.initialLanguage;
 const SESSION_KEY = 'naruto-ninja-cards.session';
 let collectionCounts=null,collectionRestoreFailed=false,collectionMethod='sync';
 let collectionSync=null;
@@ -29,7 +29,8 @@ const toolbarPanels = {
 };
 const toolbarAreas = Object.keys(toolbarPanels);
 const filterAreas = toolbarAreas.filter(area=>area!=='decks');
-const toolbarState = Object.fromEntries(toolbarAreas.map(area=>[area,{active:'filters',open:true}]));
+const TOOLBAR_STATE_VERSION=2;
+const toolbarState = Object.fromEntries(toolbarAreas.map(area=>[area,{active:toolbarPanels[area][0].key,open:true}]));
 const mobileViewport = matchMedia('(max-width:700px)');
 const catalogScroll = Object.fromEntries(sectionIds.map(area=>[area,{mobile:0,desktop:0}]));
 let mobileToolsArea = null;
@@ -44,6 +45,12 @@ const deckOrder = {sort:'index',direction:'asc'};
 let sessionReady = false, sessionTimer, lastSessionText = '', sessionWarning = false;
 const numberFormatters = new Map();
 const pluralRules = new Map();
+const collators=new Map();
+function collatorFor(locale,options={}) {
+  const key=JSON.stringify([locale,options]);
+  if(!collators.has(key))collators.set(key,new Intl.Collator(locale,options));
+  return collators.get(key);
+}
 let viewportUpdateFrame = null, scrollUpdateFrame = null;
 let lastMobileScrollAt = -Infinity;
 // Card lookups and shared rendering state.
@@ -60,15 +67,17 @@ const synergyGroupByIndex = (()=>{
   const groups=new Map(),indices=new Map();
   for (const entry of SYNERGIES) {
     const key=entry.partners.join(',');
-    if (!groups.has(key)) groups.set(key,{key:entry.index,partners:entry.partners.map(index=>byIndex.get(index))});
+    if (!groups.has(key)) groups.set(key,{key:entry.index,partners:entry.partners.map(index=>byIndex.get(index)),sources:[]});
+    groups.get(key).sources.push(byIndex.get(entry.index));
     indices.set(entry.index,groups.get(key));
   }
   return indices;
 })();
-const SYNERGY_BATCH_SIZE = 12;
 const synergySourceSelections = new Map();
-let synergyResults = [], synergyResultByKey = new Map(), synergyLoaded = 0, synergyComparator;
-let synergySourceHeightCache = new WeakMap();
+let synergyResults = [], synergyResultByKey = new Map(), synergyComparator;
+const synergySourceHeightCache = new Map();
+const dirtySynergyRows=new Set();
+let synergyVirtual;
 const defaults={...DEFAULT_SCENARIO};
 const F = id => $(mode+'-'+id);
 const settingIds = {enemies:'s-enemies', enemyChakra:'s-enemy-chakra', allies:'s-allies', allyChakra:'s-ally-chakra', activations:'s-activations'};
@@ -92,7 +101,7 @@ function syncLanguageControl() {
   const catalog=TRANSLATIONS[language];
   $('language-name').textContent=catalog.name;
   $('language-code').textContent=language.toUpperCase();
-  $('language-flag').src=`misc_images/flag-${catalog.flag}.svg`;
+  $('language-flag').src=assetPath(`misc_images/flag-${catalog.flag}.png`);
   for (const option of $('language-menu').querySelectorAll('[data-language]')) {
     const selected=option.dataset.language===language;
     option.setAttribute('aria-selected',String(selected));
@@ -109,8 +118,8 @@ function positionLanguageMenu() {
 }
 function mountLanguageMenu() {
   const button=$('language-select'),menu=$('language-menu');
-  menu.innerHTML=Object.entries(TRANSLATIONS).sort(([,a],[,b])=>a.name.localeCompare(b.name,'en',{sensitivity:'base'})).map(([code,catalog])=>`<button class="language-option" data-language="${esc(code)}" role="option" type="button"><img alt="" class="language-flag" src="misc_images/flag-${esc(catalog.flag)}.svg" width="20" height="15"><span lang="${esc(code)}">${esc(catalog.name)}</span></button>`).join('');
-  menu.onbeforetoggle=event=>{if(event.newState==='open')positionLanguageMenu();};
+  menu.innerHTML=Object.entries(LANGUAGE_CATALOGS).sort(([,a],[,b])=>collatorFor('en',{sensitivity:'base'}).compare(a.name,b.name)).map(([code,catalog])=>`<button class="language-option" data-language="${esc(code)}" role="option" type="button"><img alt="" class="language-flag" data-flag-src="${assetPath(`misc_images/flag-${catalog.flag}.png`)}" decoding="async" width="20" height="15"><span lang="${esc(code)}">${esc(catalog.name)}</span></button>`).join('');
+  menu.onbeforetoggle=event=>{if(event.newState==='open'){for(const image of menu.querySelectorAll('[data-flag-src]')){image.src=image.dataset.flagSrc;delete image.dataset.flagSrc;}positionLanguageMenu();}};
   menu.ontoggle=event=>{
     const open=event.newState==='open';
     button.setAttribute('aria-expanded',String(open));
@@ -159,8 +168,20 @@ function cardText(card) {
 }
 const cardNumber = card => Number(card.card_key.split('_')[1]);
 const cardReference = card => `S${card.season} #${String(cardNumber(card)).padStart(3,'0')}`;
-const imagePath = card => `card_images/${card.card_key}.webp`;
 const effectLabel = key => t('effects.'+key);
+const viewDirty=new Set(sectionIds);
+const cardNodes={db:new Map(),builder:new Map()};
+const cardNodeState=new WeakMap();
+let presetProgressive;
+const numericalCache=new Map();
+function invalidateViews(...areas){for(const area of areas)viewDirty.add(area);}
+function numericComputed(card,level=levelOf(card)) {
+  const scenario=current.cardOptions[card.index]||current.scenario;
+  const key=level+':'+Object.keys(defaults).map(key=>scenario[key]??defaults[key]).join(',');
+  const cached=numericalCache.get(card.index);
+  if(cached?.key===key)return cached.value;
+  const value=estimateNumbers(card,level,scenario);numericalCache.set(card.index,{key,value});return value;
+}
 function translateStatic(root=document) {
   const values={count:CARDS.length,section:t('ui.builder'),copyLink:t('ui.collectionCopyLink'),bookmark:t('ui.collectionBookmark')};
   for (const el of root.querySelectorAll('[data-i18n]')) {
@@ -198,6 +219,17 @@ function positionFeedbackNotices() {
 }
 function renderFeedback(id) {
   const state=feedbackStates.get(id),inline=id==='standard-status'?$(id):null;
+  if(id==='auto-status'){
+    const status=$('auto-status'),key=state?.key;
+    status.textContent=key?t(key,state.values):'';status.hidden=!key;
+    if(key)status.dataset.i18n=key;else delete status.dataset.i18n;
+    status.classList.toggle('is-error',!!state?.error);
+    status.setAttribute('role',state?.error?'alert':'status');
+    $('auto-dialog').classList.toggle('has-status',!!key);
+    $('auto-results').setAttribute('aria-busy',String(key==='ui.autoBusy'));
+    const notice=$('auto-status-notice');if(notice){if(notice.matches(':popover-open'))notice.hidePopover();notice.remove();}
+    return;
+  }
   let notice=$(id+'-notice');
   if (inline) {inline.textContent='';delete inline.dataset.i18n;}
   if (!state || state.persistent && state.key==='ui.standardPending') {
@@ -219,6 +251,7 @@ function refreshFeedbackNotices() {
   for (const id of feedbackStates.keys()) renderFeedback(id);
 }
 function setFeedback(id,key=null,{error=false,values={},persistent=false,message=null,anchor=null}={}) {
+  if(id==='auto-status'&&key)persistent=true;
   clearTimeout(feedbackTimers.get(id));feedbackTimers.delete(id);
   if (key || message) {
     if (!(persistent && key==='ui.standardPending')) {
@@ -239,7 +272,7 @@ document.addEventListener('click',event=>{
   for (const [id,state] of feedbackStates) if (!state.persistent && performance.now()-state.startedAt>=FEEDBACK_MIN_DURATION) setFeedback(id);
   const anchor=event.target.closest?.('button,a,[role=button]');
   if (anchor) {feedbackAnchor=anchor;feedbackAnchorRects.set(anchor,anchor.getBoundingClientRect());}
-  requestAnimationFrame(refreshFeedbackNotices);
+  if(feedbackStates.size)requestAnimationFrame(refreshFeedbackNotices);
 },true);
 function setStandardStatus(key) {
   setFeedback('standard-status',key,{persistent:key==='ui.standardPending'});
@@ -251,17 +284,8 @@ function normalizeText(text) {
   return (TRANSLATIONS[language].normalizations || []).reduce((value,[from,to]) => value.replaceAll(from,to),String(text ?? ''));
 }
 const normalizeSearchText = text => normalizeText(text).toLocaleLowerCase(TRANSLATIONS[language].locale).replace(/\s+/g,' ').trim();
-const matchesSearchPhrase = (query,fields) => fields.some(text=>normalizeSearchText(text).includes(query));
-function matchesCardSearch(card,query,allLevels=false) {
-  const index=/^#?(\d+)$/.exec(query);
-  if (index) return cardNumber(card)===Number(index[1]);
-  const reference=/^s(\d+)\s*(?:[#_-]|\s)\s*(\d+)$/.exec(query);
-  if (reference) return card.season===Number(reference[1]) && cardNumber(card)===Number(reference[2]);
-  const season=/^s(\d+)$/.exec(query);
-  if (season) return card.season===Number(season[1]);
-  const {name,ability,descriptions}=cardText(card);
-  return matchesSearchPhrase(query,[name,ability,`${cardReference(card)} ${name}`,...(allLevels?descriptions:[descriptions[levelOf(card)-1]])]);
-}
+const cardSearch=new CardSearchIndex({language:()=>language,text:cardText,normalize:normalizeSearchText,reference:cardReference,number:cardNumber,level:card=>levelOf(card)});
+function matchesCardSearch(card,query,allLevels=false){return cardSearch.matches(card,query,allLevels);}
 function buildTermPatterns() {
   const patterns=Object.entries(TRANSLATIONS[language].terms);
   termPatterns=patterns.map(([key,pattern]) => [key,new RegExp(`^(?:${pattern})$`,'iu')]);
@@ -298,7 +322,13 @@ function descriptionDifferences(c) {
   }
   const result = {language,texts,tokens,changed}; descriptionDifferenceCache.set(c,result); return result;
 }
+const descriptionHTMLCache=new Map();
 function formatDescription(c,level) {
+  const key=language+':'+c.card_key+':'+level;
+  if(!descriptionHTMLCache.has(key))descriptionHTMLCache.set(key,buildDescriptionHTML(c,level));
+  return descriptionHTMLCache.get(key);
+}
+function buildDescriptionHTML(c,level) {
   const diff = descriptionDifferences(c), n = level-1, text = diff.texts[n];
   const ranges = diff.tokens[n].filter((_,i) => diff.changed[n][i]);
   const mark = html => html.replace('class="effect ','class="level-change effect ');
@@ -389,7 +419,7 @@ function cardHTML(c,result=mode==='builder'?computed(c):null) {
   const level=levelOf(c),build=mode==='builder',synergy=mode==='synergies',selected=build&&current.cards.includes(c.index),missing=build&&collectionCounts!==null&&!ownsCard(c),text=cardText(c);
   return `<article class="game-card${selected?' selected':''}${missing?' is-missing':''}" data-index="${c.index}">
     <button class="card-main" data-open="${c.index}" title="${esc(synergy?text.ability:cardReference(c))}" aria-label="${esc(synergy?text.name:t('ui.openCard',{name:text.name,reference:cardReference(c)}))}">
-      <img src="${imagePath(c)}" alt="${esc(text.name)}" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}">
+      <img ${cardImageAttributes(c)} alt="${esc(text.name)}">
       <span class="orb cost" title="${t('ui.energyCost')}" aria-label="${t('ui.costValue',{value:c.energy_cost})}">${c.energy_cost}</span>
       <span class="orb chakra" title="${t('ui.baseChakra')}" aria-label="${t('ui.chakraValue',{value:c.chakra})}">${c.chakra}</span>
       ${build?`<span class="card-level">${t('ui.levelShort',{level})}</span>`:''}
@@ -418,7 +448,7 @@ function updateFilterCount(area) {
   const quickBadge=$(area+'-quick-filter-count');
   if (quickBadge) { quickBadge.textContent=badge.textContent;quickBadge.hidden=badge.hidden; }
 }
-function filteredCards(estimateFor=computed) {
+function filteredCards(estimateFor=numericComputed) {
   const query = normalizeSearchText(F('f-text').value);
   const rarity = selectedFilterValues('f-rarity'), season = selectedFilterValues('f-season'), skills = [...selectedFilterValues('f-skill')];
   const cost = selectedFilterValues('f-cost'), chakra = selectedFilterValues('f-chakra');
@@ -434,8 +464,8 @@ function filteredCards(estimateFor=computed) {
     return true;
   });
 }
-function createCardComparator(sort,direction,estimateFor=computed) {
-  const compareNames=sort==='name'?new Intl.Collator(TRANSLATIONS[language].locale).compare:null;
+function createCardComparator(sort,direction,estimateFor=numericComputed) {
+  const compareNames=sort==='name'?collatorFor(TRANSLATIONS[language].locale).compare:null;
   return (a,b) => {
     let d = 0;
     switch (sort) {
@@ -448,51 +478,78 @@ function createCardComparator(sort,direction,estimateFor=computed) {
     return (direction==='desc'?-1:1)*(d || a.index-b.index);
   };
 }
-function renderCatalog() {
+function renderCatalog({force=true}={}) {
+  if(!force&&!viewDirty.has(mode))return;
+  viewDirty.delete(mode);
   if (mode==='decks') { renderPresetLibrary();scheduleSessionSave();return; }
   if (mode==='collection') { renderCollectionUI();scheduleSessionSave();return; }
   // Share estimates within this render; changing level, language or assumptions starts a fresh cache.
   const estimates=new Map();
   const estimateFor=card=>{
-    if (!estimates.has(card.index)) estimates.set(card.index,computed(card));
+    if (!estimates.has(card.index)) estimates.set(card.index,numericComputed(card));
     return estimates.get(card.index);
   };
   const cards = filteredCards(estimateFor).filter(c=>mode!=='synergies' || synergyGroupByIndex.has(c.index)), sort = F('sort').value, direction = F('sort-direction').dataset.direction;
   const compareCards=createCardComparator(sort,direction,estimateFor);
   cards.sort(compareCards);
   if (mode==='synergies') renderSynergies(cards,compareCards);
-  else $(mode+'-card-list').innerHTML = cards.length ? cards.map(card=>cardHTML(card,mode==='builder'?estimateFor(card):null)).join('') : `<div class="empty-results">${t('ui.noResults')}</div>`;
+  else reconcileCatalogCards(cards,estimateFor);
   updateFilterCount(mode);
   scheduleSessionSave();
 }
+function reconcileCatalogCards(cards,estimateFor) {
+  const list=$(mode+'-card-list'),nodes=cardNodes[mode],wanted=new Set(cards.map(card=>card.index));
+  for(const [index,node]of nodes)if(!wanted.has(index)){node.remove();nodes.delete(index);}
+  if(!cards.length){list.innerHTML=`<div class="empty-results">${t('ui.noResults')}</div>`;return;}
+  list.querySelector('.empty-results')?.remove();
+  let cursor=list.firstElementChild;
+  for(const card of cards){
+    let node=nodes.get(card.index),state=node&&cardNodeState.get(node);
+    const level=levelOf(card),result=mode==='builder'?estimateFor(card):null;
+    if(!node||state?.language!==language){
+      const template=document.createElement('template');template.innerHTML=cardHTML(card,result);
+      const next=template.content.firstElementChild;
+      if(node){if(cursor===node)cursor=next;node.replaceWith(next);}
+      node=next;nodes.set(card.index,node);state={language,level,selected:current.cards.includes(card.index),missing:collectionCounts!==null&&!ownsCard(card),value:result?.value,quality:result?.quality};cardNodeState.set(node,state);
+    } else {
+      if(state.level!==level){node.querySelector('.ability').innerHTML=formatDescription(card,level);const label=node.querySelector('.card-level');if(label)label.textContent=t('ui.levelShort',{level});state.level=level;}
+      if(result){
+        const selected=current.cards.includes(card.index),missing=collectionCounts!==null&&!ownsCard(card),disabled=!selected&&current.cards.length>=10,button=node.querySelector('[data-toggle]');
+        if(state.selected!==selected){
+          node.classList.toggle('selected',selected);button.classList.toggle('is-selected',selected);button.classList.toggle('primary',!selected);
+          button.setAttribute('aria-pressed',String(selected));button.setAttribute('aria-label',t(selected?'ui.removeCard':'ui.addCard',{name:cardText(card).name}));
+          button.title=t(selected?'ui.removeFromDeck':'ui.addToDeck');button.querySelector('path').setAttribute('d','M4 10h12'+(selected?'':'M10 4v12'));state.selected=selected;
+        }
+        if(state.missing!==missing){node.classList.toggle('is-missing',missing);state.missing=missing;}
+        if(button.disabled!==disabled)button.disabled=disabled;
+        if(state.value!==result.value||state.quality!==result.quality){const metrics=node.querySelectorAll('.card-metrics b');metrics[0].textContent=fmt(result.value);metrics[1].textContent=fmt(result.quality,1);state.value=result.value;state.quality=result.quality;}
+      }
+    }
+    if(node!==cursor)list.insertBefore(node,cursor);
+    cursor=node.nextElementSibling;
+  }
+}
 function renderSynergies(cards,compareCards) {
-  synergyLoader.disconnect();
   const groups=new Map(),ownedOnly=$('synergies-f-collection').value==='owned';
   for (const card of cards) {
     const group=synergyGroupByIndex.get(card.index);
     if (!groups.has(group.key)) {
       const partners=ownedOnly?group.partners.filter(ownsCard):group.partners;
       if (!partners.length) continue;
-      groups.set(group.key,{key:group.key,partners,sources:[]});
+      groups.set(group.key,{key:group.key,partners,sources:[],allSources:group.sources});
     }
     groups.get(group.key).sources.push(card);
   }
-  synergyResultByKey=groups;synergyResults=[...groups.values()];synergyLoaded=0;synergyComparator=compareCards;
+  synergyResultByKey=groups;synergyResults=[...groups.values()];synergyComparator=compareCards;
   const list=$('synergies-card-list');
-  list.innerHTML=groups.size?'':`<div class="empty-results">${t('ui.noResults')}</div>`;
-  list.closest('.catalog').scrollTop=0;
-  appendSynergies();
+  $('synergies-more').hidden=true;
+  if(!synergyVirtual)synergyVirtual=new VirtualList({host:list,root:()=>mobileViewport.matches?window:list.closest('.catalog'),key:group=>group.key,render:synergyRowHTML,onMount:rows=>{for(const row of rows)dirtySynergyRows.add(row);scheduleSynergyLayout();},estimate:mobileViewport.matches?280:350});
+  synergyVirtual.setActive(mode==='synergies');
+  synergyVirtual.setItems(synergyResults);
+  if(!groups.size){list.style.height='auto';list.innerHTML=`<div class="empty-results">${t('ui.noResults')}</div>`;}
 }
-function appendSynergies() {
-  const list=$('synergies-card-list'),batch=synergyResults.slice(synergyLoaded,synergyLoaded+SYNERGY_BATCH_SIZE);
-  list.insertAdjacentHTML('beforeend',batch.map(synergyRowHTML).join(''));
-  synergyLoaded+=batch.length;
-  const more=$('synergies-more');
-  more.hidden=synergyLoaded>=synergyResults.length;
-  synergyLoader.disconnect();
-  if (!more.hidden) synergyLoader.observe(more);
-  scheduleSynergyLayout();
-}
+function appendSynergies(){synergyVirtual?.schedule();}
+
 function synergyRowHTML(group) {
   const card=group.sources.find(card=>card.index===synergySourceSelections.get(group.key))??group.sources[0];
   const partners=[...group.partners].sort(synergyComparator);
@@ -500,13 +557,11 @@ function synergyRowHTML(group) {
   const sourceSelector=group.sources.length>1?`<button class="synergy-source-select" data-synergy-source-toggle popovertarget="${menuId}" aria-controls="${menuId}" aria-haspopup="listbox" aria-expanded="false" aria-label="${esc(t('ui.synergySources'))}" title="${esc(cardText(card).name+' — '+cardText(card).ability)}"><span class="synergy-source-label">${esc(cardText(card).name)} — ${esc(cardText(card).ability)}</span><span class="filter-arrow" aria-hidden="true">▾</span></button><div class="synergy-source-menu" id="${menuId}" popover="auto" role="listbox" aria-label="${esc(t('ui.synergySources'))}">${group.sources.map(source=>`<button class="synergy-source-option" type="button" role="option" data-synergy-source="${source.index}" aria-selected="${source===card}" tabindex="${source===card?0:-1}"><strong>${esc(cardText(source).name)}</strong> — ${esc(cardText(source).ability)}</button>`).join('')}</div>`:'';
   return `<article class="synergy-row" data-synergy="${card.index}" data-synergy-group="${group.key}">
     <div class="synergy-source">${sourceSelector}<div class="synergy-source-card database-list">${cardHTML(card)}</div></div>
-    <div class="synergy-group"><ul class="synergy-partners" tabindex="0" aria-label="${esc(t('ui.synergyPartners',{name:cardText(card).name}))}">${partners.map(partner=>`<li><button class="synergy-partner" data-open="${partner.index}" title="${esc(cardText(partner).ability)}" aria-label="${esc(cardText(partner).name)}"><span class="synergy-art"><img src="${imagePath(partner)}" alt="" loading="lazy" decoding="async" width="${CARD_ART.width}" height="${CARD_ART.height}"><span class="orb cost" title="${t('ui.cost')}">${partner.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${partner.chakra}</span></span><strong>${esc(cardText(partner).name)}</strong><span class="synergy-ability">${esc(cardText(partner).ability)}</span></button></li>`).join('')}</ul></div>
+    <div class="synergy-group"><ul class="synergy-partners" tabindex="0" aria-label="${esc(t('ui.synergyPartners',{name:cardText(card).name}))}">${partners.map(partner=>`<li><button class="synergy-partner" data-open="${partner.index}" title="${esc(cardText(partner).ability)}" aria-label="${esc(cardText(partner).name)}"><span class="synergy-art"><img ${cardImageAttributes(partner,'mini')} alt=""><span class="orb cost" title="${t('ui.cost')}">${partner.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${partner.chakra}</span></span><strong>${esc(cardText(partner).name)}</strong><span class="synergy-ability">${esc(cardText(partner).ability)}</span></button></li>`).join('')}</ul></div>
   </article>`;
 }
-const synergyLoader=new IntersectionObserver(entries=>{
-  if (mode==='synergies' && !$('synergies-more').hidden && entries.some(entry=>entry.isIntersecting)) appendSynergies();
-},{rootMargin:'350px 0px'});
 $('load-more-synergies').onclick=appendSynergies;
+
 $('synergies-card-list').addEventListener('click',event=>{
   const option=event.target.closest('[data-synergy-source]');
   if (!option) return;
@@ -549,17 +604,18 @@ $('synergies-card-list').addEventListener('keydown',event=>{
   event.preventDefault();options[next].focus({preventScroll:true});
 });
 function positionSynergySourceMenu(menu) {
-  const button=menu.closest('.synergy-source').querySelector('[data-synergy-source-toggle]'),probe=createMenuProbe(menu);
-  const width=Math.min(Math.max(button.getBoundingClientRect().width,Math.ceil(probe.getBoundingClientRect().width)),innerWidth-20);
-  probe.remove();positionPopover(button,menu,width);
+  const button=menu.closest('.synergy-source').querySelector('[data-synergy-source-toggle]');
+  if(!menu.dataset.naturalWidth){const probe=createMenuProbe(menu);menu.dataset.naturalWidth=Math.ceil(probe.getBoundingClientRect().width);probe.remove();}
+  const width=Math.min(Math.max(button.getBoundingClientRect().width,Number(menu.dataset.naturalWidth)),innerWidth-20);
+  positionPopover(button,menu,width);
 }
 function measureSynergySourceHeights(rows) {
   const container=document.createElement('div'),measurements=[];
   container.style.cssText='position:fixed;left:-10000px;top:0;visibility:hidden;pointer-events:none;';
   for (const row of rows) {
-    const group=synergyResultByKey.get(Number(row.dataset.synergyGroup)),width=row.querySelector('.game-card').getBoundingClientRect().width,cached=synergySourceHeightCache.get(group);
+    const group=synergyResultByKey.get(Number(row.dataset.synergyGroup)),width=row.querySelector('.game-card').getBoundingClientRect().width,cacheKey=group.key+':'+width+':'+language,cached=synergySourceHeightCache.get(cacheKey);
     if (cached && cached.width===width && cached.language===language) continue;
-    const probes=group.sources.map(card=>{
+    const probes=(group.allSources||group.sources).map(card=>{
       const probe=document.createElement('div'),info=row.querySelector('.card-info').cloneNode(true),text=cardText(card);
       probe.className='synergy-source';probe.style.width=width+'px';
       info.querySelector('.card-title').textContent=text.name;
@@ -567,11 +623,11 @@ function measureSynergySourceHeights(rows) {
       info.querySelector('.ability').innerHTML=formatDescription(card,1);
       probe.append(info);container.append(probe);return info;
     });
-    measurements.push({group,width,probes,artHeight:row.querySelector('.card-main').getBoundingClientRect().height});
+    measurements.push({cacheKey,width,probes,artHeight:row.querySelector('.card-main').getBoundingClientRect().height});
   }
   if (measurements.length) {
     document.body.append(container);
-    for (const {group,width,probes,artHeight} of measurements) synergySourceHeightCache.set(group,{width,language,height:Math.ceil(artHeight+Math.max(...probes.map(info=>info.getBoundingClientRect().height)))});
+    for (const {cacheKey,width,probes,artHeight} of measurements) synergySourceHeightCache.set(cacheKey,{width,language,height:Math.ceil(artHeight+Math.max(...probes.map(info=>info.getBoundingClientRect().height)))});
     container.remove();
   }
 }
@@ -580,7 +636,8 @@ function scheduleSynergyLayout() {
   cancelAnimationFrame(synergyLayoutFrame);
   synergyLayoutFrame=requestAnimationFrame(()=>{
     if (mode!=='synergies') return;
-    const rows=[...$('synergies-card-list').querySelectorAll('.synergy-row')];
+    const rows=[...dirtySynergyRows].filter(row=>row.isConnected);dirtySynergyRows.clear();
+    if(!rows.length)return;
     measureSynergySourceHeights(rows);
     // Measure before writing so each row keeps its natural content height.
     const sizes=rows.map(row=>{
@@ -595,7 +652,7 @@ function scheduleSynergyLayout() {
       const toggle=row.querySelector('.synergy-source-select');
       const sourceHeader=toggle?toggle.offsetHeight+parseFloat(getComputedStyle(row.querySelector('.synergy-source')).rowGap):0;
       const height=Math.ceil(bottom-(firstTop??0));
-      const natural=synergySourceHeightCache.get(synergyResultByKey.get(Number(row.dataset.synergyGroup))).height;
+      const natural=synergySourceHeightCache.get(row.dataset.synergyGroup+':'+row.querySelector('.game-card').getBoundingClientRect().width+':'+language).height;
       return [row,height,Math.max(natural,height-sourceHeader)];
     });
     for (const [row,height,sourceHeight] of sizes) {
@@ -610,43 +667,48 @@ function deckSlotsHTML(cards,showDetails=false,interactive=true) {
     const card=cards[slot];
     if (!card) return `<li class="deck-slot empty" aria-label="${t('ui.emptySlot',{slot:slot+1})}">${slot+1}</li>`;
     const name=cardText(card).name,level=deckLevel(card);
-    if (!interactive) return `<li class="deck-slot"><span class="deck-open"><img src="${imagePath(card)}" alt="${esc(name)}"></span></li>`;
-    return `<li class="deck-slot"><button class="deck-open" data-deck-open="${card.index}" title="${esc(t('ui.cardLevelTitle',{name,level,reference:cardReference(card)}))}"><img src="${imagePath(card)}" alt="${esc(name)}">${showDetails?`<span class="orb cost" title="${t('ui.cost')}">${card.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${card.chakra}</span>`:''}</button>${showDetails?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`:`<button class="remove" data-remove="${card.index}" aria-label="${esc(t('ui.removeNamedCard',{name}))}">×</button>`}</li>`;
+    if (!interactive) return `<li class="deck-slot"><span class="deck-open"><img ${cardImageAttributes(card,'mini')} alt="${esc(name)}"></span></li>`;
+    return `<li class="deck-slot"><button class="deck-open" data-deck-open="${card.index}" title="${esc(t('ui.cardLevelTitle',{name,level,reference:cardReference(card)}))}"><img ${cardImageAttributes(card,'mini')} alt="${esc(name)}">${showDetails?`<span class="orb cost" title="${t('ui.cost')}">${card.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${card.chakra}</span>`:''}</button>${showDetails?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`:`<button class="remove" data-remove="${card.index}" aria-label="${esc(t('ui.removeNamedCard',{name}))}">×</button>`}</li>`;
   }).join('');
 }
 function deckAverages(cards,levelFor=deckLevel) {
   let cost=0,power=0,quality=0;
   for (const card of cards) {
-    const result=computed(card,levelFor(card));
+    const result=numericComputed(card,levelFor(card));
     // Costs use printed values; power and quality include effects.
     cost+=card.energy_cost;power+=result.value;quality+=result.quality;
   }
   const count=cards.length||1;
   return {cost:cost/count,power:power/count,quality:quality/count};
 }
+const deckRenderSignatures=new Map();
 function renderDeck() {
-  const compareCards=createCardComparator(deckOrder.sort,deckOrder.direction,card=>computed(card,deckLevel(card)));
-  const cards = current.cards.map(i => byIndex.get(i)).sort(compareCards), n = cards.length;
-  $('mobile-deck-count').textContent=n+'/10';
-  $('auto-build').disabled=n===10;
-  $('auto-build').title=t(n===10?'ui.autoFull':'ui.autoBuild');
-  $('deck-sort').value=deckOrder.sort;
-  setSortDirection($('deck-sort-direction'),deckOrder.direction);
-  if (document.activeElement !== $('deck-name')) $('deck-name').value = current.name;
-  $('deck-grid').innerHTML = deckSlotsHTML(cards);
-  $('deck-dialog-grid').innerHTML = deckSlotsHTML(cards,true);
+  const n=current.cards.length,dialogOpen=$('deck-dialog').open,sidebarOpen=mode==='builder'&&toolbarState.builder.open&&toolbarState.builder.active==='deck';
+  if($('mobile-deck-count').textContent!==n+'/10')$('mobile-deck-count').textContent=n+'/10';
+  $('auto-build').disabled=n===10;$('auto-build').title=t(n===10?'ui.autoFull':'ui.autoBuild');
+  for(const button of document.querySelectorAll('[data-deck-action="clear"]'))if(button.disabled!==(n===0))button.disabled=n===0;
+  if(mode==='decks'&&toolbarState.decks.active==='proposal')renderDeckProposal();
+  if(!dialogOpen&&!sidebarOpen)return;
+  const compareCards=createCardComparator(deckOrder.sort,deckOrder.direction,card=>numericComputed(card,deckLevel(card)));
+  const cards=current.cards.map(index=>byIndex.get(index)).sort(compareCards);
+  const signature=JSON.stringify([language,current.name,deckOrder,cards.map(card=>{const result=numericComputed(card,deckLevel(card));return [card.index,deckLevel(card),result.value,result.quality];})]);
+  const sidebarDirty=sidebarOpen&&deckRenderSignatures.get('sidebar')!==signature,dialogDirty=dialogOpen&&deckRenderSignatures.get('dialog')!==signature;
+  if(!sidebarDirty&&!dialogDirty)return;
   const averages=deckAverages(cards);
-  for (const prefix of ['', 'deck-dialog-']) {
-    $(prefix+'avg-cost').textContent = n ? fmt(averages.cost,1) : '—';
-    $(prefix+'avg-max').textContent = n ? fmt(averages.power,1) : '—';
-    $(prefix+'avg-quality').textContent = n ? fmt(averages.quality,1) : '—';
+  function renderAverages(prefix){
+    $(prefix+'avg-cost').textContent=n?fmt(averages.cost,1):'—';
+    $(prefix+'avg-max').textContent=n?fmt(averages.power,1):'—';
+    $(prefix+'avg-quality').textContent=n?fmt(averages.quality,1):'—';
   }
-  const costs = cards.map(c => c.energy_cost);
-  const counts = Array.from({length:9},(_,i) => costs.filter(cost => Math.min(cost,9) === i+1).length), peak = Math.max(1,...counts);
-  const curveHTML=counts.map((num,i) => `<div class="bar-slot" title="${t('ui.curveBar',{cost:i+1,count:num})}"><span>${num || ''}</span><div class="bar" style="height:${num/peak*29}px"></div><small>${i+1}${i === 8 ? '+' : ''}</small></div>`).join('');
-  $('curve').innerHTML=curveHTML;
-  for (const button of document.querySelectorAll('[data-deck-action="clear"]')) button.disabled=n===0;
-  renderDeckProposal();
+  if(sidebarDirty){$('deck-grid').innerHTML=deckSlotsHTML(cards);renderAverages('');deckRenderSignatures.set('sidebar',signature);}
+  if(dialogDirty){
+    $('deck-sort').value=deckOrder.sort;setSortDirection($('deck-sort-direction'),deckOrder.direction);
+    if(document.activeElement!==$('deck-name'))$('deck-name').value=current.name;
+    $('deck-dialog-grid').innerHTML=deckSlotsHTML(cards,true);renderAverages('deck-dialog-');
+    const costs=cards.map(card=>card.energy_cost),counts=Array.from({length:9},(_,i)=>costs.filter(cost=>Math.min(cost,9)===i+1).length),peak=Math.max(1,...counts);
+    $('curve').innerHTML=counts.map((num,i)=>`<div class="bar-slot" title="${t('ui.curveBar',{cost:i+1,count:num})}"><span>${num||''}</span><div class="bar" style="height:${num/peak*29}px"></div><small>${i+1}${i===8?'+':''}</small></div>`).join('');
+    deckRenderSignatures.set('dialog',signature);
+  }
 }
 
 // Collection import, bookmark synchronization and clipboard controls.
@@ -743,6 +805,7 @@ function collectionStatus(key=null,error=false,values={},target=null) {
   setFeedback(id,keys.length?keys:null,{error,values:{...values,count:values.ignored}});
 }
 function refreshCollection() {
+  invalidateViews(...sectionIds);
   // Selected cards retain their manual levels; other cards follow the latest collection.
   const selected=new Set(current.cards);
   for (const index of Object.keys(current.levels)) if (!selected.has(Number(index))) delete current.levels[index];
@@ -810,11 +873,14 @@ function mountCollectionControls() {
 function deckPreviewHTML(indices,{levels={},locked=new Set(),showOwnership=false}={}) {
   return indices.map(index=>{
     const card=byIndex.get(index),text=cardText(card),level=levels[index]||1,missing=showOwnership && collectionCounts!==null && !ownsCard(card);
-    return `<li><button class="deck-preview-card${locked.has(index)?' is-fixed':''}${missing?' is-missing':''}" data-preview-card="${index}" data-preview-level="${level}" type="button" title="${esc(text.ability+(missing?' · '+t('ui.collectionMissingCard'):''))}" aria-label="${esc(t('ui.openCard',{name:text.name,reference:cardReference(card)})+(missing?' · '+t('ui.collectionMissingCard'):''))}"><span class="mini-art"><img src="${imagePath(card)}" alt="" width="${CARD_ART.width}" height="${CARD_ART.height}" loading="lazy" decoding="async"><span class="orb cost">${card.energy_cost}</span><span class="orb chakra">${card.chakra}</span></span><strong>${esc(text.name)}</strong></button></li>`;
+    return `<li><button class="deck-preview-card${locked.has(index)?' is-fixed':''}${missing?' is-missing':''}" data-preview-card="${index}" data-preview-level="${level}" type="button" title="${esc(text.ability+(missing?' · '+t('ui.collectionMissingCard'):''))}" aria-label="${esc(t('ui.openCard',{name:text.name,reference:cardReference(card)})+(missing?' · '+t('ui.collectionMissingCard'):''))}"><span class="mini-art"><img ${cardImageAttributes(card,'mini')} alt=""><span class="orb cost">${card.energy_cost}</span><span class="orb chakra">${card.chakra}</span></span><strong>${esc(text.name)}</strong></button></li>`;
   }).join('');
 }
 const presetDescriptionPatterns=new Map();
+const presetDescriptionHTML=new Map(),presetSearchRecords=new Map();
 function formatPresetDescription(deck) {
+  const cacheKey=language+':'+deck.id;
+  if(presetDescriptionHTML.has(cacheKey))return presetDescriptionHTML.get(cacheKey);
   if (!presetDescriptionPatterns.has(language)) {
     const names=new Set(CARDS.map(card=>getTranslation('cards.'+card.card_key).name));
     const pattern=[...names].sort((a,b)=>b.length-a.length).map(name=>name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
@@ -826,7 +892,7 @@ function formatPresetDescription(deck) {
     html+=formatTerms(text.slice(start,match.index))+`<strong>${esc(match[0])}</strong>`;
     start=match.index+match[0].length;
   }
-  return html+formatTerms(text.slice(start));
+  const result=html+formatTerms(text.slice(start));presetDescriptionHTML.set(cacheKey,result);return result;
 }
 function renderPresetLibrary() {
   const query=normalizeSearchText($('library-search').value),tags=selectedFilterValues('f-tags','decks');
@@ -834,16 +900,21 @@ function renderPresetLibrary() {
   const decks=PREBUILT_DECKS.filter(deck=>{
     if (ownedOnly && !deck.cards.every(key=>!!collectionCounts?.[key])) return false;
     if (tags.size && !deck.tags.some(tag=>tags.has(tag))) return false;
-    return !query || matchesSearchPhrase(query,[presetName(deck),t('ui.preset_'+deck.id)]) || deck.cards.some(key=>matchesCardSearch(cardByKey.get(key),query,true));
+    const searchKey=language+':'+deck.id;
+    if(!presetSearchRecords.has(searchKey))presetSearchRecords.set(searchKey,[presetName(deck),t('ui.preset_'+deck.id)].map(normalizeSearchText));
+    return !query || presetSearchRecords.get(searchKey).some(text=>text.includes(query)) || deck.cards.some(key=>matchesCardSearch(cardByKey.get(key),query,true));
   });
-  const collator=new Intl.Collator(TRANSLATIONS[language].locale,{numeric:true,sensitivity:'base'});
-  decks.sort((a,b)=>collator.compare(presetName(a),presetName(b))||a.id.localeCompare(b.id));
+  const collator=collatorFor(TRANSLATIONS[language].locale,{numeric:true,sensitivity:'base'});
+  decks.sort((a,b)=>collator.compare(presetName(a),presetName(b))||collatorFor().compare(a.id,b.id));
+  if(!presetProgressive)presetProgressive=new ProgressiveList({host:$('preset-list'),render:presetHTML});
+  presetProgressive.setActive(mode==='decks');presetProgressive.setItems(decks);
+  if(!decks.length)$('preset-list').innerHTML=`<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
+  viewDirty.delete('decks');updateFilterCount('decks');
+}
+function presetHTML(deck){
   const compareCards=createCardComparator($('decks-sort').value,$('decks-sort-direction').dataset.direction);
-  $('preset-list').innerHTML=decks.length?decks.map(deck=>{
-    const cards=deck.cards.map(key=>cardByKey.get(key)).sort(compareCards);
-    return `<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${deck.tags.length?`<div class="tags">${deck.tags.map(tag=>`<span class="tag">${esc(t('ui.tag_'+tag))}</span>`).join('')}</div>`:''}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(cards.map(card=>card.index),{showOwnership:true})}</ol><p class="preset-description">${formatPresetDescription(deck)}</p></article>`;
-  }).join(''):`<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
-  updateFilterCount('decks');
+  const cards=deck.cards.map(key=>cardByKey.get(key)).sort(compareCards);
+  return `<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${deck.tags.length?`<div class="tags">${deck.tags.map(tag=>`<span class="tag">${esc(t('ui.tag_'+tag))}</span>`).join('')}</div>`:''}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(cards.map(card=>card.index),{showOwnership:true})}</ol><p class="preset-description">${formatPresetDescription(deck)}</p></article>`;
 }
 function renderDeckProposal() {
   $('proposal-deck-cards').innerHTML=deckSlotsHTML(current.cards.map(index=>byIndex.get(index)),false,false);
@@ -900,7 +971,7 @@ function loadPreset(id) {
     current.levels=Object.fromEntries(current.cards.map(index=>[index,collectionLevel(byIndex.get(index))||1]));
     current.cardOptions=Object.fromEntries(current.cards.map(index=>[index,{...scenario}]));
     current.name=presetName(deck).slice(0,15);useDefaultDeckName=false;
-    setMode('builder');syncScenario();changed();selectToolbarPanel('builder','deck');
+    invalidateViews('builder');syncScenario();if(mode==='builder')changed();else setMode('builder');selectToolbarPanel('builder','deck');
     if (mobileViewport.matches) openMobileTools('deck');
     toast(t('ui.presetLoaded'));
   };
@@ -923,13 +994,18 @@ async function runAutoBuilder() {
   autoController?.abort();
   const controller=new AbortController();autoController=controller;
   autoSnapshot=autoDeckSnapshot();autoLevels=Object.fromEntries(CARDS.map(card=>[card.index,deckLevel(card)]));autoProposals=[];
+  $('auto-results').replaceChildren();setFeedback('auto-status','ui.autoBusy',{persistent:true});
   if (!$('auto-dialog').open) $('auto-dialog').showModal();
-  setFeedback('auto-status','ui.autoBusy',{persistent:true});$('auto-results').innerHTML='';
   try {
     const eligibleIndices=$('auto-owned-only').checked?CARDS.filter(ownsCard).map(card=>card.index):null;
     if (eligibleIndices && new Set([...eligibleIndices,...current.cards]).size<10) {
       setFeedback('auto-status','ui.autoNotEnoughOwned',{error:true});return;
     }
+    await loadAssetScript('deck-autobuilder.js');
+    if(controller.signal.aborted)return;
+    // Let the loading message paint even when the generator is already cached.
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    if(controller.signal.aborted)return;
     const proposals=await DECK_AUTOBUILDER.generate({selected:current.cards,estimateCard:card=>estimate(card,autoLevels[card.index],scenarioFor(card)),signal:controller.signal,eligibleIndices});
     if (controller.signal.aborted || autoSnapshot!==autoDeckSnapshot()) return;
     autoProposals=proposals;setFeedback('auto-status',proposals.length?null:'ui.autoNoResults',{error:!proposals.length});
@@ -955,7 +1031,7 @@ function handleDeckPreview(event) {
   if (button) openCard(Number(button.dataset.previewCard),Number(button.dataset.previewLevel),true);
 }
 // Deck editing, section navigation and responsive toolbars.
-function changed() { renderDeck(); renderCatalog(); }
+function changed() { invalidateViews('builder');renderDeck();if(mode==='builder')renderCatalog();scheduleSessionSave(); }
 function addCard(index) {
   if (current.cards.includes(index) || current.cards.length >= 10) return;
   current.levels[index] = deckLevel(byIndex.get(index));
@@ -979,10 +1055,12 @@ function setMode(next) {
   closeFilterMenus();
   mode = next;
   syncSections();
-  renderCatalog();
+  synergyVirtual?.setActive(mode==='synergies');presetProgressive?.setActive(mode==='decks');
+  renderCatalog({force:false});
+  if(mode==='collection')renderCollectionUI();
   if (mode==='builder') renderDeck();
   restoreCatalogScroll();
-  scheduleBackToTop();
+  scheduleBackToTop();scheduleSessionSave();
 }
 function syncSections() {
   document.body.dataset.mode=mode;
@@ -1024,6 +1102,7 @@ function renderToolbar(area) {
     $(panel.id).inert=!selected;
   }
   updateFilterCount(area);
+  if(area==='builder'&&mode==='builder'&&state.open&&state.active==='deck')renderDeck();
   scheduleBackToTop();
 }
 function selectToolbarPanel(area,key) {
@@ -1201,13 +1280,10 @@ function restoreCatalogScroll() {
   const restore=()=>{
     scrollRestoreFrame=null;
     if (area!==mode) return;
-    if (area==='synergies' && synergyLoaded<synergyResults.length) {
-      const catalog=$(area+'-area').querySelector('.catalog');
-      const available=mobile?document.documentElement.scrollHeight-innerHeight:catalog.scrollHeight-catalog.clientHeight;
-      if (top>available) { appendSynergies();scrollRestoreFrame=requestAnimationFrame(restore);return; }
-    }
+    if(area==='decks')presetProgressive?.ensureOffset(top);
     if (mobile) window.scrollTo({top,behavior:'instant'});
     else $(area+'-area').querySelector('.catalog').scrollTop=top;
+    if(area==='synergies')synergyVirtual?.schedule();
   };
   scrollRestoreFrame=requestAnimationFrame(restore);
 }
@@ -1241,10 +1317,11 @@ function renderDialog() {
   $('dialog-title').innerHTML=`<span class="dialog-index">${cardReference(c)}</span> ${esc(text.name)}`;
   $('card-dialog').classList.toggle('compact',keys.length===0);
   const result=build?computed(c,level):null,selected=current.cards.includes(c.index);
-  $('dialog-body').innerHTML=`<div class="dialog-layout"><div class="dialog-art-column"><div class="dialog-visual"><img class="dialog-art" src="${imagePath(c)}" alt="${esc(text.name)}"><span class="orb cost" title="${t('ui.cost')}">${c.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${c.chakra}</span>${build?`<span class="card-level">${t('ui.levelShort',{level})}</span>`:''}</div></div>
+  $('dialog-body').innerHTML=`<div class="dialog-layout"><div class="dialog-art-column"><div class="dialog-visual"><img class="dialog-art" ${dialogImageAttributes(c)} alt="${esc(text.name)}"><span class="orb cost" title="${t('ui.cost')}">${c.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${c.chakra}</span>${build?`<span class="card-level">${t('ui.levelShort',{level})}</span>`:''}</div></div>
     <div class="dialog-content"><div class="dialog-effect"><div class="ability-heading"><h3 class="ability-title">${esc(text.ability)}</h3><div class="tags">${c.skill_types_original.map(key=>`<span class="tag">${effectHTML(effectLabel(key),key)}</span>`).join('')}</div></div><p class="ability">${formatDescription(c,level)}</p></div>
     <div class="dialog-toolbar${build?'':' read-only'}"><button class="toolbar-cell level-cell" id="dialog-level" type="button" title="${t('ui.changeLevelTitle',{level:level===1?2:1})}" role="switch" aria-checked="${level===2}" aria-label="${t('ui.changeLevelAction',{level,next:level===1?2:1})}"><span>${t('ui.changeLevel')}</span><span class="level-value"><b>${level}</b>${LEVEL_CYCLE_ICON}</span></button>${build?`<div class="dialog-stats" aria-label="${t('ui.powerQuality')}"><div class="toolbar-cell"><span>${t('ui.power')}</span><b id="dialog-max">${fmt(result.value)}</b></div><div class="toolbar-cell"><span>${t('ui.quality')}</span><b id="dialog-quality">${fmt(result.quality)}</b></div></div><button class="${selected?'strong-danger':'primary'}" id="dialog-add" ${!selected&&current.cards.length>=10?'disabled':''}>${t(selected?'ui.removeFromDeck':'ui.addToDeck')}</button>`:''}</div></div>
     ${build?`<div class="dialog-workbench${keys.length?'':' calculation-only'}">${keys.length?`<section class="local-options"><div class="section-head"><h4>${t('ui.localAssumptions')}</h4><button class="small primary" id="reset-local">${t('ui.useStandard')}</button></div><p class="inline-note">${t('ui.localChanges')}</p><div class="local-grid">${keys.map(key=>`<div class="parameter"><label for="local-${key}">${formatTerms(t('ui.'+key))}</label><input id="local-${key}" data-local="${key}" type="text" inputmode="numeric" pattern="[0-9]*" data-integer min="0" max="99" required step="1" value="${scenario[key]}"></div>`).join('')}</div></section>`:''}<section id="dialog-calculation">${calculationHTML(c,level,result)}</section></div>`:''}</div>`;
+  upgradeDialogArtwork(document.querySelector('#dialog-body .dialog-art'),c);
   $('dialog-level').onclick = () => {
     dialogLevel = level===1 ? 2 : 1;
     if (build) { current.levels[c.index] = dialogLevel;changed(); }
@@ -1318,13 +1395,13 @@ function createFilterDefinitions() {
   return {
     'f-rarity':{label:t('ui.rarity'),all:t('ui.allFeminine'),options:labels([['Common','common'],['Rare','rare'],['Epic','epic'],['Legendary','legendary']])},
     'f-season':{label:t('ui.season'),all:t('ui.allFeminine'),options:labels([['1','first'],['2','second'],['3','third']])},
-    'f-skill':{label:t('ui.skillType'),all:t('ui.all'),options:[{value:'none',label:t('ui.none')},...Array.from(new Set(CARDS.flatMap(card=>card.skill_types_original))).sort((a,b)=>effectLabel(a).localeCompare(effectLabel(b),TRANSLATIONS[language].locale)).map(key=>({value:key,label:effectLabel(key),html:effectHTML(effectLabel(key),key)}))]},
+    'f-skill':{label:t('ui.skillType'),all:t('ui.all'),options:[{value:'none',label:t('ui.none')},...Array.from(new Set(CARDS.flatMap(card=>card.skill_types_original))).sort((a,b)=>collatorFor(TRANSLATIONS[language].locale).compare(effectLabel(a),effectLabel(b))).map(key=>({value:key,label:effectLabel(key),html:effectHTML(effectLabel(key),key)}))]},
     ...Object.fromEntries([['f-cost','cost','energy_cost'],['f-chakra','chakra','chakra']].map(([id,key,field])=>[id,{label:t('ui.'+key),all:t('ui.all'),options:Array.from(new Set(CARDS.map(card=>card[field]))).sort((a,b)=>a-b).map(value=>({value:String(value),label:String(value)}))}]))
   };
 }
 let filterDefinitions=createFilterDefinitions();
 function createDeckTagFilterDefinition() {
-  return {label:t('ui.deckTags'),all:t('ui.allFeminine'),options:[...new Set(PREBUILT_DECKS.flatMap(deck=>deck.tags))].map(value=>({value,label:t('ui.tag_'+value)})).sort((a,b)=>a.label.localeCompare(b.label,TRANSLATIONS[language].locale))};
+  return {label:t('ui.deckTags'),all:t('ui.allFeminine'),options:[...new Set(PREBUILT_DECKS.flatMap(deck=>deck.tags))].map(value=>({value,label:t('ui.tag_'+value)})).sort((a,b)=>collatorFor(TRANSLATIONS[language].locale).compare(a.label,b.label))};
 }
 let deckTagFilterDefinition=createDeckTagFilterDefinition();
 function selectedFilterValues(id,area=mode) {
@@ -1346,21 +1423,8 @@ function createMenuProbe(menu) {
   document.body.append(probe);
   return probe;
 }
-function measureFilterMenu(menu) {
-  // Reserve the full title, action, labels and scrollbar before the menu opens.
-  const probe=createMenuProbe(menu);
-  const action=probe.querySelector('[data-filter-clear]').getBoundingClientRect().width;
-  probe.style.setProperty('--filter-action-width',action+'px');
-  menu.style.setProperty('--filter-action-width',action+'px');
-  const style=getComputedStyle(probe),border=parseFloat(style.borderLeftWidth)+parseFloat(style.borderRightWidth),padding=parseFloat(style.paddingLeft)+parseFloat(style.paddingRight);
-  const gutter=probe.offsetWidth-probe.clientWidth-border;
-  const content=Math.max(...[...probe.children].map(row=>{
-    const rowStyle=getComputedStyle(row);
-    return row.firstElementChild.getBoundingClientRect().width+action+parseFloat(rowStyle.columnGap)+parseFloat(rowStyle.paddingLeft)+parseFloat(rowStyle.paddingRight);
-  }));
-  probe.remove();
-  return Math.ceil(content+padding+border+gutter+1);
-}
+const layoutMeasurements=new Map();
+const controlLayout=new ControlLayout({cache:layoutMeasurements,translate:t,language:()=>language,config:key=>key==='f-tags'?deckTagFilterDefinition:filterDefinitions[key],byId:$});
 function positionPopover(button,menu,width) {
   const r=button.getBoundingClientRect();
   const below = innerHeight-r.bottom-10, above = r.top-10, upward = below < 160 && above > below;
@@ -1392,23 +1456,35 @@ function mountMultiFilter(area,id,config) {
   };
   updateMultiFilter(button,config);
 }
+const positionedMenus=new Set();
+document.addEventListener('toggle',event=>{
+  if(!event.target.matches('.filter-menu,.synergy-source-menu,#language-menu'))return;
+  if(event.newState==='open')positionedMenus.add(event.target);else positionedMenus.delete(event.target);
+},true);
 function repositionMenus() {
-  positionFeedbackNotices();
-  if ($('language-menu').matches(':popover-open')) positionLanguageMenu();
-  for (const menu of document.querySelectorAll('.filter-menu:popover-open')) positionFilterMenu($(menu.id.replace(/-menu$/,'')),menu);
-  for (const menu of document.querySelectorAll('.synergy-source-menu:popover-open')) positionSynergySourceMenu(menu);
+  if(feedbackStates.size)positionFeedbackNotices();
+  for(const menu of positionedMenus){
+    if(!menu.isConnected){positionedMenus.delete(menu);continue;}
+    if(menu.id==='language-menu')positionLanguageMenu();
+    else if(menu.matches('.filter-menu'))positionFilterMenu($(menu.id.replace(/-menu$/,'')),menu);
+    else positionSynergySourceMenu(menu);
+  }
 }
 function refreshViewportLayout() {
   sizeHeaderControls();sizeFilterControls();sizeAssumptionBoxes();
-  repositionMenus();scheduleSynergyLayout();updateBackToTop();
+  repositionMenus();
+  if(mode==='synergies'){for(const row of $('synergies-card-list').children)dirtySynergyRows.add(row);scheduleSynergyLayout();}
+  updateBackToTop();
 }
 function scheduleViewportUpdate() {
   if (viewportUpdateFrame!==null) return;
   viewportUpdateFrame=requestAnimationFrame(()=>{viewportUpdateFrame=null;refreshViewportLayout();});
 }
-function scheduleScrollUpdate() {
+function scheduleScrollUpdate(event) {
   if (mobileViewport.matches) lastMobileScrollAt=performance.now();
-  scheduleSessionSave();
+  const pageScroll=!event||event.target===document||event.target===$(mode+'-area').querySelector('.catalog');
+  if(pageScroll)scheduleSessionSave({scrollOnly:true});
+  if(!pageScroll&&!positionedMenus.size&&!feedbackStates.size)return;
   if (scrollUpdateFrame!==null) return;
   scrollUpdateFrame=requestAnimationFrame(()=>{scrollUpdateFrame=null;repositionMenus();updateBackToTop();});
 }
@@ -1436,33 +1512,10 @@ function sizeHeaderControls() {
   const titleWidth=measure(title.textContent,titleStyle),available=title.parentElement.clientWidth;
   if (titleWidth>available) title.style.fontSize=Math.max(12,fontSize*available/titleWidth)+'px';
 }
-function sizeFilterControls() {
-  // Reserve enough room for every possible selection count in the active language.
-  const context=document.createElement('canvas').getContext('2d');
-  for (const button of document.querySelectorAll('[data-multi-filter]')) {
-    const config=button.dataset.filterKey==='f-tags'?deckTagFilterDefinition:filterDefinitions[button.dataset.filterKey];
-    const style=getComputedStyle(button),arrow=getComputedStyle(button.querySelector('.filter-arrow'));
-    context.font=`${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-    let textWidth=0;
-    for (let count=2;count<=config.options.length;count++) textWidth=Math.max(textWidth,context.measureText(t('ui.selectedCount',{count})).width);
-    context.font=`${arrow.fontWeight} ${arrow.fontSize} ${arrow.fontFamily}`;
-    const arrowWidth=context.measureText('▾').width;
-    const spacing=['paddingLeft','paddingRight','borderLeftWidth','borderRightWidth','columnGap'].reduce((sum,key)=>sum+(parseFloat(style[key])||0),0);
-    const menu=$(button.getAttribute('aria-controls')),width=Math.min(innerWidth-20,Math.max(measureFilterMenu(menu),Math.ceil(textWidth+arrowWidth+spacing+2)));
-    const field=button.closest('.field');
-    field.style.width=width+'px';field.style.minWidth=width+'px';
-    menu.style.width=width+'px';
-  }
-  for (const select of document.querySelectorAll('.filters-panel select,#deck-sort')) {
-    const probe=select.cloneNode(true);
-    probe.removeAttribute('id'); probe.removeAttribute('class');
-    Object.assign(probe.style,{position:'fixed',left:'-9999px',visibility:'hidden',width:'auto',maxWidth:'none',fieldSizing:'fixed',font:getComputedStyle(select).font,fontWeight:'400'});
-    document.body.append(probe);
-    select.style.width = Math.ceil(probe.getBoundingClientRect().width)+10+'px';
-    probe.remove();
-  }
-}
+function sizeFilterControls(){controlLayout.sizeFilters();}
 function sizeAssumptionBoxes() {
+  const font=getComputedStyle(document.querySelector('.scenario-fields .parameter label')).font,key='assumptions:'+language+':'+font;
+  if(layoutMeasurements.has(key)){document.documentElement.style.setProperty('--assumption-box-width',layoutMeasurements.get(key)+'px');return;}
   const probe=document.createElement('div');
   probe.className='parameter';
   Object.assign(probe.style,{position:'fixed',left:'-9999px',visibility:'hidden',display:'block',width:'max-content'});
@@ -1476,6 +1529,7 @@ function sizeAssumptionBoxes() {
   const longest=probe.getBoundingClientRect().width;
   const labelStyle=getComputedStyle(document.querySelector('.scenario-fields .parameter label'));
   const padding=(parseFloat(labelStyle.paddingLeft)||0)+(parseFloat(labelStyle.paddingRight)||0);
+  layoutMeasurements.set(key,longest+padding);
   document.documentElement.style.setProperty('--assumption-box-width',(longest+padding)+'px');
   probe.remove();
 }
@@ -1508,7 +1562,6 @@ function mountFilters(area) {
   for (const el of fragment.querySelectorAll('[id]')) el.id = area+'-'+el.id;
   for (const el of fragment.querySelectorAll('label[for]')) el.htmlFor = area+'-'+el.htmlFor;
   $(area+'-filter-host').append(fragment);
-  translateStatic($(area+'-filter-host'));
   if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),1);
   for (const [id,config] of Object.entries(filterDefinitions)) mountMultiFilter(area,id,config);
   $(area+'-filter-host').querySelectorAll('input:not(.filter-option),select,[data-level-toggle]').forEach(el => el.addEventListener(el.matches('[data-level-toggle]') ? 'click' : el.type === 'search' || el.hasAttribute('data-integer') ? 'input' : 'change',() => {
@@ -1548,21 +1601,24 @@ function mountFilters(area) {
   };
 }
 // Switching language changes presentation only; deck choices and filter values stay intact.
-function applyLanguage() {
+function applyLanguage({initial=false}={}) {
+  invalidateViews(...sectionIds);
   document.documentElement.lang=language;
   buildTermPatterns();translateStatic();
   for (const id of feedbackStates.keys()) renderFeedback(id);
   if (mode!=='collection') renderCollectionUI();
-  filterDefinitions=createFilterDefinitions();
-  deckTagFilterDefinition=createDeckTagFilterDefinition();
-  mountMultiFilter('decks','f-tags',deckTagFilterDefinition);
-  for (const area of filterAreas) {
-    for (const [id,config] of Object.entries(filterDefinitions)) mountMultiFilter(area,id,config);
-    if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),Number($(area+'-f-level').value));
-    const button=$(area+'-sort-direction');
-    setSortDirection(button,button.dataset.direction);
+  if(!initial){
+    filterDefinitions=createFilterDefinitions();
+    deckTagFilterDefinition=createDeckTagFilterDefinition();
+    mountMultiFilter('decks','f-tags',deckTagFilterDefinition);
+    for (const area of filterAreas) {
+      for (const [id,config] of Object.entries(filterDefinitions)) mountMultiFilter(area,id,config);
+      if ($(area+'-f-level')) setFilterLevel($(area+'-f-level'),Number($(area+'-f-level').value));
+      const button=$(area+'-sort-direction');
+      setSortDirection(button,button.dataset.direction);
+    }
+    setSortDirection($('decks-sort-direction'),$('decks-sort-direction').dataset.direction);
   }
-  setSortDirection($('decks-sort-direction'),$('decks-sort-direction').dataset.direction);
   syncLanguageControl();
   syncMobileSearch();syncMobileToolsLabels();
   for (const area of toolbarAreas) renderToolbar(area);
@@ -1571,13 +1627,20 @@ function applyLanguage() {
   if ($('auto-dialog').open) renderAutoResults();
   if (confirmMessageKey) $('confirm-text').textContent=t(confirmMessageKey);
 }
-function setLanguage(code) {
-  if (!Object.hasOwn(TRANSLATIONS,code)) return false;
-  if ($('language-menu').matches(':popover-open')) $('language-menu').hidePopover();
+let languageRequest=0;
+async function setLanguage(code) {
+  if(!Object.hasOwn(LANGUAGE_CATALOGS,code))return false;
+  const request=++languageRequest;
+  if($('language-menu').matches(':popover-open'))$('language-menu').hidePopover();
+  if(code===language)return true;
+  try{await LOCALIZATION.load(code);}catch{if(request===languageRequest)toast(t('ui.languageUnavailable'),true);return false;}
+  if(request!==languageRequest)return false;
   closeFilterMenus();language=code;
-  if (useDefaultDeckName) current.name=t('ui.defaultDeckName');
+  if(useDefaultDeckName)current.name=t('ui.defaultDeckName');
+  layoutMeasurements.clear();synergySourceHeightCache.clear();synergyVirtual?.heights.clear();
   applyLanguage();return true;
 }
+
 
 // Store data, not rendered HTML. Session storage is scoped to this origin and tab.
 function captureFilters(area) {
@@ -1613,26 +1676,30 @@ function notifyStorageFailure(key) {
   sessionWarning = true;
   toast(t(key),true);
 }
+let sessionDataDirty=true,sessionSnapshot=null;
 function saveSession() {
   clearTimeout(sessionTimer);
   if (!sessionReady) return;
   try {
     rememberCatalogScroll();
-    const text = JSON.stringify({
+    if(sessionDataDirty||!sessionSnapshot)sessionSnapshot={
       language,mode,useDefaultDeckName,defaults,deck:current,
-      toolbars:toolbarState,deckOrder,scroll:catalogScroll,autoOwnedOnly:$('auto-owned-only').checked,
+      toolbars:toolbarState,toolbarVersion:TOOLBAR_STATE_VERSION,deckOrder,scroll:catalogScroll,autoOwnedOnly:$('auto-owned-only').checked,
       filters:Object.fromEntries(filterAreas.map(area=>[area,captureFilters(area)])),
       library:{query:$('library-search').value,tags:[...selectedFilterValues('f-tags','decks')],collection:$('decks-f-collection').value,sort:$('decks-sort').value,direction:$('decks-sort-direction').dataset.direction},
       proposalDrafts:{deck:$('deck-proposal-description').value,synergy:$('synergy-proposal-description').value},
       standardDraft:Object.fromEntries(Object.entries(settingIds).map(([key,id]) => [key,$(id).value])),
       standardStatus:$('standard-status').dataset.i18n==='ui.standardPending'?'ui.standardPending':''
-    });
+    };
+    sessionDataDirty=false;sessionSnapshot.scroll=catalogScroll;
+    const text=JSON.stringify(sessionSnapshot);
     if (text === lastSessionText) return;
     sessionStorage.setItem(SESSION_KEY,text);
     lastSessionText = text;
   } catch { notifyStorageFailure('ui.sessionUnavailable'); }
 }
-function scheduleSessionSave() {
+function scheduleSessionSave(options={}) {
+  if(!options.scrollOnly)sessionDataDirty=true;
   if (!sessionReady) return;
   clearTimeout(sessionTimer);
   sessionTimer = setTimeout(saveSession,80);
@@ -1718,10 +1785,10 @@ for (const id of ['deck-grid','deck-dialog-grid']) $(id).onclick = event => {
   if (remove) removeCard(Number(remove.dataset.remove));
   else if (open) { const c = byIndex.get(Number(open.dataset.deckOpen)); openCard(c.index,deckLevel(c)); }
 };
-$('view-deck').onclick = () => { renderDeck(); $('deck-dialog').showModal(); };
+$('view-deck').onclick = () => { $('deck-dialog').showModal();renderDeck(); };
 $('auto-build').onclick=runAutoBuilder;
 $('close-auto').onclick=()=>$('auto-dialog').close();
-$('auto-dialog').addEventListener('close',()=>{autoController?.abort();autoController=null;});
+$('auto-dialog').addEventListener('close',()=>{autoController?.abort();autoController=null;setFeedback('auto-status');});
 $('auto-results').onclick=event=>{
   const button=event.target.closest('[data-use-proposal]');
   if (button) applyAutoProposal(Number(button.dataset.useProposal));else handleDeckPreview(event);
@@ -1777,7 +1844,7 @@ $('confirm-yes').onclick = () => { const action = confirmAction; confirmAction =
 $('confirm-dialog').oncancel = () => { confirmAction = null; };
 for (const dialog of document.querySelectorAll('dialog')) {
   dialog.setAttribute('closedby','any');
-  dialog.addEventListener('close',()=>requestAnimationFrame(refreshFeedbackNotices));
+  dialog.addEventListener('close',()=>{if(feedbackStates.size)requestAnimationFrame(refreshFeedbackNotices);});
   let startedInside = false;
   const outside = event => { const r = dialog.getBoundingClientRect(); return event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom; };
   dialog.addEventListener('pointerdown',event => { startedInside = !outside(event); });
@@ -1790,18 +1857,18 @@ const restoredSession = restoreSession();
 if (Array.from($('deck-sort').options).some(option=>option.value===restoredSession.deckOrder?.sort) && ['asc','desc'].includes(restoredSession.deckOrder?.direction)) Object.assign(deckOrder,restoredSession.deckOrder);
 for (const [area,panels] of Object.entries(toolbarPanels)) {
   const saved=restoredSession.toolbars?.[area];
-  if (saved && panels.some(panel=>panel.key===saved.active) && typeof saved.open==='boolean') toolbarState[area]={active:saved.active,open:saved.open};
+  if (saved && panels.some(panel=>panel.key===saved.active) && typeof saved.open==='boolean') toolbarState[area]={active:area==='builder'&&restoredSession.toolbarVersion!==TOOLBAR_STATE_VERSION?panels[0].key:saved.active,open:saved.open};
 }
-syncSections();syncScenario();applyLanguage();
+syncSections();syncScenario();applyLanguage({initial:true});
 let synergyListWidth;
 new ResizeObserver(([entry])=>{
   const width=entry.contentRect.width;
-  if (width!==synergyListWidth) { synergyListWidth=width;scheduleSynergyLayout(); }
+  if(width>0&&width!==synergyListWidth){synergyListWidth=width;synergySourceHeightCache.clear();synergyVirtual?.invalidateMeasurements();for(const row of $('synergies-card-list').children)dirtySynergyRows.add(row);scheduleSynergyLayout();}
 }).observe($('synergies-card-list'));
 window.addEventListener('resize',scheduleViewportUpdate,{passive:true});
 window.addEventListener('scroll',scheduleScrollUpdate,{capture:true,passive:true});
 window.addEventListener('pageshow',scheduleScrollUpdate);
-document.fonts.ready.then(()=>{synergySourceHeightCache=new WeakMap();refreshViewportLayout();});
+document.fonts.addEventListener('loadingdone',()=>{layoutMeasurements.clear();synergySourceHeightCache.clear();synergyVirtual?.invalidateMeasurements();refreshViewportLayout();});
 for (const [key,id] of Object.entries(settingIds)) {
   const draft = restoredSession.standardDraft?.[key];
   if (typeof draft === 'string' && /^\d{0,3}$/.test(draft)) $(id).value = draft;

@@ -9,14 +9,21 @@
 <link rel="icon" type="image/svg+xml" href="misc_images/naruto-icon.svg"/>
 
 <link href="styles.css" rel="stylesheet"/>
-<script defer src="translations.js"></script>
+<link rel="preload" as="script" href="app.js"/>
+<link rel="preload" as="script" href="locales/en.js"/>
+<script defer src="assets.js"></script>
+<script defer src="locales/manifest.js"></script>
+<script defer src="localization.js"></script>
+<script defer src="virtual-list.js"></script>
+<script defer src="search-index.js"></script>
+<script defer src="control-layout.js"></script>
+<script defer src="progressive-list.js"></script>
 <script defer src="cards.js"></script>
 <script defer src="collection.js"></script>
 <script defer src="prebuilt-decks.js"></script>
 <script defer src="synergies.js"></script>
 <script defer src="calculator.js"></script>
-<script defer src="deck-autobuilder.js"></script>
-<script defer src="app.js"></script>
+<script defer src="bootstrap.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -151,6 +158,7 @@
 </dialog>
 <dialog class="auto-dialog" id="auto-dialog" aria-labelledby="auto-title">
 <h2 class="visually-hidden" id="auto-title" data-i18n="ui.autoTitle"></h2><button class="dialog-close" id="close-auto" data-i18n-aria-label="ui.closeTools" type="button">✕</button>
+<p class="auto-status" id="auto-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
 <div class="auto-results" id="auto-results"></div>
 </dialog>
 
