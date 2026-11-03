@@ -171,7 +171,6 @@ const effectLabel = key => t('effects.'+key);
 const viewDirty=new Set(sectionIds);
 const cardNodes={db:new Map(),builder:new Map()};
 const cardNodeState=new WeakMap();
-let presetProgressive;
 const numericalCache=new Map();
 function invalidateViews(...areas) {
   for (const area of areas) viewDirty.add(area);
@@ -1097,20 +1096,17 @@ function renderPresetLibrary() {
   decks.sort(
     (a, b) => collator.compare(presetName(a), presetName(b)) || collatorFor().compare(a.id, b.id)
   );
-  if (!presetProgressive)
-    presetProgressive = new ProgressiveList({ host: $('preset-list'), render: presetHTML });
-  presetProgressive.setActive(mode === 'decks');
-  presetProgressive.setItems(decks);
-  if (!decks.length)
-    $('preset-list').innerHTML = `<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
-  viewDirty.delete('decks');
-  updateFilterCount('decks');
-}
-function presetHTML(deck) {
   const compareCards = createCardComparator(
     $('decks-sort').value,
     $('decks-sort-direction').dataset.direction
   );
+  $('preset-list').innerHTML = decks.length
+    ? decks.map(deck => presetHTML(deck, compareCards)).join('')
+    : `<p class="empty-results">${t('ui.libraryEmpty')}</p>`;
+  viewDirty.delete('decks');
+  updateFilterCount('decks');
+}
+function presetHTML(deck,compareCards) {
   const cards = deck.cards.map(key => cardByKey.get(key)).sort(compareCards);
   return `<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${deck.tags.length ? `<div class="tags">${deck.tags.map(tag => `<span class="tag">${esc(t('ui.tag_' + tag))}</span>`).join('')}</div>` : ''}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(
     cards.map(card => card.index),
@@ -1294,7 +1290,6 @@ function setMode(next) {
   mode = next;
   syncSections();
   synergyVirtual?.setActive(mode === 'synergies');
-  presetProgressive?.setActive(mode === 'decks');
   renderCatalog({ force: false });
   if (mode === 'collection') renderCollectionUI();
   if (mode === 'builder') renderDeck();
@@ -1529,7 +1524,6 @@ function restoreCatalogScroll() {
   const restore=()=>{
     scrollRestoreFrame=null;
     if (area!==mode) return;
-    if(area==='decks')presetProgressive?.ensureOffset(top);
     catalogScrollRoot(area).scrollTo({ top, behavior: 'instant' });
     if(area==='synergies')synergyVirtual?.schedule();
   };

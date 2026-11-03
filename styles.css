@@ -610,5 +610,3 @@ dialog button { border-radius:0; }
 /* Only viewport-adjacent synergy rows exist in the DOM. Native scroll height is retained. */
 .virtual-list { position:relative; display:block; overflow-anchor:none; }
 .virtual-list > .synergy-row { position:absolute; left:0; right:0; }
-.progressive-more { height:1px; }
-.preset { content-visibility:auto; contain-intrinsic-size:auto 280px; }
