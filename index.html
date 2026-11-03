@@ -51,7 +51,7 @@
 <div class="filters-panel toolbox-pane" data-i18n-aria-label="ui.searchFilters" id="db-filter-host" role="tabpanel"></div>
 </div>
 </section>
-<main class="workspace"><section class="catalog" data-i18n-aria-label="ui.databaseEffects"><div class="card-list database-list" id="db-card-list"></div></section></main>
+<main class="workspace"><section class="catalog card-catalog" data-i18n-aria-label="ui.databaseEffects"><div class="card-list database-list" id="db-card-list"></div></section></main>
 </section>
 <section aria-labelledby="tab-builder" class="area hidden" id="builder-area" role="tabpanel">
 <section class="toolbox panel" id="builder-toolbox">
@@ -93,7 +93,7 @@
 </section>
 </div>
 </section>
-<main class="workspace builder" id="workspace"><section class="catalog" data-i18n-aria-label="ui.builderCards"><div class="card-list" id="builder-card-list"></div></section></main>
+<main class="workspace builder" id="workspace"><section class="catalog card-catalog" data-i18n-aria-label="ui.builderCards"><div class="card-list" id="builder-card-list"></div></section></main>
 </section>
 <section aria-labelledby="tab-synergies" class="area hidden" id="synergies-area" role="tabpanel">
 <section class="toolbox panel" id="synergies-toolbox">
@@ -157,7 +157,7 @@
 <div class="mobile-tools-footer"><button class="primary" data-i18n="ui.showResults" id="mobile-tools-done" type="button"></button></div>
 </dialog>
 <dialog class="auto-dialog" id="auto-dialog" aria-labelledby="auto-title">
-<h2 class="visually-hidden" id="auto-title" data-i18n="ui.autoTitle"></h2><button class="dialog-close" id="close-auto" data-i18n-aria-label="ui.closeTools" type="button">✕</button>
+<div class="auto-dialog-header"><h2 class="visually-hidden" id="auto-title" data-i18n="ui.autoTitle"></h2><button class="dialog-close" id="close-auto" data-i18n-aria-label="ui.closeTools" type="button">✕</button></div>
 <p class="auto-status" id="auto-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
 <div class="auto-results" id="auto-results"></div>
 </dialog>
