@@ -288,9 +288,20 @@ const CARDS = [
 {"card_key":"S3_097","season":3,"rarity":"Legendary","energy_cost":6,"chakra":6,"index":282,"skill_types_original":["Chakra","Heal"],"effect_values":[{"C":[4],"W":[],"H":[4],"B":[],"K":[]},{"C":[5],"W":[],"H":[4],"B":[],"K":[]}],"repeats":[true,true],"conditional":[false,false],"rush":[0,0]},
 {"card_key":"S3_098","season":3,"rarity":"Legendary","energy_cost":5,"chakra":4,"index":283,"skill_types_original":["Guard","Chakra"],"effect_values":[{"C":[1],"W":[],"H":[],"B":[],"K":[]},{"C":[1],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
 {"card_key":"S3_099","season":3,"rarity":"Legendary","energy_cost":6,"chakra":4,"index":284,"skill_types_original":["Chakra","Summon","Focus"],"effect_values":[{"C":[1],"W":[],"H":[],"B":[],"K":[]},{"C":[1],"W":[],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
-{"card_key":"S3_100","season":3,"rarity":"Legendary","energy_cost":9,"chakra":5,"index":285,"skill_types_original":["Chakra","Rush","Guard","Weaken"],"effect_values":[{"C":[6],"W":[1,3,2],"H":[],"B":[],"K":[]},{"C":[8],"W":[1,3,2],"H":[],"B":[],"K":[]}],"repeats":[true,true],"conditional":[false,false],"rush":[5,6]}
+{"card_key":"S3_100","season":3,"rarity":"Legendary","energy_cost":9,"chakra":5,"index":285,"skill_types_original":["Chakra","Rush","Guard","Weaken"],"effect_values":[{"C":[6],"W":[1,3,2],"H":[],"B":[],"K":[]},{"C":[8],"W":[1,3,2],"H":[],"B":[],"K":[]}],"repeats":[true,true],"conditional":[false,false],"rush":[5,6]},
+// Event Scrolls, November 2026: https://nncmeta.site/news/event-scroll-cards
+{"card_key":"ES_001","season":"ES","rarity":"Rare","energy_cost":3,"chakra":2,"index":286,"skill_types_original":["Heal","Burn","Pin","Weaken"],"effect_values":[{"C":[],"W":[],"H":[1,2],"B":[],"K":[]},{"C":[],"W":[],"H":[1,4],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
+{"card_key":"ES_002","season":"ES","rarity":"Rare","energy_cost":5,"chakra":4,"index":287,"skill_types_original":["Weaken"],"effect_values":[{"C":[],"W":[10],"H":[],"B":[],"K":[]},{"C":[],"W":[12],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]},
+{"card_key":"ES_003","season":"ES","rarity":"Epic","energy_cost":6,"chakra":5,"index":288,"skill_types_original":["Guard","Weaken","Drain"],"effect_values":[{"C":[],"W":[1],"H":[],"B":[],"K":[]},{"C":[],"W":[1],"H":[],"B":[],"K":[]}],"repeats":[true,true],"conditional":[false,false],"rush":[0,0]},
+{"card_key":"ES_004","season":"ES","rarity":"Epic","energy_cost":8,"chakra":6,"index":289,"skill_types_original":["Guard","Focus","Pin","Weaken","Drain"],"effect_values":[{"C":[],"W":[1],"H":[],"B":[],"K":[]},{"C":[],"W":[1],"H":[],"B":[],"K":[]}],"repeats":[true,true],"conditional":[true,true],"rush":[0,0]},
+{"card_key":"ES_005","season":"ES","rarity":"Legendary","energy_cost":5,"chakra":4,"index":290,"skill_types_original":["Focus","Weaken"],"effect_values":[{"C":[],"W":[10],"H":[],"B":[],"K":[]},{"C":[],"W":[12],"H":[],"B":[],"K":[]}],"repeats":[false,false],"conditional":[true,true],"rush":[0,0]}
 ];
 const RULES = {
+  "ES_001": { "expr": "H0*a1+H1*a1" },
+  "ES_002": { "expr": "W0*e1-2*A" },
+  "ES_003": { "expr": "W0*3*e1+drain1*e1*N" },
+  "ES_004": { "expr": ["drain4*e1+W0*3*e1+drain2*e1", "drain5*e1+W0*3*e1+drain2*e1"] },
+  "ES_005": { "expr": "W0*e1" },
   "S1_001": {
     "expr": "auto"
   },

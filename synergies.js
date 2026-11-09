@@ -25,11 +25,11 @@ const SYNERGY_RULES = (() => {
   const rushUnits=join(s1([9,18,25,26,34,39,40,41,65,78,84]),s2([4,5,13,14,21,23,35,42,43,44,45,50,51,54,57,75,79,91]),s3([2,7,8,12,13,15,16,21,23,25,30,36,38,50,51,57,59,61,63,64,77,80,91,92]));
   const chakraReactors=join(s1([1,75]),s2([55,97]),s3([52,63]));
   const chakraSupport=join(s1([7,10,11,16,19,21,22,24,27,38,41,52,58,62,73]),s2([6,15,36,44,45,56,70,100]),s3([18,39,60]));
-  const enemyPin=join(s1([14,28,36,44,48,49,53,55,57,61,65,75]),s2([17,25,26,62,65,87,96]),s3([4,9,22,40,54,64,67,71,72,86,89,95,96]));
-  const focusUnits=join(s1([60]),s2([38,58,64,94,98,99]),s3([35,80,81,84,86,90,94,99]));
+  const enemyPin=join(s1([14,28,36,44,48,49,53,55,57,61,65,75]),s2([17,25,26,62,65,87,96]),s3([4,9,22,40,54,64,67,71,72,86,89,95,96]),['ES_004']);
+  const focusUnits=join(s1([60]),s2([38,58,64,94,98,99]),s3([35,80,81,84,86,90,94,99]),['ES_004','ES_005']);
   // Remove providers, observers and anti-Guard text that only mentions the keyword.
   const guardUnits=without(withSkill('Guard'),...s1([70]),...s2([12,36,49,74]),...s3([19,33,39,92]));
-  const enemyWeaken=without(withSkill('Weaken'),...s1([20,58,82]),...s2([48,81,86]),...s3([29,36,55,60]));
+  const enemyWeaken=without(withSkill('Weaken'),...s1([20,58,82]),...s2([48,81,86]),...s3([29,36,55,60]),'ES_001');
   const enemyPush=without(withSkill('Push'),...s1([27]),...s2([22,33]));
   const enemySlow=join(s1([12,43,59]),s2([8,72,80,82,88,97]),s3([17,22,31,55,68,69,71]));
   const enemySwitch=join(s1([12,49,84]),s2([24,25,59,82]),s3([46]));

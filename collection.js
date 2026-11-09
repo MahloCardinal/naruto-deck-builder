@@ -16,11 +16,11 @@ const CARD_COLLECTION = (() => {
     const counts={},ignored=new Set();
     let entries=0;
     for (const season of data.seasons) {
-      if (!season || !/^S\d{1,2}$/.test(season.id) || !Array.isArray(season.cards)) throw Error('collectionInvalid');
+      if (!season || !/^(?:S\d{1,2}|ES)$/.test(season.id) || !Array.isArray(season.cards)) throw Error('collectionInvalid');
       entries+=season.cards.length;
       if (entries>10_000) throw Error('collectionInvalid');
       for (const card of season.cards) {
-        if (!card || typeof card.id!=='string' || !/^S\d{1,2}_\d{3}$/.test(card.id) || card.id.split('_')[0]!==season.id || !Number.isSafeInteger(card.count) || card.count<0) throw Error('collectionInvalid');
+        if (!card || typeof card.id!=='string' || !/^(?:S\d{1,2}|ES)_\d{3}$/.test(card.id) || card.id.split('_')[0]!==season.id || !Number.isSafeInteger(card.count) || card.count<0) throw Error('collectionInvalid');
         if (!card.count) continue;
         if (!known.has(card.id)) { ignored.add(card.id);continue; }
         counts[card.id]=1;

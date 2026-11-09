@@ -11,7 +11,7 @@ function discordPayload(data) {
   if (data.type==='deck') {
     embed.fields.push({name:'Cards',value:data.deck.cards.map(key=>{
       const card=byKey.get(key);
-      return `S${card.season} #${key.split('_')[1]} · ${card.name.toUpperCase()} · ${card.ability}`;
+      return `${key.replace('_',' #')} · ${card.name.toUpperCase()} · ${card.ability}`;
     }).join('\n')});
     embed.footer={text:'The attached file contains the proposed card list.'};
   }

@@ -3,8 +3,7 @@
 const fs = require('node:fs'),
   path = require('node:path'),
   crypto = require('node:crypto');
-const { minify } = require('terser'),
-  { Resvg } = require('@resvg/resvg-js');
+const { minify } = require('terser');
 const root = path.resolve(__dirname, '..'),
   out = path.join(root, 'dist');
 
@@ -58,23 +57,8 @@ async function build() {
   for (const [name, data] of generated)
     if (name !== 'locales/manifest.js') emit(name, await minimize(name, data));
   for (const file of fs.readdirSync(path.join(root, 'misc_images'))) {
-    if (/^flag-.*\.(?:svg|png)$/.test(file)) continue;
+    if (/^flag-.*\.svg$/.test(file)) continue;
     emit('misc_images/' + file, fs.readFileSync(path.join(root, 'misc_images', file)));
-  }
-  for (const file of fs
-    .readdirSync(path.join(root, 'misc_images'))
-    .filter(file => /^flag-.*\.svg$/.test(file))) {
-    const source = fs.readFileSync(path.join(root, 'misc_images', file));
-    // Flags occupy 20px in the UI; render at 3x density without shipping the SVG.
-    const png = new Resvg(source, {
-      fitTo: { mode: 'width', value: 60 },
-      font: { loadSystemFonts: false }
-    })
-      .render()
-      .asPng();
-    const name = 'misc_images/' + file.replace(/\.svg$/, '.png');
-    fs.writeFileSync(path.join(root, name), png);
-    emit(name, png);
   }
   for (const file of fs
     .readdirSync(path.join(root, 'card_images'))

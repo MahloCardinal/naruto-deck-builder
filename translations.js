@@ -6,6 +6,60 @@ const TRANSLATIONS = {
     "name": "English",
     "locale": "en-GB",
     "ui": {
+      "collectionImportWarning": "WARNING: Import may fail because of a bug in 'Naruto Ninja Cards' that prevents the player's cards from loading. You can check this directly in the 'Collection' section of the official website.",
+      "decksWithCard": "Decks with this card",
+      "goToPreset": "Go to deck",
+      "showPresetDescription": "View description",
+      "noDecksWithCard": "This card is not in any prebuilt deck.",
+      "tag_video": "With video",
+      "presetName_52": "Wind and Fire by Kebon",
+      "preset_52": "Cycle Naruto Uzumaki (Will to Protect) early so each withdrawal raises his base Chakra before the late game. Use Ichibi (Air Bullets) against groups at Long Range and save Sasuke Uchiha (Fireball Jutsu) for rivals already at Mid Range. Send Orochimaru (Treachery) through a contested lane and use Neji Hyuga (Byakugan) to halve the defender once Orochimaru becomes vulnerable.",
+      "presetName_53": "Mid Range Pressure by max5",
+      "preset_53": "Deploy Gaara (Dangerous) where a rival is already at Mid Range to get the Chakra bonus. Use Naruto Uzumaki (Demon Fox Rasengan) against a guarded defender to strip its Guard and open the lane. Send Orochimaru (Treachery) through a contested lane and use Neji Hyuga (Byakugan) to halve the defender once Orochimaru becomes vulnerable. Cycle Naruto Uzumaki (Will to Protect) early so each withdrawal raises his base Chakra before the late game.",
+      "presetName_54": "Lane Control by Tobi",
+      "preset_54": "Cycle Naruto Uzumaki (Will to Protect) early so each withdrawal raises his base Chakra before the late game. Hold Kakashi Hatake (Giant Vortex Jutsu) until several rivals share a lane, then push and weaken them together. Naruto Uzumaki (Will to Protect) can advance while the lane recovers. Place Tsunade (Desperate Healing) near the ally you need to sustain and reserve Tsunade (Mitotic Regeneration) for a lane where her first recovery can swing several encounters.",
+      "presetName_55": "Drain and Scales by Pluto",
+      "preset_55": "Put Seimei (Ultimate Form) in the lane with the biggest threat so his Pin and repeated Drain hold it in place while you build the other lanes. Play Hoki (Reverse Scale Formation) only after your allies reach 5 total Chakra in each lane. Use his heavy Weaken when the payoff outweighs losing 2 Chakra from every ally. Save Kakashi Hatake (Raikiri) to hit through Guard and Temari (Giant Folding Fan) to push back a lane that is getting crowded.",
+      "presetName_56": "Doki Rage by KaKAO",
+      "preset_56": "Keep Naruto Uzumaki (Kyubi Rage) active before allied withdrawals so each one gives him Chakra and Rush. Have Kiba Inuzuka (Best Friend) summon Akamaru (Rush), then deploy Kiba Inuzuka (Transformation Combo) to withdraw both, transfer their Chakra and trigger Naruto again. Use Student Trio (Team Konohamaru) to refill the lanes when it withdraws. Give Tayuya (Doki Summoning) time to finish Focus so the Doki add pressure across all three lanes.",
+      "presetName_57": "Counterattack by Feli4",
+      "preset_57": "Deploy Gaara (Dangerous) where a rival is already at Mid Range to get the Chakra bonus. Use Naruto Uzumaki (Demon Fox Rasengan) against a guarded defender to strip its Guard and open the lane. Use Ichibi (Air Bullets) against groups at Long Range and save Sasuke Uchiha (Fireball Jutsu) for rivals already at Mid Range. Cycle Naruto Uzumaki (Will to Protect) early so each withdrawal raises his base Chakra before the late game.",
+      "presetName_58": "Focus Chain by Tobi",
+      "preset_58": "Establish Shikamaru Nara (Shogi Master) before the Focus cards. Rock Lee (Loopy Fist) and Kidomaru (Spider Bow) then gain Chakra when they start focusing. Keep Itachi Uchiha (Poise) active to benefit from each Focus. Use Temari (Giant Folding Fan) to clear space while Raiga Kurosuki (Thunder Dragon Tornado) or Jiraiya (Toad Oil Flamethrower) charges a larger effect.",
+      "presetName_59": "Winged Defense by Arrow",
+      "preset_59": "Keep Neji Hyuga (Byakugan) for the opponent’s largest Chakra stack and use Tsunade (Mitotic Regeneration) to hold the most contested lane. For the decisive push, play Kyubi (Linked Fate) immediately before Sasuke Uchiha (Winged Defense). Keep both safe until Sasuke can use the bonus, since either withdrawal removes the pair. Use Jiraiya (Toad Oil Flamethrower) to wear down multiple lanes at once. Hold Kakashi Hatake (Raikiri) for a guarded rival that survives the pressure.",
+      "presetName_60": "Hyuga Team by Nate",
+      "preset_60": "Keep Hiashi Hyuga (Hyuga Leader) active to give your Hyuga extra Chakra and Push. Hizashi Hyuga (Brother's Sacrifice) can take his place when he is about to withdraw. Feed the Chakra bonus to Neji Hyuga (Burden of Destiny) for an extra gain. Use Neji Hyuga (Byakugan) to soften a strong target, then let Neji Hyuga (Sixty-Four Palms) finish it to reduce its base Chakra permanently.",
+      "presetName_61": "Sound Village Edo by Nate",
+      "preset_61": "Use low-Chakra allies such as Kaiza (Martyr) as sacrifices for Orochimaru (Edo Tensei). Keep Hashirama Senju (Edo Regeneration) and Tobirama Senju (Edo Regeneration) in the deck so the withdrawals can bring them in with Rush. Deploy Tayuya (North) or Jirobo (South) before the Orochimaru you want to strengthen. Orochimaru (Seasoned) is a cheaper recipient when the summoning setup is still incomplete.",
+      "presetName_62": "Fifth Gate by Arrow 1",
+      "preset_62": "Play Homura Mitokado (Reassurance) directly before Rock Lee (Fifth Gate) and give Rock Lee room to finish Focus. Asuma Sarutobi (Melee Prowess) can meet a stronger rival and gain Chakra during the encounter. Use Sasuke Uchiha (Curse Mark) in a lane with successive encounters, where he can build Chakra after each trade. Cycle Naruto Uzumaki (Will to Protect) early so each withdrawal raises his base Chakra before the late game.",
+      "presetName_63": "Toad Team by Pluto",
+      "preset_63": "Use Gama (Toad Scroll) to bring out a Toad and establish others before deploying Gamahiro (Heft), who gains Chakra for each allied Toad. Set up Gamatatsu (Food Motivated) while you have energy to pay for its pulses. Keep Gamabunta (Toad Teamwork) active when Temari (Giant Folding Fan) pushes a lane or Choji Akimichi (Human Boulder) pushes rivals during Rush. Each allied Push can feed Gamabunta Chakra.",
+      "presetName_64": "Range Control by max5",
+      "preset_64": "Use Sakura Haruno (Kunai Throw) to pick off a rival at Long Range and Ichibi (Air Bullets) to weaken a group before it closes in. Hold Kakashi Hatake (Giant Vortex Jutsu) until several rivals share a lane, then push and weaken them together. Naruto Uzumaki (Will to Protect) can advance while the lane recovers. Place Tsunade (Desperate Healing) near the ally you need to sustain and reserve Tsunade (Mitotic Regeneration) for a lane where her first recovery can swing several encounters.",
+      "presetName_65": "Kyubi Link by Arrow",
+      "preset_65": "For the decisive push, play Kyubi (Linked Fate) immediately before Sasuke Uchiha (Winged Defense). Keep both safe until Sasuke can use the bonus, since either withdrawal removes the pair. Hold Kakashi Hatake (Giant Vortex Jutsu) until several rivals share a lane, then push and weaken them together. Naruto Uzumaki (Will to Protect) can advance while the lane recovers. Use Jiraiya (Toad Oil Flamethrower) to wear down multiple lanes at once. Hold Kakashi Hatake (Raikiri) for a guarded rival that survives the pressure.",
+      "presetName_66": "Edo and Tsukuyomi by Rostin",
+      "preset_66": "Put Student Trio (Team Konohamaru) among the weakest allies before deploying Orochimaru (Edo Tensei). If it withdraws, its three students return across the lanes. Establish Itachi Uchiha (Tsukuyomi Army) before Hashirama Senju (Deep Forest Emergence) Pins the opposing board, so the Pin can create clones at a Chakra cost to Itachi. Follow up with Tobirama Senju (Water Shock Wave) to weaken and slow the opposing board. Temari (Giant Folding Fan) can push a crowded lane while Sakon & Ukon (Synchronized Defense) gain Chakra from allied Guard activations.",
+      "presetName_67": "Mark and Guard by Zack",
+      "preset_67": "Play Mikoto Uchiha (Soothing) before Sasuke Uchiha (Winged Defense) or Sasuke Uchiha (Evolved Prediction) to strengthen that Sasuke and heal him the first time he drops below base Chakra. For the decisive push, play Kyubi (Linked Fate) immediately before Sasuke Uchiha (Winged Defense). Keep both safe until Sasuke can use the bonus, since either withdrawal removes the pair. Use Kimimaro (Unwavering Loyalty) as an independent finisher. Keep fragile allies away from trades that would trigger his board-wide Weaken on withdrawal.",
+      "presetName_68": "Old Friends by Louis",
+      "preset_68": "Keep Enma (Monkey King) active before Iruka Umino (Goofball) or Kotetsu Hagane (Misdirection) changes allied lanes so each Switch can give the moving ally Chakra. Let Sakura Haruno (Unyielding) absorb hits with Guard to trigger her Switch. Use Kotetsu Hagane (Misdirection) when you can afford the random lane changes and Slow. Keep Choza Akimichi (Old Friends), Inoichi Yamanaka (Old Friends) and Shikaku Nara (Old Friends) overlapping on the board so their mutual Chakra bonuses support the lanes they occupy.",
+      "presetName_69": "Rage on the Move by Dezed",
+      "preset_69": "Keep Naruto Uzumaki (Kyubi Rage) active before allied withdrawals so each one gives him Chakra and Rush. Have Kiba Inuzuka (Best Friend) summon Akamaru (Rush), then deploy Kiba Inuzuka (Transformation Combo) to withdraw both, transfer their Chakra and trigger Naruto again. Keep Enma (Monkey King) active before Iruka Umino (Goofball) or Kotetsu Hagane (Misdirection) changes allied lanes so each Switch can give the moving ally Chakra.",
+      "presetName_70": "Amaterasu by Markline",
+      "preset_70": "Keep Enma (Monkey King) active as Iruka Umino (Goofball) changes lanes to gain Chakra. Let Haku (Crystal Ice Mirrors) use his encounter effect, then use Chakra from the ensuing Switch to ready it again. Send Itachi Uchiha (Amaterasu Escape) toward a lane where his Burn can spread, then follow a rival that switches lanes with Orochimaru (Kusanagi) to gain Guard and keep pressure on that target. Save Kakashi Hatake (Raikiri) to hit through Guard and Temari (Giant Folding Fan) to push back a lane that is getting crowded.",
+      "presetName_71": "Dragon and Forest by Broly",
+      "preset_71": "Establish Itachi Uchiha (Tsukuyomi Army) before Hashirama Senju (Deep Forest Emergence) Pins the opposing board, so the Pin can create clones at a Chakra cost to Itachi. Use Akahoshi (Star Dragon) to Pin a cluster for additional clones, and Sakon & Ukon (Cursed Fusion) to Pin and drain a rival after teleporting behind it. Hold Kakashi Hatake (Giant Vortex Jutsu) until several rivals share a lane, then push and weaken them together. Naruto Uzumaki (Will to Protect) can advance while the lane recovers.",
+      "presetName_72": "Mirrors and Mist by Pluto",
+      "preset_72": "Keep Enma (Monkey King) active as Iruka Umino (Goofball) changes lanes to gain Chakra. Let Haku (Crystal Ice Mirrors) use his encounter effect, then use Chakra from the ensuing Switch to ready it again. Time Shizune (Poison Mist) for a congested Mid Range. Her mist also affects allies, so let Jiraiya (Toad Oil Flamethrower) finish Focus before placing the mist over him. Save Kakashi Hatake (Raikiri) to hit through Guard and Temari (Giant Folding Fan) to push back a lane that is getting crowded.",
+      "containsCards": "Contains cards:",
+      "requiredCardSearch": "Search by name or reference",
+      "requiredCardsLimit": "5 cards selected",
+      "eventScrolls": "Event Scrolls",
+      "presetName_51": "Edo Fury",
+      "preset_51": "Deploy Naruto Uzumaki (Kyubi Rage) before the sacrifices. Set up Student Trio and a second low-Chakra ally, then play Orochimaru (Edo Tensei) while Hashirama Senju is still in the deck. The allied withdrawals trigger the summon and give Naruto Chakra and Rush. Student Trio redeploys its three students across the lanes, and their later withdrawals feed Naruto again. Kiba Inuzuka (Best Friend) can summon Akamaru for cheap pressure, while Kiba Inuzuka (Transformation Combo) gives you a second way to trigger withdrawals.",
       "languageUnavailable": "Unable to load the selected language. Please try again.",
       "collectionCopySite": "Copy link",
       "collectionSiteCopied": "Link copied successfully",
@@ -130,7 +184,7 @@ const TRANSLATIONS = {
       "proposalIncompleteDeck": "Complete your deck with 10 cards before proposing it",
       "proposalDescriptionRequired": "Enter a synergy description before sending it",
       "prebuiltDecks": "Prebuilt decks",
-      "navDecks": "Decks",
+      "navDecks": "Prebuilt",
       "librarySearch": "Search cards or effects",
       "libraryEmpty": "No matching decks.",
       "useDeck": "Load this deck",
@@ -147,7 +201,6 @@ const TRANSLATIONS = {
       "autoExplain_synergy": "Prioritizes interactions between your cards and their supports.",
       "autoExplain_reference": "Follows a compatible prebuilt strategy while keeping your cards.",
       "autoApplied": "Deck completed",
-      "presetLoaded": "Deck loaded",
       "preset_01": "Start scaling Naruto Uzumaki (Will to Protect) early: each withdrawal permanently raises his base Chakra by 2. Have Naruto Uzumaki (Kyubi Rage) active before a chain of allied withdrawals so he gains Chakra and Rush from them. Use Kiba Inuzuka (Best Friend) to Summon Akamaru and establish cheap pressure; after Kiba and Akamaru have provided value, Kiba Inuzuka (Transformation Combo) withdraws them, absorbs their Chakra and gains a bonus for each withdrawal. Student Trio refills all three lanes on withdrawal. Mizuki Toji (Hidden Intent) can accelerate a planned withdrawal, but avoid hitting your main threat. Once Naruto has built up base Chakra, switch from cycling him to protecting him with Tsunade (Desperate Healing).",
       "preset_02": "Establish Sakon & Ukon (Synchronized Defense) before developing your other defenders: every allied Guard activation gives both members of the duo +1 Chakra. Sakura Haruno (Unyielding) has Permanent Guard and switches lanes on each activation; Kisame Hoshigaki gains Chakra and Weakens the rival triggering his Guard, while Jiraiya (Needle Jizo) retaliates with Weaken that ignores Guard. Temari adds Push and Kimimaro provides more defensive charges. Against Sanbi, build this board before chasing maximum damage: making the boss lose Chakra can trigger another wave of its skill. Madame Shijimi supplies Chakra to several lane allies in Short Range.",
       "preset_03": "Establish Tayuya (Doki Summoning) before your Summon cards: the new units gain +1 Chakra, and completing her Focus adds a Doki to every lane. Naruto Uzumaki (Multi Shadow Clone) creates two clones on the other lanes and another pair ten seconds later; deploy him when those units can advance. Naruto Uzumaki (Shadow Clone Jutsu), Kiba Inuzuka and Koharu Utatane supply more Summons, while Student Trio refills the board on withdrawal. Cycle cheap cards back into these unit generators instead of relying on one expensive card to survive Burn. Gaara (Sand Tsunami) provides repeated control during Focus; the list primarily aims to create more opportunities to hit the boss.",
@@ -312,6 +365,7 @@ const TRANSLATIONS = {
       "exportInfo": "Exports include the levels and calculation assumptions specific to each card."
     },
     "effects": {
+      "Drain": "Drain",
       "Cost": "Cost",
       "Chakra": "Chakra",
       "Weaken": "Weaken",
@@ -329,6 +383,7 @@ const TRANSLATIONS = {
       "Heal": "Heal"
     },
     "terms": {
+      "Drain": "drain(?:s|ed|ing)?",
       "Cost": "costs?",
       "Chakra": "chakra",
       "Weaken": "weaken[\\p{L}]*",
@@ -346,6 +401,46 @@ const TRANSLATIONS = {
       "Heal": "heal[\\p{L}]*"
     },
     "cards": {
+      "ES_001": {
+        "name": "Sakura Haruno",
+        "ability": "Healing Student",
+        "descriptions": [
+          "When deployed, Heal(1) the nearest ally in this lane. When a rival first applies Burn, Pin or Weaken to a lane ally, Heal(2) that ally.",
+          "When deployed, Heal(1) the nearest ally in this lane. When a rival first applies Burn, Pin or Weaken to a lane ally, Heal(4) that ally."
+        ]
+      },
+      "ES_002": {
+        "name": "Hoki",
+        "ability": "Reverse Scale Formation",
+        "descriptions": [
+          "On deployment, check that allied Chakra totals at least 5 in every lane. If it does, apply Weaken(10) to the rival with the most Chakra and then reduce each ally’s Chakra by 2.",
+          "On deployment, check that allied Chakra totals at least 5 in every lane. If it does, apply Weaken(12) to the rival with the most Chakra and then reduce each ally’s Chakra by 2."
+        ]
+      },
+      "ES_003": {
+        "name": "Hoki",
+        "ability": "Full Arsenal",
+        "descriptions": [
+          "Guard(1). Deploying this card applies Weaken(1) up to three times to random rivals in its lane. Drain(1) from the opponent on every encounter.",
+          "Guard(2). Deploying this card applies Weaken(1) up to three times to random rivals in its lane. Drain(1) from the opponent on every encounter."
+        ]
+      },
+      "ES_004": {
+        "name": "Seimei",
+        "ability": "Ultimate Form",
+        "descriptions": [
+          "Guard(1). On deployment, this card starts Focus(12s) and applies Pin(12s) to the lane rival with the most Chakra. Drain(1) from that rival every 3s while focusing. When Focus ends, apply Weaken(1) to random rivals up to three times. At Mid Range, Drain(2) from the rival with the most Chakra.",
+          "Guard(1). On deployment, this card starts Focus(15s) and applies Pin(15s) to the lane rival with the most Chakra. Drain(1) from that rival every 3s while focusing. When Focus ends, apply Weaken(1) to random rivals up to three times. At Mid Range, Drain(2) from the rival with the most Chakra."
+        ]
+      },
+      "ES_005": {
+        "name": "Gaara",
+        "ability": "Shukaku's Spear",
+        "descriptions": [
+          "Start Focus(6s) the first time a rival in this lane reaches at least 10 Chakra. Completing Focus applies Weaken(10) to that rival through Guard.",
+          "Start Focus(5s) the first time a rival in this lane reaches at least 10 Chakra. Completing Focus applies Weaken(12) to that rival through Guard."
+        ]
+      },
       "S1_001": {
         "name": "NARUTO UZUMAKI",
         "ability": "Potential",
@@ -2628,6 +2723,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
+      "ES_004": "The estimate assumes a full Focus and counts the Mid Range drain separately.",
       "S2_041": "{allies} allies of the required character; deck composition is not checked.",
       "S1_004": "Encounter effects applied over {activations} encounters.",
       "S1_005": "Encounter effects applied over {activations} encounters.",
@@ -2790,6 +2886,60 @@ const TRANSLATIONS = {
     "name": "Italiano",
     "locale": "it-IT",
     "ui": {
+      "collectionImportWarning": "ATTENZIONE: l'import potrebbe non funzionare a causa di un bug di 'Naruto Ninja Cards' che non carica le carte che possiede il giocatore. Potete verificarlo direttamente nella sezione 'Collezione' del sito ufficiale",
+      "decksWithCard": "Mazzi con questa carta",
+      "goToPreset": "Vai al mazzo",
+      "showPresetDescription": "Vedi descrizione",
+      "noDecksWithCard": "Questa carta non è presente in alcun mazzo precostruito.",
+      "tag_video": "Con video",
+      "presetName_52": "Vento e fuoco by Kebon",
+      "preset_52": "Fai ruotare presto Naruto Uzumaki (Volontà di Proteggere) per aumentare il suo Chakra base a ogni ritiro. Usa Ichibi (Proiettili d'aria) contro i gruppi a lungo raggio e tieni Sasuke Uchiha (Palla di Fuoco) per chi è già a medio raggio. Fai avanzare Orochimaru (Tradimento) nella corsia contesa e usa Neji Hyuga (Byakugan) per dimezzare il difensore quando Orochimaru diventa vulnerabile.",
+      "presetName_53": "Pressione a medio raggio by max5",
+      "preset_53": "Schiera Gaara (Pericoloso) dove c’è già un avversario a medio raggio per ottenere il bonus Chakra. Usa Naruto Uzumaki (Rasengan della volpe demoniaca) contro un difensore per rimuoverne la Difesa e aprire la corsia. Fai avanzare Orochimaru (Tradimento) nella corsia contesa e usa Neji Hyuga (Byakugan) per dimezzare il difensore quando Orochimaru diventa vulnerabile. Fai ruotare presto Naruto Uzumaki (Volontà di Proteggere) per aumentare il suo Chakra base a ogni ritiro.",
+      "presetName_54": "Controllo delle corsie by Tobi",
+      "preset_54": "Fai ruotare presto Naruto Uzumaki (Volontà di Proteggere) per aumentare il suo Chakra base a ogni ritiro. Tieni Kakashi Hatake (Esplosione Acquatica) per quando più avversari occupano la stessa corsia, poi respingili e indeboliscili insieme. Naruto Uzumaki (Volontà di Proteggere) può avanzare nello spazio guadagnato. Metti Tsunade (Cura disperata) vicino all’alleato da sostenere e riserva Tsunade (Rigenerazione mitotica) a una corsia dove la sua prima rigenerazione può ribaltare più scontri.",
+      "presetName_55": "Assorbimento e scaglie by Pluto",
+      "preset_55": "Metti Seimei (Forma definitiva) nella corsia della minaccia principale. Blocco e Assorbimento ripetuto la tengono ferma mentre sviluppi le altre corsie. Gioca Hoki (Formazione a scaglie inverse) quando i tuoi alleati raggiungono 5 Chakra totali in ciascuna corsia. Sfrutta il suo Indebolimento quando vale la perdita di 2 Chakra per ogni alleato. Tieni Kakashi Hatake (Raikiri) per colpire attraverso la Difesa e Temari (Ventaglio gigante) per respingere gli avversari in una corsia affollata.",
+      "presetName_56": "Furia e Doki by KaKAO",
+      "preset_56": "Tieni Naruto Uzumaki (La Furia di Kyubi) attivo prima dei ritiri alleati per dargli Chakra e Scatto a ogni ritiro. Fai evocare Akamaru (Impazienza) da Kiba Inuzuka (Migliore Amico), poi schiera Kiba Inuzuka (Combinazione di trasformazione) per ritirarli entrambi, trasferire il loro Chakra e potenziare ancora Naruto. Usa Student Trio (Squadra Konohamaru) per ripopolare le corsie al ritiro. Dai a Tayuya (Evocazione dei Doki) il tempo di completare la Concentrazione e schierare Doki su tutte e tre.",
+      "presetName_57": "Contrattacco by Feli4",
+      "preset_57": "Schiera Gaara (Pericoloso) dove c’è già un avversario a medio raggio per ottenere il bonus Chakra. Usa Naruto Uzumaki (Rasengan della volpe demoniaca) contro un difensore per rimuoverne la Difesa e aprire la corsia. Usa Ichibi (Proiettili d'aria) contro i gruppi a lungo raggio e tieni Sasuke Uchiha (Palla di Fuoco) per chi è già a medio raggio. Fai ruotare presto Naruto Uzumaki (Volontà di Proteggere) per aumentare il suo Chakra base a ogni ritiro.",
+      "presetName_58": "Catena di concentrazione by Tobi",
+      "preset_58": "Schiera Shikamaru Nara (Maestro di Shogi) prima delle carte con Concentrazione. Rock Lee (Pugno barcollante) e Kidomaru (Arco del ragno) guadagnano così Chakra quando iniziano a concentrarsi. Tieni Itachi Uchiha (Compostezza) attivo per sfruttare ogni Concentrazione. Usa Temari (Ventaglio gigante) per guadagnare spazio mentre Raiga Kurosuki (Tornado del drago del tuono) o Jiraiya (Lanciafiamme dell'olio di rospo) prepara un effetto più forte.",
+      "presetName_59": "Difesa alata by Arrow",
+      "preset_59": "Tieni Neji Hyuga (Byakugan) per la carta con più Chakra dell’avversario e usa Tsunade (Rigenerazione mitotica) per tenere la corsia più contesa. Per la spinta decisiva, gioca Kyubi (Destini Incrociati) subito prima di Sasuke Uchiha (Difesa alata). Proteggili entrambi finché Sasuke sfrutta il bonus, perché il ritiro di uno ritira anche l’altro. Usa Jiraiya (Lanciafiamme dell'olio di rospo) per logorare più corsie insieme. Tieni Kakashi Hatake (Raikiri) per un avversario con Difesa che resiste alla pressione.",
+      "presetName_60": "Squadra Hyuga by Nate",
+      "preset_60": "Tieni Hiashi Hyuga (Capo degli Hyuga) attivo per dare Chakra e Spinta agli Hyuga. Hizashi Hyuga (Sacrificio del Fratello) può ritirarsi al suo posto quando Hiashi sta per cedere. Sfrutta il bonus Chakra con Neji Hyuga (Destino infelice) per ottenere un guadagno extra. Dimezza un bersaglio forte con Neji Hyuga (Byakugan) e fallo ritirare con Neji Hyuga (Sessantaquattro Palmi) per ridurgli il Chakra base in modo permanente.",
+      "presetName_61": "Edo del Suono by Nate",
+      "preset_61": "Usa alleati con poco Chakra come Kaiza (Martirio) per i sacrifici di Orochimaru (Edo Tensei). Lascia Hashirama Senju (Resurrezione di Edo) e Tobirama Senju (Resurrezione di Edo) nel mazzo per evocarli con Scatto quando gli alleati si ritirano. Schiera Tayuya (Nord) o Jirobo (Sud) prima dell’Orochimaru da potenziare. Orochimaru (Esperienza) è il bersaglio più economico mentre prepari le Evocazioni.",
+      "presetName_62": "Quinta porta by Arrow 1",
+      "preset_62": "Gioca Homura Mitokado (Rassicurazione) subito prima di Rock Lee (Quinta Porta) e lascia spazio a Rock Lee per completare la Concentrazione. Asuma Sarutobi (Corpo a Corpo) può affrontare un rivale più forte e guadagnare Chakra allo scontro. Usa Sasuke Uchiha (Segno maledetto) in una corsia con scontri successivi, così può accumulare Chakra a ogni scambio. Fai ruotare presto Naruto Uzumaki (Volontà di Proteggere) per aumentare il suo Chakra base a ogni ritiro.",
+      "presetName_63": "Squadra dei rospi by Pluto",
+      "preset_63": "Usa Gama (Rotolo di Rospo) per evocare un rospo e schierane altri prima di Gamahiro (Peso), che guadagna Chakra per ognuno. Prepara Gamatatsu (Fame motivante) quando hai energia per pagare le sue attivazioni. Tieni Gamabunta (Cooperazione del Rospo) attivo quando Temari (Ventaglio gigante) respinge una corsia o Choji Akimichi (Proiettile umano) respinge durante lo Scatto. Le Spinte alleate fanno guadagnare Chakra a Gamabunta.",
+      "presetName_64": "Controllo a distanza by max5",
+      "preset_64": "Usa Sakura Haruno (Lancio del Kunai) per colpire un rivale a lungo raggio e Ichibi (Proiettili d'aria) per indebolire un gruppo prima che si avvicini. Tieni Kakashi Hatake (Esplosione Acquatica) per quando più avversari occupano la stessa corsia, poi respingili e indeboliscili insieme. Naruto Uzumaki (Volontà di Proteggere) può avanzare nello spazio guadagnato. Metti Tsunade (Cura disperata) vicino all’alleato da sostenere e riserva Tsunade (Rigenerazione mitotica) a una corsia dove la sua prima rigenerazione può ribaltare più scontri.",
+      "presetName_65": "Legame di Kyubi by Arrow",
+      "preset_65": "Per la spinta decisiva, gioca Kyubi (Destini Incrociati) subito prima di Sasuke Uchiha (Difesa alata). Proteggili entrambi finché Sasuke sfrutta il bonus, perché il ritiro di uno ritira anche l’altro. Tieni Kakashi Hatake (Esplosione Acquatica) per quando più avversari occupano la stessa corsia, poi respingili e indeboliscili insieme. Naruto Uzumaki (Volontà di Proteggere) può avanzare nello spazio guadagnato. Usa Jiraiya (Lanciafiamme dell'olio di rospo) per logorare più corsie insieme. Tieni Kakashi Hatake (Raikiri) per un avversario con Difesa che resiste alla pressione.",
+      "presetName_66": "Edo e Tsukuyomi by Rostin",
+      "preset_66": "Metti Student Trio (Squadra Konohamaru) tra gli alleati più deboli prima di schierare Orochimaru (Edo Tensei). Se si ritira, i tre studenti tornano sulle tre corsie. Schiera Itachi Uchiha (Esercito dello Tsukuyomi) prima che Hashirama Senju (Crescita rigogliosa) blocchi il campo avversario, così il Blocco può generare cloni al costo di Chakra per Itachi. Prosegui con Tobirama Senju (Onda violenta) per indebolire e rallentare il campo avversario. Temari (Ventaglio gigante) respinge una corsia affollata e le attivazioni della Difesa alleata danno Chakra a Sakon & Ukon (Difesa sincronizzata).",
+      "presetName_67": "Marchio e Difesa by Zack",
+      "preset_67": "Gioca Mikoto Uchiha (Conforto) prima di Sasuke Uchiha (Difesa alata) o Sasuke Uchiha (Previsione evoluta) per potenziare quel Sasuke e curarlo la prima volta che scende sotto il Chakra base. Per la spinta decisiva, gioca Kyubi (Destini Incrociati) subito prima di Sasuke Uchiha (Difesa alata). Proteggili entrambi finché Sasuke sfrutta il bonus, perché il ritiro di uno ritira anche l’altro. Usa Kimimaro (Lealtà incrollabile) per chiudere in autonomia. Prima di uno scontro che può farlo ritirare, valuta l’Indebolimento che colpirebbe anche gli alleati fragili.",
+      "presetName_68": "Vecchi amici by Louis",
+      "preset_68": "Tieni Enma (Re Scimmia) attivo prima dei cambi di corsia di Iruka Umino (Testa Quadra) o Kotetsu Hagane (Depistaggio), così la carta che cambia guadagna Chakra. Lascia che Sakura Haruno (Inflessibile) pari i colpi con la Difesa per attivare il Cambio. Usa Kotetsu Hagane (Depistaggio) quando puoi gestire le corsie casuali e il Rallentamento. Tieni Choza Akimichi (Vecchi Amici), Inoichi Yamanaka (Vecchi Amici) e Shikaku Nara (Vecchi Amici) attivi insieme per sostenere le corsie con i loro bonus Chakra reciproci.",
+      "presetName_69": "Furia in movimento by Dezed",
+      "preset_69": "Tieni Naruto Uzumaki (La Furia di Kyubi) attivo prima dei ritiri alleati per dargli Chakra e Scatto a ogni ritiro. Fai evocare Akamaru (Impazienza) da Kiba Inuzuka (Migliore Amico), poi schiera Kiba Inuzuka (Combinazione di trasformazione) per ritirarli entrambi, trasferire il loro Chakra e potenziare ancora Naruto. Tieni Enma (Re Scimmia) attivo prima dei cambi di corsia di Iruka Umino (Testa Quadra) o Kotetsu Hagane (Depistaggio), così la carta che cambia guadagna Chakra.",
+      "presetName_70": "Amaterasu by Markline",
+      "preset_70": "Tieni Enma (Re Scimmia) attivo mentre Iruka Umino (Testa Quadra) cambia corsia per guadagnare Chakra. Fai usare a Haku (Specchi di Ghiaccio) il suo effetto allo scontro, poi sfrutta il Chakra del Cambio per riattivarlo. Manda Itachi Uchiha (Fuga da Amaterasu) verso una corsia dove la Bruciatura può propagarsi. Quando un rivale cambia corsia, seguilo con Orochimaru (Kusanagi) per ottenere Difesa e tenerlo sotto pressione. Tieni Kakashi Hatake (Raikiri) per colpire attraverso la Difesa e Temari (Ventaglio gigante) per respingere gli avversari in una corsia affollata.",
+      "presetName_71": "Drago e foresta by Broly",
+      "preset_71": "Schiera Itachi Uchiha (Esercito dello Tsukuyomi) prima che Hashirama Senju (Crescita rigogliosa) blocchi il campo avversario, così il Blocco può generare cloni al costo di Chakra per Itachi. Usa Akahoshi (Drago della stella) per bloccare un gruppo e creare altri cloni, e Sakon & Ukon (Fusione maledetta) per bloccare e consumare Chakra a un rivale dopo essersi teletrasportati alle sue spalle. Tieni Kakashi Hatake (Esplosione Acquatica) per quando più avversari occupano la stessa corsia, poi respingili e indeboliscili insieme. Naruto Uzumaki (Volontà di Proteggere) può avanzare nello spazio guadagnato.",
+      "presetName_72": "Specchi e nebbia by Pluto",
+      "preset_72": "Tieni Enma (Re Scimmia) attivo mentre Iruka Umino (Testa Quadra) cambia corsia per guadagnare Chakra. Fai usare a Haku (Specchi di Ghiaccio) il suo effetto allo scontro, poi sfrutta il Chakra del Cambio per riattivarlo. Usa Shizune (Nebbia velenosa) quando il medio raggio si affolla. La nebbia colpisce anche gli alleati, quindi lascia completare la Concentrazione a Jiraiya (Lanciafiamme dell'olio di rospo) prima di piazzarla nella sua zona. Tieni Kakashi Hatake (Raikiri) per colpire attraverso la Difesa e Temari (Ventaglio gigante) per respingere gli avversari in una corsia affollata.",
+      "containsCards": "Contiene le carte:",
+      "requiredCardSearch": "Cerca per nome o indice",
+      "requiredCardsLimit": "5 carte selezionate",
+      "eventScrolls": "Pergamene Evento",
+      "presetName_51": "Furia dell’Edo",
+      "preset_51": "Schiera Naruto Uzumaki (La Furia di Kyubi) prima dei sacrifici. Porta Student Trio (Squadra Konohamaru) e un secondo alleato tra le due carte alleate con meno Chakra, entrambe a 2 Chakra o meno. Gioca Orochimaru (Edo Tensei) mentre Hashirama Senju è ancora nel mazzo. I ritiri attivano l’Evocazione e danno Chakra e Scatto a Naruto. Il trio ridistribuisce i tre studenti sulle corsie e i loro ritiri successivi alimentano di nuovo Naruto. Kiba Inuzuka (Migliore Amico) può Evocare Akamaru per fare pressione a basso costo, mentre Kiba Inuzuka (Combinazione di trasformazione) offre un secondo modo per innescare i ritiri.",
       "languageUnavailable": "Impossibile caricare la lingua selezionata. Riprova.",
       "collectionCopySite": "Copia link",
       "collectionSiteCopied": "Link copiato correttamente",
@@ -2914,7 +3064,7 @@ const TRANSLATIONS = {
       "proposalIncompleteDeck": "Completa il mazzo con 10 carte prima di proporlo",
       "proposalDescriptionRequired": "Inserisci la descrizione della sinergia prima di inviarla",
       "prebuiltDecks": "Mazzi precostruiti",
-      "navDecks": "Mazzi",
+      "navDecks": "Precostruiti",
       "librarySearch": "Cerca carte o effetti",
       "libraryEmpty": "Nessun mazzo corrispondente.",
       "useDeck": "Carica questo mazzo",
@@ -2931,7 +3081,6 @@ const TRANSLATIONS = {
       "autoExplain_synergy": "Privilegia le interazioni fra le tue carte e i loro supporti.",
       "autoExplain_reference": "Segue la strategia di un mazzo precostruito compatibile, mantenendo le tue carte.",
       "autoApplied": "Mazzo completato",
-      "presetLoaded": "Mazzo caricato",
       "preset_01": "Avvia presto la crescita di Naruto Uzumaki (Volontà di Proteggere): ogni suo ritiro aumenta permanentemente il Chakra base di 2. Prima di una sequenza di ritiri, mantieni attivo Naruto Uzumaki (La Furia di Kyubi), che ne ricava Chakra e Scatto. Usa Kiba Inuzuka (Migliore Amico) per Evocare Akamaru e creare pressione economica; quando Kiba e Akamaru hanno già dato valore, Kiba Inuzuka (Combinazione di trasformazione) li ritira, ne assorbe il Chakra e ottiene un bonus per ciascuno. Student Trio ripopola le tre corsie al ritiro. Mizuki Toji (Intento Nascosto) può accelerare un ritiro voluto, ma evita di colpire la tua minaccia principale. Quando Naruto ha accumulato Chakra base, passa dalla rotazione alla protezione con Tsunade (Cura disperata).",
       "preset_02": "Prepara Sakon & Ukon (Difesa sincronizzata) prima di sviluppare gli altri difensori: ogni attivazione della Difesa alleata concede +1 Chakra a entrambe le unità del duo. Sakura Haruno (Inflessibile) offre Difesa permanente e Cambia corsia a ogni attivazione; Kisame Hoshigaki ottiene Chakra e Indebolisce il rivale che attiva la sua Difesa, mentre Jiraiya (Jizo degli aghi) risponde con un Indebolimento che ignora Difesa. Temari aggiunge Spinta e Kimimaro fornisce altre cariche difensive. Contro Sanbi, costruisci questo campo prima di cercare il massimo danno: la perdita di Chakra del boss può provocare nuove ondate della sua abilità. Madame Shijimi sostiene con Chakra più alleati di corsia nel corto raggio.",
       "preset_03": "Prepara Tayuya (Evocazione dei Doki) prima delle carte che Evocano: le nuove unità ricevono +1 Chakra, e completare la sua Concentrazione aggiunge un Doki su ogni corsia. Naruto Uzumaki (Moltiplicazione Superiore Estrema del Corpo) crea due cloni sulle altre corsie e una seconda coppia dopo dieci secondi; schieralo quando le nuove unità possono avanzare. Naruto Uzumaki (Moltiplicazione superiore del corpo), Kiba Inuzuka e Koharu Utatane aggiungono altre Evocazioni, mentre Student Trio ripopola il campo al ritiro. Usa le carte economiche per ruotare verso questi generatori di unità anziché affidarti a una sola carta costosa contro Brucia. Gaara (Tsunami di sabbia) fornisce controllo ripetuto durante Concentrazione; la lista punta soprattutto a moltiplicare le occasioni di colpire il boss.",
@@ -3096,6 +3245,7 @@ const TRANSLATIONS = {
       "exportInfo": "L'export include livelli e ipotesi di calcolo specifici di ogni carta."
     },
     "effects": {
+      "Drain": "Assorbimento",
       "Cost": "Costo",
       "Chakra": "Chakra",
       "Weaken": "Indebolimento",
@@ -3113,6 +3263,7 @@ const TRANSLATIONS = {
       "Heal": "Cura"
     },
     "terms": {
+      "Drain": "assorb[\\p{L}]*",
       "Cost": "cost[oi]",
       "Chakra": "chakra",
       "Weaken": "indebol[\\p{L}]*",
@@ -3130,6 +3281,46 @@ const TRANSLATIONS = {
       "Heal": "cur[ae]|curare|curano|recupera[\\p{L}]*"
     },
     "cards": {
+      "ES_001": {
+        "name": "Sakura Haruno",
+        "ability": "Allieva guaritrice",
+        "descriptions": [
+          "Quando viene giocata, Cura(1) l’alleato più vicino in corsia. Cura(2) il primo alleato in corsia colpito da Bruciatura, Blocco o Indebolimento avversari.",
+          "Quando viene giocata, Cura(1) l’alleato più vicino in corsia. Cura(4) il primo alleato in corsia colpito da Bruciatura, Blocco o Indebolimento avversari."
+        ]
+      },
+      "ES_002": {
+        "name": "Hoki",
+        "ability": "Formazione a scaglie inverse",
+        "descriptions": [
+          "Quando viene giocata, se gli alleati hanno almeno 5 Chakra totali in ogni corsia, applica Indebolimento(10) all’avversario con più Chakra. Poi tutti gli alleati perdono 2 Chakra.",
+          "Quando viene giocata, se gli alleati hanno almeno 5 Chakra totali in ogni corsia, applica Indebolimento(12) all’avversario con più Chakra. Poi tutti gli alleati perdono 2 Chakra."
+        ]
+      },
+      "ES_003": {
+        "name": "Hoki",
+        "ability": "Arsenale completo",
+        "descriptions": [
+          "Difesa(1). Quando viene giocata, applica Indebolimento(1) fino a tre volte ad avversari casuali in corsia. A ogni scontro, assorbe(1) dall’avversario.",
+          "Difesa(2). Quando viene giocata, applica Indebolimento(1) fino a tre volte ad avversari casuali in corsia. A ogni scontro, assorbe(1) dall’avversario."
+        ]
+      },
+      "ES_004": {
+        "name": "Seimei",
+        "ability": "Forma definitiva",
+        "descriptions": [
+          "Difesa(1). Quando viene giocata, avvia Concentrazione(12s) su di sé e applica Blocco(12s) all’avversario in corsia con più Chakra. Durante la Concentrazione, assorbe(1) dallo stesso avversario ogni 3s. Al termine, applica Indebolimento(1) fino a tre volte ad avversari casuali. Nel medio raggio, assorbe(2) dall’avversario con più Chakra.",
+          "Difesa(1). Quando viene giocata, avvia Concentrazione(15s) su di sé e applica Blocco(15s) all’avversario in corsia con più Chakra. Durante la Concentrazione, assorbe(1) dallo stesso avversario ogni 3s. Al termine, applica Indebolimento(1) fino a tre volte ad avversari casuali. Nel medio raggio, assorbe(2) dall’avversario con più Chakra."
+        ]
+      },
+      "ES_005": {
+        "name": "Gaara",
+        "ability": "Lancia di Shukaku",
+        "descriptions": [
+          "La prima volta che un avversario in corsia raggiunge almeno 10 Chakra, avvia Concentrazione(6s). Se la completa, applica Indebolimento(10) a quell’avversario ignorando la Difesa.",
+          "La prima volta che un avversario in corsia raggiunge almeno 10 Chakra, avvia Concentrazione(5s). Se la completa, applica Indebolimento(12) a quell’avversario ignorando la Difesa."
+        ]
+      },
       "S1_001": {
         "name": "NARUTO UZUMAKI",
         "ability": "Potenziale",
@@ -5412,6 +5603,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
+      "ES_004": "La stima presume che la Concentrazione duri fino alla fine e conteggia a parte l’Assorbimento nel medio raggio.",
       "S2_041": "{allies} alleati del personaggio richiesto; composizione del mazzo non verificata.",
       "S1_004": "Effetti di incontro applicati in {activations} combattimenti.",
       "S1_005": "Effetti di incontro applicati in {activations} combattimenti.",
@@ -5591,6 +5783,60 @@ const TRANSLATIONS = {
     "name": "Français",
     "locale": "fr-FR",
     "ui": {
+      "collectionImportWarning": "ATTENTION : l’importation peut échouer à cause d’un bug de « Naruto Ninja Cards » qui empêche le chargement des cartes du joueur. Vous pouvez le vérifier directement dans la rubrique « Collection » du site officiel.",
+      "decksWithCard": "Decks avec cette carte",
+      "goToPreset": "Voir le deck",
+      "showPresetDescription": "Voir la description",
+      "noDecksWithCard": "Cette carte ne figure dans aucun deck prédéfini.",
+      "tag_video": "Avec vidéo",
+      "presetName_52": "Vent et feu by Kebon",
+      "preset_52": "Faites tourner Naruto Uzumaki (Volonté de Protection) tôt pour augmenter son Chakra de base à chaque retrait. Utilisez Ichibi (Distorsion de l’Air ) contre les groupes à longue portée et gardez Sasuke Uchiha (Boule de Feu Suprême) pour les adversaires à moyenne portée. Envoyez Orochimaru (Traîtrise) dans la voie disputée et utilisez Neji Hyuga (Byakugan) pour réduire de moitié le Chakra du défenseur dès qu’Orochimaru devient vulnérable.",
+      "presetName_53": "Pression à moyenne portée by max5",
+      "preset_53": "Déployez Gaara (Dangereux) face à un adversaire déjà à moyenne portée pour obtenir le bonus de Chakra. Utilisez Naruto Uzumaki (Rasengan du renard démoniaque) pour retirer la Parade d’un défenseur et ouvrir la voie. Envoyez Orochimaru (Traîtrise) dans la voie disputée et utilisez Neji Hyuga (Byakugan) pour réduire de moitié le Chakra du défenseur dès qu’Orochimaru devient vulnérable. Faites tourner Naruto Uzumaki (Volonté de Protection) tôt pour augmenter son Chakra de base à chaque retrait.",
+      "presetName_54": "Contrôle des voies by Tobi",
+      "preset_54": "Faites tourner Naruto Uzumaki (Volonté de Protection) tôt pour augmenter son Chakra de base à chaque retrait. Gardez Kakashi Hatake (Grande Cataracte) pour repousser et affaiblir plusieurs adversaires sur la même voie. Naruto Uzumaki (Volonté de Protection) peut profiter de l’espace libéré pour avancer. Placez Tsunade (Soin désespéré) près de l’allié à soutenir et gardez Tsunade (Régénération mitotique) pour une voie où sa première régénération peut renverser plusieurs affrontements.",
+      "presetName_55": "Drain et écailles by Pluto",
+      "preset_55": "Placez Seimei (Forme ultime) sur la voie la plus menacée. Son Immobilisation et son Drain répété retiennent l’adversaire pendant que vous développez les autres voies. Jouez Hoki (Formation des écailles inversées) quand vos alliés totalisent 5 Chakra sur chaque voie. Son Affaiblissement vaut alors le coût de 2 Chakra par allié si la cible est décisive. Gardez Kakashi Hatake (Raikiri) pour frapper à travers la Parade et Temari (Grand Eventail) pour repousser les adversaires d’une voie encombrée.",
+      "presetName_56": "Fureur et Doki by KaKAO",
+      "preset_56": "Gardez Naruto Uzumaki (Fureur de Kyubi) actif avant les retraits alliés pour lui donner du Chakra et de l’Accélération à chaque retrait. Faites invoquer Akamaru (Ruée) par Kiba Inuzuka (Meilleur Ami), puis déployez Kiba Inuzuka (Combo de transformation) pour les retirer, transférer leur Chakra et renforcer encore Naruto. Utilisez Student Trio (Équipe Konohamaru) pour repeupler les voies à son retrait. Laissez Tayuya (Invocation des Doki) terminer sa Concentration pour placer Doki sur les trois voies.",
+      "presetName_57": "Contre-attaque by Feli4",
+      "preset_57": "Déployez Gaara (Dangereux) face à un adversaire déjà à moyenne portée pour obtenir le bonus de Chakra. Utilisez Naruto Uzumaki (Rasengan du renard démoniaque) pour retirer la Parade d’un défenseur et ouvrir la voie. Utilisez Ichibi (Distorsion de l’Air ) contre les groupes à longue portée et gardez Sasuke Uchiha (Boule de Feu Suprême) pour les adversaires à moyenne portée. Faites tourner Naruto Uzumaki (Volonté de Protection) tôt pour augmenter son Chakra de base à chaque retrait.",
+      "presetName_58": "Chaîne de concentration by Tobi",
+      "preset_58": "Déployez Shikamaru Nara (Maître de Shogi) avant les cartes à Concentration. Rock Lee (Poing de l'homme ivre) et Kidomaru (Arc d'araignée) gagnent ainsi du Chakra lorsqu’ils se concentrent. Gardez Itachi Uchiha (Sang-froid) actif pour profiter de chaque Concentration. Utilisez Temari (Grand Eventail) pour gagner du terrain pendant que Raiga Kurosuki (Tornade du dragon de foudre) ou Jiraiya (Lance-flammes à l'huile de crapaud) prépare son effet.",
+      "presetName_59": "Défense ailée by Arrow",
+      "preset_59": "Réservez Neji Hyuga (Byakugan) à l’adversaire le plus chargé en Chakra et utilisez Tsunade (Régénération mitotique) pour tenir la voie la plus disputée. Pour la poussée décisive, jouez Kyubi (Destin Lié) juste avant Sasuke Uchiha (Défense ailée). Protégez les deux jusqu’à ce que Sasuke profite du bonus, car le retrait de l’un entraîne celui de l’autre. Utilisez Jiraiya (Lance-flammes à l'huile de crapaud) pour affaiblir plusieurs voies à la fois. Gardez Kakashi Hatake (Raikiri) pour un adversaire avec Parade qui résiste à la pression.",
+      "presetName_60": "Équipe Hyuga by Nate",
+      "preset_60": "Gardez Hiashi Hyuga (Chef Hyuga) actif pour donner du Chakra et de la Repousse aux Hyuga. Hizashi Hyuga (Sacrifice du Frère) peut se retirer à sa place quand Hiashi est sur le point de céder. Profitez du bonus de Chakra avec Neji Hyuga (Fardeau du Destin) pour un gain supplémentaire. Affaiblissez une grosse cible avec Neji Hyuga (Byakugan) et terminez avec Neji Hyuga (64 Poings du Hakke) pour réduire durablement son Chakra de base.",
+      "presetName_61": "Edo du Son by Nate",
+      "preset_61": "Sacrifiez des alliés avec peu de Chakra comme Kaiza (Martyr) avec Orochimaru (Réincarnation des Âmes). Gardez Hashirama Senju (Réincarnation) et Tobirama Senju (Réincarnation) dans le deck pour les invoquer avec Accélération lors des retraits. Déployez Tayuya (Nord) ou Jirobo (Sud) avant l’Orochimaru à renforcer. Orochimaru (Aguerri) est une cible moins coûteuse pendant la préparation des Invocations.",
+      "presetName_62": "Cinquième porte by Arrow 1",
+      "preset_62": "Jouez Homura Mitokado (Réconfort) juste avant Rock Lee (Cinquième Porte) et laissez à Rock Lee le temps de terminer sa Concentration. Asuma Sarutobi (Combat Rapproché) gagne du Chakra en affrontant un adversaire plus fort. Utilisez Sasuke Uchiha (Marque Maudite) sur une voie avec plusieurs affrontements pour accumuler du Chakra à chaque échange. Faites tourner Naruto Uzumaki (Volonté de Protection) tôt pour augmenter son Chakra de base à chaque retrait.",
+      "presetName_63": "Équipe de crapauds by Pluto",
+      "preset_63": "Invoquez un crapaud avec Gama (Parchemin du Crapaud) et placez-en d’autres avant Gamahiro (Soupeser), qui gagne du Chakra pour chacun. Préparez Gamatatsu (Motivé par la nourriture) quand vous pouvez payer ses activations. Gardez Gamabunta (Coopération du Crapaud) actif quand Temari (Grand Eventail) repousse une voie ou que Choji Akimichi (Boulet Humain) repousse pendant l’Accélération. Ces actions donnent du Chakra à Gamabunta.",
+      "presetName_64": "Contrôle à distance by max5",
+      "preset_64": "Utilisez Sakura Haruno (Lancer de kunai) pour toucher un adversaire à longue portée et Ichibi (Distorsion de l’Air ) pour affaiblir un groupe avant qu’il approche. Gardez Kakashi Hatake (Grande Cataracte) pour repousser et affaiblir plusieurs adversaires sur la même voie. Naruto Uzumaki (Volonté de Protection) peut profiter de l’espace libéré pour avancer. Placez Tsunade (Soin désespéré) près de l’allié à soutenir et gardez Tsunade (Régénération mitotique) pour une voie où sa première régénération peut renverser plusieurs affrontements.",
+      "presetName_65": "Lien de Kyubi by Arrow",
+      "preset_65": "Pour la poussée décisive, jouez Kyubi (Destin Lié) juste avant Sasuke Uchiha (Défense ailée). Protégez les deux jusqu’à ce que Sasuke profite du bonus, car le retrait de l’un entraîne celui de l’autre. Gardez Kakashi Hatake (Grande Cataracte) pour repousser et affaiblir plusieurs adversaires sur la même voie. Naruto Uzumaki (Volonté de Protection) peut profiter de l’espace libéré pour avancer. Utilisez Jiraiya (Lance-flammes à l'huile de crapaud) pour affaiblir plusieurs voies à la fois. Gardez Kakashi Hatake (Raikiri) pour un adversaire avec Parade qui résiste à la pression.",
+      "presetName_66": "Edo et Tsukuyomi by Rostin",
+      "preset_66": "Placez Student Trio (Équipe Konohamaru) parmi les alliés les plus faibles avant de jouer Orochimaru (Réincarnation des Âmes). À son retrait, les trois élèves reviennent sur les trois voies. Déployez Itachi Uchiha (Armée de Tsukuyomi) avant que Hashirama Senju (Croissance Luxuriante de la Forêt ) immobilise le camp adverse pour créer des clones en dépensant du Chakra d’Itachi. Enchaînez avec Tobirama Senju (Suiton : Raz de Marée) pour affaiblir et ralentir le camp adverse. Temari (Grand Eventail) repousse une voie encombrée et les Parades alliées donnent du Chakra à Sakon & Ukon (Défense synchronisée).",
+      "presetName_67": "Marque et parade by Zack",
+      "preset_67": "Jouez Mikoto Uchiha (Apaisement) avant Sasuke Uchiha (Défense ailée) ou Sasuke Uchiha (Prédiction évoluée) pour renforcer ce Sasuke et le soigner quand il passe pour la première fois sous son Chakra de base. Pour la poussée décisive, jouez Kyubi (Destin Lié) juste avant Sasuke Uchiha (Défense ailée). Protégez les deux jusqu’à ce que Sasuke profite du bonus, car le retrait de l’un entraîne celui de l’autre. Utilisez Kimimaro (Loyauté inébranlable) pour conclure seul. Avant un combat qui peut le faire se retirer, tenez compte de l’Affaiblissement qui toucherait aussi les alliés fragiles.",
+      "presetName_68": "Vieux amis by Louis",
+      "preset_68": "Gardez Enma (Roi Singe) actif avant les changements de voie de Iruka Umino (Ahuri) ou Kotetsu Hagane (Désorientation) pour donner du Chakra à la carte déplacée. Laissez Sakura Haruno (Inflexible) encaisser des coups avec sa Parade pour changer de voie. Jouez Kotetsu Hagane (Désorientation) quand vous pouvez gérer les voies aléatoires et le Ralentissement. Gardez Choza Akimichi (Vieux Amis), Inoichi Yamanaka (Vieux Amis) et Shikaku Nara (Vieux Amis) actifs ensemble pour soutenir leurs voies avec leurs bonus mutuels de Chakra.",
+      "presetName_69": "Fureur en mouvement by Dezed",
+      "preset_69": "Gardez Naruto Uzumaki (Fureur de Kyubi) actif avant les retraits alliés pour lui donner du Chakra et de l’Accélération à chaque retrait. Faites invoquer Akamaru (Ruée) par Kiba Inuzuka (Meilleur Ami), puis déployez Kiba Inuzuka (Combo de transformation) pour les retirer, transférer leur Chakra et renforcer encore Naruto. Gardez Enma (Roi Singe) actif avant les changements de voie de Iruka Umino (Ahuri) ou Kotetsu Hagane (Désorientation) pour donner du Chakra à la carte déplacée.",
+      "presetName_70": "Amaterasu by Markline",
+      "preset_70": "Gardez Enma (Roi Singe) actif pendant les changements de voie de Iruka Umino (Ahuri). Laissez Haku (Démoniaques Miroirs de Glace) utiliser son effet de rencontre, puis réactivez-le avec le Chakra du changement de voie. Envoyez Itachi Uchiha (Fuite d'Amaterasu) sur une voie où sa Brûlure peut se propager. Suivez un adversaire qui change de voie avec Orochimaru (Kusanagi) pour gagner de la Parade et maintenir la pression. Gardez Kakashi Hatake (Raikiri) pour frapper à travers la Parade et Temari (Grand Eventail) pour repousser les adversaires d’une voie encombrée.",
+      "presetName_71": "Dragon et forêt by Broly",
+      "preset_71": "Déployez Itachi Uchiha (Armée de Tsukuyomi) avant que Hashirama Senju (Croissance Luxuriante de la Forêt ) immobilise le camp adverse pour créer des clones en dépensant du Chakra d’Itachi. Utilisez Akahoshi (Dragon de l'étoile) pour immobiliser un groupe et créer d’autres clones, puis Sakon & Ukon (Fusion maudite) pour immobiliser et faire perdre du Chakra à un rival après téléportation. Gardez Kakashi Hatake (Grande Cataracte) pour repousser et affaiblir plusieurs adversaires sur la même voie. Naruto Uzumaki (Volonté de Protection) peut profiter de l’espace libéré pour avancer.",
+      "presetName_72": "Miroirs et brume by Pluto",
+      "preset_72": "Gardez Enma (Roi Singe) actif pendant les changements de voie de Iruka Umino (Ahuri). Laissez Haku (Démoniaques Miroirs de Glace) utiliser son effet de rencontre, puis réactivez-le avec le Chakra du changement de voie. Utilisez Shizune (Brume empoisonnée) quand la moyenne portée se remplit. Sa brume touche aussi les alliés, alors laissez Jiraiya (Lance-flammes à l'huile de crapaud) terminer sa Concentration avant de la placer sur lui. Gardez Kakashi Hatake (Raikiri) pour frapper à travers la Parade et Temari (Grand Eventail) pour repousser les adversaires d’une voie encombrée.",
+      "containsCards": "Contient les cartes :",
+      "requiredCardSearch": "Chercher par nom ou référence",
+      "requiredCardsLimit": "5 cartes sélectionnées",
+      "eventScrolls": "Parchemins d’événement",
+      "presetName_51": "Fureur de l’Edo",
+      "preset_51": "Déployez Naruto Uzumaki (Fureur de Kyubi) avant les sacrifices. Préparez Student Trio et un second allié avec peu de Chakra, puis jouez Orochimaru (Réincarnation des Âmes) pendant que Hashirama Senju est encore dans le deck. Les retraits déclenchent l’Invocation et donnent du Chakra et de l’Accélération à Naruto. Le trio redéploie ses trois élèves sur les voies, et leurs retraits suivants renforcent encore Naruto. Kiba Inuzuka (Meilleur Ami) peut Invoquer Akamaru à faible coût, tandis que Kiba Inuzuka (Combo de transformation) offre un autre moyen de provoquer les retraits.",
       "languageUnavailable": "Impossible de charger la langue sélectionnée. Réessayez.",
       "collectionCopySite": "Copier le lien",
       "collectionSiteCopied": "Lien copié avec succès",
@@ -5715,7 +5961,7 @@ const TRANSLATIONS = {
       "proposalIncompleteDeck": "Complétez votre deck avec 10 cartes avant de le proposer",
       "proposalDescriptionRequired": "Saisissez une description de la synergie avant de l’envoyer",
       "prebuiltDecks": "Decks préconstruits",
-      "navDecks": "Decks",
+      "navDecks": "Préconstruits",
       "librarySearch": "Chercher des cartes ou des effets",
       "libraryEmpty": "Aucun deck correspondant.",
       "useDeck": "Charger ce deck",
@@ -5732,7 +5978,6 @@ const TRANSLATIONS = {
       "autoExplain_synergy": "Privilégie les interactions entre vos cartes et leurs soutiens.",
       "autoExplain_reference": "Suit une stratégie préconstruite compatible en conservant vos cartes.",
       "autoApplied": "Deck complété",
-      "presetLoaded": "Deck chargé",
       "preset_01": "Faites progresser Naruto Uzumaki (Volonté de Protection) tôt : chaque retrait augmente définitivement son Chakra de base de 2. Gardez Naruto Uzumaki (Fureur de Kyubi) actif avant plusieurs retraits alliés pour lui donner du Chakra et de l'Accélération. Kiba Inuzuka (Meilleur Ami) Invoque Akamaru et crée une pression peu coûteuse ; une fois ces unités rentabilisées, Kiba Inuzuka (Combo de transformation) les retire, absorbe leur Chakra et gagne un bonus par retrait. Student Trio repeuple les trois voies à son retrait. Mizuki Toji (Intention Cachée) peut provoquer un retrait voulu, mais évitez votre menace principale. Quand Naruto possède beaucoup de Chakra de base, privilégiez sa protection avec Tsunade (Soin désespéré) plutôt que sa rotation.",
       "preset_02": "Installez Sakon & Ukon (Défense synchronisée) avant les autres défenseurs : chaque activation de Parade alliée donne +1 Chakra aux deux membres du duo. Sakura Haruno (Inflexible) possède une Parade permanente et change de voie à chaque activation ; Kisame Hoshigaki gagne du Chakra et Affaiblit le rival déclencheur, tandis que Jiraiya (Jizo d'aiguilles) répond avec un Affaiblissement ignorant Parade. Temari ajoute Repousse et Kimimaro davantage de charges défensives. Contre Sanbi, préparez ce terrain avant de rechercher les dégâts maximaux : faire perdre du Chakra au boss peut relancer sa compétence. Madame Shijimi renforce plusieurs alliés de voie à courte portée.",
       "preset_03": "Installez Tayuya (Invocation des Doki) avant vos Invocations : les nouvelles unités reçoivent +1 Chakra et réussir sa Concentration ajoute un Doki par voie. Naruto Uzumaki (Multiclonage Supra) crée deux clones sur les autres voies, puis deux supplémentaires après dix secondes ; jouez-le lorsque ces unités peuvent avancer. Naruto Uzumaki (Multiclonage), Kiba Inuzuka et Koharu Utatane ajoutent d'autres Invocations, tandis que Student Trio repeuple le terrain à son retrait. Faites tourner les petites cartes pour retrouver ces générateurs plutôt que compter sur une unité coûteuse pour survivre à Brûlure. Gaara (Tsunami de sable) contrôle régulièrement les rivaux pendant Concentration ; l'objectif principal reste de multiplier les occasions de toucher le boss.",
@@ -5897,6 +6142,7 @@ const TRANSLATIONS = {
       "exportInfo": "L'export inclut les niveaux et les hypothèses de calcul propres à chaque carte."
     },
     "effects": {
+      "Drain": "Drain",
       "Cost": "Coût",
       "Chakra": "Chakra",
       "Weaken": "Affaiblissement",
@@ -5914,6 +6160,7 @@ const TRANSLATIONS = {
       "Heal": "Soin"
     },
     "terms": {
+      "Drain": "drain[\\p{L}]*",
       "Cost": "coûts?",
       "Chakra": "chakra",
       "Weaken": "affaibli[\\p{L}]*",
@@ -5931,6 +6178,46 @@ const TRANSLATIONS = {
       "Heal": "soin[\\p{L}]*|soign[\\p{L}]*"
     },
     "cards": {
+      "ES_001": {
+        "name": "Sakura Haruno",
+        "ability": "Élève guérisseuse",
+        "descriptions": [
+          "Au déploiement, Soin(1) sur l’allié le plus proche dans la voie. Soin(2) sur le premier allié de la voie touché par une Brûlure, une Immobilisation ou un Affaiblissement adverse.",
+          "Au déploiement, Soin(1) sur l’allié le plus proche dans la voie. Soin(4) sur le premier allié de la voie touché par une Brûlure, une Immobilisation ou un Affaiblissement adverse."
+        ]
+      },
+      "ES_002": {
+        "name": "Hoki",
+        "ability": "Formation des écailles inversées",
+        "descriptions": [
+          "Au déploiement, si les alliés totalisent au moins 5 Chakra dans chaque voie, applique Affaiblissement(10) à l’adversaire ayant le plus de Chakra. Tous les alliés perdent ensuite 2 Chakra.",
+          "Au déploiement, si les alliés totalisent au moins 5 Chakra dans chaque voie, applique Affaiblissement(12) à l’adversaire ayant le plus de Chakra. Tous les alliés perdent ensuite 2 Chakra."
+        ]
+      },
+      "ES_003": {
+        "name": "Hoki",
+        "ability": "Arsenal complet",
+        "descriptions": [
+          "Parade(1). Au déploiement, applique jusqu’à trois fois Affaiblissement(1) à des adversaires aléatoires de la voie. À chaque affrontement, draine(1) l’adversaire.",
+          "Parade(2). Au déploiement, applique jusqu’à trois fois Affaiblissement(1) à des adversaires aléatoires de la voie. À chaque affrontement, draine(1) l’adversaire."
+        ]
+      },
+      "ES_004": {
+        "name": "Seimei",
+        "ability": "Forme ultime",
+        "descriptions": [
+          "Parade(1). Au déploiement, lance Concentration(12s) sur soi et applique Immobilisation(12s) à l’adversaire de la voie qui a le plus de Chakra. Draine(1) cette cible toutes les 3s pendant la Concentration. À la fin, applique Affaiblissement(1) jusqu’à trois fois à des adversaires aléatoires. À moyenne portée, draine(2) l’adversaire ayant le plus de Chakra.",
+          "Parade(1). Au déploiement, lance Concentration(15s) sur soi et applique Immobilisation(15s) à l’adversaire de la voie qui a le plus de Chakra. Draine(1) cette cible toutes les 3s pendant la Concentration. À la fin, applique Affaiblissement(1) jusqu’à trois fois à des adversaires aléatoires. À moyenne portée, draine(2) l’adversaire ayant le plus de Chakra."
+        ]
+      },
+      "ES_005": {
+        "name": "Gaara",
+        "ability": "Lance de Shukaku",
+        "descriptions": [
+          "La première fois qu’un adversaire de la voie atteint au moins 10 Chakra, lance Concentration(6s). Si elle réussit, applique Affaiblissement(10) à cet adversaire en ignorant la Parade.",
+          "La première fois qu’un adversaire de la voie atteint au moins 10 Chakra, lance Concentration(5s). Si elle réussit, applique Affaiblissement(12) à cet adversaire en ignorant la Parade."
+        ]
+      },
       "S1_001": {
         "name": "NARUTO UZUMAKI",
         "ability": "Potentiel",
@@ -8213,6 +8500,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
+      "ES_004": "L’estimation suppose une Concentration complète et compte séparément le Drain à moyenne portée.",
       "S2_041": "{allies} alliés du personnage requis ; la composition du deck n'est pas vérifiée.",
       "S1_004": "Effets de confrontation appliqués sur {activations} confrontations.",
       "S1_005": "Effets de confrontation appliqués sur {activations} confrontations.",
@@ -8375,6 +8663,60 @@ const TRANSLATIONS = {
     "name": "Português",
     "locale": "pt-PT",
     "ui": {
+      "collectionImportWarning": "ATENÇÃO: a importação pode falhar devido a um erro em «Naruto Ninja Cards» que impede o carregamento das cartas do jogador. Pode verificar isso diretamente na secção «Coleção» do site oficial.",
+      "decksWithCard": "Baralhos com esta carta",
+      "goToPreset": "Ver baralho",
+      "showPresetDescription": "Ver descrição",
+      "noDecksWithCard": "Esta carta não está em nenhum baralho predefinido.",
+      "tag_video": "Com vídeo",
+      "presetName_52": "Vento e fogo by Kebon",
+      "preset_52": "Faz rodar Naruto Uzumaki (Vontade de Proteger) cedo para aumentar o Chakra base a cada retirada. Usa Ichibi (Bolas de Ar) contra grupos a longo alcance e reserva Sasuke Uchiha (Jutsu Bola de Fogo) para rivais a médio alcance. Envia Orochimaru (Traição) pela faixa disputada e usa Neji Hyuga (Byakugan) para reduzir a metade o Chakra do defensor quando Orochimaru ficar vulnerável.",
+      "presetName_53": "Pressão a médio alcance by max5",
+      "preset_53": "Joga Gaara (Perigoso) onde já haja um rival a médio alcance para obter o bónus de Chakra. Usa Naruto Uzumaki (Rasengan da raposa demoníaca) para remover o Bloqueio do defensor e abrir a faixa. Envia Orochimaru (Traição) pela faixa disputada e usa Neji Hyuga (Byakugan) para reduzir a metade o Chakra do defensor quando Orochimaru ficar vulnerável. Faz rodar Naruto Uzumaki (Vontade de Proteger) cedo para aumentar o Chakra base a cada retirada.",
+      "presetName_54": "Controlo das faixas by Tobi",
+      "preset_54": "Faz rodar Naruto Uzumaki (Vontade de Proteger) cedo para aumentar o Chakra base a cada retirada. Guarda Kakashi Hatake (Jutsu Vórtex Gigante) para empurrar e enfraquecer vários rivais na mesma faixa. Naruto Uzumaki (Vontade de Proteger) pode avançar pelo espaço aberto. Coloca Tsunade (Cura desesperada) junto do aliado a proteger e reserva Tsunade (Regeneração mitótica) para uma faixa onde a sua primeira regeneração possa virar vários confrontos.",
+      "presetName_55": "Drenar e escamas by Pluto",
+      "preset_55": "Coloca Seimei (Forma definitiva) na faixa da maior ameaça. A Imobilização e o Drenar repetido seguram o rival enquanto desenvolves as outras faixas. Joga Hoki (Formação de escamas invertidas) quando os aliados somarem 5 Chakra em cada faixa. Aproveita o Enfraquecimento forte quando compensar perder 2 Chakra por aliado. Guarda Kakashi Hatake (Raikiri) para atingir através do Bloqueio e Temari (Ventilador Gigante) para empurrar os rivais numa faixa cheia.",
+      "presetName_56": "Fúria e Doki by KaKAO",
+      "preset_56": "Mantém Naruto Uzumaki (Fúria de Kyubi) ativo antes das retiradas aliadas para ganhar Chakra e Ímpeto a cada uma. Faz Kiba Inuzuka (Melhor amigo) invocar Akamaru (Ímpeto) e depois joga Kiba Inuzuka (Combo de transformação) para os retirar, transferir o Chakra e reforçar Naruto. Usa Student Trio (Equipe Konohamaru) para repovoar as faixas quando se retira. Dá tempo a Tayuya (Invocação dos Doki) para completar o Foco e colocar Doki nas três faixas.",
+      "presetName_57": "Contra-ataque by Feli4",
+      "preset_57": "Joga Gaara (Perigoso) onde já haja um rival a médio alcance para obter o bónus de Chakra. Usa Naruto Uzumaki (Rasengan da raposa demoníaca) para remover o Bloqueio do defensor e abrir a faixa. Usa Ichibi (Bolas de Ar) contra grupos a longo alcance e reserva Sasuke Uchiha (Jutsu Bola de Fogo) para rivais a médio alcance. Faz rodar Naruto Uzumaki (Vontade de Proteger) cedo para aumentar o Chakra base a cada retirada.",
+      "presetName_58": "Cadeia de Foco by Tobi",
+      "preset_58": "Joga Shikamaru Nara (Mestre de Shogi) antes das cartas de Foco. Rock Lee (Punho embriagado) e Kidomaru (Arco da aranha) ganham Chakra quando começam a focar. Mantém Itachi Uchiha (Compostura) ativo para aproveitar cada Foco. Usa Temari (Ventilador Gigante) para abrir espaço enquanto Raiga Kurosuki (Tornado do dragão do trovão) ou Jiraiya (Lança-chamas de óleo de sapo) prepara o seu efeito.",
+      "presetName_59": "Defesa alada by Arrow",
+      "preset_59": "Guarda Neji Hyuga (Byakugan) para o rival com mais Chakra e usa Tsunade (Regeneração mitótica) para segurar a faixa mais disputada. Para o avanço decisivo, joga Kyubi (Destino Conectado) imediatamente antes de Sasuke Uchiha (Defesa alada). Protege ambos até Sasuke aproveitar o bónus, pois a retirada de um leva o outro. Usa Jiraiya (Lança-chamas de óleo de sapo) para desgastar várias faixas de uma vez. Guarda Kakashi Hatake (Raikiri) para um rival com Bloqueio que resista à pressão.",
+      "presetName_60": "Equipa Hyuga by Nate",
+      "preset_60": "Mantém Hiashi Hyuga (Líder Hyuga) ativo para dar Chakra e Empurrão aos Hyuga. Hizashi Hyuga (Sacrifício do Irmão) pode retirar-se no lugar dele quando Hiashi está prestes a ceder. Aproveita o bónus de Chakra com Neji Hyuga (Fardo do Destino) para ganhar ainda mais. Enfraquece um alvo forte com Neji Hyuga (Byakugan) e finaliza com Neji Hyuga (Sessenta e Quatro Golpes) para baixar permanentemente o Chakra base.",
+      "presetName_61": "Edo do Som by Nate",
+      "preset_61": "Usa aliados com pouco Chakra como Kaiza (Mártir) para os sacrifícios de Orochimaru (Invocação: Reencarnação Impura). Mantém Hashirama Senju (Reanimação Edo) e Tobirama Senju (Reanimação Edo) no baralho para os invocar com Ímpeto nas retiradas. Joga Tayuya (Norte) ou Jirobo (Sul) antes do Orochimaru que queres fortalecer. Orochimaru (Experiente) é o alvo mais barato enquanto preparas as Invocações.",
+      "presetName_62": "Quinto portão by Arrow 1",
+      "preset_62": "Joga Homura Mitokado (Resseguro) imediatamente antes de Rock Lee (Quinto Portão) e dá a Rock Lee espaço para terminar o Foco. Asuma Sarutobi (Destreza de Corpo A Corpo) ganha Chakra ao enfrentar um rival mais forte. Usa Sasuke Uchiha (Marca da Maldição) numa faixa com confrontos sucessivos para acumular Chakra após cada troca. Faz rodar Naruto Uzumaki (Vontade de Proteger) cedo para aumentar o Chakra base a cada retirada.",
+      "presetName_63": "Equipa dos sapos by Pluto",
+      "preset_63": "Invoca um sapo com Gama (Pergaminho do Sapo) e põe outros em jogo antes de Gamahiro (Peso), que ganha Chakra por cada um. Prepara Gamatatsu (Motivado por comida) quando tens energia para pagar as ativações. Mantém Gamabunta (Cooperação de sapos) ativo quando Temari (Ventilador Gigante) empurra uma faixa ou Choji Akimichi (Massa Humana) empurra durante o Ímpeto. Os Empurrões aliados dão Chakra a Gamabunta.",
+      "presetName_64": "Controlo à distância by max5",
+      "preset_64": "Usa Sakura Haruno (Arremesso de Kunai) para atingir um rival a longo alcance e Ichibi (Bolas de Ar) para enfraquecer um grupo antes que se aproxime. Guarda Kakashi Hatake (Jutsu Vórtex Gigante) para empurrar e enfraquecer vários rivais na mesma faixa. Naruto Uzumaki (Vontade de Proteger) pode avançar pelo espaço aberto. Coloca Tsunade (Cura desesperada) junto do aliado a proteger e reserva Tsunade (Regeneração mitótica) para uma faixa onde a sua primeira regeneração possa virar vários confrontos.",
+      "presetName_65": "Laço de Kyubi by Arrow",
+      "preset_65": "Para o avanço decisivo, joga Kyubi (Destino Conectado) imediatamente antes de Sasuke Uchiha (Defesa alada). Protege ambos até Sasuke aproveitar o bónus, pois a retirada de um leva o outro. Guarda Kakashi Hatake (Jutsu Vórtex Gigante) para empurrar e enfraquecer vários rivais na mesma faixa. Naruto Uzumaki (Vontade de Proteger) pode avançar pelo espaço aberto. Usa Jiraiya (Lança-chamas de óleo de sapo) para desgastar várias faixas de uma vez. Guarda Kakashi Hatake (Raikiri) para um rival com Bloqueio que resista à pressão.",
+      "presetName_66": "Edo e Tsukuyomi by Rostin",
+      "preset_66": "Coloca Student Trio (Equipe Konohamaru) entre os aliados mais fracos antes de jogar Orochimaru (Invocação: Reencarnação Impura). Se se retirar, os três alunos voltam nas três faixas. Joga Itachi Uchiha (Exército de Tsukuyomi) antes de Hashirama Senju (Emersão da Floresta Profunda) imobilizar os rivais para criar clones à custa do Chakra de Itachi. Continua com Tobirama Senju (Onda Chocante de Agua) para enfraquecer e abrandar os rivais. Temari (Ventilador Gigante) empurra uma faixa cheia e os Bloqueios aliados dão Chakra a Sakon & Ukon (Defesa sincronizada).",
+      "presetName_67": "Marca e Bloqueio by Zack",
+      "preset_67": "Joga Mikoto Uchiha (Alívio) antes de Sasuke Uchiha (Defesa alada) ou Sasuke Uchiha (Previsão evoluída) para reforçar esse Sasuke e curá-lo da primeira vez que fica abaixo do Chakra base. Para o avanço decisivo, joga Kyubi (Destino Conectado) imediatamente antes de Sasuke Uchiha (Defesa alada). Protege ambos até Sasuke aproveitar o bónus, pois a retirada de um leva o outro. Usa Kimimaro (Lealdade inabalável) para finalizar sozinho. Antes de um confronto que o possa retirar, considera o Enfraquecimento que também atingiria aliados frágeis.",
+      "presetName_68": "Velhos amigos by Louis",
+      "preset_68": "Mantém Enma (Rei Macaco) ativo antes das trocas de faixa de Iruka Umino (Impressionado) ou Kotetsu Hagane (Desorientação) para dar Chakra à carta que muda. Deixa Sakura Haruno (Inflexível) receber golpes com Bloqueio para mudar de faixa. Usa Kotetsu Hagane (Desorientação) quando puderes lidar com as faixas aleatórias e a Lentidão. Mantém Choza Akimichi (Velhos Amigos), Inoichi Yamanaka (Velhos Amigos) e Shikaku Nara (Velhos Amigos) ativos em simultâneo para apoiar as faixas com os seus bónus mútuos de Chakra.",
+      "presetName_69": "Fúria em movimento by Dezed",
+      "preset_69": "Mantém Naruto Uzumaki (Fúria de Kyubi) ativo antes das retiradas aliadas para ganhar Chakra e Ímpeto a cada uma. Faz Kiba Inuzuka (Melhor amigo) invocar Akamaru (Ímpeto) e depois joga Kiba Inuzuka (Combo de transformação) para os retirar, transferir o Chakra e reforçar Naruto. Mantém Enma (Rei Macaco) ativo antes das trocas de faixa de Iruka Umino (Impressionado) ou Kotetsu Hagane (Desorientação) para dar Chakra à carta que muda.",
+      "presetName_70": "Amaterasu by Markline",
+      "preset_70": "Mantém Enma (Rei Macaco) ativo durante as mudanças de faixa de Iruka Umino (Impressionado). Usa o efeito de confronto de Haku (Espelhos Demoníacos de Gelo) e reativa-o com o Chakra da troca de faixa. Envia Itachi Uchiha (Fuga do Amaterasu) para uma faixa onde a Queimadura se possa espalhar. Segue um rival que mude de faixa com Orochimaru (Kusanagi) para ganhar Bloqueio e manter a pressão. Guarda Kakashi Hatake (Raikiri) para atingir através do Bloqueio e Temari (Ventilador Gigante) para empurrar os rivais numa faixa cheia.",
+      "presetName_71": "Dragão e floresta by Broly",
+      "preset_71": "Joga Itachi Uchiha (Exército de Tsukuyomi) antes de Hashirama Senju (Emersão da Floresta Profunda) imobilizar os rivais para criar clones à custa do Chakra de Itachi. Usa Akahoshi (Dragão da estrela) para imobilizar um grupo e criar mais clones, e Sakon & Ukon (Fusão amaldiçoada) para imobilizar e retirar Chakra a um rival após se teletransportar para trás dele. Guarda Kakashi Hatake (Jutsu Vórtex Gigante) para empurrar e enfraquecer vários rivais na mesma faixa. Naruto Uzumaki (Vontade de Proteger) pode avançar pelo espaço aberto.",
+      "presetName_72": "Espelhos e névoa by Pluto",
+      "preset_72": "Mantém Enma (Rei Macaco) ativo durante as mudanças de faixa de Iruka Umino (Impressionado). Usa o efeito de confronto de Haku (Espelhos Demoníacos de Gelo) e reativa-o com o Chakra da troca de faixa. Usa Shizune (Névoa venenosa) quando o médio alcance ficar cheio. A névoa afeta aliados, por isso deixa Jiraiya (Lança-chamas de óleo de sapo) terminar o Foco antes de a colocar na zona dele. Guarda Kakashi Hatake (Raikiri) para atingir através do Bloqueio e Temari (Ventilador Gigante) para empurrar os rivais numa faixa cheia.",
+      "containsCards": "Contém as cartas:",
+      "requiredCardSearch": "Pesquisar por nome ou referência",
+      "requiredCardsLimit": "5 cartas selecionadas",
+      "eventScrolls": "Pergaminhos de Evento",
+      "presetName_51": "Fúria do Edo",
+      "preset_51": "Joga Naruto Uzumaki (Fúria de Kyubi) antes dos sacrifícios. Prepara Student Trio e outro aliado com pouco Chakra, depois joga Orochimaru (Invocação: Reencarnação Impura) enquanto Hashirama Senju ainda está no baralho. As retiradas ativam a Invocação e dão Chakra e Ímpeto a Naruto. O trio volta a colocar os três alunos nas faixas e as retiradas seguintes dão mais força a Naruto. Kiba Inuzuka (Melhor amigo) pode Invocar Akamaru a baixo custo e Kiba Inuzuka (Combo de transformação) oferece outra forma de provocar retiradas.",
       "languageUnavailable": "Não foi possível carregar o idioma selecionado. Tente novamente.",
       "collectionCopySite": "Copiar ligação",
       "collectionSiteCopied": "Ligação copiada com sucesso",
@@ -8499,7 +8841,7 @@ const TRANSLATIONS = {
       "proposalIncompleteDeck": "Completa o deck com 10 cartas antes de o propor",
       "proposalDescriptionRequired": "Introduza uma descrição da sinergia antes de a enviar",
       "prebuiltDecks": "Decks pré-construídos",
-      "navDecks": "Decks",
+      "navDecks": "Pré-montados",
       "librarySearch": "Pesquisar cartas ou efeitos",
       "libraryEmpty": "Nenhum deck correspondente.",
       "useDeck": "Carregar este baralho",
@@ -8516,7 +8858,6 @@ const TRANSLATIONS = {
       "autoExplain_synergy": "Dá prioridade às interações entre as suas cartas e os seus apoios.",
       "autoExplain_reference": "Segue uma estratégia pré-construída compatível, mantendo as suas cartas.",
       "autoApplied": "Deck completado",
-      "presetLoaded": "Deck carregado",
       "preset_01": "Comece cedo a evolução de Naruto Uzumaki (Vontade de Proteger): cada retirada aumenta permanentemente o Chakra base em 2. Mantenha Naruto Uzumaki (Fúria de Kyubi) ativo antes de várias retiradas aliadas para ganhar Chakra e Ímpeto. Kiba Inuzuka (Melhor amigo) Invoca Akamaru e cria pressão económica; depois de essas unidades darem valor, Kiba Inuzuka (Combo de transformação) retira-as, absorve o seu Chakra e ganha um bónus por retirada. Student Trio repovoa as três faixas ao retirar-se. Mizuki Toji (Intenção Oculta) pode acelerar uma retirada planeada, mas evite atingir a ameaça principal. Quando Naruto tiver acumulado Chakra base, privilegie a proteção com Tsunade (Cura desesperada) em vez de continuar a rotação.",
       "preset_02": "Prepare Sakon & Ukon (Defesa sincronizada) antes dos outros defensores: cada ativação de Bloqueio aliado dá +1 Chakra a ambas as unidades. Sakura Haruno (Inflexível) tem Bloqueio permanente e muda de faixa em cada ativação; Kisame Hoshigaki ganha Chakra e Enfraquece o rival que ativa o seu Bloqueio, enquanto Jiraiya (Jizo de agulhas) responde com Enfraquecimento que ignora Bloqueio. Temari acrescenta Empurra e Kimimaro mais cargas defensivas. Contra Sanbi, construa este campo antes de procurar o dano máximo: a perda de Chakra do chefe pode voltar a ativar a sua habilidade. Madame Shijimi fortalece vários aliados da faixa a curto alcance.",
       "preset_03": "Prepare Tayuya (Invocação dos Doki) antes das cartas que Invocam: as novas unidades recebem +1 Chakra e completar a sua Concentração acrescenta um Doki por faixa. Naruto Uzumaki (Múltiplos Clones das Sombras) cria dois clones nas outras faixas e mais dois dez segundos depois; jogue-o quando essas unidades puderem avançar. Naruto Uzumaki (Jutsu Clones das Sombras), Kiba Inuzuka e Koharu Utatane acrescentam Invocações; Student Trio repovoa o campo ao retirar-se. Faça rodar cartas baratas para voltar a estes geradores em vez de depender de uma unidade cara para sobreviver à Queimadura. Gaara (Tsunami de areia) controla repetidamente durante a Concentração; o objetivo principal é multiplicar as oportunidades de atingir o chefe.",
@@ -8681,6 +9022,7 @@ const TRANSLATIONS = {
       "exportInfo": "A exportação inclui os níveis e as hipóteses de cálculo específicos de cada carta."
     },
     "effects": {
+      "Drain": "Drenar",
       "Cost": "Custo",
       "Chakra": "Chakra",
       "Weaken": "Enfraquecimento",
@@ -8698,6 +9040,7 @@ const TRANSLATIONS = {
       "Heal": "Cura"
     },
     "terms": {
+      "Drain": "dren[\\p{L}]*",
       "Cost": "custos?",
       "Chakra": "chakra",
       "Weaken": "enfraque[\\p{L}]*",
@@ -8715,6 +9058,46 @@ const TRANSLATIONS = {
       "Heal": "cura[\\p{L}]*"
     },
     "cards": {
+      "ES_001": {
+        "name": "Sakura Haruno",
+        "ability": "Aluna curandeira",
+        "descriptions": [
+          "Ao jogar, Cura(1) o aliado mais próximo na faixa. Cura(2) o primeiro aliado da faixa afetado por Queimadura, Imobilização ou Enfraquecimento rival.",
+          "Ao jogar, Cura(1) o aliado mais próximo na faixa. Cura(4) o primeiro aliado da faixa afetado por Queimadura, Imobilização ou Enfraquecimento rival."
+        ]
+      },
+      "ES_002": {
+        "name": "Hoki",
+        "ability": "Formação de escamas invertidas",
+        "descriptions": [
+          "Ao jogar, se os aliados somarem pelo menos 5 Chakra em cada faixa, aplica Enfraquecimento(10) ao rival com mais Chakra. Depois, todos os aliados perdem 2 Chakra.",
+          "Ao jogar, se os aliados somarem pelo menos 5 Chakra em cada faixa, aplica Enfraquecimento(12) ao rival com mais Chakra. Depois, todos os aliados perdem 2 Chakra."
+        ]
+      },
+      "ES_003": {
+        "name": "Hoki",
+        "ability": "Arsenal completo",
+        "descriptions": [
+          "Bloqueio(1). Ao jogar, aplica Enfraquecimento(1) até três vezes a rivais aleatórios da faixa. Em cada confronto, Drena(1) o rival.",
+          "Bloqueio(2). Ao jogar, aplica Enfraquecimento(1) até três vezes a rivais aleatórios da faixa. Em cada confronto, Drena(1) o rival."
+        ]
+      },
+      "ES_004": {
+        "name": "Seimei",
+        "ability": "Forma definitiva",
+        "descriptions": [
+          "Bloqueio(1). Ao jogar, inicia Foco(12s) em si e aplica Imobilização(12s) ao rival da faixa com mais Chakra. Drena(1) esse rival a cada 3s durante o Foco. Quando o Foco acaba, aplica Enfraquecimento(1) até três vezes a rivais aleatórios. A médio alcance, Drena(2) o rival com mais Chakra.",
+          "Bloqueio(1). Ao jogar, inicia Foco(15s) em si e aplica Imobilização(15s) ao rival da faixa com mais Chakra. Drena(1) esse rival a cada 3s durante o Foco. Quando o Foco acaba, aplica Enfraquecimento(1) até três vezes a rivais aleatórios. A médio alcance, Drena(2) o rival com mais Chakra."
+        ]
+      },
+      "ES_005": {
+        "name": "Gaara",
+        "ability": "Lança de Shukaku",
+        "descriptions": [
+          "Na primeira vez que um rival na faixa atinge pelo menos 10 Chakra, inicia Foco(6s). Ao completar o Foco, aplica Enfraquecimento(10) a esse rival e ignora o Bloqueio.",
+          "Na primeira vez que um rival na faixa atinge pelo menos 10 Chakra, inicia Foco(5s). Ao completar o Foco, aplica Enfraquecimento(12) a esse rival e ignora o Bloqueio."
+        ]
+      },
       "S1_001": {
         "name": "NARUTO UZUMAKI",
         "ability": "Potencial",
@@ -10997,6 +11380,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
+      "ES_004": "A estimativa pressupõe um Foco completo e conta separadamente o efeito Drenar a médio alcance.",
       "S2_041": "{allies} aliados do personagem exigido; a composição do deck não é verificada.",
       "S1_004": "Efeitos de confronto aplicados em {activations} confrontos.",
       "S1_005": "Efeitos de confronto aplicados em {activations} confrontos.",
@@ -11159,6 +11543,60 @@ const TRANSLATIONS = {
     "name": "Español",
     "locale": "es-ES",
     "ui": {
+      "collectionImportWarning": "ATENCIÓN: es posible que la importación falle debido a un error en «Naruto Ninja Cards» que impide cargar las cartas del jugador. Puedes comprobarlo directamente en la sección «Colección» del sitio web oficial.",
+      "decksWithCard": "Mazos con esta carta",
+      "goToPreset": "Ver mazo",
+      "showPresetDescription": "Ver descripción",
+      "noDecksWithCard": "Esta carta no aparece en ningún mazo predefinido.",
+      "tag_video": "Con vídeo",
+      "presetName_52": "Viento y fuego by Kebon",
+      "preset_52": "Rota pronto a Naruto Uzumaki (Voluntad de Proteger) para subir su Chakra base con cada retirada. Usa a Ichibi (Golpe del Vacío) contra grupos a larga distancia y reserva a Sasuke Uchiha (Gran Bola de Fuego) para rivales a media distancia. Envía a Orochimaru (Traición) por el carril disputado y usa a Neji Hyuga (Byakugan) para reducir a la mitad el Chakra del defensor cuando Orochimaru se vuelva vulnerable.",
+      "presetName_53": "Presión a media distancia by max5",
+      "preset_53": "Despliega a Gaara (Peligroso) donde ya haya un rival a media distancia para obtener el bonus de Chakra. Usa a Naruto Uzumaki (Rasengan del zorro demoníaco) para quitar la Protección al defensor y abrir el carril. Envía a Orochimaru (Traición) por el carril disputado y usa a Neji Hyuga (Byakugan) para reducir a la mitad el Chakra del defensor cuando Orochimaru se vuelva vulnerable. Rota pronto a Naruto Uzumaki (Voluntad de Proteger) para subir su Chakra base con cada retirada.",
+      "presetName_54": "Control de carriles by Tobi",
+      "preset_54": "Rota pronto a Naruto Uzumaki (Voluntad de Proteger) para subir su Chakra base con cada retirada. Guarda a Kakashi Hatake (Gran Catarata) para empujar y debilitar a varios rivales en el mismo carril. Naruto Uzumaki (Voluntad de Proteger) puede avanzar por el hueco. Coloca a Tsunade (Cura desesperada) cerca del aliado que quieras sostener y reserva a Tsunade (Regeneración mitótica) para un carril donde su primera regeneración cambie varios enfrentamientos.",
+      "presetName_55": "Drenaje y escamas by Pluto",
+      "preset_55": "Coloca a Seimei (Forma definitiva) en el carril de la mayor amenaza. Su Inmovilización y Drenaje repetido frenan al rival mientras desarrollas los otros carriles. Juega a Hoki (Formación de escamas invertidas) cuando tus aliados sumen 5 Chakra en cada carril. Aprovecha su Debilitamiento si compensa perder 2 Chakra por aliado. Reserva a Kakashi Hatake (Raikiri) para golpear a través de la Protección y a Temari (Abanico Gigante) para empujar a los rivales de un carril lleno.",
+      "presetName_56": "Furia y Doki by KaKAO",
+      "preset_56": "Mantén activo a Naruto Uzumaki (Furia de Kyubi) antes de las retiradas aliadas para que cada una le dé Chakra y Aceleración. Haz que Kiba Inuzuka (Mejor Amigo) invoque a Akamaru (Acelerón), luego despliega a Kiba Inuzuka (Combo de transformación) para retirarlos, transferir su Chakra y reforzar de nuevo a Naruto. Usa a Student Trio (Equipo Konohamaru) para repoblar los carriles al retirarse. Da tiempo a Tayuya (Invocación de los Doki) para completar la Concentración y colocar a Doki en los tres carriles.",
+      "presetName_57": "Contraataque by Feli4",
+      "preset_57": "Despliega a Gaara (Peligroso) donde ya haya un rival a media distancia para obtener el bonus de Chakra. Usa a Naruto Uzumaki (Rasengan del zorro demoníaco) para quitar la Protección al defensor y abrir el carril. Usa a Ichibi (Golpe del Vacío) contra grupos a larga distancia y reserva a Sasuke Uchiha (Gran Bola de Fuego) para rivales a media distancia. Rota pronto a Naruto Uzumaki (Voluntad de Proteger) para subir su Chakra base con cada retirada.",
+      "presetName_58": "Cadena de concentración by Tobi",
+      "preset_58": "Juega a Shikamaru Nara (Maestro de Shogi) antes de las cartas de Concentración. Rock Lee (Puño ebrio) y Kidomaru (Arco de araña) ganan Chakra al empezar a concentrarse. Mantén a Itachi Uchiha (Compostura) activo para aprovechar cada Concentración. Usa a Temari (Abanico Gigante) para abrir espacio mientras Raiga Kurosuki (Tornado del dragón del trueno) o Jiraiya (Lanzallamas de aceite de sapo) prepara su efecto.",
+      "presetName_59": "Defensa alada by Arrow",
+      "preset_59": "Reserva a Neji Hyuga (Byakugan) para el rival con más Chakra y usa a Tsunade (Regeneración mitótica) para mantener el carril más disputado. Para el avance decisivo, juega a Kyubi (Destino Vinculado) justo antes de Sasuke Uchiha (Defensa alada). Protege a ambos hasta que Sasuke aproveche el bonus, porque la retirada de uno arrastra al otro. Usa a Jiraiya (Lanzallamas de aceite de sapo) para desgastar varios carriles a la vez. Reserva a Kakashi Hatake (Raikiri) para un rival con Protección que aguante la presión.",
+      "presetName_60": "Equipo Hyuga by Nate",
+      "preset_60": "Mantén activo a Hiashi Hyuga (Líder Hyuga) para dar Chakra y Empuje a los Hyuga. Hizashi Hyuga (Sacrificio del Hermano) puede retirarse en su lugar cuando Hiashi está a punto de caer. Aprovecha el bonus de Chakra con Neji Hyuga (Carga del Destino) para ganar aún más. Debilita a un rival fuerte con Neji Hyuga (Byakugan) y remátalo con Neji Hyuga (64 puntos Hakke) para reducir su Chakra base de forma permanente.",
+      "presetName_61": "Edo del Sonido by Nate",
+      "preset_61": "Sacrifica aliados con poco Chakra como Kaiza (Mártir) con Orochimaru (Hechicero. Transmigración). Deja a Hashirama Senju (Reanimación de Edo) y Tobirama Senju (Reanimación de Edo) en el mazo para invocarlos con Aceleración al retirarse los aliados. Despliega a Tayuya (Norte) o Jirobo (Sur) antes del Orochimaru que quieras reforzar. Orochimaru (Veterano) es un objetivo más barato mientras preparas las Invocaciones.",
+      "presetName_62": "Quinta puerta by Arrow 1",
+      "preset_62": "Juega a Homura Mitokado (Consuelo) justo antes de Rock Lee (Quinta Puerta) y deja espacio para que Rock Lee complete la Concentración. Asuma Sarutobi (Maestría Cuerpo a Cuerpo) gana Chakra al enfrentarse a un rival más fuerte. Usa a Sasuke Uchiha (Marca de Maldición) en un carril con varios enfrentamientos para acumular Chakra después de cada intercambio. Rota pronto a Naruto Uzumaki (Voluntad de Proteger) para subir su Chakra base con cada retirada.",
+      "presetName_63": "Equipo de sapos by Pluto",
+      "preset_63": "Invoca un sapo con Gama (Pergamino de Sapo) y coloca otros antes de Gamahiro (Peso), que gana Chakra por cada uno. Prepara a Gamatatsu (Motivado por la comida) cuando puedas pagar sus activaciones. Mantén a Gamabunta (Cooperación de sapo) activo cuando Temari (Abanico Gigante) empuje un carril o Choji Akimichi (Bala de Cañón Humana) empuje durante la Aceleración. Los Empujes aliados dan Chakra a Gamabunta.",
+      "presetName_64": "Control a distancia by max5",
+      "preset_64": "Usa a Sakura Haruno (Lanzamiento de Kunai) para golpear a un rival a larga distancia y a Ichibi (Golpe del Vacío) para debilitar a un grupo antes de que se acerque. Guarda a Kakashi Hatake (Gran Catarata) para empujar y debilitar a varios rivales en el mismo carril. Naruto Uzumaki (Voluntad de Proteger) puede avanzar por el hueco. Coloca a Tsunade (Cura desesperada) cerca del aliado que quieras sostener y reserva a Tsunade (Regeneración mitótica) para un carril donde su primera regeneración cambie varios enfrentamientos.",
+      "presetName_65": "Vínculo de Kyubi by Arrow",
+      "preset_65": "Para el avance decisivo, juega a Kyubi (Destino Vinculado) justo antes de Sasuke Uchiha (Defensa alada). Protege a ambos hasta que Sasuke aproveche el bonus, porque la retirada de uno arrastra al otro. Guarda a Kakashi Hatake (Gran Catarata) para empujar y debilitar a varios rivales en el mismo carril. Naruto Uzumaki (Voluntad de Proteger) puede avanzar por el hueco. Usa a Jiraiya (Lanzallamas de aceite de sapo) para desgastar varios carriles a la vez. Reserva a Kakashi Hatake (Raikiri) para un rival con Protección que aguante la presión.",
+      "presetName_66": "Edo y Tsukuyomi by Rostin",
+      "preset_66": "Coloca a Student Trio (Equipo Konohamaru) entre los aliados más débiles antes de jugar a Orochimaru (Hechicero. Transmigración). Si se retira, los tres estudiantes vuelven por los tres carriles. Juega a Itachi Uchiha (Ejército de Tsukuyomi) antes de que Hashirama Senju (¡Génesis de los Bosques!) inmovilice a los rivales para crear clones a costa del Chakra de Itachi. Continúa con Tobirama Senju (¡Muro de Agua!) para debilitar y ralentizar a los rivales. Temari (Abanico Gigante) empuja un carril lleno y las Protecciones aliadas dan Chakra a Sakon & Ukon (Defensa sincronizada).",
+      "presetName_67": "Marca y protección by Zack",
+      "preset_67": "Juega a Mikoto Uchiha (Consuelo) antes de Sasuke Uchiha (Defensa alada) o Sasuke Uchiha (Predicción evolucionada) para reforzar a ese Sasuke y curarlo la primera vez que baje de su Chakra base. Para el avance decisivo, juega a Kyubi (Destino Vinculado) justo antes de Sasuke Uchiha (Defensa alada). Protege a ambos hasta que Sasuke aproveche el bonus, porque la retirada de uno arrastra al otro. Usa a Kimimaro (Lealtad inquebrantable) para cerrar por su cuenta. Antes de un choque que pueda retirarlo, cuenta con el Debilitamiento que también afectaría a aliados frágiles.",
+      "presetName_68": "Viejos amigos by Louis",
+      "preset_68": "Mantén activo a Enma (Rey Mono) antes de los cambios de carril de Iruka Umino (Bromista) o Kotetsu Hagane (Desorientación) para dar Chakra a la carta que se mueve. Deja que Sakura Haruno (Inflexible) reciba golpes con Protección para cambiar de carril. Usa a Kotetsu Hagane (Desorientación) cuando puedas asumir el cambio aleatorio y la Ralentización. Mantén activos a Choza Akimichi (Viejos Amigos), Inoichi Yamanaka (Viejos Amigos) y Shikaku Nara (Viejos Amigos) a la vez para sostener sus carriles con sus bonus mutuos de Chakra.",
+      "presetName_69": "Furia en movimiento by Dezed",
+      "preset_69": "Mantén activo a Naruto Uzumaki (Furia de Kyubi) antes de las retiradas aliadas para que cada una le dé Chakra y Aceleración. Haz que Kiba Inuzuka (Mejor Amigo) invoque a Akamaru (Acelerón), luego despliega a Kiba Inuzuka (Combo de transformación) para retirarlos, transferir su Chakra y reforzar de nuevo a Naruto. Mantén activo a Enma (Rey Mono) antes de los cambios de carril de Iruka Umino (Bromista) o Kotetsu Hagane (Desorientación) para dar Chakra a la carta que se mueve.",
+      "presetName_70": "Amaterasu by Markline",
+      "preset_70": "Mantén activo a Enma (Rey Mono) durante los cambios de carril de Iruka Umino (Bromista). Usa el efecto de encuentro de Haku (Espejos de Hielo Demoníacos) y reactívalo con el Chakra del cambio de carril. Envía a Itachi Uchiha (Escape de Amaterasu) a un carril donde la Quemadura pueda propagarse. Sigue con Orochimaru (Kusanagi) a un rival que cambie de carril para ganar Protección y mantener la presión. Reserva a Kakashi Hatake (Raikiri) para golpear a través de la Protección y a Temari (Abanico Gigante) para empujar a los rivales de un carril lleno.",
+      "presetName_71": "Dragón y bosque by Broly",
+      "preset_71": "Juega a Itachi Uchiha (Ejército de Tsukuyomi) antes de que Hashirama Senju (¡Génesis de los Bosques!) inmovilice a los rivales para crear clones a costa del Chakra de Itachi. Usa a Akahoshi (Dragón de la estrella) para inmovilizar a un grupo y crear más clones, y a Sakon & Ukon (Fusión maldita) para inmovilizar y quitar Chakra a un rival tras aparecer detrás de él. Guarda a Kakashi Hatake (Gran Catarata) para empujar y debilitar a varios rivales en el mismo carril. Naruto Uzumaki (Voluntad de Proteger) puede avanzar por el hueco.",
+      "presetName_72": "Espejos y niebla by Pluto",
+      "preset_72": "Mantén activo a Enma (Rey Mono) durante los cambios de carril de Iruka Umino (Bromista). Usa el efecto de encuentro de Haku (Espejos de Hielo Demoníacos) y reactívalo con el Chakra del cambio de carril. Usa a Shizune (Niebla venenosa) cuando se llene la media distancia. La niebla también afecta a aliados, así que deja que Jiraiya (Lanzallamas de aceite de sapo) complete la Concentración antes de cubrirlo. Reserva a Kakashi Hatake (Raikiri) para golpear a través de la Protección y a Temari (Abanico Gigante) para empujar a los rivales de un carril lleno.",
+      "containsCards": "Contiene las cartas:",
+      "requiredCardSearch": "Buscar por nombre o referencia",
+      "requiredCardsLimit": "5 cartas seleccionadas",
+      "eventScrolls": "Pergaminos de evento",
+      "presetName_51": "Furia del Edo",
+      "preset_51": "Despliega a Naruto Uzumaki (Furia de Kyubi) antes de los sacrificios. Prepara a Student Trio y a un segundo aliado con poco Chakra. Juega a Orochimaru (Hechicero. Transmigración) mientras Hashirama Senju siga en el mazo. Las retiradas activan la Invocación y dan Chakra y Aceleración a Naruto. El trío vuelve a desplegar a sus tres estudiantes en los carriles y sus retiradas posteriores refuerzan a Naruto. Kiba Inuzuka (Mejor Amigo) puede Invocar a Akamaru por poco coste y Kiba Inuzuka (Combo de transformación) ofrece otra forma de provocar retiradas.",
       "languageUnavailable": "No se pudo cargar el idioma seleccionado. Inténtalo de nuevo.",
       "collectionCopySite": "Copiar enlace",
       "collectionSiteCopied": "Enlace copiado correctamente",
@@ -11283,7 +11721,7 @@ const TRANSLATIONS = {
       "proposalIncompleteDeck": "Completa el mazo con 10 cartas antes de proponerlo",
       "proposalDescriptionRequired": "Introduce una descripción de la sinergia antes de enviarla",
       "prebuiltDecks": "Mazos preconstruidos",
-      "navDecks": "Mazos",
+      "navDecks": "Prearmados",
       "librarySearch": "Buscar cartas o efectos",
       "libraryEmpty": "No hay mazos coincidentes.",
       "useDeck": "Cargar este mazo",
@@ -11300,7 +11738,6 @@ const TRANSLATIONS = {
       "autoExplain_synergy": "Prioriza las interacciones entre tus cartas y sus apoyos.",
       "autoExplain_reference": "Sigue una estrategia preconstruida compatible y mantiene tus cartas.",
       "autoApplied": "Mazo completado",
-      "presetLoaded": "Mazo cargado",
       "preset_01": "Empieza pronto a desarrollar Naruto Uzumaki (Voluntad de Proteger): cada retirada aumenta permanentemente su Chakra base en 2. Mantén Naruto Uzumaki (Furia de Kyubi) activo antes de varias retiradas aliadas para que gane Chakra y Aceleración. Kiba Inuzuka (Mejor Amigo) Invoca a Akamaru y genera presión económica; cuando esas unidades ya hayan aportado valor, Kiba Inuzuka (Combo de transformación) las retira, absorbe su Chakra y gana una bonificación por retirada. Student Trio repuebla los tres carriles al retirarse. Mizuki Toji (Intención Oculta) puede acelerar una retirada deseada, pero evita dañar tu amenaza principal. Cuando Naruto acumule Chakra base, prioriza protegerlo con Tsunade (Cura desesperada) en vez de seguir rotándolo.",
       "preset_02": "Prepara Sakon & Ukon (Defensa sincronizada) antes de los demás defensores: cada activación de Protección aliada da +1 Chakra a las dos unidades. Sakura Haruno (Inflexible) tiene Protección permanente y cambia de carril en cada activación; Kisame Hoshigaki gana Chakra y Debilita al rival que activa su Protección, mientras Jiraiya (Jizo de agujas) responde con Debilitamiento que ignora Protección. Temari añade Empuja y Kimimaro más cargas defensivas. Contra Sanbi, construye este campo antes de buscar el máximo daño: hacer perder Chakra al jefe puede volver a activar su habilidad. Madame Shijimi refuerza a varios aliados de carril a corto alcance.",
       "preset_03": "Prepara Tayuya (Invocación de los Doki) antes de las cartas que Invocan: las nuevas unidades reciben +1 Chakra y completar su Concentración añade un Doki por carril. Naruto Uzumaki (Clones de Sombra) crea dos clones en los otros carriles y otros dos diez segundos después; úsalo cuando esas unidades puedan avanzar. Naruto Uzumaki (Multiplicación oculta de cuerpo), Kiba Inuzuka y Koharu Utatane añaden Invocaciones; Student Trio repuebla el campo al retirarse. Rota cartas baratas para volver a estos generadores en lugar de confiar en una unidad cara para sobrevivir a Quemadura. Gaara (Tsunami de arena) ofrece control periódico durante Concentración; el objetivo principal es multiplicar las oportunidades de golpear al jefe.",
@@ -11465,6 +11902,7 @@ const TRANSLATIONS = {
       "exportInfo": "La exportación incluye los niveles y las hipótesis de cálculo específicos de cada carta."
     },
     "effects": {
+      "Drain": "Drenaje",
       "Cost": "Coste",
       "Chakra": "Chakra",
       "Weaken": "Debilitamiento",
@@ -11482,6 +11920,7 @@ const TRANSLATIONS = {
       "Heal": "Cura"
     },
     "terms": {
+      "Drain": "dren[\\p{L}]*",
       "Cost": "costes?",
       "Chakra": "chakra",
       "Weaken": "debilit[\\p{L}]*",
@@ -11499,6 +11938,46 @@ const TRANSLATIONS = {
       "Heal": "cura[\\p{L}]*"
     },
     "cards": {
+      "ES_001": {
+        "name": "Sakura Haruno",
+        "ability": "Estudiante sanadora",
+        "descriptions": [
+          "Al desplegarse, Cura(1) al aliado más cercano del carril. Cura(2) al primer aliado del carril afectado por Quemadura, Inmovilización o Debilitamiento rival.",
+          "Al desplegarse, Cura(1) al aliado más cercano del carril. Cura(4) al primer aliado del carril afectado por Quemadura, Inmovilización o Debilitamiento rival."
+        ]
+      },
+      "ES_002": {
+        "name": "Hoki",
+        "ability": "Formación de escamas invertidas",
+        "descriptions": [
+          "Al desplegarse, si los aliados suman al menos 5 Chakra en cada carril, aplica Debilitamiento(10) al rival con más Chakra. Después todos los aliados pierden 2 Chakra.",
+          "Al desplegarse, si los aliados suman al menos 5 Chakra en cada carril, aplica Debilitamiento(12) al rival con más Chakra. Después todos los aliados pierden 2 Chakra."
+        ]
+      },
+      "ES_003": {
+        "name": "Hoki",
+        "ability": "Arsenal completo",
+        "descriptions": [
+          "Protección(1). Al desplegarse, aplica Debilitamiento(1) hasta tres veces a rivales aleatorios del carril. En cada enfrentamiento, Drena(1) al rival.",
+          "Protección(2). Al desplegarse, aplica Debilitamiento(1) hasta tres veces a rivales aleatorios del carril. En cada enfrentamiento, Drena(1) al rival."
+        ]
+      },
+      "ES_004": {
+        "name": "Seimei",
+        "ability": "Forma definitiva",
+        "descriptions": [
+          "Protección(1). Al desplegarse, inicia Concentración(12s) y aplica Inmovilización(12s) al rival del carril con más Chakra. Drena(1) a ese rival cada 3s durante la Concentración. Al terminar, aplica Debilitamiento(1) hasta tres veces a rivales aleatorios. A media distancia, Drena(2) al rival con más Chakra.",
+          "Protección(1). Al desplegarse, inicia Concentración(15s) y aplica Inmovilización(15s) al rival del carril con más Chakra. Drena(1) a ese rival cada 3s durante la Concentración. Al terminar, aplica Debilitamiento(1) hasta tres veces a rivales aleatorios. A media distancia, Drena(2) al rival con más Chakra."
+        ]
+      },
+      "ES_005": {
+        "name": "Gaara",
+        "ability": "Lanza de Shukaku",
+        "descriptions": [
+          "La primera vez que un rival del carril alcanza al menos 10 Chakra, inicia Concentración(6s). Si la completa, aplica Debilitamiento(10) a ese rival ignorando su Protección.",
+          "La primera vez que un rival del carril alcanza al menos 10 Chakra, inicia Concentración(5s). Si la completa, aplica Debilitamiento(12) a ese rival ignorando su Protección."
+        ]
+      },
       "S1_001": {
         "name": "NARUTO UZUMAKI",
         "ability": "Potencial",
@@ -13781,6 +14260,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
+      "ES_004": "La estimación supone que la Concentración se completa y cuenta por separado el Drenaje a media distancia.",
       "S2_041": "{allies} aliados del personaje requerido; no se comprueba la composición del mazo.",
       "S1_004": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
       "S1_005": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
@@ -13944,6 +14424,60 @@ const TRANSLATIONS = {
     "locale": "de-DE",
     "flag": "de",
     "ui": {
+      "collectionImportWarning": "ACHTUNG: Der Import kann aufgrund eines Fehlers in „Naruto Ninja Cards“ fehlschlagen, durch den die Karten des Spielers nicht geladen werden. Das kannst du direkt im Bereich „Sammlung“ der offiziellen Website überprüfen.",
+      "decksWithCard": "Decks mit dieser Karte",
+      "goToPreset": "Zum Deck",
+      "showPresetDescription": "Beschreibung anzeigen",
+      "noDecksWithCard": "Diese Karte ist in keinem vorgefertigten Deck enthalten.",
+      "tag_video": "Mit Video",
+      "presetName_52": "Wind und Feuer by Kebon",
+      "preset_52": "Wechsle Naruto Uzumaki (Wille zum Schutz) früh durch, damit jeder Rückzug sein Basis-Chakra erhöht. Nutze Ichibi (Luftgeschosse) gegen Gruppen auf langer Distanz und spare Sasuke Uchiha (Feuerball-Jutsu) für Gegner auf mittlerer Distanz auf. Schicke Orochimaru (Verrat) auf die umkämpfte Bahn und halbiere mit Neji Hyuga (Byakugan) das Chakra des Verteidigers, sobald Orochimaru verwundbar wird.",
+      "presetName_53": "Druck auf mittlerer Distanz by max5",
+      "preset_53": "Spiele Gaara (Gefährlich) gegen einen Gegner auf mittlerer Distanz für den Chakra-Bonus. Entferne mit Naruto Uzumaki (Rasengan des Dämonenfuchses) die Wache eines Verteidigers und öffne die Bahn. Schicke Orochimaru (Verrat) auf die umkämpfte Bahn und halbiere mit Neji Hyuga (Byakugan) das Chakra des Verteidigers, sobald Orochimaru verwundbar wird. Wechsle Naruto Uzumaki (Wille zum Schutz) früh durch, damit jeder Rückzug sein Basis-Chakra erhöht.",
+      "presetName_54": "Bahnkontrolle by Tobi",
+      "preset_54": "Wechsle Naruto Uzumaki (Wille zum Schutz) früh durch, damit jeder Rückzug sein Basis-Chakra erhöht. Spare Kakashi Hatake (Riesenwirbel-Jutsu) auf, bis mehrere Gegner dieselbe Bahn besetzen, und schwäche sie beim Zurückschieben. Naruto Uzumaki (Wille zum Schutz) nutzt die freie Bahn zum Vorrücken. Setze Tsunade (Verzweifelte Heilung) neben den Verbündeten, der Heilung braucht. Spare Tsunade (Mitotische Regeneration) für eine Bahn auf, auf der ihre erste Regeneration mehrere Begegnungen entscheiden kann.",
+      "presetName_55": "Entzug und Schuppen by Pluto",
+      "preset_55": "Setze Seimei (Ultimative Form) auf die Bahn der größten Bedrohung. Festnageln und wiederholter Entzug halten sie auf, während du die anderen Bahnen aufbaust. Spiele Hoki (Umgekehrte Schuppenformation), sobald deine Verbündeten auf jeder Bahn zusammen 5 Chakra haben. Seine starke Schwächung lohnt sich, wenn das Ziel den Verlust von 2 Chakra pro Verbündetem rechtfertigt. Spare Kakashi Hatake (Raikiri) für einen Treffer durch Wache und Temari (Riesiger Ventilator) zum Zurückschieben auf einer vollen Bahn.",
+      "presetName_56": "Wut und Doki by KaKAO",
+      "preset_56": "Halte Naruto Uzumaki (Kyubis Wut) vor verbündeten Rückzügen aktiv, damit jeder Rückzug ihm Chakra und Ansturm gibt. Lass Kiba Inuzuka (Bester Freund) zuerst Akamaru (Ansturm) beschwören. Spiele dann Kiba Inuzuka (Verwandlungskombo), um beide zurückzuziehen, ihr Chakra zu übernehmen und Naruto erneut zu stärken. Fülle mit Student Trio (Team Konohamaru) beim Rückzug die Bahnen. Gib Tayuya (Doki-Beschwörung) Zeit für den Fokus, damit Doki auf allen drei Bahnen Druck aufbaut.",
+      "presetName_57": "Gegenangriff by Feli4",
+      "preset_57": "Spiele Gaara (Gefährlich) gegen einen Gegner auf mittlerer Distanz für den Chakra-Bonus. Entferne mit Naruto Uzumaki (Rasengan des Dämonenfuchses) die Wache eines Verteidigers und öffne die Bahn. Nutze Ichibi (Luftgeschosse) gegen Gruppen auf langer Distanz und spare Sasuke Uchiha (Feuerball-Jutsu) für Gegner auf mittlerer Distanz auf. Wechsle Naruto Uzumaki (Wille zum Schutz) früh durch, damit jeder Rückzug sein Basis-Chakra erhöht.",
+      "presetName_58": "Fokus-Kette by Tobi",
+      "preset_58": "Spiele Shikamaru Nara (Shogi-Meister) vor den Fokus-Karten. Rock Lee (Trunkene Faust) und Kidomaru (Spinnenbogen) gewinnen dann Chakra, sobald ihr Fokus beginnt. Halte Itachi Uchiha (Gelassenheit) aktiv, damit jeder Fokus ihn stärkt. Schaffe mit Temari (Riesiger Ventilator) Platz, während Raiga Kurosuki (Donnerdrachen-Tornado) oder Jiraiya (Krötenöl-Flammenwerfer) seine Wirkung vorbereitet.",
+      "presetName_59": "Geflügelte Abwehr by Arrow",
+      "preset_59": "Spare Neji Hyuga (Byakugan) für den Gegner mit dem meisten Chakra auf und halte mit Tsunade (Mitotische Regeneration) die umkämpfteste Bahn. Spiele für den entscheidenden Vorstoß Kyubi (Verknüpftes Schicksal) direkt vor Sasuke Uchiha (Geflügelte Verteidigung). Schütze beide, bis Sasuke den Bonus nutzt, denn der Rückzug einer Karte zieht die andere mit. Setze Jiraiya (Krötenöl-Flammenwerfer) ein, um mehrere Bahnen gleichzeitig zu schwächen. Spare Kakashi Hatake (Raikiri) für einen Gegner mit Wache auf, der dem Druck standhält.",
+      "presetName_60": "Hyuga-Team by Nate",
+      "preset_60": "Halte Hiashi Hyuga (Hyuga-Anführer) für zusätzliches Chakra und Schieben der Hyuga aktiv. Hizashi Hyuga (Das Opfer des Bruders) kann den Rückzug für Hiashi übernehmen. Nutze den Chakra-Bonus mit Neji Hyuga (Last des Schicksals) für einen zusätzlichen Gewinn. Schwäche ein starkes Ziel mit Neji Hyuga (Byakugan) und lass Neji Hyuga (Vierundsechzig Palmen) es zum Rückzug zwingen, um sein Basis-Chakra dauerhaft zu senken.",
+      "presetName_61": "Edo des Klangs by Nate",
+      "preset_61": "Opfere Verbündete mit wenig Chakra wie Kaiza (Märtyrer) mit Orochimaru (Edo Tensei). Halte Hashirama Senju (Edo-Reanimation) und Tobirama Senju (Edo-Reanimation) im Deck, damit ihr Einsatz durch den Rückzug mit Ansturm erfolgt. Spiele Tayuya (Norden) oder Jirobo (Süden) vor dem Orochimaru, den du stärken willst. Orochimaru (Erfahren) ist das günstigere Ziel, solange die Beschwörung noch vorbereitet wird.",
+      "presetName_62": "Fünftes Tor by Arrow 1",
+      "preset_62": "Spiele Homura Mitokado (Beruhigung) direkt vor Rock Lee (Fünftes Tor) und gib Rock Lee Zeit für seinen Fokus. Asuma Sarutobi (Nahkampfkönnen) gewinnt Chakra in der Begegnung mit einem stärkeren Gegner. Spiele Sasuke Uchiha (Fluchmarkierung) auf einer Bahn mit mehreren Begegnungen, damit er nach jedem Austausch Chakra sammelt. Wechsle Naruto Uzumaki (Wille zum Schutz) früh durch, damit jeder Rückzug sein Basis-Chakra erhöht.",
+      "presetName_63": "Krötenteam by Pluto",
+      "preset_63": "Beschwöre mit Gama (Krötenrolle) eine Kröte und spiele weitere aus, bevor Gamahiro (Gewicht) Chakra für jede davon erhält. Bereite Gamatatsu (Vom Essen motiviert) vor, wenn du seine Auslösungen bezahlen kannst. Halte Gamabunta (Krötenunterstützung) aktiv, wenn Temari (Riesiger Ventilator) eine Bahn zurückschiebt oder Choji Akimichi (Menschlicher Felsbrocken) während Ansturm Gegner schiebt. Verbündetes Schieben gibt Gamabunta Chakra.",
+      "presetName_64": "Distanzkontrolle by max5",
+      "preset_64": "Triff mit Sakura Haruno (Kunai-Wurf) einen Gegner auf langer Distanz und schwäche mit Ichibi (Luftgeschosse) eine Gruppe, bevor sie näher kommt. Spare Kakashi Hatake (Riesenwirbel-Jutsu) auf, bis mehrere Gegner dieselbe Bahn besetzen, und schwäche sie beim Zurückschieben. Naruto Uzumaki (Wille zum Schutz) nutzt die freie Bahn zum Vorrücken. Setze Tsunade (Verzweifelte Heilung) neben den Verbündeten, der Heilung braucht. Spare Tsunade (Mitotische Regeneration) für eine Bahn auf, auf der ihre erste Regeneration mehrere Begegnungen entscheiden kann.",
+      "presetName_65": "Kyubis Bindung by Arrow",
+      "preset_65": "Spiele für den entscheidenden Vorstoß Kyubi (Verknüpftes Schicksal) direkt vor Sasuke Uchiha (Geflügelte Verteidigung). Schütze beide, bis Sasuke den Bonus nutzt, denn der Rückzug einer Karte zieht die andere mit. Spare Kakashi Hatake (Riesenwirbel-Jutsu) auf, bis mehrere Gegner dieselbe Bahn besetzen, und schwäche sie beim Zurückschieben. Naruto Uzumaki (Wille zum Schutz) nutzt die freie Bahn zum Vorrücken. Setze Jiraiya (Krötenöl-Flammenwerfer) ein, um mehrere Bahnen gleichzeitig zu schwächen. Spare Kakashi Hatake (Raikiri) für einen Gegner mit Wache auf, der dem Druck standhält.",
+      "presetName_66": "Edo und Tsukuyomi by Rostin",
+      "preset_66": "Setze Student Trio (Team Konohamaru) unter die schwächsten Verbündeten, bevor du Orochimaru (Edo Tensei) spielst. Beim Rückzug kommen die drei Schüler auf die Bahnen zurück. Spiele Itachi Uchiha (Tsukuyomi-Armee), bevor Hashirama Senju (Tiefwald-Entstehung) die Gegner festnagelt, um auf Kosten von Itachis Chakra Klone zu erzeugen. Schwäche und verlangsame die Gegner anschließend mit Tobirama Senju (Wasserstoßwelle). Temari (Riesiger Ventilator) schafft Platz und verbündete Wache gibt Sakon & Ukon (Synchronisierte Verteidigung) Chakra.",
+      "presetName_67": "Mal und Wache by Zack",
+      "preset_67": "Spiele Mikoto Uchiha (Beruhigung) vor Sasuke Uchiha (Geflügelte Verteidigung) oder Sasuke Uchiha (Weiterentwickelte Vorhersage), um diesen Sasuke zu stärken und beim ersten Unterschreiten seines Basis-Chakras zu heilen. Spiele für den entscheidenden Vorstoß Kyubi (Verknüpftes Schicksal) direkt vor Sasuke Uchiha (Geflügelte Verteidigung). Schütze beide, bis Sasuke den Bonus nutzt, denn der Rückzug einer Karte zieht die andere mit. Nutze Kimimaro (Unerschütterliche Treue) als eigenständigen Abschluss. Rechne vor einem möglichen Rückzug damit, dass seine Schwächung auch fragile Verbündete trifft.",
+      "presetName_68": "Alte Freunde by Louis",
+      "preset_68": "Halte Enma (Affenkönig) vor Bahnwechseln von Iruka Umino (Spaßvogel) oder Kotetsu Hagane (Fehlleitung) aktiv, damit die wechselnde Karte Chakra gewinnt. Lass Sakura Haruno (Unnachgiebig) Treffer mit Wache abfangen, damit sie die Bahn wechselt. Spiele Kotetsu Hagane (Fehlleitung), wenn du die zufälligen Wechsel und das Verlangsamen verkraftest. Halte Choza Akimichi (Alte Freunde), Inoichi Yamanaka (Alte Freunde) und Shikaku Nara (Alte Freunde) gleichzeitig im Spiel, damit ihre gegenseitigen Chakra-Boni die Bahnen stützen.",
+      "presetName_69": "Wut in Bewegung by Dezed",
+      "preset_69": "Halte Naruto Uzumaki (Kyubis Wut) vor verbündeten Rückzügen aktiv, damit jeder Rückzug ihm Chakra und Ansturm gibt. Lass Kiba Inuzuka (Bester Freund) zuerst Akamaru (Ansturm) beschwören. Spiele dann Kiba Inuzuka (Verwandlungskombo), um beide zurückzuziehen, ihr Chakra zu übernehmen und Naruto erneut zu stärken. Halte Enma (Affenkönig) vor Bahnwechseln von Iruka Umino (Spaßvogel) oder Kotetsu Hagane (Fehlleitung) aktiv, damit die wechselnde Karte Chakra gewinnt.",
+      "presetName_70": "Amaterasu by Markline",
+      "preset_70": "Halte Enma (Affenkönig) bei den Bahnwechseln von Iruka Umino (Spaßvogel) aktiv. Lass Haku (Eiskristallspiegel) seinen Begegnungseffekt auslösen und aktiviere ihn mit dem Chakra des Bahnwechsels erneut. Schicke Itachi Uchiha (Flucht aus Amaterasu) auf eine Bahn, auf der sich sein Brennen ausbreiten kann. Folge einem Gegner beim Bahnwechsel mit Orochimaru (Kusanagi), um Wache zu gewinnen und Druck zu halten. Spare Kakashi Hatake (Raikiri) für einen Treffer durch Wache und Temari (Riesiger Ventilator) zum Zurückschieben auf einer vollen Bahn.",
+      "presetName_71": "Drache und Wald by Broly",
+      "preset_71": "Spiele Itachi Uchiha (Tsukuyomi-Armee), bevor Hashirama Senju (Tiefwald-Entstehung) die Gegner festnagelt, um auf Kosten von Itachis Chakra Klone zu erzeugen. Nagle mit Akahoshi (Sternendrache) eine Gruppe für weitere Klone fest. Nutze Sakon & Ukon (Verfluchte Verschmelzung), um einen Gegner nach der Teleportation hinter ihn festzunageln und Chakra abzubauen. Spare Kakashi Hatake (Riesenwirbel-Jutsu) auf, bis mehrere Gegner dieselbe Bahn besetzen, und schwäche sie beim Zurückschieben. Naruto Uzumaki (Wille zum Schutz) nutzt die freie Bahn zum Vorrücken.",
+      "presetName_72": "Spiegel und Nebel by Pluto",
+      "preset_72": "Halte Enma (Affenkönig) bei den Bahnwechseln von Iruka Umino (Spaßvogel) aktiv. Lass Haku (Eiskristallspiegel) seinen Begegnungseffekt auslösen und aktiviere ihn mit dem Chakra des Bahnwechsels erneut. Setze Shizune (Giftnebel) bei vielen Karten auf mittlerer Distanz ein. Der Nebel trifft auch Verbündete. Lass Jiraiya (Krötenöl-Flammenwerfer) seinen Fokus beenden, bevor du ihn damit bedeckst. Spare Kakashi Hatake (Raikiri) für einen Treffer durch Wache und Temari (Riesiger Ventilator) zum Zurückschieben auf einer vollen Bahn.",
+      "containsCards": "Enthält die Karten:",
+      "requiredCardSearch": "Nach Name oder Referenz suchen",
+      "requiredCardsLimit": "5 Karten ausgewählt",
+      "eventScrolls": "Event-Schriftrollen",
+      "presetName_51": "Edo-Zorn",
+      "preset_51": "Spiele Naruto Uzumaki (Kyubis Wut) vor den Opfern aus. Bereite Student Trio und einen zweiten Verbündeten mit wenig Chakra vor. Spiele Orochimaru (Edo Tensei), solange Hashirama Senju noch im Deck ist. Die Rückzüge lösen die Beschwörung aus und geben Naruto Chakra und Ansturm. Das Trio setzt seine drei Schüler erneut auf den Bahnen ein. Ihre späteren Rückzüge stärken Naruto weiter. Kiba Inuzuka (Bester Freund) kann Akamaru günstig Beschwören. Kiba Inuzuka (Verwandlungskombo) kann weitere Rückzüge auslösen.",
       "languageUnavailable": "Die ausgewählte Sprache konnte nicht geladen werden. Bitte versuche es erneut.",
       "collectionCopySite": "Link kopieren",
       "collectionSiteCopied": "Link erfolgreich kopiert",
@@ -14068,7 +14602,7 @@ const TRANSLATIONS = {
       "proposalIncompleteDeck": "Vervollständige dein Deck mit 10 Karten, bevor du es vorschlägst",
       "proposalDescriptionRequired": "Gib eine Beschreibung der Synergie ein, bevor du sie sendest",
       "prebuiltDecks": "Vorgefertigte Decks",
-      "navDecks": "Decks",
+      "navDecks": "Fertigdecks",
       "librarySearch": "Karten oder Effekte suchen",
       "libraryEmpty": "Keine passenden Decks.",
       "useDeck": "Dieses Deck laden",
@@ -14085,7 +14619,6 @@ const TRANSLATIONS = {
       "autoExplain_synergy": "Bevorzugt Wechselwirkungen zwischen deinen Karten und ihrer Unterstützung.",
       "autoExplain_reference": "Folgt einer passenden vorgefertigten Strategie und behält deine Karten bei.",
       "autoApplied": "Deck vervollständigt",
-      "presetLoaded": "Deck geladen",
       "preset_01": "Baue Naruto Uzumaki (Wille zum Schutz) früh auf: Jeder Rückzug erhöht sein Basis-Chakra dauerhaft um 2. Halte Naruto Uzumaki (Kyubis Wut) vor mehreren verbündeten Rückzügen aktiv, damit er Chakra und Ansturm erhält. Kiba Inuzuka (Bester Freund) Beschwört Akamaru für günstigen Druck. Haben diese Einheiten ihren Nutzen erfüllt, zieht Kiba Inuzuka (Verwandlungskombo) sie zurück, übernimmt ihr Chakra und erhält einen Bonus pro Rückzug. Student Trio füllt beim Rückzug alle drei Bahnen wieder auf. Mizuki Toji (Verborgene Absicht) kann einen geplanten Rückzug beschleunigen, sollte aber nicht deine wichtigste Bedrohung treffen. Hat Naruto viel Basis-Chakra gesammelt, schütze ihn mit Tsunade (Verzweifelte Heilung), statt ihn weiter durchzuwechseln.",
       "preset_02": "Stelle Sakon & Ukon (Synchronisierte Verteidigung) vor den anderen Verteidigern auf: Jede Aktivierung verbündeter Wache gibt beiden Einheiten +1 Chakra. Sakura Haruno (Unnachgiebig) hat permanente Wache und wechselt bei jeder Aktivierung die Bahn. Kisame Hoshigaki erhält Chakra und Schwächt den auslösenden Gegner; Jiraiya (Nadel-Jizo) antwortet mit Schwächen, das Wache ignoriert. Temari ergänzt Schieben und Kimimaro weitere Wache-Ladungen. Baue gegen Sanbi zuerst dieses Feld auf: Verliert der Boss Chakra, kann seine Fähigkeit erneut ausgelöst werden. Madame Shijimi stärkt mehrere Verbündete der Bahn in kurzer Reichweite mit Chakra.",
       "preset_03": "Bereite Tayuya (Doki-Beschwörung) vor deinen Beschwörungen vor: Neue Einheiten erhalten +1 Chakra; erfolgreicher Fokus erzeugt außerdem einen Doki pro Bahn. Naruto Uzumaki (Multi-Schattenklon) erschafft zwei Klone auf den anderen Bahnen und nach zehn Sekunden zwei weitere. Spiele ihn, wenn diese Einheiten vorrücken können. Naruto Uzumaki (Schattenklon-Jutsu), Kiba Inuzuka und Koharu Utatane liefern weitere Beschwörungen; Student Trio füllt beim Rückzug das Feld. Spiele günstige Karten, um wieder zu diesen Erzeugern zu gelangen, statt auf eine teure Einheit gegen Brennen zu vertrauen. Gaara (Sandtsunami) kontrolliert während Fokus wiederholt die Gegner. Vorrangig soll die Liste mehr Gelegenheiten für Treffer am Boss schaffen.",
@@ -14250,6 +14783,7 @@ const TRANSLATIONS = {
       "exportInfo": "Der Export enthält die für jede Karte festgelegten Level und Berechnungsannahmen."
     },
     "effects": {
+      "Drain": "Entzug",
       "Cost": "Kosten",
       "Chakra": "Chakra",
       "Weaken": "Schwächen",
@@ -14267,6 +14801,7 @@ const TRANSLATIONS = {
       "Heal": "Heilen"
     },
     "terms": {
+      "Drain": "entzug|entzieh[\\p{L}]*",
       "Cost": "kosten",
       "Chakra": "chakra",
       "Weaken": "schwäch[\\p{L}]*|geschwäch[\\p{L}]*",
@@ -14284,6 +14819,46 @@ const TRANSLATIONS = {
       "Heal": "heil[\\p{L}]*"
     },
     "cards": {
+      "ES_001": {
+        "name": "Sakura Haruno",
+        "ability": "Heilende Schülerin",
+        "descriptions": [
+          "Beim Ausspielen Heilung(1) für den nächsten Verbündeten auf der Bahn. Heilung(2) für den ersten Verbündeten auf der Bahn, der von gegnerischem Brennen, Festnageln oder Schwächen getroffen wird.",
+          "Beim Ausspielen Heilung(1) für den nächsten Verbündeten auf der Bahn. Heilung(4) für den ersten Verbündeten auf der Bahn, der von gegnerischem Brennen, Festnageln oder Schwächen getroffen wird."
+        ]
+      },
+      "ES_002": {
+        "name": "Hoki",
+        "ability": "Umgekehrte Schuppenformation",
+        "descriptions": [
+          "Haben Verbündete beim Ausspielen auf jeder Bahn insgesamt mindestens 5 Chakra, erhält der Gegner mit dem meisten Chakra Schwächung(10). Anschließend verlieren alle Verbündeten 2 Chakra.",
+          "Haben Verbündete beim Ausspielen auf jeder Bahn insgesamt mindestens 5 Chakra, erhält der Gegner mit dem meisten Chakra Schwächung(12). Anschließend verlieren alle Verbündeten 2 Chakra."
+        ]
+      },
+      "ES_003": {
+        "name": "Hoki",
+        "ability": "Volles Arsenal",
+        "descriptions": [
+          "Wache(1). Beim Ausspielen erhalten zufällige Gegner auf der Bahn bis zu dreimal Schwächung(1). Bei jeder Begegnung entzieht die Karte dem Gegner mit Entzug(1) Chakra.",
+          "Wache(2). Beim Ausspielen erhalten zufällige Gegner auf der Bahn bis zu dreimal Schwächung(1). Bei jeder Begegnung entzieht die Karte dem Gegner mit Entzug(1) Chakra."
+        ]
+      },
+      "ES_004": {
+        "name": "Seimei",
+        "ability": "Ultimative Form",
+        "descriptions": [
+          "Wache(1). Beim Ausspielen startet Fokus(12s) und der Gegner mit dem meisten Chakra auf der Bahn erhält Festnageln(12s). Während Fokus wird diesem Gegner alle 3s mit Entzug(1) Chakra entzogen. Danach erhalten zufällige Gegner bis zu dreimal Schwächung(1). Auf mittlerer Distanz trifft Entzug(2) den Gegner mit dem meisten Chakra.",
+          "Wache(1). Beim Ausspielen startet Fokus(15s) und der Gegner mit dem meisten Chakra auf der Bahn erhält Festnageln(15s). Während Fokus wird diesem Gegner alle 3s mit Entzug(1) Chakra entzogen. Danach erhalten zufällige Gegner bis zu dreimal Schwächung(1). Auf mittlerer Distanz trifft Entzug(2) den Gegner mit dem meisten Chakra."
+        ]
+      },
+      "ES_005": {
+        "name": "Gaara",
+        "ability": "Shukakus Speer",
+        "descriptions": [
+          "Sobald ein Gegner auf der Bahn zum ersten Mal mindestens 10 Chakra erreicht, startet Fokus(6s). Gelingt der Fokus, erhält dieser Gegner Schwächung(10), die Wache ignoriert.",
+          "Sobald ein Gegner auf der Bahn zum ersten Mal mindestens 10 Chakra erreicht, startet Fokus(5s). Gelingt der Fokus, erhält dieser Gegner Schwächung(12), die Wache ignoriert."
+        ]
+      },
       "S1_001": {
         "name": "NARUTO UZUMAKI",
         "ability": "Potenzial",
@@ -16566,6 +17141,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
+      "ES_004": "Die Schätzung setzt einen vollständigen Fokus voraus und zählt den Entzug auf mittlerer Distanz separat.",
       "S2_041": "{allies} Verbündete des erforderlichen Charakters; die Deckzusammensetzung wird nicht geprüft.",
       "S1_004": "Begegnungseffekte über {activations} Begegnungen angewendet.",
       "S1_005": "Begegnungseffekte über {activations} Begegnungen angewendet.",

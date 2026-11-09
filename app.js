@@ -59,6 +59,13 @@ const byIndex = new Map(CARDS.map(c => [c.index,c]));
 const cardByKey = new Map(CARDS.map(card=>[card.card_key,card]));
 const presetById = new Map(PREBUILT_DECKS.map(deck=>[deck.id,deck]));
 const presetName = deck => getTranslation('ui.presetName_'+deck.id) ?? deck.name;
+const presetsByCard = new Map();
+for (const deck of PREBUILT_DECKS) {
+  for (const key of deck.cards) {
+    if (!presetsByCard.has(key)) presetsByCard.set(key,[]);
+    presetsByCard.get(key).push(deck);
+  }
+}
 let autoController=null,autoProposals=[],autoLevels={},autoSnapshot='';
 let proposalSending=false;
 // Sources share a row only when their complete partner lists are identical.
@@ -100,7 +107,7 @@ function syncLanguageControl() {
   const catalog=TRANSLATIONS[language];
   $('language-name').textContent=catalog.name;
   $('language-code').textContent=language.toUpperCase();
-  $('language-flag').src=assetPath(`misc_images/flag-${catalog.flag}.png`);
+  $('language-flag').src=assetPath(`misc_images/flag-${catalog.flag}.webp`);
   for (const option of $('language-menu').querySelectorAll('[data-language]')) {
     const selected=option.dataset.language===language;
     option.setAttribute('aria-selected',String(selected));
@@ -117,7 +124,7 @@ function positionLanguageMenu() {
 }
 function mountLanguageMenu() {
   const button=$('language-select'),menu=$('language-menu');
-  menu.innerHTML=Object.entries(LANGUAGE_CATALOGS).sort(([,a],[,b])=>collatorFor('en',{sensitivity:'base'}).compare(a.name,b.name)).map(([code,catalog])=>`<button class="language-option" data-language="${esc(code)}" role="option" type="button"><img alt="" class="language-flag" data-flag-src="${assetPath(`misc_images/flag-${catalog.flag}.png`)}" decoding="async" width="20" height="15"><span lang="${esc(code)}">${esc(catalog.name)}</span></button>`).join('');
+  menu.innerHTML=Object.entries(LANGUAGE_CATALOGS).sort(([,a],[,b])=>collatorFor('en',{sensitivity:'base'}).compare(a.name,b.name)).map(([code,catalog])=>`<button class="language-option" data-language="${esc(code)}" role="option" type="button"><img alt="" class="language-flag" data-flag-src="${assetPath(`misc_images/flag-${catalog.flag}.webp`)}" decoding="async" width="20" height="15"><span lang="${esc(code)}">${esc(catalog.name)}</span></button>`).join('');
   menu.onbeforetoggle=event=>{if(event.newState==='open'){for(const image of menu.querySelectorAll('[data-flag-src]')){image.src=image.dataset.flagSrc;delete image.dataset.flagSrc;}positionLanguageMenu();}};
   menu.ontoggle=event=>{
     const open=event.newState==='open';
@@ -166,7 +173,7 @@ function cardText(card) {
   return cached.text;
 }
 const cardNumber = card => Number(card.card_key.split('_')[1]);
-const cardReference = card => `S${card.season} #${String(cardNumber(card)).padStart(3,'0')}`;
+const cardReference = card => card.card_key.replace('_',' #');
 const effectLabel = key => t('effects.'+key);
 const viewDirty=new Set(sectionIds);
 const cardNodes={db:new Map(),builder:new Map()};
@@ -414,7 +421,6 @@ function applyWrittenStandard() {
   current.scenario=cleanScenario(defaults); current.cardOptions={}; syncScenario(); changed();
   setStandardStatus('ui.standardApplied');
 }
-const computed = (c,level = levelOf(c)) => estimate(c,level);
 function toast(message,error = false) {setFeedback('toast',null,{message,error});}
 function ask(key,action) { confirmAction=action; confirmMessageKey=key; $('confirm-text').textContent=t(key); $('confirm-dialog').showModal(); }
 function syncScenario() {
@@ -422,7 +428,7 @@ function syncScenario() {
 }
 
 // Catalog filtering, rendering and progressive synergy groups.
-function cardHTML(c,result=mode==='builder'?computed(c):null) {
+function cardHTML(c,result=mode==='builder'?numericComputed(c):null) {
   const level=levelOf(c),build=mode==='builder',synergy=mode==='synergies',selected=build&&current.cards.includes(c.index),missing=build&&collectionCounts!==null&&!ownsCard(c),text=cardText(c);
   return `<article class="game-card${selected?' selected':''}${missing?' is-missing':''}" data-index="${c.index}">
     <button class="card-main" data-open="${c.index}" title="${esc(synergy?text.ability:cardReference(c))}" aria-label="${esc(synergy?text.name:t('ui.openCard',{name:text.name,reference:cardReference(c)}))}">
@@ -439,7 +445,7 @@ function cardHTML(c,result=mode==='builder'?computed(c):null) {
 const filterIds = ['f-level','f-text','f-estimate'];
 function updateFilterCount(area) {
   let count;
-  if (area==='decks') count=Number($('library-search').value.trim()!=='')+Number(selectedFilterValues('f-tags','decks').size>0)+Number($('decks-f-collection').value!=='all');
+  if (area==='decks') count=Number($('library-search').value.trim()!=='')+Number(selectedFilterValues('f-tags','decks').size>0)+Number($('decks-f-collection').value!=='all')+Number(requiredCards.size>0);
   else {
     const groups=Object.keys(filterDefinitions).filter(id=>$(area+'-'+id+'-menu').querySelector('input:checked')).length;
     count=groups+Number($(area+'-f-text').value.trim()!=='')+Number(!!$(area+'-f-estimate') && $(area+'-f-estimate').value!=='')+Number($(area+'-f-collection').value!=='all');
@@ -447,7 +453,8 @@ function updateFilterCount(area) {
   const sort=$(area==='decks'?'decks-sort':area+'-sort'),direction=$(area==='decks'?'decks-sort-direction':area+'-sort-direction');
   const changedOrder=sort.selectedIndex!==0 || direction.dataset.direction!=='asc';
   const changedLevel=area!=='decks' && Number($(area+'-f-level')?.value || 1)!==1;
-  $(area==='decks'?'reset-library-filters':area+'-reset').disabled=count===0 && !changedOrder && !changedLevel;
+  const requiredCardQuery=area==='decks' && $('required-card-search').value.trim()!=='';
+  $(area==='decks'?'reset-library-filters':area+'-reset').disabled=count===0 && !changedOrder && !changedLevel && !requiredCardQuery;
   const badge=$(area+'-toolbox-tab-filters').querySelector('.filter-count');
   badge.textContent=count?` (${fmt(count,0)})`:'';
   badge.hidden=count===0;
@@ -793,13 +800,23 @@ function scheduleSynergyLayout() {
   });
 }
 // Deck previews and aggregate values.
-function deckSlotsHTML(cards,showDetails=false,interactive=true) {
-  return Array.from({length:10},(_,slot) => {
+function emptyDeckSlotHTML(slot) {
+  return `<li class="deck-slot empty" aria-label="${t('ui.emptySlot',{slot})}">${slot}</li>`;
+}
+function deckSlotsHTML(cards,{count=10,details=false,open=true,remove=!details}={}) {
+  return Array.from({length:count},(_,slot) => {
     const card=cards[slot];
-    if (!card) return `<li class="deck-slot empty" aria-label="${t('ui.emptySlot',{slot:slot+1})}">${slot+1}</li>`;
-    const name=cardText(card).name,level=deckLevel(card);
-    if (!interactive) return `<li class="deck-slot"><span class="deck-open"><img ${cardImageAttributes(card,'mini')} alt="${esc(name)}"></span></li>`;
-    return `<li class="deck-slot"><button class="deck-open" data-deck-open="${card.index}" title="${esc(t('ui.cardLevelTitle',{name,level,reference:cardReference(card)}))}"><img ${cardImageAttributes(card,'mini')} alt="${esc(name)}">${showDetails?`<span class="orb cost" title="${t('ui.cost')}">${card.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${card.chakra}</span>`:''}</button>${showDetails?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`:`<button class="remove" data-remove="${card.index}" aria-label="${esc(t('ui.removeNamedCard',{name}))}">×</button>`}</li>`;
+    if (!card) return emptyDeckSlotHTML(slot+1);
+    const {name,ability}=cardText(card),reference=cardReference(card);
+    const image=`<img ${cardImageAttributes(card,'mini')} alt="${esc(name)}">`;
+    const level=open?deckLevel(card):null;
+    const stats=details?`<span class="orb cost" title="${t('ui.cost')}">${card.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${card.chakra}</span>`:'';
+    const art=open
+      ? `<button class="deck-open" type="button" data-deck-open="${card.index}" title="${esc(t('ui.cardLevelTitle',{name,level,reference}))}">${image}${stats}</button>`
+      : `<span class="deck-open" title="${esc(reference+' · '+ability)}">${image}</span>`;
+    const action=details?`<span class="slot-level">${t('ui.levelShort',{level})}</span>`
+      : remove?`<button class="remove" type="button" data-remove="${card.index}" aria-label="${esc(t('ui.removeNamedCard',{name}))}">×</button>`:'';
+    return `<li class="deck-slot">${art}${action}</li>`;
   }).join('');
 }
 function deckAverages(cards, levelFor = deckLevel) {
@@ -861,7 +878,7 @@ function renderDeck() {
     $('deck-sort').value = deckOrder.sort;
     setSortDirection($('deck-sort-direction'), deckOrder.direction);
     if (document.activeElement !== $('deck-name')) $('deck-name').value = current.name;
-    $('deck-dialog-grid').innerHTML = deckSlotsHTML(cards, true);
+    $('deck-dialog-grid').innerHTML = deckSlotsHTML(cards,{details:true});
     renderAverages('deck-dialog-');
     const costs = cards.map(card => card.energy_cost),
       counts = Array.from(
@@ -1037,10 +1054,37 @@ function mountCollectionControls() {
   $('auto-owned-only').onchange=()=>{scheduleSessionSave();if ($('auto-dialog').open) runAutoBuilder();};
 }
 // Prebuilt decks and community proposals.
-function deckPreviewHTML(indices,{levels={},locked=new Set(),showOwnership=false}={}) {
+const REQUIRED_CARD_LIMIT=5;
+const requiredCards=new Set();
+let exactPresetId=null;
+function renderRequiredCardResults() {
+  const input=$('required-card-search'),results=$('required-card-results');
+  const query=normalizeSearchText(input.value);
+  if (!query || input.disabled) {
+    results.hidePopover();
+    results.replaceChildren();
+    return;
+  }
+  const matches=CARDS.filter(card=>!requiredCards.has(card.card_key) && matchesCardSearch(card,query,true));
+  results.innerHTML=matches.length ? matches.map(card=>{
+    const {name,ability}=cardText(card);
+    const label=cardReference(card)+' · '+name;
+    return `<button type="button" data-require-card="${card.card_key}" title="${esc(label+' · '+ability)}"><img ${cardImageAttributes(card,'mini')} alt=""><span class="required-card-copy"><span>${esc(label)}</span><small>${esc(ability)}</small></span></button>`;
+  }).join('') : `<p>${esc(t('ui.noResults'))}</p>`;
+  if (document.activeElement===input && !results.matches(':popover-open')) results.showPopover({source:input});
+  results.scrollTop=0;
+}
+function renderRequiredCards() {
+  const input=$('required-card-search'),grid=$('required-card-grid');
+  input.disabled=requiredCards.size>=REQUIRED_CARD_LIMIT;
+  input.placeholder=t(input.disabled?'ui.requiredCardsLimit':'ui.requiredCardSearch');
+  grid.innerHTML=deckSlotsHTML([...requiredCards].map(key=>cardByKey.get(key)),{count:REQUIRED_CARD_LIMIT,open:false});
+  renderRequiredCardResults();
+}
+function deckPreviewHTML(indices,{levels={},locked=new Set(),showOwnership=false,imageSize='mini'}={}) {
   return indices.map(index=>{
     const card=byIndex.get(index),text=cardText(card),level=levels[index]||1,missing=showOwnership && collectionCounts!==null && !ownsCard(card);
-    return `<li><button class="deck-preview-card${locked.has(index)?' is-fixed':''}${missing?' is-missing':''}" data-preview-card="${index}" data-preview-level="${level}" type="button" title="${esc(text.ability+(missing?' · '+t('ui.collectionMissingCard'):''))}" aria-label="${esc(t('ui.openCard',{name:text.name,reference:cardReference(card)})+(missing?' · '+t('ui.collectionMissingCard'):''))}"><span class="mini-art"><img ${cardImageAttributes(card,'mini')} alt=""><span class="orb cost">${card.energy_cost}</span><span class="orb chakra">${card.chakra}</span></span><strong>${esc(text.name)}</strong></button></li>`;
+    return `<li><button class="deck-preview-card${locked.has(index)?' is-fixed':''}${missing?' is-missing':''}" data-preview-card="${index}" data-preview-level="${level}" type="button" title="${esc(text.ability+(missing?' · '+t('ui.collectionMissingCard'):''))}" aria-label="${esc(t('ui.openCard',{name:text.name,reference:cardReference(card)})+(missing?' · '+t('ui.collectionMissingCard'):''))}"><span class="mini-art"><img ${cardImageAttributes(card,imageSize)} alt=""><span class="orb cost">${card.energy_cost}</span><span class="orb chakra">${card.chakra}</span></span><strong>${esc(text.name)}</strong></button></li>`;
   }).join('');
 }
 const presetDescriptionPatterns=new Map();
@@ -1070,13 +1114,23 @@ function formatPresetDescription(deck) {
   presetDescriptionHTML.set(cacheKey, result);
   return result;
 }
+function sortPresets(decks) {
+  const collator=collatorFor(TRANSLATIONS[language].locale,{numeric:true,sensitivity:'base'});
+  const idCollator=collatorFor();
+  return decks.sort((a,b)=>collator.compare(presetName(a),presetName(b)) || idCollator.compare(a.id,b.id));
+}
 function renderPresetLibrary() {
-  const query = normalizeSearchText($('library-search').value),
+  const search = $('library-search');
+  const exactPreset = presetById.get(exactPresetId);
+  if (exactPreset) search.value = presetName(exactPreset);
+  const query = normalizeSearchText(search.value),
     tags = selectedFilterValues('f-tags', 'decks');
   const ownedOnly = $('decks-f-collection').value === 'owned';
   const decks = PREBUILT_DECKS.filter(deck => {
+    for (const key of requiredCards) if (!deck.cards.includes(key)) return false;
     if (ownedOnly && !deck.cards.every(key => !!collectionCounts?.[key])) return false;
     if (tags.size && !deck.tags.some(tag => tags.has(tag))) return false;
+    if (exactPreset) return deck === exactPreset;
     const searchKey = language + ':' + deck.id;
     if (!presetSearchRecords.has(searchKey))
       presetSearchRecords.set(
@@ -1089,13 +1143,7 @@ function renderPresetLibrary() {
       deck.cards.some(key => matchesCardSearch(cardByKey.get(key), query, true))
     );
   });
-  const collator = collatorFor(TRANSLATIONS[language].locale, {
-    numeric: true,
-    sensitivity: 'base'
-  });
-  decks.sort(
-    (a, b) => collator.compare(presetName(a), presetName(b)) || collatorFor().compare(a.id, b.id)
-  );
+  sortPresets(decks);
   const compareCards = createCardComparator(
     $('decks-sort').value,
     $('decks-sort-direction').dataset.direction
@@ -1106,15 +1154,33 @@ function renderPresetLibrary() {
   viewDirty.delete('decks');
   updateFilterCount('decks');
 }
+function resetPresetFilters(presetId = null) {
+  exactPresetId = presetId;
+  $('library-search').value = '';
+  $('decks-f-collection').value = 'all';
+  $('required-card-search').value = '';
+  requiredCards.clear();
+  renderRequiredCards();
+  $('decks-sort').selectedIndex = 0;
+  setSortDirection($('decks-sort-direction'), 'asc');
+  for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked = false;
+  updateMultiFilter($('decks-f-tags'), deckTagFilterDefinition);
+}
 function presetHTML(deck,compareCards) {
   const cards = deck.cards.map(key => cardByKey.get(key)).sort(compareCards);
-  return `<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${deck.tags.length ? `<div class="tags">${deck.tags.map(tag => `<span class="tag">${esc(t('ui.tag_' + tag))}</span>`).join('')}</div>` : ''}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(
+  const tags=deck.tags.map(tag=>{
+    const label=esc(t('ui.tag_'+tag));
+    return tag==='video' && deck.video
+      ? `<a class="tag tag-video" href="${esc(deck.video)}" target="_blank" rel="noopener noreferrer">${label}</a>`
+      : `<span class="tag">${label}</span>`;
+  }).join('');
+  return `<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${tags ? `<div class="tags">${tags}</div>` : ''}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(
     cards.map(card => card.index),
-    { showOwnership: true }
-  )}</ol><p class="preset-description">${formatPresetDescription(deck)}</p></article>`;
+    { showOwnership: true, imageSize: 'compact' }
+  )}</ol><button class="preset-description-toggle" type="button" aria-expanded="false" aria-controls="preset-description-${deck.id}">${t('ui.showPresetDescription')}</button><p class="preset-description" id="preset-description-${deck.id}">${formatPresetDescription(deck)}</p></article>`;
 }
 function renderDeckProposal() {
-  $('proposal-deck-cards').innerHTML=deckSlotsHTML(current.cards.map(index=>byIndex.get(index)),false,false);
+  $('proposal-deck-cards').innerHTML=deckSlotsHTML(current.cards.map(index=>byIndex.get(index)),{open:false,remove:false});
 
   const count=current.cards.length;
   const form=$('deck-proposal-panel');
@@ -1170,7 +1236,6 @@ function loadPreset(id) {
     current.name=presetName(deck).slice(0,15);useDefaultDeckName=false;
     invalidateViews('builder');syncScenario();if(mode==='builder')changed();else setMode('builder');selectToolbarPanel('builder','deck');
     if (mobileViewport.matches) openMobileTools('deck');
-    toast(t('ui.presetLoaded'));
   };
   if (current.cards.length) ask('ui.replaceDeck',apply);else apply();
 }
@@ -1532,6 +1597,7 @@ function restoreCatalogScroll() {
 // Card details and per-card calculation settings.
 function openCard(index,level,readOnly=false) {
   dialogCard = byIndex.get(index); dialogLevel = level || levelOf(dialogCard);dialogReadOnly=readOnly;
+  renderCardPresets(dialogCard);
   renderDialog(); $('card-dialog').showModal();
 }
 function calculationHTML(c,result) {
@@ -1540,43 +1606,80 @@ function calculationHTML(c,result) {
     <div class="contributions"><h4>${t('ui.contributions')}</h4>${result.parts.map(part=>`<div class="contribution-row"><span>${formatTerms(part.label)}</span><span class="contribution-equals">=</span><b>${part.value>=0?'+':'−'}${fmt(Math.abs(part.value))}</b></div>`).join('')||`<p>${t('ui.noContributions')}</p>`}</div>
     ${result.note?`<p class="notice">${formatTerms(result.note)}</p>`:''}`;
 }
-function refreshDialogCalculation() {
-  const result=computed(dialogCard,dialogLevel);
+function refreshDialogCalculation(result=estimate(dialogCard,dialogLevel)) {
   $('dialog-calculation').innerHTML=calculationHTML(dialogCard,result);
   $('dialog-quality').textContent = fmt(result.quality);
   $('dialog-max').textContent = fmt(result.value);
 }
-// Trace formula inputs instead of testing only the current value (which may sit on a cap).
-function relevantSettings(c,level) {
+function renderCardCalculation() {
+  const scenario=scenarioFor(dialogCard);
+  // Trace dependencies even when the current scenario sits on an effect cap.
   const used = new Set();
-  estimate(c,level,scenarioFor(c),used);
-  return Object.keys(settingIds).filter(key => used.has(key));
+  const result=estimate(dialogCard,dialogLevel,scenario,used);
+  const keys=Object.keys(settingIds).filter(key=>used.has(key));
+  const options=keys.length ? `<section class="local-options"><div class="section-head"><h4>${t('ui.localAssumptions')}</h4><button class="small primary" id="reset-local" type="button">${t('ui.useStandard')}</button></div><p class="inline-note">${t('ui.localChanges')}</p><div class="local-grid">${keys.map(key=>`<div class="parameter"><label for="local-${key}">${formatTerms(t('ui.'+key))}</label><input id="local-${key}" data-local="${key}" type="text" inputmode="numeric" pattern="[0-9]*" data-integer min="0" max="99" required step="1" value="${scenario[key]}"></div>`).join('')}</div></section>` : '';
+  $('card-calculation-body').innerHTML=`<div class="dialog-workbench${keys.length?'':' calculation-only'}">${options}<section id="dialog-calculation"></section></div>`;
+  refreshDialogCalculation(result);
+}
+function renderCardPresets(card) {
+  const decks=presetsByCard.get(card.card_key);
+  $('card-presets-body').innerHTML=decks?.length
+    ? `<ul class="card-presets-list" tabindex="0" aria-labelledby="card-presets-title">${sortPresets([...decks]).map(deck=>{
+      const cards=deck.cards.map(key=>cardByKey.get(key));
+      const name=esc(presetName(deck));
+      return `<li><h4 title="${name}">${name}</h4><ol class="deck-grid">${deckSlotsHTML(cards,{count:cards.length,open:false,remove:false})}</ol><button type="button" data-go-to-preset="${deck.id}" aria-label="${esc(t('ui.goToPreset')+' · '+presetName(deck))}">${esc(t('ui.goToPreset'))}</button></li>`;
+    }).join('')}</ul>`
+    : `<p>${esc(t('ui.noDecksWithCard'))}</p>`;
+}
+function goToPreset(presetId) {
+  $('card-dialog').close();
+  for (const id of ['deck-dialog', 'auto-dialog']) {
+    if ($(id).open) $(id).close();
+  }
+  resetPresetFilters(presetId);
+  catalogScroll.decks.mobile = catalogScroll.decks.desktop = 0;
+  if (mode === 'decks') {
+    renderPresetLibrary();
+    restoreCatalogScroll();
+    scheduleSessionSave();
+  } else {
+    viewDirty.add('decks');
+    setMode('decks');
+  }
+  const heading = $('preset-list').querySelector('h3');
+  if (heading) {
+    heading.tabIndex = -1;
+    heading.focus({preventScroll:true});
+  }
 }
 function renderDialog() {
   const c = dialogCard, level = dialogLevel, build = mode === 'builder' && !dialogReadOnly;
-  const scenario = build ? scenarioFor(c) : null, keys = build ? relevantSettings(c,level) : [];
   const text=cardText(c);
   $('dialog-title').innerHTML=`<span class="dialog-index">${cardReference(c)}</span> ${esc(text.name)}`;
-  $('card-dialog').classList.toggle('compact',keys.length===0);
-  const result=build?computed(c,level):null,selected=current.cards.includes(c.index);
+  const result=build?numericComputed(c,level):null,selected=current.cards.includes(c.index);
   $('dialog-body').innerHTML=`<div class="dialog-layout"><div class="dialog-art-column"><div class="dialog-visual"><img class="dialog-art" ${dialogImageAttributes(c)} alt="${esc(text.name)}"><span class="orb cost" title="${t('ui.cost')}">${c.energy_cost}</span><span class="orb chakra" title="${t('ui.baseChakra')}">${c.chakra}</span>${build?`<span class="card-level">${t('ui.levelShort',{level})}</span>`:''}</div></div>
     <div class="dialog-content"><div class="dialog-effect"><div class="ability-heading"><h3 class="ability-title">${esc(text.ability)}</h3><div class="tags">${c.skill_types_original.map(key=>`<span class="tag">${effectHTML(effectLabel(key),key)}</span>`).join('')}</div></div><p class="ability">${formatDescription(c,level)}</p></div>
-    <div class="dialog-toolbar${build?'':' read-only'}"><button class="toolbar-cell level-cell" id="dialog-level" type="button" title="${t('ui.changeLevelTitle',{level:level===1?2:1})}" role="switch" aria-checked="${level===2}" aria-label="${t('ui.changeLevelAction',{level,next:level===1?2:1})}"><span>${t('ui.changeLevel')}</span><span class="level-value"><b>${level}</b>${LEVEL_CYCLE_ICON}</span></button>${build?`<div class="dialog-stats" aria-label="${t('ui.powerQuality')}"><div class="toolbar-cell"><span>${t('ui.power')}</span><b id="dialog-max">${fmt(result.value)}</b></div><div class="toolbar-cell"><span>${t('ui.quality')}</span><b id="dialog-quality">${fmt(result.quality)}</b></div></div><button class="${selected?'strong-danger':'primary'}" id="dialog-add" ${!selected&&current.cards.length>=10?'disabled':''}>${t(selected?'ui.removeFromDeck':'ui.addToDeck')}</button>`:''}</div></div>
-    ${build?`<div class="dialog-workbench${keys.length?'':' calculation-only'}">${keys.length?`<section class="local-options"><div class="section-head"><h4>${t('ui.localAssumptions')}</h4><button class="small primary" id="reset-local">${t('ui.useStandard')}</button></div><p class="inline-note">${t('ui.localChanges')}</p><div class="local-grid">${keys.map(key=>`<div class="parameter"><label for="local-${key}">${formatTerms(t('ui.'+key))}</label><input id="local-${key}" data-local="${key}" type="text" inputmode="numeric" pattern="[0-9]*" data-integer min="0" max="99" required step="1" value="${scenario[key]}"></div>`).join('')}</div></section>`:''}<section id="dialog-calculation">${calculationHTML(c,result)}</section></div>`:''}</div>`;
+    <div class="dialog-toolbar${build?'':' read-only'}">
+      <button class="toolbar-cell level-cell" id="dialog-level" type="button" title="${t('ui.changeLevelTitle',{level:level===1?2:1})}" role="switch" aria-checked="${level===2}" aria-label="${t('ui.changeLevelAction',{level,next:level===1?2:1})}"><span>${t('ui.changeLevel')}</span><span class="level-value"><b>${level}</b>${LEVEL_CYCLE_ICON}</span></button>
+      ${build?`<div class="dialog-stats" role="group" aria-label="${t('ui.powerQuality')}">
+        <div class="toolbar-cell"><span>${t('ui.power')}</span><b id="dialog-max">${fmt(result.value)}</b></div>
+        <div class="toolbar-cell"><span>${t('ui.quality')}</span><b id="dialog-quality">${fmt(result.quality)}</b></div>
+        <button id="card-calculation-open" type="button" aria-haspopup="dialog" aria-controls="card-calculation-dialog">${t('ui.details')}</button>
+      </div><button class="${selected?'strong-danger':'primary'}" id="dialog-add" type="button" ${!selected&&current.cards.length>=10?'disabled':''}>${t(selected?'ui.removeFromDeck':'ui.addToDeck')}</button>`:''}
+    </div></div></div>`;
   upgradeDialogArtwork(document.querySelector('#dialog-body .dialog-art'),c);
   $('dialog-level').onclick = () => {
     dialogLevel = level===1 ? 2 : 1;
     if (build) { current.levels[c.index] = dialogLevel;changed(); }
     renderDialog(); $('dialog-level').focus();
   };
-  for (const input of document.querySelectorAll('[data-local]')) {
-    input.oninput = () => {
-      if (!acceptedInteger(input)) return;
-      current.cardOptions[c.index] = cleanScenario({...scenarioFor(c),[input.dataset.local]:Number(input.value)});
-      changed(); refreshDialogCalculation();
+  if (build) {
+    $('card-calculation-open').onclick=()=>{
+      renderCardCalculation();
+      $('card-calculation-dialog').showModal();
     };
+    if ($('card-calculation-dialog').open) renderCardCalculation();
   }
-  if ($('reset-local')) $('reset-local').onclick = () => { current.cardOptions[c.index] = {...current.scenario}; changed(); renderDialog(); };
   if ($('dialog-add')) $('dialog-add').onclick = () => {
     if (selected) { removeCard(c.index); $('card-dialog').close(); }
     else {
@@ -1636,7 +1739,7 @@ function createFilterDefinitions() {
   const labels=keys=>keys.map(([value,key])=>({value,label:t('ui.'+key)}));
   return {
     'f-rarity':{label:t('ui.rarity'),all:t('ui.allFeminine'),options:labels([['Common','common'],['Rare','rare'],['Epic','epic'],['Legendary','legendary']])},
-    'f-season':{label:t('ui.season'),all:t('ui.allFeminine'),options:labels([['1','first'],['2','second'],['3','third']])},
+    'f-season':{label:t('ui.season'),all:t('ui.allFeminine'),options:labels([['1','first'],['2','second'],['3','third'],['ES','eventScrolls']])},
     'f-skill':{label:t('ui.skillType'),all:t('ui.all'),options:[{value:'none',label:t('ui.none')},...Array.from(new Set(CARDS.flatMap(card=>card.skill_types_original))).sort((a,b)=>collatorFor(TRANSLATIONS[language].locale).compare(effectLabel(a),effectLabel(b))).map(key=>({value:key,label:effectLabel(key),html:effectHTML(effectLabel(key),key)}))]},
     ...Object.fromEntries([['f-cost','cost','energy_cost'],['f-chakra','chakra','chakra']].map(([id,key,field])=>[id,{label:t('ui.'+key),all:t('ui.all'),options:Array.from(new Set(CARDS.map(card=>card[field]))).sort((a,b)=>a-b).map(value=>({value:String(value),label:String(value)}))}]))
   };
@@ -1667,11 +1770,11 @@ function createMenuProbe(menu) {
 }
 const layoutMeasurements=new Map();
 const controlLayout=new ControlLayout({cache:layoutMeasurements,translate:t,language:()=>language,config:key=>key==='f-tags'?deckTagFilterDefinition:filterDefinitions[key],byId:$});
-function positionPopover(button,menu,width) {
+function positionPopover(button,menu,width,exact=false) {
   const r=button.getBoundingClientRect();
   const below = innerHeight-r.bottom-10, above = r.top-10, upward = below < 160 && above > below;
   menu.style.width = width+'px';
-  menu.style.left = Math.max(10,Math.min(r.left,innerWidth-width-10))+'px';
+  menu.style.left = (exact?r.left:Math.max(10,Math.min(r.left,innerWidth-width-10)))+'px';
   menu.style.top = upward ? 'auto' : r.bottom+4+'px';
   menu.style.bottom = upward ? innerHeight-r.top+4+'px' : 'auto';
   menu.style.maxHeight = Math.min(320,Math.max(80,upward ? above : below))+'px';
@@ -1680,7 +1783,11 @@ function positionFilterMenu(button,menu) {
   positionPopover(button,menu,Math.min(button.getBoundingClientRect().width,innerWidth-20));
 }
 function closeFilterMenus() {
-  for (const menu of document.querySelectorAll('.filter-menu:popover-open')) menu.hidePopover();
+  for (const menu of document.querySelectorAll(':is(.filter-menu,.required-card-results):popover-open')) menu.hidePopover();
+}
+function positionRequiredCardResults(menu) {
+  const input=$('required-card-search');
+  positionPopover(input,menu,input.getBoundingClientRect().width,true);
 }
 function mountMultiFilter(area,id,config) {
   const button = $(area+'-'+id), menu = $(area+'-'+id+'-menu');
@@ -1700,7 +1807,7 @@ function mountMultiFilter(area,id,config) {
 }
 const positionedMenus=new Set();
 document.addEventListener('toggle',event=>{
-  if(!event.target.matches('.filter-menu,.synergy-source-menu,#language-menu'))return;
+  if(!event.target.matches('.filter-menu,.synergy-source-menu,#language-menu,.required-card-results'))return;
   if(event.newState==='open')positionedMenus.add(event.target);else positionedMenus.delete(event.target);
 },true);
 function repositionMenus() {
@@ -1711,6 +1818,7 @@ function repositionMenus() {
       continue;
     }
     if (menu.id === 'language-menu') positionLanguageMenu();
+    else if (menu.id === 'required-card-results') positionRequiredCardResults(menu);
     else if (menu.matches('.filter-menu'))
       positionFilterMenu($(menu.id.replace(/-menu$/, '')), menu);
     else positionSynergySourceMenu(menu);
@@ -1879,6 +1987,7 @@ function applyLanguage({ initial = false } = {}) {
   document.documentElement.lang = language;
   buildTermPatterns();
   translateStatic();
+  renderRequiredCards();
   for (const id of feedbackStates.keys()) renderFeedback(id);
   if (mode !== 'collection') renderCollectionUI();
   if (!initial) {
@@ -1904,7 +2013,10 @@ function applyLanguage({ initial = false } = {}) {
   sizeAssumptionBoxes();
   renderDeck();
   renderCatalog();
-  if ($('card-dialog').open) renderDialog();
+  if ($('card-dialog').open) {
+    renderDialog();
+    renderCardPresets(dialogCard);
+  }
   if ($('auto-dialog').open) renderAutoResults();
   if (confirmMessageKey) $('confirm-text').textContent = t(confirmMessageKey);
 }
@@ -1987,6 +2099,8 @@ function saveSession() {
         filters: Object.fromEntries(filterAreas.map(area => [area, captureFilters(area)])),
         library: {
           query: $('library-search').value,
+          exactPresetId,
+          requiredCards: [...requiredCards],
           tags: [...selectedFilterValues('f-tags', 'decks')],
           collection: $('decks-f-collection').value,
           sort: $('decks-sort').value,
@@ -2051,6 +2165,12 @@ function restoreSession() {
     if (useDefaultDeckName) current.name = t('ui.defaultDeckName');
     for (const area of filterAreas) restoreFilters(area,saved.filters?.[area] || {});
     if (typeof saved.library?.query==='string') $('library-search').value=saved.library.query;
+    if (presetById.has(saved.library?.exactPresetId)) exactPresetId = saved.library.exactPresetId;
+    const savedRequiredCards=Array.isArray(saved.library?.requiredCards)?saved.library.requiredCards:[];
+    for (const key of savedRequiredCards) {
+      if (cardByKey.has(key)) requiredCards.add(key);
+      if (requiredCards.size===REQUIRED_CARD_LIMIT) break;
+    }
     const tags=new Set(Array.isArray(saved.library?.tags)?saved.library.tags:[]);
     for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=tags.has(input.value);
     updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);
@@ -2108,18 +2228,60 @@ $('auto-results').onclick=event=>{
   if (button) applyAutoProposal(Number(button.dataset.useProposal));else handleDeckPreview(event);
 };
 $('preset-list').onclick=event=>{
+  const descriptionToggle=event.target.closest('.preset-description-toggle');
+  if (descriptionToggle) {
+    const expanded=descriptionToggle.getAttribute('aria-expanded')==='true';
+    descriptionToggle.setAttribute('aria-expanded',String(!expanded));
+    return;
+  }
   const button=event.target.closest('[data-load-preset]');
   if (button) loadPreset(button.dataset.loadPreset);else handleDeckPreview(event);
 };
-$('library-search').oninput=()=>{renderPresetLibrary();scheduleSessionSave();};
+$('card-presets-body').onclick=event=>{
+  const button=event.target.closest('[data-go-to-preset]');
+  if (button) goToPreset(button.dataset.goToPreset);
+};
+$('library-search').oninput=()=>{
+  exactPresetId = null;
+  renderPresetLibrary();
+  scheduleSessionSave();
+};
+$('required-card-search').oninput=()=>{
+  renderRequiredCardResults();
+  updateFilterCount('decks');
+};
+$('required-card-search').onclick=()=>{
+  if (!$('required-card-results').matches(':popover-open')) renderRequiredCardResults();
+};
+$('required-card-results').onbeforetoggle=event=>{
+  if (event.newState==='open') positionRequiredCardResults(event.currentTarget);
+};
+$('required-card-results').onclick=event=>{
+  const button=event.target.closest('[data-require-card]');
+  if (!button || requiredCards.size>=REQUIRED_CARD_LIMIT) return;
+  const key=button.dataset.requireCard;
+  const input=$('required-card-search');
+  requiredCards.add(key);
+  input.value='';
+  renderRequiredCards();
+  if (input.disabled) $('required-card-grid').lastElementChild.querySelector('button').focus();
+  else input.focus();
+  renderPresetLibrary();scheduleSessionSave();
+};
+$('required-card-grid').onclick=event=>{
+  const button=event.target.closest('[data-remove]');
+  if (!button) return;
+  requiredCards.delete(byIndex.get(Number(button.dataset.remove)).card_key);
+  renderRequiredCards();$('required-card-search').focus();
+  renderPresetLibrary();scheduleSessionSave();
+};
 $('decks-f-collection').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
 $('decks-sort').onchange=()=>{renderPresetLibrary();scheduleSessionSave();};
 $('decks-sort-direction').onclick=()=>{const button=$('decks-sort-direction');setSortDirection(button,button.dataset.direction==='desc'?'asc':'desc');renderPresetLibrary();scheduleSessionSave();};
 $('reset-library-filters').onclick=()=>{
-  $('library-search').value='';$('decks-f-collection').value='all';
-  $('decks-sort').selectedIndex=0;setSortDirection($('decks-sort-direction'),'asc');
-  for (const input of $('decks-f-tags-menu').querySelectorAll('input')) input.checked=false;
-  updateMultiFilter($('decks-f-tags'),deckTagFilterDefinition);renderPresetLibrary();scheduleSessionSave();
+  resetPresetFilters();
+  renderPresetLibrary();
+  scheduleSessionSave();
 };
 $('propose-deck').onclick=openDeckProposal;
 for (const id of ['deck-proposal-panel','synergy-proposal-panel']) $(id).onsubmit=sendProposal;
@@ -2149,6 +2311,21 @@ $('import-file').onchange = async () => {
   $('import-file').value = '';
 };
 $('close-dialog').onclick = () => $('card-dialog').close();
+$('close-card-calculation').onclick = () => $('card-calculation-dialog').close();
+$('card-calculation-body').oninput = event => {
+  const input=event.target;
+  if (!input.matches('[data-local]') || !acceptedInteger(input)) return;
+  current.cardOptions[dialogCard.index]=cleanScenario({...scenarioFor(dialogCard),[input.dataset.local]:Number(input.value)});
+  changed();
+  refreshDialogCalculation();
+};
+$('card-calculation-body').onclick = event => {
+  if (!event.target.closest('#reset-local')) return;
+  current.cardOptions[dialogCard.index]={...current.scenario};
+  changed();
+  renderCardCalculation();
+  $('reset-local')?.focus();
+};
 $('calculation-info-button').onclick = () => $('calculation-info-dialog').showModal();
 $('close-calculation-info').onclick = () => $('calculation-info-dialog').close();
 for (const button of document.querySelectorAll('[data-deck-info]')) button.onclick = () => $('deck-info-dialog').showModal();
@@ -2196,4 +2373,4 @@ document.addEventListener('visibilitychange',() => { if (document.visibilityStat
 restoreCatalogScroll();
 requestAnimationFrame(saveSession);
 if (restoredSession.warning) notifyStorageFailure(restoredSession.warning);
-window.NarutoApp = {cards:CARDS,estimate,computed,deckLevel,defaults,exportDeck,parseDeck,getCurrent:() => structuredClone(current),setLanguage,getLanguage:()=>language};
+window.NarutoApp = {cards:CARDS,estimate,computed:(card,level=levelOf(card))=>estimate(card,level),deckLevel,defaults,exportDeck,parseDeck,getCurrent:() => structuredClone(current),setLanguage,getLanguage:()=>language};

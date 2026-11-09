@@ -4,7 +4,7 @@
 function assetPath(path) {
   const direct = globalThis.NARUTO_ASSETS?.[path];
   if (direct) return direct;
-  const card = /^card_images\/(?:(160|320)\/)?(S\d+_\d+)\.webp$/.exec(path);
+  const card = /^card_images\/(?:(160|320)\/)?((?:S\d+|ES)_\d+)\.webp$/.exec(path);
   const hashes = card && globalThis.NARUTO_CARD_HASHES?.[card[2]];
   if (hashes)
     return `assets/card_images/${card[1] ? card[1] + '/' : ''}${card[2]}.${hashes[card[1] === '160' ? 1 : card[1] === '320' ? 2 : 0]}.webp`;
@@ -32,15 +32,16 @@ function loadAssetScript(path, { verify } = {}) {
     );
   return loadedScripts.get(path);
 }
+const cardImageSizes = {
+  card: '(max-width:700px) 160px, 186px',
+  mini: '(max-width:700px) 72px, 110px',
+  compact: '(max-width:700px) 62px, 90px'
+};
 function cardImageAttributes(card, size = 'card') {
   const full = assetPath(`card_images/${card.card_key}.webp`);
   const small = assetPath(`card_images/160/${card.card_key}.webp`);
   const medium = assetPath(`card_images/320/${card.card_key}.webp`);
-  const sizes =
-    size === 'mini'
-      ? '(max-width:700px) 72px, 110px'
-      : '(max-width:700px) 160px, 186px';
-  return `data-card-art="${card.card_key}" src="${size === 'mini' ? small : medium}" srcset="${small} 160w, ${medium} 320w, ${full} 600w" sizes="${sizes}" width="${CARD_ART.width}" height="${CARD_ART.height}" loading="lazy" decoding="async"`;
+  return `data-card-art="${card.card_key}" src="${size === 'card' ? medium : small}" srcset="${small} 160w, ${medium} 320w, ${full} 600w" sizes="${cardImageSizes[size]}" width="${CARD_ART.width}" height="${CARD_ART.height}" loading="lazy" decoding="async"`;
 }
 
 // The dialog first reuses artwork already displayed by the catalog, then swaps in

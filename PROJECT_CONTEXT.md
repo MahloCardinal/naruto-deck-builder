@@ -15,9 +15,7 @@ Read the relevant source before editing. This file describes the current impleme
 - Static HTML/CSS/JavaScript application, plus one Vercel serverless endpoint for proposals. No frontend framework or browser-side package bundler is required for local source execution.
 - Repository: `https://github.com/MahloCardinal/naruto-deck-builder`, branch `main`.
 - Production: `https://naruto-deck-builder.vercel.app/`. Vercel builds the repository and serves `dist/`.
-- Sections, in order: card database, synergies, deck builder, prebuilt decks, collection.
-- Current data: 285 cards across three seasons and 50 prebuilt decks. Treat the files as authoritative when these counts change.
-- The title is `NNC Deck Builder` in every language. New sessions start in English; an existing tab restores its language and state.
+- New sessions start in English. Existing tabs restore their language and state.
 
 ## Source map
 
@@ -40,7 +38,7 @@ Read the relevant source before editing. This file describes the current impleme
 | `search-index.js`, `control-layout.js` | Cached multilingual search and sizing/positioning of controls. |
 | `virtual-list.js` | Viewport-based rendering of synergy rows. |
 | `card_images/` | Original WebP artwork plus `160/` and `320/` responsive versions. All three sizes are used. |
-| `misc_images/` | Site icon and language flags. SVG flag sources are used to generate production PNGs. |
+| `misc_images/` | Site icon, WebP language flags and their SVG sources. |
 | `scripts/build.cjs` | Generates `dist/`, minifies scripts, combines startup scripts and fingerprints assets. |
 | `scripts/generate-thumbnails.py` | Regenerates responsive artwork after adding images; requires Pillow. |
 | `api/proposals.js`, `server-data/proposals.json` | Validated proposal submission to Discord and its generated data projection. |
@@ -66,10 +64,12 @@ npm run build
 
 - Keep the white background and existing orange palette. Reuse `--accent`, `--accent-text` and other shared tokens; darker text and lighter fills serve different purposes.
 - Do not introduce rounded corners except on components already using them, such as level pills and the mobile back-to-top button.
-- Desktop tools use the collapsible left sidebar. Mobile uses the existing compact navigation and separate tool dialogs. Preserve the mobile three-card layout at 375px and bounded effect areas with internal scrolling.
+- Desktop tools use the collapsible left sidebar. Mobile uses compact navigation and tool dialogs. Preserve the three-card catalog at 375px, bounded effect areas, and the floating builder and back-to-top controls. Draw the top and bottom borders above the scroll content in the card database and deck builder.
 - Card names render in uppercase. Ability titles must not receive keyword coloring. Cost and base Chakra circles show printed values; level pills belong at the image's bottom right where enabled.
 - Database cards are read-only. Level changes in synergy/preset popups are informational. Missing-card decoration belongs to builder listings and preset previews, not database cards or card popups.
-- Prebuilt decks render completely in one operation, including after filtering. Do not reintroduce batch loading or deferred CSS layout for their panels. Their alphabetical ordering is separate from the selectable ordering of cards within each deck.
+- Prebuilt decks render in one column on mobile, with descriptions collapsed behind a toggle. Desktop uses an equal-height grid of two or three columns and shows descriptions inline. Each deck preview has two rows of five cards. Deck names sort alphabetically independently of the card order inside each deck.
+- All single-card popups show matching prebuilt decks in a bounded list, with each name and navigation button flanking read-only thumbnails rendered by `deckSlotsHTML`. The button resets library filters and stores the exact preset ID until the search is edited or reset. Editable builder popups open a separate Details dialog for the calculation breakdown and per-card assumptions.
+- The prebuilt required-card filter follows Tags and uses a five-slot deck preview. Suggestions overlay the page in a popover aligned to the search input. It matches every selected identity. Its selected cards count as one active filter and persist with the library filters.
 - Synergy rows are virtualized and sources are grouped only when their complete partner lists are identical. Every source remains searchable. Partner lists scroll vertically, use fixed gaps and start from the left.
 - Search matches a contiguous phrase within a field, not separate words scattered across content. Numeric/season references have dedicated handling in `CardSearchIndex`.
 - Multi-select filters use OR within a group and AND across groups. Checkbox menus stay open after selection. Default card ordering is index ascending. Sorting and database level changes enable reset but do not increase the active-filter badge.
@@ -80,7 +80,7 @@ npm run build
 
 ## Card data and calculations
 
-- `card_key` values such as `S3_053` identify cards across datasets. Public references restart per season (`S3 #053`); internal numeric `index` values remain stable and must not be renumbered.
+- `card_key` values such as `S3_053` and `ES_001` identify cards across datasets. Public references restart per set (`S3 #053`, `ES #001`). Internal numeric `index` values remain stable and must not be renumbered.
 - `skill_types_original` drives filters and popup tags. It includes mechanics a card reacts to, not just actions it performs. Do not assume every card tagged Teleport performs a teleport itself, for example.
 - Follow current card rules and user-confirmed in-game behavior. External translations/guides can be outdated; resolve discrepancies before overwriting established effects.
 - A deck has exactly 10 unique cards, maximum one of each. Levels are selected manually or through the builder's level control. Explicit per-card levels take precedence; ownership never determines level.
@@ -96,6 +96,7 @@ npm run build
 - A preset represents its card identities, not levels or assumptions. Do not show level badges in preset previews. Detect duplicates by the unordered set of card keys before adding another preset.
 - Preset descriptions should explain concrete sequencing and interactions of cards actually in that list. Use full card names, rendered in bold by `formatPresetDescription`, without season/index prefixes or embedded source links. Distinguish ability variants when needed.
 - Player names are attribution, not tactics: use titles such as `Deck by ALX` and omit bracketed clan tags.
+- Add the `video` tag and a verified direct `video` URL together when a preset has an attached video.
 - Preset tags are multi-valued and optional. Store `boss` when appropriate. Assign `beginner` when saving a new deck with at most one Legendary and four Epic cards; do not calculate this tag during rendering.
 - Auto-completion preserves already chosen cards, levels and assumptions. Ownership can restrict candidates but cannot change their levels. Keep the toad requirement for Gamatatsu; generic Focus affinity alone is insufficient.
 - Deck proposals use the current builder deck/name and require all 10 cards. Their description may be empty; the server supplies a localized fallback. Synergy proposals require a description. Both description fields have a 2000-character limit.
@@ -107,3 +108,4 @@ npm run build
 - The bookmark method depends on opening the official app through the builder's button so `window.opener` is retained. Preserve origin/source checks, per-request random tokens and acknowledgement handling.
 - Ordinary synchronization errors are displayed only by the builder. The bookmark retains a native manually dismissed alert for wrong-site use or an unavailable connection. It contains no timed-feedback UI or duration settings.
 - The manual method opens the official site independently and lets the user copy the collection JSON. Both import methods use the same validation/import path.
+- The localized `collectionImportWarning` panel sits above the collection instructions and directs users to the official collection to check whether their cards load.

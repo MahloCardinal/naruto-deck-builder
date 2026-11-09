@@ -11,22 +11,22 @@ class CardSearchIndex {
     if (this.query !== query) {
       this.query = query;
       const index = /^#?(\d+)$/.exec(query),
-        reference = /^s(\d+)\s*(?:[#_-]|\s)\s*(\d+)$/.exec(query),
-        season = /^s(\d+)$/.exec(query);
-      this.parsed = index
-        ? { number: Number(index[1]) }
-        : reference
-          ? { season: Number(reference[1]), number: Number(reference[2]) }
-          : season
-            ? { season: Number(season[1]) }
-            : null;
+        reference = /^(s\d+|es)(?:\s*(?:[#_-]|\s)\s*(\d*))?$/.exec(query);
+      const set = reference?.[1];
+      this.parsed = index || reference
+        ? { set: set?.startsWith('s') ? 's' + Number(set.slice(1)) : set, digits: index?.[1] || reference?.[2] }
+        : null;
     }
     const parsed = this.parsed;
-    if (parsed)
-      return (
-        (parsed.season === undefined || card.season === parsed.season) &&
-        (parsed.number === undefined || this.number(card) === parsed.number)
-      );
+    if (parsed) {
+      const set = typeof card.season === 'number' ? 's' + card.season : card.season.toLowerCase();
+      if (parsed.set && parsed.set !== set) return false;
+      if (!parsed.digits) return true;
+      const number = this.number(card);
+      return parsed.digits.startsWith('0')
+        ? String(number).padStart(3, '0').startsWith(parsed.digits)
+        : number === Number(parsed.digits);
+    }
     const language = this.language();
     let record = this.records.get(card);
     if (record?.language !== language) {
