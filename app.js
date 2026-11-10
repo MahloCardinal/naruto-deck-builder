@@ -1124,12 +1124,12 @@ function renderPresetLibrary() {
   const exactPreset = presetById.get(exactPresetId);
   if (exactPreset) search.value = presetName(exactPreset);
   const query = normalizeSearchText(search.value),
-    tags = selectedFilterValues('f-tags', 'decks');
+    tags = [...selectedFilterValues('f-tags', 'decks')];
   const ownedOnly = $('decks-f-collection').value === 'owned';
   const decks = PREBUILT_DECKS.filter(deck => {
     for (const key of requiredCards) if (!deck.cards.includes(key)) return false;
     if (ownedOnly && !deck.cards.every(key => !!collectionCounts?.[key])) return false;
-    if (tags.size && !deck.tags.some(tag => tags.has(tag))) return false;
+    if (!tags.every(tag => deck.tags.includes(tag))) return false;
     if (exactPreset) return deck === exactPreset;
     const searchKey = language + ':' + deck.id;
     if (!presetSearchRecords.has(searchKey))
@@ -1168,13 +1168,12 @@ function resetPresetFilters(presetId = null) {
 }
 function presetHTML(deck,compareCards) {
   const cards = deck.cards.map(key => cardByKey.get(key)).sort(compareCards);
-  const tags=deck.tags.map(tag=>{
-    const label=esc(t('ui.tag_'+tag));
-    return tag==='video' && deck.video
-      ? `<a class="tag tag-video" href="${esc(deck.video)}" target="_blank" rel="noopener noreferrer">${label}</a>`
-      : `<span class="tag">${label}</span>`;
-  }).join('');
-  return `<article class="preset"><div class="preset-head"><h3>${esc(presetName(deck))}</h3>${tags ? `<div class="tags">${tags}</div>` : ''}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(
+  const name = esc(presetName(deck));
+  const author = deck.author ? `<span class="tag preset-author">${esc(deck.author)}</span>` : '';
+  const video = deck.video ? `<a class="tag tag-video" href="${esc(deck.video)}" target="_blank" rel="noopener noreferrer">${esc(t('ui.presetVideoLink'))}</a>` : '';
+  const tags = video + deck.tags.filter(tag => tag !== 'video')
+    .map(tag => `<span class="tag">${esc(t('ui.tag_' + tag))}</span>`).join('');
+  return `<article class="preset"><div class="preset-head"><div class="preset-title-row"><h3 title="${name}">${name}</h3>${author}</div>${tags ? `<div class="tags">${tags}</div>` : ''}<button class="primary" data-load-preset="${deck.id}" type="button">${t('ui.useDeck')}</button></div><ol class="preset-cards">${deckPreviewHTML(
     cards.map(card => card.index),
     { showOwnership: true, imageSize: 'compact' }
   )}</ol><button class="preset-description-toggle" type="button" aria-expanded="false" aria-controls="preset-description-${deck.id}">${t('ui.showPresetDescription')}</button><p class="preset-description" id="preset-description-${deck.id}">${formatPresetDescription(deck)}</p></article>`;
@@ -1626,7 +1625,7 @@ function renderCardPresets(card) {
   $('card-presets-body').innerHTML=decks?.length
     ? `<ul class="card-presets-list" tabindex="0" aria-labelledby="card-presets-title">${sortPresets([...decks]).map(deck=>{
       const cards=deck.cards.map(key=>cardByKey.get(key));
-      const name=esc(presetName(deck));
+      const name = esc(presetName(deck));
       return `<li><h4 title="${name}">${name}</h4><ol class="deck-grid">${deckSlotsHTML(cards,{count:cards.length,open:false,remove:false})}</ol><button type="button" data-go-to-preset="${deck.id}" aria-label="${esc(t('ui.goToPreset')+' · '+presetName(deck))}">${esc(t('ui.goToPreset'))}</button></li>`;
     }).join('')}</ul>`
     : `<p>${esc(t('ui.noDecksWithCard'))}</p>`;
@@ -1746,7 +1745,13 @@ function createFilterDefinitions() {
 }
 let filterDefinitions=createFilterDefinitions();
 function createDeckTagFilterDefinition() {
-  return {label:t('ui.deckTags'),all:t('ui.allFeminine'),options:[...new Set(PREBUILT_DECKS.flatMap(deck=>deck.tags))].map(value=>({value,label:t('ui.tag_'+value)})).sort((a,b)=>collatorFor(TRANSLATIONS[language].locale).compare(a.label,b.label))};
+  const tags = new Set(PREBUILT_DECKS.flatMap(deck => deck.tags));
+  const hasVideo = tags.delete('video');
+  const collator = collatorFor(TRANSLATIONS[language].locale);
+  const options = [...tags].map(value => ({value, label:t('ui.tag_' + value)}))
+    .sort((a,b) => collator.compare(a.label,b.label));
+  if (hasVideo) options.push({value:'video', label:t('ui.tag_video')});
+  return {label:t('ui.deckTags'), all:t('ui.allFeminine'), options};
 }
 let deckTagFilterDefinition=createDeckTagFilterDefinition();
 function selectedFilterValues(id,area=mode) {

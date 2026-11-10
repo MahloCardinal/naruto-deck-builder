@@ -581,7 +581,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "26",
-    "name": "Rage by Pluto",
+    "name": "Rage",
+    "author": "Pluto",
     "tags": [],
     "cards": [
       "S1_078",
@@ -603,7 +604,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "27",
-    "name": "Control by Pluto",
+    "name": "Control",
+    "author": "Pluto",
     "tags": [],
     "cards": [
       "S3_097",
@@ -625,7 +627,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "28",
-    "name": "Deck by ALX",
+    "name": "Deck",
+    "author": "ALX",
     "tags": [],
     "cards": [
       "S1_081",
@@ -647,7 +650,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "29",
-    "name": "Focus by Denn",
+    "name": "Focus",
+    "author": "Denn",
     "tags": [],
     "cards": [
       "S2_058",
@@ -779,7 +783,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "35",
-    "name": "Shogi Master by Bart",
+    "name": "Shogi Master",
+    "author": "Bart",
     "tags": [],
     "cards": [
       "S3_090",
@@ -823,7 +828,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "37",
-    "name": "Control by ALX",
+    "name": "Control",
+    "author": "ALX",
     "tags": [],
     "cards": [
       "S2_091",
@@ -845,7 +851,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "38",
-    "name": "Control by Hans",
+    "name": "Control",
+    "author": "Hans",
     "tags": [],
     "cards": [
       "S2_091",
@@ -867,7 +874,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "39",
-    "name": "Control by Jad",
+    "name": "Control",
+    "author": "Jad",
     "tags": [],
     "cards": [
       "S3_097",
@@ -889,7 +897,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "40",
-    "name": "Control by Kebob",
+    "name": "Control",
+    "author": "Kebob",
     "tags": [],
     "cards": [
       "S2_054",
@@ -1047,7 +1056,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "47",
-    "name": "Deck by Sabo",
+    "name": "Deck",
+    "author": "Sabo",
     "tags": [],
     "cards": [
       "S1_078",
@@ -1069,7 +1079,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "48",
-    "name": "Control by Louis",
+    "name": "Control",
+    "author": "Louis",
     "tags": [],
     "cards": [
       "S1_010",
@@ -1160,7 +1171,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "52",
-    "name": "Wind and Fire by Kebon",
+    "name": "Wind and Fire",
+    "author": "Kebon",
     "tags": [],
     "cards": [
       "S1_010",
@@ -1182,7 +1194,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "53",
-    "name": "Mid Range Pressure by max5",
+    "name": "Mid Range Pressure",
+    "author": "max5",
     "tags": [],
     "cards": [
       "S2_091",
@@ -1204,7 +1217,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "54",
-    "name": "Lane Control by Tobi",
+    "name": "Lane Control",
+    "author": "Tobi",
     "tags": [],
     "cards": [
       "S1_010",
@@ -1226,7 +1240,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "55",
-    "name": "Drain and Scales by Pluto",
+    "name": "Drain and Scales",
+    "author": "Pluto",
     "tags": [],
     "cards": [
       "S1_010",
@@ -1248,7 +1263,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "56",
-    "name": "Doki Rage by KaKAO",
+    "name": "Doki Rage",
+    "author": "KaKAO",
     "tags": [],
     "cards": [
       "S3_099",
@@ -1270,7 +1286,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "57",
-    "name": "Counterattack by Feli4",
+    "name": "Counterattack",
+    "author": "Feli4",
     "tags": [],
     "cards": [
       "S2_091",
@@ -1292,7 +1309,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "58",
-    "name": "Focus Chain by Tobi",
+    "name": "Focus Chain",
+    "author": "Tobi",
     "tags": [],
     "cards": [
       "S2_078",
@@ -1314,7 +1332,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "59",
-    "name": "Winged Defense by Arrow",
+    "name": "Winged Defense",
+    "author": "Arrow",
     "tags": [],
     "cards": [
       "S1_010",
@@ -1336,7 +1355,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "60",
-    "name": "Hyuga Team by Nate",
+    "name": "Hyuga Team",
+    "author": "Nate",
     "tags": [
       "beginner"
     ],
@@ -1360,7 +1380,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "61",
-    "name": "Sound Village Edo by Nate",
+    "name": "Sound Village Edo",
+    "author": "Nate",
     "tags": [
       "beginner"
     ],
@@ -1384,7 +1405,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "62",
-    "name": "Fifth Gate by Arrow 1",
+    "name": "Fifth Gate",
+    "author": "Arrow 1",
     "tags": [],
     "cards": [
       "S1_010",
@@ -1406,7 +1428,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "63",
-    "name": "Toad Team by Pluto",
+    "name": "Toad Team",
+    "author": "Pluto",
     "tags": [
       "video",
       "beginner"
@@ -1432,7 +1455,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "64",
-    "name": "Range Control by max5",
+    "name": "Range Control",
+    "author": "max5",
     "tags": [],
     "cards": [
       "S1_006",
@@ -1454,7 +1478,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "65",
-    "name": "Kyubi Link by Arrow",
+    "name": "Kyubi Link",
+    "author": "Arrow",
     "tags": [
       "video"
     ],
@@ -1479,7 +1504,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "66",
-    "name": "Edo and Tsukuyomi by Rostin",
+    "name": "Edo and Tsukuyomi",
+    "author": "Rostin",
     "tags": [
       "video"
     ],
@@ -1505,7 +1531,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "67",
-    "name": "Mark and Guard by Zack",
+    "name": "Mark and Guard",
+    "author": "Zack",
     "tags": [
       "video"
     ],
@@ -1530,7 +1557,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "68",
-    "name": "Old Friends by Louis",
+    "name": "Old Friends",
+    "author": "Louis",
     "tags": [
       "video",
       "beginner"
@@ -1556,7 +1584,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "69",
-    "name": "Rage on the Move by Dezed",
+    "name": "Rage on the Move",
+    "author": "Dezed",
     "tags": [
       "video"
     ],
@@ -1581,7 +1610,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "70",
-    "name": "Amaterasu by Markline",
+    "name": "Amaterasu",
+    "author": "Markline",
     "tags": [
       "video"
     ],
@@ -1606,7 +1636,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "71",
-    "name": "Dragon and Forest by Broly",
+    "name": "Dragon and Forest",
+    "author": "Broly",
     "tags": [],
     "cards": [
       "S1_069",
@@ -1628,7 +1659,8 @@ const PREBUILT_DECKS = [
   },
   {
     "id": "72",
-    "name": "Mirrors and Mist by Pluto",
+    "name": "Mirrors and Mist",
+    "author": "Pluto",
     "tags": [
       "beginner"
     ],

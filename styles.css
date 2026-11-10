@@ -91,6 +91,7 @@ h4 { font-size:11px; font-weight:650; }
 .filter-menu .filter-option-row { display:grid; grid-template-columns:minmax(0,1fr) var(--filter-action-width,max-content); align-items:center; gap:8px; margin:0; padding:6px 5px; color:var(--ink); font-size:11px; cursor:pointer; }
 .filter-option-row:hover { background:var(--surface); }
 .filter-option-row:has(input:checked) { background:var(--accent-soft); }
+.filter-option-row:has(> input[value="video"]) > span { color:var(--red); font-weight:700; }
 .filter-menu .filter-option { justify-self:end; width:14px; height:14px; min-height:0; margin:0; padding:0; accent-color:var(--accent); }
 .sort-tools { display:flex; align-items:end; gap:5px; margin-left:0; }
 .sort-direction { flex:none; width:31px; height:31px; padding:0; border-radius:0; font-size:18px; line-height:1; }
@@ -532,7 +533,10 @@ dialog button { border-radius:0; }
 }
 .preset { min-width:0; padding:8px; }
 .preset-head { display:flex; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:7px; }
-.preset-head h3 { flex-basis:100%; font-size:13px; line-height:1.25; overflow-wrap:anywhere; }
+.preset-title-row { display:flex; flex-basis:100%; align-items:center; gap:5px; min-width:0; }
+.preset-title-row .tag { flex:none; }
+.tag.preset-author { border-radius:999px; border-color:var(--accent-line); background:var(--accent-soft); color:var(--accent-text); font-weight:650; }
+.preset-head h3 { min-width:0; font-size:13px; line-height:1.25; overflow-wrap:anywhere; }
 .preset-head > button { margin-left:auto; padding:3px 5px; font-size:9px; }
 .preset-head .tags { margin:0; }
 .preset-cards { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); align-items:stretch; gap:4px; margin:0; padding:0; list-style:none; }

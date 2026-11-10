@@ -32,7 +32,7 @@ Read the relevant source before editing. This file describes the current impleme
 | `localization.js`, `bootstrap.js` | Load the initial locale before the application; load additional locales asynchronously. |
 | `assets.js` | Source/production asset URLs, responsive card images, script loading and decoded popup artwork cache. |
 | `synergies.js` | Curated directional mechanical rules (`SYNERGY_RULES`) and the derived symmetric browsing graph (`SYNERGIES`). |
-| `prebuilt-decks.js` | Preset identifiers, fallback names, saved tags, card lists and strategy cores. Localized titles/descriptions live in catalogs. |
+| `prebuilt-decks.js` | Preset identifiers, fallback names, author credits, saved tags, card lists and strategy cores. Localized titles/descriptions live in catalogs. |
 | `deck-autobuilder.js` | Lazy-loaded completion engine combining interactions, preset affinities and deck balance. |
 | `collection.js` | Ownership-only JSON import, local persistence and bookmark synchronization with the official app. |
 | `search-index.js`, `control-layout.js` | Cached multilingual search and sizing/positioning of controls. |
@@ -72,7 +72,7 @@ npm run build
 - The prebuilt required-card filter follows Tags and uses a five-slot deck preview. Suggestions overlay the page in a popover aligned to the search input. It matches every selected identity. Its selected cards count as one active filter and persist with the library filters.
 - Synergy rows are virtualized and sources are grouped only when their complete partner lists are identical. Every source remains searchable. Partner lists scroll vertically, use fixed gaps and start from the left.
 - Search matches a contiguous phrase within a field, not separate words scattered across content. Numeric/season references have dedicated handling in `CardSearchIndex`.
-- Multi-select filters use OR within a group and AND across groups. Checkbox menus stay open after selection. Default card ordering is index ascending. Sorting and database level changes enable reset but do not increase the active-filter badge.
+- Card multi-select filters use OR within a group and AND across groups. Preset tag filters require all selected tags. Checkbox menus stay open after selection. Default card ordering is index ascending. Sorting and database level changes enable reset but do not increase the active-filter badge.
 - Collection filtering offers all/owned, plus missing only in the database. Use `catalogScrollRoot` when dealing with scroll position; mobile and desktop roots differ by section.
 - `sessionStorage` preserves the current tab's deck, language, section, filters, panel state, assumptions and scroll positions. Collection ownership is persisted separately in `localStorage`.
 - Temporary feedback uses the common `setFeedback` system: automatic dismissal after 5 seconds; page clicks dismiss after at least 2 seconds. A new notice replaces the old one, and navigation clears notices. Errors are red, confirmations use standard dark text, with no final period. Persistent operation states are distinct from timed notices.
@@ -94,9 +94,10 @@ npm run build
 
 - Keep conditional targeting, lane, timing and trigger requirements in `SYNERGY_RULES`; the browsing graph and recommender derive different views from these rules. Avoid broad affinities or tradeoffs in the mechanical browsing graph.
 - A preset represents its card identities, not levels or assumptions. Do not show level badges in preset previews. Detect duplicates by the unordered set of card keys before adding another preset.
+- Put creator handles in the optional `author` field. Rounded author badges appear beside titles in the preset library and stay separate from the card popup, search and tag filters.
 - Preset descriptions should explain concrete sequencing and interactions of cards actually in that list. Use full card names, rendered in bold by `formatPresetDescription`, without season/index prefixes or embedded source links. Distinguish ability variants when needed.
 - Player names are attribution, not tactics: use titles such as `Deck by ALX` and omit bracketed clan tags.
-- Add the `video` tag and a verified direct `video` URL together when a preset has an attached video.
+- Add the `video` tag and a verified direct `video` URL together when a preset has an attached video. The filter uses `tag_video` and the first badge in the tag row uses `presetVideoLink`.
 - Preset tags are multi-valued and optional. Store `boss` when appropriate. Assign `beginner` when saving a new deck with at most one Legendary and four Epic cards; do not calculate this tag during rendering.
 - Auto-completion preserves already chosen cards, levels and assumptions. Ownership can restrict candidates but cannot change their levels. Keep the toad requirement for Gamatatsu; generic Focus affinity alone is insufficient.
 - Deck proposals use the current builder deck/name and require all 10 cards. Their description may be empty; the server supplies a localized fallback. Synergy proposals require a description. Both description fields have a 2000-character limit.
