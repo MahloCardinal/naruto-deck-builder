@@ -34,12 +34,14 @@ Read the relevant source before editing. This file describes the current impleme
 | `synergies.js` | Curated directional mechanical rules (`SYNERGY_RULES`) and the derived symmetric browsing graph (`SYNERGIES`). |
 | `prebuilt-decks.js` | Preset identifiers, fallback names, author credits, saved tags, card lists and strategy cores. Localized titles/descriptions live in catalogs. |
 | `deck-autobuilder.js` | Lazy-loaded completion engine combining interactions, preset affinities and deck balance. |
+| `deck-image.js` | Lazy-loaded browser canvas renderer for deck PNG downloads. |
 | `collection.js` | Ownership-only JSON import, local persistence and bookmark synchronization with the official app. |
 | `search-index.js`, `control-layout.js` | Cached multilingual search and sizing/positioning of controls. |
 | `virtual-list.js` | Viewport-based rendering of synergy rows. |
 | `card_images/` | Original WebP artwork plus `160/` and `320/` responsive versions. All three sizes are used. |
-| `misc_images/` | Site icon, WebP language flags and their SVG sources. |
+| `misc_images/` | Site icon and WebP language flags. |
 | `scripts/build.cjs` | Generates `dist/`, minifies scripts, combines startup scripts and fingerprints assets. |
+| `scripts/dev.cjs` | Serves the source app on loopback for local development and PNG exports. |
 | `scripts/generate-thumbnails.py` | Regenerates responsive artwork after adding images; requires Pillow. |
 | `api/proposals.js`, `server-data/proposals.json` | Validated proposal submission to Discord and its generated data projection. |
 | `vercel.json`, `package*.json` | Deployment configuration, pinned build dependencies and package commands. |
@@ -55,7 +57,8 @@ npm run build
 ```
 
 - After changing `translations.js`, regenerate and include the matching locale files. The generator also updates `server-data/proposals.json`; the build runs it automatically.
-- Do not edit or commit `dist/` or `node_modules/`. A static server can serve the source project for local UI checks. The proposal endpoint requires the Vercel runtime.
+- Run `npm run dev` and open `http://127.0.0.1:4173` to serve the source app locally without installing dependencies. PNG export needs HTTP when the browser blocks canvas export from `file:`. The proposal endpoint requires the Vercel runtime.
+- Do not edit or commit `dist/` or `node_modules/`. `npm ci` restores dependencies and `npm run build` regenerates `dist/`.
 - Vercel uses `DISCORD_WEBHOOK_URL` on the server. Preserve its same-origin checks, validation and request limits. A plain local static server cannot deliver proposals by itself.
 - There is no committed automated test suite. Use checks appropriate to the change: syntax and diff checks, a production build, and targeted browser verification. Check desktop and a 375px mobile viewport for layout changes; check affected languages for text changes.
 - For synchronization verification, simulate the official app/API rather than using a real account. For proposal verification, mock `/api/proposals` rather than sending real Discord messages.
@@ -80,11 +83,11 @@ npm run build
 
 ## Card data and calculations
 
-- `card_key` values such as `S3_053` and `ES_001` identify cards across datasets. Public references restart per set (`S3 #053`, `ES #001`). Internal numeric `index` values remain stable and must not be renumbered.
+- `card_key` values such as `S3_053` and `SR_001` identify cards across datasets. Public references restart per set (`S3 #053`, `SR #001`). Use the official `SR` keys for Event Scroll cards. Internal numeric `index` values remain stable and must not be renumbered.
 - `skill_types_original` drives filters and popup tags. It includes mechanics a card reacts to, not just actions it performs. Do not assume every card tagged Teleport performs a teleport itself, for example.
 - Follow current card rules and user-confirmed in-game behavior. External translations/guides can be outdated; resolve discrepancies before overwriting established effects.
 - A deck has exactly 10 unique cards, maximum one of each. Levels are selected manually or through the builder's level control. Explicit per-card levels take precedence; ownership never determines level.
-- Keep one deck import/export format without version labels or legacy variants. Exports include selected levels and individual calculation assumptions. Deck names are limited to 15 characters; clearing resets the localized default name. Filename spaces become underscores.
+- Deck downloads are PNG images rendered locally from the deck dialog's sort order. They show artwork, names, ability titles, printed cost and base Chakra. Deck names are limited to 15 characters; clearing resets the localized default name. Filename spaces become underscores.
 - Assumptions are integers from 0 to 99. `DEFAULT_SCENARIO` in `cards.js` is the source of default values. Applying defaults updates per-card assumptions; individual changes affect only that card.
 - Card activations mean total activations, not extra activations after the first. Only applicable repeated effects scale; initial/one-shot effects do not. Enemy/ally target counts remain separate variables. Do not add automatic usage caps or warning systems; healing counts in full.
 - Chakra gains and healing are different mechanics. Include summoned/copied Chakra in power and subtract friendly damage as defined by the rules. Avoid deriving calculation behavior from translated prose.

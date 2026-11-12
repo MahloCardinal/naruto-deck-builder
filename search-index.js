@@ -11,10 +11,10 @@ class CardSearchIndex {
     if (this.query !== query) {
       this.query = query;
       const index = /^#?(\d+)$/.exec(query),
-        reference = /^(s\d+|es)(?:\s*(?:[#_-]|\s)\s*(\d*))?$/.exec(query);
+        reference = /^(s\d+|sr)(?:\s*(?:[#_-]|\s)\s*(\d*))?$/.exec(query);
       const set = reference?.[1];
       this.parsed = index || reference
-        ? { set: set?.startsWith('s') ? 's' + Number(set.slice(1)) : set, digits: index?.[1] || reference?.[2] }
+        ? { set: set && set !== 'sr' ? 's' + Number(set.slice(1)) : set, digits: index?.[1] || reference?.[2] }
         : null;
     }
     const parsed = this.parsed;

@@ -94,9 +94,8 @@
 </div>
 <button aria-controls="deck-info-dialog" aria-haspopup="dialog" class="info-button deck-help-button" data-deck-info="" data-i18n-aria-label="ui.deckInfo" data-i18n-title="ui.deckInfo" id="deck-info-button"><span aria-hidden="true">?</span></button>
 </div>
-<div class="deck-file-actions deck-preview-buttons"><button aria-controls="deck-dialog" aria-haspopup="dialog" class="primary" id="view-deck"><span class="deck-details-full" data-i18n="ui.viewDeck"></span><span class="deck-details-short" data-i18n="ui.details"></span></button><button data-deck-action="import" data-i18n="ui.import"></button><button class="danger strong-danger" data-deck-action="clear" data-i18n="ui.clearDeck"></button></div>
+<div class="deck-preview-buttons"><button aria-controls="deck-dialog" aria-haspopup="dialog" class="primary" id="view-deck"><span class="deck-details-full" data-i18n="ui.viewDeck"></span><span class="deck-details-short" data-i18n="ui.details"></span></button><button class="danger strong-danger" id="clear-deck" type="button" data-i18n="ui.clearDeck"></button></div>
 <button id="propose-deck" type="button" data-i18n="ui.proposeDeck"></button>
-<input accept=".json,application/json" hidden="" id="import-file" type="file"/>
 </section>
 </div>
 </section>
@@ -223,7 +222,7 @@
 </div>
 <div class="deck-dialog-toolbar">
 <div class="deck-sort-tools"><label data-i18n="ui.sortBy" for="deck-sort"></label><div class="sort-tools"><select data-i18n-aria-label="ui.sortCards" id="deck-sort"></select><button class="sort-direction" data-direction="asc" data-i18n-aria-label="ui.ascendingAction" data-i18n-title="ui.ascending" id="deck-sort-direction" type="button">↑</button></div></div>
-<button class="primary" data-deck-action="export" data-i18n="ui.export"></button>
+<button class="primary" id="export-deck-image" type="button" data-i18n="ui.exportDeckImage" disabled></button>
 </div>
 </dialog>
 <dialog aria-labelledby="dialog-title" id="card-dialog">

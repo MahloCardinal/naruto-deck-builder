@@ -2,6 +2,7 @@
   "name": "naruto-ninja-cards",
   "private": true,
   "scripts": {
+    "dev": "node scripts/dev.cjs",
     "build": "node scripts/build.cjs",
     "locales": "node scripts/generate-data.cjs"
   },

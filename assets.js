@@ -4,7 +4,7 @@
 function assetPath(path) {
   const direct = globalThis.NARUTO_ASSETS?.[path];
   if (direct) return direct;
-  const card = /^card_images\/(?:(160|320)\/)?((?:S\d+|ES)_\d+)\.webp$/.exec(path);
+  const card = /^card_images\/(?:(160|320)\/)?((?:S\d+|SR)_\d+)\.webp$/.exec(path);
   const hashes = card && globalThis.NARUTO_CARD_HASHES?.[card[2]];
   if (hashes)
     return `assets/card_images/${card[1] ? card[1] + '/' : ''}${card[2]}.${hashes[card[1] === '160' ? 1 : card[1] === '320' ? 2 : 0]}.webp`;

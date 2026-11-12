@@ -834,6 +834,12 @@ function deckAverages(cards, levelFor = deckLevel) {
   return { cost: cost / count, power: power / count, quality: quality / count };
 }
 const deckRenderSignatures=new Map();
+function sortedDeckCards() {
+  const compareCards = createCardComparator(deckOrder.sort, deckOrder.direction, card =>
+    numericComputed(card, deckLevel(card))
+  );
+  return current.cards.map(index => byIndex.get(index)).sort(compareCards);
+}
 function renderDeck() {
   const n = current.cards.length,
     dialogOpen = $('deck-dialog').open,
@@ -843,14 +849,12 @@ function renderDeck() {
     $('mobile-deck-count').textContent = n + '/10';
   $('auto-build').disabled = n === 10;
   $('auto-build').title = t(n === 10 ? 'ui.autoFull' : 'ui.autoBuild');
-  for (const button of document.querySelectorAll('[data-deck-action="clear"]'))
-    if (button.disabled !== (n === 0)) button.disabled = n === 0;
+  $('clear-deck').disabled = n === 0;
+  const exportButton = $('export-deck-image');
+  exportButton.disabled = n === 0 || exportButton.hasAttribute('aria-busy');
   if (mode === 'decks' && toolbarState.decks.active === 'proposal') renderDeckProposal();
   if (!dialogOpen && !sidebarOpen) return;
-  const compareCards = createCardComparator(deckOrder.sort, deckOrder.direction, card =>
-    numericComputed(card, deckLevel(card))
-  );
-  const cards = current.cards.map(index => byIndex.get(index)).sort(compareCards);
+  const cards = sortedDeckCards();
   const signature = JSON.stringify([
     language,
     current.name,
@@ -1688,57 +1692,51 @@ function renderDialog() {
   };
 }
 
-// Deck file serialization and validation.
-function serializeDeck() {
-  return {format:'naruto-deck',name:current.name,
-    cards:current.cards.map(index => ({index,level:deckLevel(byIndex.get(index))})),
-    scenario:{...current.scenario},
-    cardOptions:Object.fromEntries(current.cards.map(index => [index,scenarioFor(byIndex.get(index))]))
-  };
-}
-function exportDeck() {
-  const data=serializeDeck();
-  const url = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
-  const link = document.createElement('a'); link.href = url;
-  link.download = (current.name.trim().replace(/[^\p{L}\p{N}_-]+/gu,'_') || t('ui.defaultDeckName').replace(/\s+/g,'_'))+'.json';
-  link.click(); setTimeout(() => URL.revokeObjectURL(url),1000);
-  return data;
-}
-function parseScenarioOptions(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error(t('errors.invalidOptions'));
-  const out = {};
-  for (const key of Object.keys(defaults)) {
-    const n = value[key];
-    if (typeof n !== 'number' || !Number.isFinite(n)) throw Error(t('errors.invalidValues'));
-    out[key] = n;
+async function downloadDeckImage(event) {
+  const button = event.currentTarget;
+  if (!current.cards.length || button.disabled) return;
+  const dialog = $('deck-dialog');
+  const name = current.name.trim() || t('ui.defaultDeckName');
+  const filename = name.replace(/[^\p{L}\p{N}_-]+/gu, '_');
+  const costLabel = t('ui.cost'), chakraLabel = t('ui.baseChakra');
+  const cards = sortedDeckCards().map(card => {
+    const {name, ability} = cardText(card);
+    return {key:card.card_key, name:name.toUpperCase(), ability, cost:card.energy_cost, chakra:card.chakra};
+  });
+  let closed = false;
+  const markClosed = () => { closed = true; };
+  dialog.addEventListener('close', markClosed, {once:true});
+  button.disabled = true;
+  button.setAttribute('aria-busy', 'true');
+  try {
+    await loadAssetScript('deck-image.js', {verify:() => typeof createDeckImage === 'function'});
+    const png = await createDeckImage({name,cards,costLabel,chakraLabel});
+    const url = URL.createObjectURL(png);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename + '.png';
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10_000);
+  } catch (error) {
+    if (dialog.open && !closed) {
+      const key = location.protocol === 'file:' && error?.name === 'SecurityError'
+        ? 'ui.deckImageNeedsServer' : 'ui.deckImageFailed';
+      setFeedback('deck-image-status', key, {error:true, anchor:button});
+    }
+  } finally {
+    dialog.removeEventListener('close', markClosed);
+    button.removeAttribute('aria-busy');
+    button.disabled = current.cards.length === 0;
   }
-  return cleanScenario(out);
-}
-function parseDeck(text) {
-  let data;
-  try { data = JSON.parse(text); } catch { throw Error(t('errors.invalidJson')); }
-  if (data?.format !== 'naruto-deck' || typeof data.name !== 'string' || !Array.isArray(data.cards) || data.cards.length > 10) throw Error(t('errors.invalidDeck'));
-  const next = emptyDeck(), selected = new Set(); next.name = data.name.slice(0,15);
-  for (const card of data.cards) {
-    if (!card || !Number.isInteger(card.index) || !byIndex.has(card.index) || selected.has(card.index) || ![1,2].includes(card.level)) throw Error(t('errors.invalidCards'));
-    selected.add(card.index); next.cards.push(card.index);
-    next.levels[card.index] = card.level;
-  }
-  next.scenario = parseScenarioOptions(data.scenario);
-  if (!data.cardOptions || typeof data.cardOptions !== 'object' || Array.isArray(data.cardOptions)) throw Error(t('errors.invalidOverrides'));
-  for (const [key,value] of Object.entries(data.cardOptions)) {
-    if (!selected.has(Number(key)) || !/^\d+$/.test(key)) throw Error(t('errors.missingCard'));
-    next.cardOptions[key] = parseScenarioOptions(value);
-  }
-  for (const index of selected) if (!next.cardOptions[index]) next.cardOptions[index] = {...next.scenario};
-  return next;
 }
 // Filter menus and responsive control measurements.
 function createFilterDefinitions() {
   const labels=keys=>keys.map(([value,key])=>({value,label:t('ui.'+key)}));
   return {
     'f-rarity':{label:t('ui.rarity'),all:t('ui.allFeminine'),options:labels([['Common','common'],['Rare','rare'],['Epic','epic'],['Legendary','legendary']])},
-    'f-season':{label:t('ui.season'),all:t('ui.allFeminine'),options:labels([['1','first'],['2','second'],['3','third'],['ES','eventScrolls']])},
+    'f-season':{label:t('ui.season'),all:t('ui.allFeminine'),options:labels([['1','first'],['2','second'],['3','third'],['SR','eventScrolls']])},
     'f-skill':{label:t('ui.skillType'),all:t('ui.all'),options:[{value:'none',label:t('ui.none')},...Array.from(new Set(CARDS.flatMap(card=>card.skill_types_original))).sort((a,b)=>collatorFor(TRANSLATIONS[language].locale).compare(effectLabel(a),effectLabel(b))).map(key=>({value:key,label:effectLabel(key),html:effectHTML(effectLabel(key),key)}))]},
     ...Object.fromEntries([['f-cost','cost','energy_cost'],['f-chakra','chakra','chakra']].map(([id,key,field])=>[id,{label:t('ui.'+key),all:t('ui.all'),options:Array.from(new Set(CARDS.map(card=>card[field]))).sort((a,b)=>a-b).map(value=>({value:String(value),label:String(value)}))}]))
   };
@@ -2137,6 +2135,11 @@ function scheduleSessionSave(options = {}) {
   clearTimeout(sessionTimer);
   sessionTimer = setTimeout(saveSession, 80);
 }
+function validateSessionScenario(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value) ||
+      !Object.keys(defaults).every(key => Number.isFinite(value[key]))) throw Error('Invalid session assumptions');
+  return cleanScenario(value);
+}
 function restoreSession() {
   let text;
   try { text = sessionStorage.getItem(SESSION_KEY); }
@@ -2146,8 +2149,11 @@ function restoreSession() {
     if (text.length > 1000000) throw Error('Session too large');
     const saved = JSON.parse(text);
     if (!saved || !Object.hasOwn(TRANSLATIONS,saved.language) || !sectionIds.includes(saved.mode) || typeof saved.useDefaultDeckName !== 'boolean') throw Error('Invalid session');
-    const nextDefaults = parseScenarioOptions(saved.defaults), deck = saved.deck;
-    if (!deck || !Array.isArray(deck.cards) || !deck.levels || !deck.cardOptions || Array.isArray(deck.levels) || Array.isArray(deck.cardOptions)) throw Error('Invalid session deck');
+    const nextDefaults = validateSessionScenario(saved.defaults), deck = saved.deck;
+    if (!deck || typeof deck.name !== 'string' || !Array.isArray(deck.cards) || deck.cards.length > 10 ||
+        new Set(deck.cards).size !== deck.cards.length || !deck.cards.every(index => byIndex.has(index)) ||
+        !deck.levels || typeof deck.levels !== 'object' || Array.isArray(deck.levels) ||
+        !deck.cardOptions || typeof deck.cardOptions !== 'object' || Array.isArray(deck.cardOptions)) throw Error('Invalid session deck');
     const levels = {}, cardOptions = {};
     for (const [key,value] of Object.entries(deck.levels)) {
       if (!/^\d+$/.test(key) || !byIndex.has(Number(key)) || ![1,2].includes(value)) throw Error('Invalid session level');
@@ -2155,16 +2161,15 @@ function restoreSession() {
     }
     for (const [key,value] of Object.entries(deck.cardOptions)) {
       if (!/^\d+$/.test(key) || !byIndex.has(Number(key))) throw Error('Invalid session card');
-      cardOptions[key] = parseScenarioOptions(value);
+      cardOptions[key] = validateSessionScenario(value);
     }
-    const next = parseDeck(JSON.stringify({format:'naruto-deck',name:deck.name,
-      cards:deck.cards.map(index => ({index,level:levels[index] ?? (saved.filters?.builder?.level === 2 ? 2 : 1)})),
-      scenario:deck.scenario,
-      cardOptions:Object.fromEntries(deck.cards.filter(index => Object.hasOwn(cardOptions,index)).map(index => [index,cardOptions[index]]))
-    }));
-    // Preserve overrides for browsed cards as well as the cards in the deck.
-    next.levels = {...levels,...next.levels};
-    next.cardOptions = {...cardOptions,...next.cardOptions};
+    const scenario = validateSessionScenario(deck.scenario);
+    const fallbackLevel = saved.filters?.builder?.level === 2 ? 2 : 1;
+    for (const index of deck.cards) {
+      levels[index] ??= fallbackLevel;
+      cardOptions[index] ??= {...scenario};
+    }
+    const next = {name:deck.name.slice(0,15), cards:[...deck.cards], levels, scenario, cardOptions};
     language = saved.language; mode = saved.mode; useDefaultDeckName = saved.useDefaultDeckName;
     Object.assign(defaults,nextDefaults); current = next;
     if (useDefaultDeckName) current.name = t('ui.defaultDeckName');
@@ -2293,28 +2298,21 @@ for (const id of ['deck-proposal-panel','synergy-proposal-panel']) $(id).onsubmi
 $('deck-sort').onchange = () => { deckOrder.sort=$('deck-sort').value;renderDeck();scheduleSessionSave(); };
 $('deck-sort-direction').onclick = () => { deckOrder.direction=deckOrder.direction==='asc'?'desc':'asc';renderDeck();scheduleSessionSave(); };
 $('close-deck-dialog').onclick = () => $('deck-dialog').close();
+$('deck-dialog').addEventListener('close', () => setFeedback('deck-image-status'));
 $('deck-name').oninput = () => {
   const input = $('deck-name');
   useDefaultDeckName=false;
   current.name = input.value.slice(0,15);
   if (input.value !== current.name) input.value = current.name;
 };
-const deckActions={
-  export:exportDeck,
-  import:()=>$('import-file').click(),
-  clear:()=>ask('ui.confirmClear',()=>{current.cards=[];current.levels={};current.name=t('ui.defaultDeckName');useDefaultDeckName=true;changed();})
-};
-for (const button of document.querySelectorAll('[data-deck-action]')) button.onclick=deckActions[button.dataset.deckAction];
-$('import-file').onchange = async () => {
-  const file = $('import-file').files[0]; if (!file) return;
-  try {
-    if (file.size > 1000000) throw Error(t('errors.fileTooLarge'));
-    const next = parseDeck(await file.text());
-    const apply = () => { current=next;useDefaultDeckName=false;syncScenario();changed();toast(t('ui.deckImported')); };
-    if (current.cards.length) ask('ui.replaceDeck',apply); else apply();
-  } catch (error) { toast(error.message || t('errors.importFailed'),true); }
-  $('import-file').value = '';
-};
+$('export-deck-image').onclick = downloadDeckImage;
+$('clear-deck').onclick = () => ask('ui.confirmClear', () => {
+  current.cards = [];
+  current.levels = {};
+  current.name = t('ui.defaultDeckName');
+  useDefaultDeckName = true;
+  changed();
+});
 $('close-dialog').onclick = () => $('card-dialog').close();
 $('close-card-calculation').onclick = () => $('card-calculation-dialog').close();
 $('card-calculation-body').oninput = event => {
@@ -2378,4 +2376,4 @@ document.addEventListener('visibilitychange',() => { if (document.visibilityStat
 restoreCatalogScroll();
 requestAnimationFrame(saveSession);
 if (restoredSession.warning) notifyStorageFailure(restoredSession.warning);
-window.NarutoApp = {cards:CARDS,estimate,computed:(card,level=levelOf(card))=>estimate(card,level),deckLevel,defaults,exportDeck,parseDeck,getCurrent:() => structuredClone(current),setLanguage,getLanguage:()=>language};
+window.NarutoApp = {cards:CARDS,estimate,computed:(card,level=levelOf(card))=>estimate(card,level),deckLevel,defaults,getCurrent:() => structuredClone(current),setLanguage,getLanguage:()=>language};

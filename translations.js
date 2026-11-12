@@ -305,8 +305,9 @@ const TRANSLATIONS = {
       "averagePower": "Average power",
       "averageQuality": "Average quality",
       "viewDeck": "Deck details",
-      "import": "Import",
-      "export": "Export",
+      "exportDeckImage": "Export PNG",
+      "deckImageFailed": "Unable to export the deck image.",
+      "deckImageNeedsServer": "To export from your computer, run npm run dev and open http://127.0.0.1:4173.",
       "clearDeck": "Clear",
       "closeDeck": "Close deck",
       "closeCard": "Close card details",
@@ -319,7 +320,6 @@ const TRANSLATIONS = {
       "cancel": "Cancel",
       "replaceDeck": "Replace the current deck with the imported deck?",
       "confirmClear": "Remove all cards from the deck?",
-      "deckImported": "Deck imported",
       "sessionUnavailable": "Automatic session saving is unavailable. Export your deck to keep it",
       "sessionInvalid": "The saved session could not be restored. You can import an exported deck.",
       "addToDeck": "Add to deck",
@@ -402,7 +402,7 @@ const TRANSLATIONS = {
       "Heal": "heal[\\p{L}]*"
     },
     "cards": {
-      "ES_001": {
+      "SR_001": {
         "name": "Sakura Haruno",
         "ability": "Healing Student",
         "descriptions": [
@@ -410,7 +410,7 @@ const TRANSLATIONS = {
           "When deployed, Heal(1) the nearest ally in this lane. When a rival first applies Burn, Pin or Weaken to a lane ally, Heal(4) that ally."
         ]
       },
-      "ES_002": {
+      "SR_002": {
         "name": "Hoki",
         "ability": "Reverse Scale Formation",
         "descriptions": [
@@ -418,7 +418,7 @@ const TRANSLATIONS = {
           "On deployment, check that allied Chakra totals at least 5 in every lane. If it does, apply Weaken(12) to the rival with the most Chakra and then reduce each ally’s Chakra by 2."
         ]
       },
-      "ES_003": {
+      "SR_003": {
         "name": "Hoki",
         "ability": "Full Arsenal",
         "descriptions": [
@@ -426,7 +426,7 @@ const TRANSLATIONS = {
           "Guard(2). Deploying this card applies Weaken(1) up to three times to random rivals in its lane. Drain(1) from the opponent on every encounter."
         ]
       },
-      "ES_004": {
+      "SR_004": {
         "name": "Seimei",
         "ability": "Ultimate Form",
         "descriptions": [
@@ -434,7 +434,7 @@ const TRANSLATIONS = {
           "Guard(1). On deployment, this card starts Focus(15s) and applies Pin(15s) to the lane rival with the most Chakra. Drain(1) from that rival every 3s while focusing. When Focus ends, apply Weaken(1) to random rivals up to three times. At Mid Range, Drain(2) from the rival with the most Chakra."
         ]
       },
-      "ES_005": {
+      "SR_005": {
         "name": "Gaara",
         "ability": "Shukaku's Spear",
         "descriptions": [
@@ -2724,7 +2724,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
-      "ES_004": "The estimate assumes a full Focus and counts the Mid Range drain separately.",
+      "SR_004": "The estimate assumes a full Focus and counts the Mid Range drain separately.",
       "S2_041": "{allies} allies of the required character; deck composition is not checked.",
       "S1_004": "Encounter effects applied over {activations} encounters.",
       "S1_005": "Encounter effects applied over {activations} encounters.",
@@ -2868,15 +2868,6 @@ const TRANSLATIONS = {
       "ebisu": "Bonus and penalties use the configured number of allies; the card's survival is not simulated."
     },
     "errors": {
-      "invalidJson": "The file does not contain valid deck JSON",
-      "invalidDeck": "Invalid deck file",
-      "invalidCards": "Check the cards, duplicates and levels in the file",
-      "invalidOptions": "Invalid calculation options",
-      "invalidValues": "Invalid assumption values",
-      "invalidOverrides": "Invalid card overrides",
-      "missingCard": "Assumptions refer to a card not in the deck",
-      "fileTooLarge": "The file is too large",
-      "importFailed": "Unable to import the deck",
       "invalidRule": "Invalid rule: {id} level {level}, {factor}",
       "invalidFactor": "Invalid factor: {factor}"
     },
@@ -3186,8 +3177,9 @@ const TRANSLATIONS = {
       "averagePower": "Potenza media",
       "averageQuality": "Qualità media",
       "viewDeck": "Dettagli mazzo",
-      "import": "Importa",
-      "export": "Esporta",
+      "exportDeckImage": "Esporta PNG",
+      "deckImageFailed": "Impossibile esportare l’immagine del mazzo.",
+      "deckImageNeedsServer": "Per esportare in locale, esegui npm run dev e apri http://127.0.0.1:4173.",
       "clearDeck": "Svuota",
       "closeDeck": "Chiudi mazzo",
       "closeCard": "Chiudi dettaglio",
@@ -3200,7 +3192,6 @@ const TRANSLATIONS = {
       "cancel": "Annulla",
       "replaceDeck": "Sostituire il mazzo corrente con quello importato?",
       "confirmClear": "Rimuovere tutte le carte dal mazzo?",
-      "deckImported": "Mazzo importato",
       "sessionUnavailable": "Il salvataggio automatico della sessione non è disponibile. Esporta il mazzo per conservarlo",
       "sessionInvalid": "Non è stato possibile ripristinare la sessione salvata. Puoi importare un mazzo esportato.",
       "addToDeck": "Aggiungi al mazzo",
@@ -3283,7 +3274,7 @@ const TRANSLATIONS = {
       "Heal": "cur[ae]|curare|curano|recupera[\\p{L}]*"
     },
     "cards": {
-      "ES_001": {
+      "SR_001": {
         "name": "Sakura Haruno",
         "ability": "Allieva guaritrice",
         "descriptions": [
@@ -3291,7 +3282,7 @@ const TRANSLATIONS = {
           "Quando viene giocata, Cura(1) l’alleato più vicino in corsia. Cura(4) il primo alleato in corsia colpito da Bruciatura, Blocco o Indebolimento avversari."
         ]
       },
-      "ES_002": {
+      "SR_002": {
         "name": "Hoki",
         "ability": "Formazione a scaglie inverse",
         "descriptions": [
@@ -3299,7 +3290,7 @@ const TRANSLATIONS = {
           "Quando viene giocata, se gli alleati hanno almeno 5 Chakra totali in ogni corsia, applica Indebolimento(12) all’avversario con più Chakra. Poi tutti gli alleati perdono 2 Chakra."
         ]
       },
-      "ES_003": {
+      "SR_003": {
         "name": "Hoki",
         "ability": "Arsenale completo",
         "descriptions": [
@@ -3307,7 +3298,7 @@ const TRANSLATIONS = {
           "Difesa(2). Quando viene giocata, applica Indebolimento(1) fino a tre volte ad avversari casuali in corsia. A ogni scontro, assorbe(1) dall’avversario."
         ]
       },
-      "ES_004": {
+      "SR_004": {
         "name": "Seimei",
         "ability": "Forma definitiva",
         "descriptions": [
@@ -3315,7 +3306,7 @@ const TRANSLATIONS = {
           "Difesa(1). Quando viene giocata, avvia Concentrazione(15s) su di sé e applica Blocco(15s) all’avversario in corsia con più Chakra. Durante la Concentrazione, assorbe(1) dallo stesso avversario ogni 3s. Al termine, applica Indebolimento(1) fino a tre volte ad avversari casuali. Nel medio raggio, assorbe(2) dall’avversario con più Chakra."
         ]
       },
-      "ES_005": {
+      "SR_005": {
         "name": "Gaara",
         "ability": "Lancia di Shukaku",
         "descriptions": [
@@ -5605,7 +5596,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
-      "ES_004": "La stima presume che la Concentrazione duri fino alla fine e conteggia a parte l’Assorbimento nel medio raggio.",
+      "SR_004": "La stima presume che la Concentrazione duri fino alla fine e conteggia a parte l’Assorbimento nel medio raggio.",
       "S2_041": "{allies} alleati del personaggio richiesto; composizione del mazzo non verificata.",
       "S1_004": "Effetti di incontro applicati in {activations} combattimenti.",
       "S1_005": "Effetti di incontro applicati in {activations} combattimenti.",
@@ -5749,15 +5740,6 @@ const TRANSLATIONS = {
       "ebisu": "Bonus e penalità per il numero di alleati impostato; non viene simulata la sopravvivenza della carta."
     },
     "errors": {
-      "invalidJson": "Il file non contiene un mazzo JSON valido",
-      "invalidDeck": "File mazzo non valido",
-      "invalidCards": "Controlla carte, duplicati e livelli nel file",
-      "invalidOptions": "Opzioni di calcolo non valide",
-      "invalidValues": "Valori delle ipotesi non validi",
-      "invalidOverrides": "Personalizzazioni non valide",
-      "missingCard": "Ipotesi riferite a una carta assente",
-      "fileTooLarge": "File troppo grande",
-      "importFailed": "Impossibile importare il mazzo",
       "invalidRule": "Regola non valida: {id} livello {level}, {factor}",
       "invalidFactor": "Fattore non valido: {factor}"
     },
@@ -6084,8 +6066,9 @@ const TRANSLATIONS = {
       "averagePower": "Puissance moyenne",
       "averageQuality": "Qualité moyenne",
       "viewDeck": "Détails",
-      "import": "Importer",
-      "export": "Exporter",
+      "exportDeckImage": "Exporter en PNG",
+      "deckImageFailed": "Impossible d’exporter l’image du deck.",
+      "deckImageNeedsServer": "Pour exporter en local, lancez npm run dev et ouvrez http://127.0.0.1:4173.",
       "clearDeck": "Vider",
       "closeDeck": "Fermer le deck",
       "closeCard": "Fermer les détails de la carte",
@@ -6098,7 +6081,6 @@ const TRANSLATIONS = {
       "cancel": "Annuler",
       "replaceDeck": "Remplacer le deck actuel par le deck importé ?",
       "confirmClear": "Retirer toutes les cartes du deck ?",
-      "deckImported": "Deck importé",
       "sessionUnavailable": "La sauvegarde automatique de session est indisponible. Exportez votre deck pour le conserver",
       "sessionInvalid": "La session enregistrée n'a pas pu être restaurée. Vous pouvez importer un deck exporté.",
       "addToDeck": "Ajouter au deck",
@@ -6181,7 +6163,7 @@ const TRANSLATIONS = {
       "Heal": "soin[\\p{L}]*|soign[\\p{L}]*"
     },
     "cards": {
-      "ES_001": {
+      "SR_001": {
         "name": "Sakura Haruno",
         "ability": "Élève guérisseuse",
         "descriptions": [
@@ -6189,7 +6171,7 @@ const TRANSLATIONS = {
           "Au déploiement, Soin(1) sur l’allié le plus proche dans la voie. Soin(4) sur le premier allié de la voie touché par une Brûlure, une Immobilisation ou un Affaiblissement adverse."
         ]
       },
-      "ES_002": {
+      "SR_002": {
         "name": "Hoki",
         "ability": "Formation des écailles inversées",
         "descriptions": [
@@ -6197,7 +6179,7 @@ const TRANSLATIONS = {
           "Au déploiement, si les alliés totalisent au moins 5 Chakra dans chaque voie, applique Affaiblissement(12) à l’adversaire ayant le plus de Chakra. Tous les alliés perdent ensuite 2 Chakra."
         ]
       },
-      "ES_003": {
+      "SR_003": {
         "name": "Hoki",
         "ability": "Arsenal complet",
         "descriptions": [
@@ -6205,7 +6187,7 @@ const TRANSLATIONS = {
           "Parade(2). Au déploiement, applique jusqu’à trois fois Affaiblissement(1) à des adversaires aléatoires de la voie. À chaque affrontement, draine(1) l’adversaire."
         ]
       },
-      "ES_004": {
+      "SR_004": {
         "name": "Seimei",
         "ability": "Forme ultime",
         "descriptions": [
@@ -6213,7 +6195,7 @@ const TRANSLATIONS = {
           "Parade(1). Au déploiement, lance Concentration(15s) sur soi et applique Immobilisation(15s) à l’adversaire de la voie qui a le plus de Chakra. Draine(1) cette cible toutes les 3s pendant la Concentration. À la fin, applique Affaiblissement(1) jusqu’à trois fois à des adversaires aléatoires. À moyenne portée, draine(2) l’adversaire ayant le plus de Chakra."
         ]
       },
-      "ES_005": {
+      "SR_005": {
         "name": "Gaara",
         "ability": "Lance de Shukaku",
         "descriptions": [
@@ -8503,7 +8485,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
-      "ES_004": "L’estimation suppose une Concentration complète et compte séparément le Drain à moyenne portée.",
+      "SR_004": "L’estimation suppose une Concentration complète et compte séparément le Drain à moyenne portée.",
       "S2_041": "{allies} alliés du personnage requis ; la composition du deck n'est pas vérifiée.",
       "S1_004": "Effets de confrontation appliqués sur {activations} confrontations.",
       "S1_005": "Effets de confrontation appliqués sur {activations} confrontations.",
@@ -8647,15 +8629,6 @@ const TRANSLATIONS = {
       "ebisu": "Bonus et pénalités selon le nombre d'alliés configuré ; la survie de la carte n'est pas simulée."
     },
     "errors": {
-      "invalidJson": "Le fichier ne contient pas de JSON de deck valide",
-      "invalidDeck": "Fichier de deck invalide",
-      "invalidCards": "Vérifiez les cartes, les doublons et les niveaux du fichier",
-      "invalidOptions": "Options de calcul invalides",
-      "invalidValues": "Valeurs d'hypothèses invalides",
-      "invalidOverrides": "Réglages individuels de carte invalides",
-      "missingCard": "Les hypothèses font référence à une carte absente du deck",
-      "fileTooLarge": "Le fichier est trop volumineux",
-      "importFailed": "Impossible d'importer le deck",
       "invalidRule": "Règle invalide : {id}, niveau {level}, {factor}",
       "invalidFactor": "Facteur invalide : {factor}"
     },
@@ -8965,8 +8938,9 @@ const TRANSLATIONS = {
       "averagePower": "Poder médio",
       "averageQuality": "Qualidade média",
       "viewDeck": "Detalhes",
-      "import": "Importar",
-      "export": "Exportar",
+      "exportDeckImage": "Exportar PNG",
+      "deckImageFailed": "Não foi possível exportar a imagem do baralho.",
+      "deckImageNeedsServer": "Para exportar localmente, execute npm run dev e abra http://127.0.0.1:4173.",
       "clearDeck": "Esvaziar",
       "closeDeck": "Fechar deck",
       "closeCard": "Fechar detalhes da carta",
@@ -8979,7 +8953,6 @@ const TRANSLATIONS = {
       "cancel": "Cancelar",
       "replaceDeck": "Substituir o deck atual pelo deck importado?",
       "confirmClear": "Remover todas as cartas do deck?",
-      "deckImported": "Deck importado",
       "sessionUnavailable": "O salvamento automático da sessão está indisponível. Exporte seu deck para preservá-lo",
       "sessionInvalid": "Não foi possível restaurar a sessão salva. Você pode importar um deck exportado.",
       "addToDeck": "Adicionar ao deck",
@@ -9062,7 +9035,7 @@ const TRANSLATIONS = {
       "Heal": "cura[\\p{L}]*"
     },
     "cards": {
-      "ES_001": {
+      "SR_001": {
         "name": "Sakura Haruno",
         "ability": "Aluna curandeira",
         "descriptions": [
@@ -9070,7 +9043,7 @@ const TRANSLATIONS = {
           "Ao jogar, Cura(1) o aliado mais próximo na faixa. Cura(4) o primeiro aliado da faixa afetado por Queimadura, Imobilização ou Enfraquecimento rival."
         ]
       },
-      "ES_002": {
+      "SR_002": {
         "name": "Hoki",
         "ability": "Formação de escamas invertidas",
         "descriptions": [
@@ -9078,7 +9051,7 @@ const TRANSLATIONS = {
           "Ao jogar, se os aliados somarem pelo menos 5 Chakra em cada faixa, aplica Enfraquecimento(12) ao rival com mais Chakra. Depois, todos os aliados perdem 2 Chakra."
         ]
       },
-      "ES_003": {
+      "SR_003": {
         "name": "Hoki",
         "ability": "Arsenal completo",
         "descriptions": [
@@ -9086,7 +9059,7 @@ const TRANSLATIONS = {
           "Bloqueio(2). Ao jogar, aplica Enfraquecimento(1) até três vezes a rivais aleatórios da faixa. Em cada confronto, Drena(1) o rival."
         ]
       },
-      "ES_004": {
+      "SR_004": {
         "name": "Seimei",
         "ability": "Forma definitiva",
         "descriptions": [
@@ -9094,7 +9067,7 @@ const TRANSLATIONS = {
           "Bloqueio(1). Ao jogar, inicia Foco(15s) em si e aplica Imobilização(15s) ao rival da faixa com mais Chakra. Drena(1) esse rival a cada 3s durante o Foco. Quando o Foco acaba, aplica Enfraquecimento(1) até três vezes a rivais aleatórios. A médio alcance, Drena(2) o rival com mais Chakra."
         ]
       },
-      "ES_005": {
+      "SR_005": {
         "name": "Gaara",
         "ability": "Lança de Shukaku",
         "descriptions": [
@@ -11384,7 +11357,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
-      "ES_004": "A estimativa pressupõe um Foco completo e conta separadamente o efeito Drenar a médio alcance.",
+      "SR_004": "A estimativa pressupõe um Foco completo e conta separadamente o efeito Drenar a médio alcance.",
       "S2_041": "{allies} aliados do personagem exigido; a composição do deck não é verificada.",
       "S1_004": "Efeitos de confronto aplicados em {activations} confrontos.",
       "S1_005": "Efeitos de confronto aplicados em {activations} confrontos.",
@@ -11528,15 +11501,6 @@ const TRANSLATIONS = {
       "ebisu": "Bônus e penalidades usam o número configurado de aliados; a sobrevivência da carta não é simulada."
     },
     "errors": {
-      "invalidJson": "O arquivo não contém um JSON de deck válido",
-      "invalidDeck": "Arquivo de deck inválido",
-      "invalidCards": "Verifique cartas, duplicatas e níveis no arquivo",
-      "invalidOptions": "Opções de cálculo inválidas",
-      "invalidValues": "Valores de hipóteses inválidos",
-      "invalidOverrides": "Ajustes individuais de carta inválidos",
-      "missingCard": "As hipóteses se referem a uma carta fora do deck",
-      "fileTooLarge": "O arquivo é grande demais",
-      "importFailed": "Não foi possível importar o deck",
       "invalidRule": "Regra inválida: {id}, nível {level}, {factor}",
       "invalidFactor": "Fator inválido: {factor}"
     },
@@ -11846,8 +11810,9 @@ const TRANSLATIONS = {
       "averagePower": "Potencia media",
       "averageQuality": "Calidad media",
       "viewDeck": "Detalles",
-      "import": "Importar",
-      "export": "Exportar",
+      "exportDeckImage": "Exportar PNG",
+      "deckImageFailed": "No se pudo exportar la imagen del mazo.",
+      "deckImageNeedsServer": "Para exportar en local, ejecuta npm run dev y abre http://127.0.0.1:4173.",
       "clearDeck": "Vaciar",
       "closeDeck": "Cerrar mazo",
       "closeCard": "Cerrar detalles de la carta",
@@ -11860,7 +11825,6 @@ const TRANSLATIONS = {
       "cancel": "Cancelar",
       "replaceDeck": "¿Reemplazar el mazo actual por el importado?",
       "confirmClear": "¿Quitar todas las cartas del mazo?",
-      "deckImported": "Mazo importado",
       "sessionUnavailable": "El guardado automático de sesión no está disponible. Exporta tu mazo para conservarlo",
       "sessionInvalid": "No se pudo restaurar la sesión guardada. Puedes importar un mazo exportado.",
       "addToDeck": "Añadir al mazo",
@@ -11943,7 +11907,7 @@ const TRANSLATIONS = {
       "Heal": "cura[\\p{L}]*"
     },
     "cards": {
-      "ES_001": {
+      "SR_001": {
         "name": "Sakura Haruno",
         "ability": "Estudiante sanadora",
         "descriptions": [
@@ -11951,7 +11915,7 @@ const TRANSLATIONS = {
           "Al desplegarse, Cura(1) al aliado más cercano del carril. Cura(4) al primer aliado del carril afectado por Quemadura, Inmovilización o Debilitamiento rival."
         ]
       },
-      "ES_002": {
+      "SR_002": {
         "name": "Hoki",
         "ability": "Formación de escamas invertidas",
         "descriptions": [
@@ -11959,7 +11923,7 @@ const TRANSLATIONS = {
           "Al desplegarse, si los aliados suman al menos 5 Chakra en cada carril, aplica Debilitamiento(12) al rival con más Chakra. Después todos los aliados pierden 2 Chakra."
         ]
       },
-      "ES_003": {
+      "SR_003": {
         "name": "Hoki",
         "ability": "Arsenal completo",
         "descriptions": [
@@ -11967,7 +11931,7 @@ const TRANSLATIONS = {
           "Protección(2). Al desplegarse, aplica Debilitamiento(1) hasta tres veces a rivales aleatorios del carril. En cada enfrentamiento, Drena(1) al rival."
         ]
       },
-      "ES_004": {
+      "SR_004": {
         "name": "Seimei",
         "ability": "Forma definitiva",
         "descriptions": [
@@ -11975,7 +11939,7 @@ const TRANSLATIONS = {
           "Protección(1). Al desplegarse, inicia Concentración(15s) y aplica Inmovilización(15s) al rival del carril con más Chakra. Drena(1) a ese rival cada 3s durante la Concentración. Al terminar, aplica Debilitamiento(1) hasta tres veces a rivales aleatorios. A media distancia, Drena(2) al rival con más Chakra."
         ]
       },
-      "ES_005": {
+      "SR_005": {
         "name": "Gaara",
         "ability": "Lanza de Shukaku",
         "descriptions": [
@@ -14265,7 +14229,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
-      "ES_004": "La estimación supone que la Concentración se completa y cuenta por separado el Drenaje a media distancia.",
+      "SR_004": "La estimación supone que la Concentración se completa y cuenta por separado el Drenaje a media distancia.",
       "S2_041": "{allies} aliados del personaje requerido; no se comprueba la composición del mazo.",
       "S1_004": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
       "S1_005": "Efectos de enfrentamiento aplicados durante {activations} enfrentamientos.",
@@ -14409,15 +14373,6 @@ const TRANSLATIONS = {
       "ebisu": "Los aumentos y penalizaciones usan el número configurado de aliados; no se simula la supervivencia de la carta."
     },
     "errors": {
-      "invalidJson": "El archivo no contiene un JSON de mazo válido",
-      "invalidDeck": "Archivo de mazo no válido",
-      "invalidCards": "Revisa las cartas, los duplicados y los niveles del archivo",
-      "invalidOptions": "Opciones de cálculo no válidas",
-      "invalidValues": "Valores de hipótesis no válidos",
-      "invalidOverrides": "Ajustes individuales de carta no válidos",
-      "missingCard": "Las hipótesis se refieren a una carta que no está en el mazo",
-      "fileTooLarge": "El archivo es demasiado grande",
-      "importFailed": "No se pudo importar el mazo",
       "invalidRule": "Regla no válida: {id}, nivel {level}, {factor}",
       "invalidFactor": "Factor no válido: {factor}"
     },
@@ -14728,8 +14683,9 @@ const TRANSLATIONS = {
       "averagePower": "Durchschnittsstärke",
       "averageQuality": "Durchschnittsqualität",
       "viewDeck": "Deckdetails",
-      "import": "Importieren",
-      "export": "Exportieren",
+      "exportDeckImage": "PNG exportieren",
+      "deckImageFailed": "Das Deckbild konnte nicht exportiert werden.",
+      "deckImageNeedsServer": "Starte für den lokalen Export npm run dev und öffne http://127.0.0.1:4173.",
       "clearDeck": "Leeren",
       "closeDeck": "Deck schließen",
       "closeCard": "Kartendetails schließen",
@@ -14742,7 +14698,6 @@ const TRANSLATIONS = {
       "cancel": "Abbrechen",
       "replaceDeck": "Das aktuelle Deck durch das importierte Deck ersetzen?",
       "confirmClear": "Alle Karten aus dem Deck entfernen?",
-      "deckImported": "Deck importiert",
       "sessionUnavailable": "Automatisches Speichern der Sitzung ist nicht verfügbar. Exportiere dein Deck, um es zu behalten",
       "sessionInvalid": "Die gespeicherte Sitzung konnte nicht wiederhergestellt werden. Du kannst ein exportiertes Deck importieren.",
       "addToDeck": "Zum Deck hinzufügen",
@@ -14825,7 +14780,7 @@ const TRANSLATIONS = {
       "Heal": "heil[\\p{L}]*"
     },
     "cards": {
-      "ES_001": {
+      "SR_001": {
         "name": "Sakura Haruno",
         "ability": "Heilende Schülerin",
         "descriptions": [
@@ -14833,7 +14788,7 @@ const TRANSLATIONS = {
           "Beim Ausspielen Heilung(1) für den nächsten Verbündeten auf der Bahn. Heilung(4) für den ersten Verbündeten auf der Bahn, der von gegnerischem Brennen, Festnageln oder Schwächen getroffen wird."
         ]
       },
-      "ES_002": {
+      "SR_002": {
         "name": "Hoki",
         "ability": "Umgekehrte Schuppenformation",
         "descriptions": [
@@ -14841,7 +14796,7 @@ const TRANSLATIONS = {
           "Haben Verbündete beim Ausspielen auf jeder Bahn insgesamt mindestens 5 Chakra, erhält der Gegner mit dem meisten Chakra Schwächung(12). Anschließend verlieren alle Verbündeten 2 Chakra."
         ]
       },
-      "ES_003": {
+      "SR_003": {
         "name": "Hoki",
         "ability": "Volles Arsenal",
         "descriptions": [
@@ -14849,7 +14804,7 @@ const TRANSLATIONS = {
           "Wache(2). Beim Ausspielen erhalten zufällige Gegner auf der Bahn bis zu dreimal Schwächung(1). Bei jeder Begegnung entzieht die Karte dem Gegner mit Entzug(1) Chakra."
         ]
       },
-      "ES_004": {
+      "SR_004": {
         "name": "Seimei",
         "ability": "Ultimative Form",
         "descriptions": [
@@ -14857,7 +14812,7 @@ const TRANSLATIONS = {
           "Wache(1). Beim Ausspielen startet Fokus(15s) und der Gegner mit dem meisten Chakra auf der Bahn erhält Festnageln(15s). Während Fokus wird diesem Gegner alle 3s mit Entzug(1) Chakra entzogen. Danach erhalten zufällige Gegner bis zu dreimal Schwächung(1). Auf mittlerer Distanz trifft Entzug(2) den Gegner mit dem meisten Chakra."
         ]
       },
-      "ES_005": {
+      "SR_005": {
         "name": "Gaara",
         "ability": "Shukakus Speer",
         "descriptions": [
@@ -17147,7 +17102,7 @@ const TRANSLATIONS = {
       }
     },
     "ruleNotes": {
-      "ES_004": "Die Schätzung setzt einen vollständigen Fokus voraus und zählt den Entzug auf mittlerer Distanz separat.",
+      "SR_004": "Die Schätzung setzt einen vollständigen Fokus voraus und zählt den Entzug auf mittlerer Distanz separat.",
       "S2_041": "{allies} Verbündete des erforderlichen Charakters; die Deckzusammensetzung wird nicht geprüft.",
       "S1_004": "Begegnungseffekte über {activations} Begegnungen angewendet.",
       "S1_005": "Begegnungseffekte über {activations} Begegnungen angewendet.",
@@ -17291,15 +17246,6 @@ const TRANSLATIONS = {
       "ebisu": "Bonus und Abzüge verwenden die eingestellte Zahl der Verbündeten; das Überleben der Karte wird nicht simuliert."
     },
     "errors": {
-      "invalidJson": "Die Datei enthält kein gültiges Deck-JSON",
-      "invalidDeck": "Ungültige Deckdatei",
-      "invalidCards": "Prüfe Karten, Duplikate und Level in der Datei",
-      "invalidOptions": "Ungültige Berechnungsoptionen",
-      "invalidValues": "Ungültige Annahmewerte",
-      "invalidOverrides": "Ungültige individuelle Karteneinstellungen",
-      "missingCard": "Die Annahmen beziehen sich auf eine Karte außerhalb des Decks",
-      "fileTooLarge": "Die Datei ist zu groß",
-      "importFailed": "Das Deck konnte nicht importiert werden",
       "invalidRule": "Ungültige Regel: {id}, Level {level}, {factor}",
       "invalidFactor": "Ungültiger Faktor: {factor}"
     },

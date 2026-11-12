@@ -51,13 +51,12 @@ async function build() {
     runtime.push(await minimize(name, source));
   }
   emit('runtime.js', Buffer.from(runtime.map(buffer => buffer.toString()).join(';\n')));
-  for (const name of ['app.js', 'deck-autobuilder.js'])
+  for (const name of ['app.js', 'deck-autobuilder.js', 'deck-image.js'])
     emit(name, await minimize(name, fs.readFileSync(path.join(root, name))));
   emit('styles.css', fs.readFileSync(path.join(root, 'styles.css')));
   for (const [name, data] of generated)
     if (name !== 'locales/manifest.js') emit(name, await minimize(name, data));
   for (const file of fs.readdirSync(path.join(root, 'misc_images'))) {
-    if (/^flag-.*\.svg$/.test(file)) continue;
     emit('misc_images/' + file, fs.readFileSync(path.join(root, 'misc_images', file)));
   }
   for (const file of fs
